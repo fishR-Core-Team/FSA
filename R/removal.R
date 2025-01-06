@@ -20,7 +20,8 @@
 #'
 #' Confidence intervals for the last method are computed as per Ken Burnham's instructions for the Burnham Method (Jack Van Deventer, personal communication). Specifically, they are calculated with the t-statistic and No-1 degrees of freedom. Please note that the MicroFish software rounds the t-statistic before it calculates the confidence intervals about No and p. If you need the confidence interals produced by FSA::removal to duplicate MicroFish, please use CIMicroFish=TRUE.
 #'
-#' @param catch A numerical vector of catch at each pass.
+#' @param catch A numerical vector of catch at each pass, or a formula of the form \code{~catch}.
+#' @param data A data.frame from which the variables in the \code{catch} formula can be found. Not used if \code{catch} is not a formula.
 #' @param method A single string that identifies the removal method to use. See details.
 #' @param alpha A single numeric value for the alpha parameter in the CarleStrub method (default is \code{1}).
 #' @param beta A single numeric value for the beta parameter in the CarleStrub method (default is \code{1}).
@@ -29,14 +30,16 @@
 #' @param parm A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considered.
 #' @param level Not used, but here for compatibility with generic \code{confint} function.
 #' @param conf.level A single number representing the level of confidence to use for constructing confidence intervals. This is sent in the main \code{removal} function rather than \code{confint}.
-#' @param just.ests A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.
 #' @param verbose A logical that indicates whether descriptive labels should be printed from \code{summary} and if certain warnings are shown with \code{confint}.
 #' @param digits A single numeric that controls the number of decimals in the output from \code{summary} and \code{confint}.
 #' @param Tmult A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute methods. Large values are much slower to compute, but values that are too low may result in missing the best estimate. A warning is issued if too low of a value is suspected.
 #' @param CIMicroFish A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two or three decimals and whether the confidence intervals for No should be rounded to whole numbers as done in MicroFish 3.0. The default (\code{=FALSE}) is to NOT round the t values or No confidence interval. This option is provided only so that results will exactly match MicroFish results (see testing).
+#' @param just.ests Deprecated as of v0.9.6. This was primarily used when using \code{removal} with a split-and-apply approach to estimate N for multiple groups. See examples and use of \code{incl.ests=} in \code{confint} for similar functionality.
+#' @param as.df A logical that indicates whether the results of \code{coef}, \code{confint}, or \code{summary} should be returned as a data.frame. Defaults to \code{FALSE}.
+#' @param incl.est A logical that indicated whether the parameter point estimate should be included in the results from \code{confint}. Defaults to \code{FALSE}.
 #' @param \dots Additional arguments for methods.
 #'
-#' @return A vector that contains the estimates and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with at least the following items:
+#' @return A list with at least the following items:
 #'  \itemize{
 #'    \item catch The original vector of observed catches.
 #'    \item method The method used (provided by the user).
@@ -138,7 +141,12 @@
 #' summary(p4,verbose=TRUE)
 #' confint(p4)
 #'
-#'
+#' ## Use formula with a data.frame
+#' d <- data.frame(ct=ct3)
+#' p1a <- removal(~ct,data=d)
+#' summary(p1a,verbose=TRUE)
+#' confint(p1a,incl.est=TRUE)
+#' 
 #' ### Test if catchability differs between first sample and the other samples
 #' # chi-square test statistic from  negative log-likelihoods
 #' #   from Moran and Schnute fits (from above)
@@ -151,60 +159,95 @@
 #' p2a <- removal(ct4,method="Moran")
 #' p3a <- removal(ct4,method="Schnute")
 #' chi2.val <- 2*(p2a$min.nlogLH-p3a$min.nlogLH)  # 4.74 in Schnute(1983)
-#' pchisq(chi2.val,df=1,lower.tail=FALSE)         # significant difference (catchability differs)
+#' pchisq(chi2.val,df=1,lower.tail=FALSE)         # sig diff (catchability differs)
 #' summary(p3a)
 #'
-#'
-#' ### Using lapply() to use removal() on many different groups
-#' ###   with the removals in a single variable ("long format")
+#' # Demonstrate multiple groups ... data in long format
 #' ## create a dummy data frame
-#' lake <- factor(rep(c("Ash Tree","Bark","Clay"),each=5))
-#' year <- factor(rep(c("2010","2011","2010","2011","2010","2011"),times=c(2,3,3,2,2,3)))
-#' pass <- factor(c(1,2,1,2,3,1,2,3,1,2,1,2,1,2,3))
-#' catch <- c(57,34,65,34,12,54,26,9,54,27,67,34,68,35,12)
-#' d <- data.frame(lake,year,pass,catch)
-#'
-#' ## create a variable that indicates each different group
-#' d$group <- with(d,interaction(lake,year))
+#' d <- data.frame(lake=factor(rep(c("Ash Tree","Bark","Clay"),each=5)),
+#'                 year=factor(rep(c("2010","2011","2010","2011","2010","2011"),
+#'                                 times=c(2,3,3,2,2,3))),
+#'                 pass=factor(c(1,2,1,2,3,1,2,3,1,2,1,2,1,2,3)),
+#'                 catch=c(57,34,65,34,12,54,26,9,54,27,67,34,68,35,12))
 #' d
-#' ## split the catch by the different groups (creates a list of catch vectors)
-#' ds <- split(d$catch,d$group)
-#' ## apply removal() to each catch vector (i.e., different group)
-#' res <- lapply(ds,removal,just.ests=TRUE)
-#' res <- data.frame(t(data.frame(res,check.names=FALSE)))
-#' ## get rownames from above and split into separate columns
-#' nms <- t(data.frame(strsplit(rownames(res),"\\.")))
-#' attr(nms,"dimnames") <- NULL
-#' fnl <- data.frame(nms,res)
-#' ## put names together with values
-#' rownames(fnl) <- NULL
-#' colnames(fnl)[1:2] <- c("Lake","Year")
-#' fnl
-#'
-#'
-#' ### Using apply() to use removal() on many different groups
-#' ###   with the removals in several variables ("wide format")
-#' ## create a dummy data frame (just reshaped from above as
-#' ## an example; -5 to ignore the group variable from above)
-#' d1 <- reshape(d[,-5],timevar="pass",idvar=c("lake","year"),direction="wide")
-#' ## apply restore() to each row of only the catch data
-#' res1 <- apply(d1[,3:5],MARGIN=1,FUN=removal,method="CarleStrub",just.ests=TRUE)
-#' res1 <- data.frame(t(data.frame(res1,check.names=FALSE)))
-#' ## add the grouping information to the results
-#' fnl1 <- data.frame(d1[,1:2],res1)
-#' ## put names together with values
-#' rownames(fnl1) <- NULL
-#' fnl1
-#'
+#' 
+#' ## note use of confint with incl.est= and as.df=
+#' if (require(dplyr) & require(tidyr)) {
+#'   res <- d %>%
+#'     dplyr::group_by(interaction(lake,year)) %>%
+#'     dplyr::group_modify(~confint(removal(~catch,data=.x),
+#'                                  incl.est=TRUE,as.df=TRUE)) %>%
+#'     tidyr::separate_wider_delim(1,names=c("lake","year"),delim=".") %>%
+#'     as.data.frame() # removes tibble and grouping structure
+#'   res
+#' }
+#' 
+#' # Demonstrate multiple groups ... data in wide format
+#' ## create a dummy data frame ... same data as previous ... note that this is
+#' ##   not an efficient way to enter data, used here just for simple example
+#' d2w <- rbind(data.frame(lake="Ash Tree",year=2011,pass1=65,pass2=34,pass3=12),
+#'              data.frame(lake="Bark",year=2010,pass1=54,pass2=26,pass3=9),
+#'              data.frame(lake="Bark",year=2011,pass1=54,pass2=27,pass3=NA),
+#'              data.frame(lake="Clay",year=2010,pass1=67,pass2=34,pass3=NA),
+#'              data.frame(lake="Clay",year=2011,pass1=68,pass2=35,pass3=12))
+#' d2w
+#' 
+#' ## convert to long format first
+#' d2l <- tidyr::pivot_longer(d2w,cols=c("pass1","pass2","pass3"),
+#'                            names_to="pass",values_to="catch")
+#' d2l
+#' 
+#' ## then same process as previous example
+#' if (require(dplyr)) {
+#'   res2 <- d2l %>%
+#'     dplyr::group_by(interaction(lake,year)) %>%
+#'     dplyr::group_modify(~confint(removal(~catch,data=.x),
+#'                                  incl.est=TRUE,as.df=TRUE)) %>%
+#'     tidyr::separate_wider_delim(1,names=c("lake","year"),delim=".") %>%
+#'     as.data.frame() # removes tibble and grouping structure
+#'   res2
+#' }
+#' 
 #' @rdname removal
 #' @export
-removal <- function(catch,
-                    method=c("CarleStrub","Zippin","Seber3","Seber2",
-                             "RobsonRegier2","Moran","Schnute","Burnham"),
-                    alpha=1,beta=1,CS.se=c("Zippin","alternative"),
-                    conf.level=0.95,just.ests=FALSE,Tmult=3,CIMicroFish=FALSE) {
+removal <- function(catch,...) {
+  UseMethod("removal") 
+}
+
+#' @rdname removal
+#' @export
+removal.formula <- function(catch,data,
+                            method=c("CarleStrub","Zippin","Seber3","Seber2",
+                                     "RobsonRegier2","Moran","Schnute","Burnham"),
+                            alpha=1,beta=1,CS.se=c("Zippin","alternative"),
+                            conf.level=0.95,Tmult=3,CIMicroFish=FALSE,...) {
+  ## Handle the formula and perform some checks
+  tmp <- iHndlFormula(catch,data,expNumR=0,expNumE=1)
+  if (tmp$vnum>1)
+    STOP("'removal' formula must have only one variable (on LHS).")
+  if (!tmp$vclass %in% c("numeric","integer"))
+    STOP("RHS variable (catch) must be numeric.")
+  ## Get variables from model frame
+  catch <- tmp$mf[,tmp$vname]
+  ## Call the default function
+  removal.default(catch,method=method,alpha=alpha,beta=beta,CS.se=CS.se,
+                  conf.level=conf.level,Tmult=Tmult,CIMicroFish=CIMicroFish)
+}
+
+#' @rdname removal
+#' @export
+removal.default <- function(catch,
+                            method=c("CarleStrub","Zippin","Seber3","Seber2",
+                                     "RobsonRegier2","Moran","Schnute","Burnham"),
+                            alpha=1,beta=1,CS.se=c("Zippin","alternative"),
+                            conf.level=0.95,Tmult=3,CIMicroFish=FALSE,
+                            just.ests=FALSE,...) {
   # some initial checks
   method <- match.arg(method)
+  if (just.ests) 
+    message("'just.ests=' is deprecated as of v0.9.6. 'just.ests=' was used\n",
+            "  primarily with split-and-apply for multiple groups. See 'incl.ests='\n",
+            "  in 'confint()' and examples for  same functionality in >v0.9.6.")
   
   ## Check on conf.level
   iCheckConfLevel(conf.level) 
@@ -250,12 +293,9 @@ removal <- function(catch,
     Schnute=       { tmp <- iSchnute(catch,conf.level,Tmult) },
     Burnham=       { tmp <- iBurnham(catch,conf.level,Tmult,CIMicroFish) }
   )
-  if (just.ests) { tmp <- tmp$est }
-  else {
-    tmp <- c(tmp,method=method,conf.level=conf.level)
-    class(tmp) <- "removal"
-  }
-  # return object
+  # Prepare object list to return
+  tmp <- c(tmp,method=method,conf.level=conf.level)
+  class(tmp) <- "removal"
   tmp
 }
 
@@ -393,7 +433,8 @@ iMoran <- function(catch,conf.level,Tmult) {
     p <- T/(k*N0-X)
     # compute confidence intervals for No
     tmpci <- iRemovalLHCI("Moran",catch,conf.level,k,T,X,tmp$objective,Tmult)
-    est <- c(No=N0,No.LCI=tmpci$CI[[1]],No.UCI=tmpci$CI[[2]],p=p)
+    est <- c(No=N0,No.LCI=tmpci$CI[[1]],No.UCI=tmpci$CI[[2]],
+             p=p,p.se=NA,p.LCI=NA,p.UCI=NA)
   }
   # return list
   list(est=est,catch=catch,min.nlogLH=tmp$objective,Tmult=Tmult,
@@ -449,7 +490,9 @@ iSchnute <- function(catch,conf.level,Tmult) {
     p <- (T-catch[1])/((k-1)*(N0-catch[1])-(X-(k-1)*catch[1]))
     # compute confidence intervals for No
     tmpci <- iRemovalLHCI("Schnute",catch,conf.level,k=k,T=T,X=X,tmp$objective,Tmult)
-    est <- c(No=N0,No.LCI=tmpci$CI[[1]],No.UCI=tmpci$CI[[2]],p=p,p1=p1)
+    est <- c(No=N0,No.se=NA,No.LCI=tmpci$CI[[1]],No.UCI=tmpci$CI[[2]],
+             p=p,p.se=NA,p.LCI=NA,p.UCI=NA,
+             p1=p1,p1.se=NA,p1.LCI=NA,p1.UCI=NA)
   }
   # return list
   list(est=est,catch=catch,min.nlogLH=tmp$objective,Tmult=Tmult,
@@ -715,66 +758,124 @@ iBurnham <- function(catch,conf.level,Tmult,CIMicroFish){
        lbl="Burnham K-Pass Removal Method (Van Deventer and Platts 1983)")
 }
 
+#=============================================================
+# INTERNAL -- Handle parm= argument for removal extractors. Is
+#             more complex because can be 2 or 3 parms 
+#             depending on the method used.
+#=============================================================
+iHndlRemovalParms <- function(object,parm) {
+  if (any(parm=="all")) {
+    if (object$method=="Schnute") parm <- c("No","p","p1")
+    else parm <- c("No","p")
+  } else if (any(parm=="p1") & object$method!="Schnute") {
+    msg <- paste0("'",object$method,"' method does not use 'p1' parameter.")
+    if (length(parm)==1) STOP(msg)
+    else WARN(msg)
+    parm <- parm[parm!="p1"]
+  }
+  parm
+}
+
+## Extractor functions
 #' @rdname removal
 #' @export
-summary.removal <- function(object,parm=c("No","p","p1"),digits=getOption("digits"),verbose=FALSE,...) {
+coef.removal <- function(object,parm=c("all","No","p","p1"),as.df=FALSE,...) {
   parm <- match.arg(parm,several.ok=TRUE)
-  # send warning if chose 'p1' parameter but not Schnute method
-  #   but don't warn if all parameters are chosen
-  #   but stop if only p1 was chosen
-  if (("p1" %in% parm) & object$method!="Schnute") {
-    msg <- paste("'p1' parameter not relevant for the ",object$method," method.")
-    if (length(parm)==1) STOP(msg)
-    if (length(parm)<3) WARN(msg)
-    parm <- parm[-which(parm=="p1")]
-  }
-  if (verbose) {
-    if (object$method %in% c("Moran","Schnute")) message("The ",object$lbl," was used (SEs not computed).")
-    else message("The ",object$lbl," was used.")
-  }
-  if (object$method %in% c("Zippin","CarleStrub","Seber3","Seber2","RobsonRegier2","Burnham")) {
-    res <- matrix(object$est[c("No","No.se","p","p.se")],nrow=2,byrow=TRUE)
-    colnames(res) <- c("Estimate","Std. Error")
-    rownames(res) <- c("No","p")
-  } else if (object$method=="Moran") {
-    res <- matrix(object$est[c("No","p")],nrow=2)
-    colnames(res) <- c("Estimate")
-    rownames(res) <- c("No","p")
-  } else {
-    res <- matrix(object$est[c("No","p","p1")],nrow=3)
-    colnames(res) <- c("Estimate")
-    rownames(res) <- c("No","p","p1")
-  }
-  res <- res[which(rownames(res) %in% parm),,drop=FALSE]
-  round(res,digits)
+  parm <- iHndlRemovalParms(object,parm)
+  # matrix of all possible results
+  res <- object$est[parm]
+  # convert to data.frame if asked
+  if (as.df) res <- as.data.frame(t(res))
+  res
 }
 
 #' @rdname removal
 #' @export
-confint.removal <- function(object,parm=c("No","p"),
+confint.removal <- function(object,parm=c("all","No","p","p1"),
                             level=conf.level,conf.level=NULL,
-                            digits=getOption("digits"),verbose=FALSE,...) {
-  if (!is.null(level)) WARN("The confidence level is not set here, it is set with 'conf.level=' in 'removal()'.")
+                            digits=getOption("digits"),verbose=FALSE,
+                            incl.est=FALSE,as.df=FALSE,...) {
   parm <- match.arg(parm,several.ok=TRUE)
-  if (object$method %in% c("Zippin","CarleStrub","Seber3","Seber2","RobsonRegier2","Burnham")) {
-    res <- matrix(object$est[c("No.LCI","No.UCI","p.LCI","p.UCI")],nrow=2,byrow=TRUE)
-    rownames(res) <- c("No","p")
-    res <- res[which(rownames(res) %in% parm),,drop=FALSE]
-  } else {
-    ## Handle some messaging
-    if (object$method %in% c("Moran","Schnute")) {
-      # warn about no CIs for p with Moran and Schnute but only if p is the only parm chosen
-      if ("p" %in% parm) {
-        if (length(parm)==1) STOP("Confidence intervals for 'p' cannot be computed with ",object$method," method.")
-        parm <- "No"
-      }
-      # print messages about CI fails if they exist
-      if (!is.na(object$LCImsg) & verbose) message(object$LCImsg)
-      if (!is.na(object$UCImsg) & verbose) message(object$UCImsg)
-    }
-    res <- matrix(object$est[c("No.LCI","No.UCI")],nrow=1)
-    rownames(res) <- c("No")
+  parm <- iHndlRemovalParms(object,parm)
+
+  # Handle some messaging
+  if (!is.null(level))
+    WARN("The confidence level is not set here, it was set at ",level,
+         " in the original 'removal()' call.")
+  if (object$method %in% c("Moran","Schnute")) {
+    ## print messages about CI fails if they exist (only for Moran & Schnute)
+    if (!is.na(object$LCImsg) & verbose) message(object$LCImsg)
+    if (!is.na(object$UCImsg) & verbose) message(object$UCImsg)
+
+    ## CI for p cannot be computed for Moran and Schnute methods.
+    ##   Warn if those parms are selected with those methods
+    ##   Stop of those are only parms selected with those methods
+    if ("p" %in% parm) {
+      msg <- paste0("Confidence intervals for 'p' can not be computed for ",
+                    object$method," method.")
+      if (length(parm)==1) STOP(msg)
+      else message(msg)
+    } 
   }
-  colnames(res) <- iCILabel(object$conf.level)
-  round(res,digits)
+  ## CI for p1 cannot be computed for Schnute method.
+  if (object$method=="Schnute") {
+    if ("p1" %in% parm) {
+      msg <- paste0("Confidence intervals for 'p1' can not be computed for ",
+                    object$method," method.")
+      if (length(parm)==1) STOP(msg)
+      else message(msg)
+    } 
+  }
+
+  # Append parm names for selecting from vector
+  if (incl.est) parm.nms <- paste0(rep(parm,each=3),c("",".LCI",".UCI"))
+    else parm.nms <- paste0(rep(parm,each=2),c(".LCI",".UCI"))
+
+  # Get vector of results out of object.est
+  resv <- object$est[parm.nms]
+  # Matrix of results
+  resm <- matrix(resv,nrow=length(parm),byrow=TRUE)
+  tmp <- iCILabel(object$conf.level)
+  if (incl.est) colnames(resm) <- c("Est",tmp)
+    else colnames(resm) <- tmp
+  rownames(resm) <- parm
+  resm <- round(resm,digits)
+  # Data.frame of results
+  resd <- as.data.frame(t(resv))
+  # Return appropriate results
+  if (as.df) resd
+    else resm
+}
+
+
+#' @rdname removal
+#' @export
+summary.removal <- function(object,parm=c("all","No","p","p1"),
+                            digits=getOption("digits"),
+                            verbose=FALSE,as.df=FALSE,...) {
+  parm <- match.arg(parm,several.ok=TRUE)
+  parm <- iHndlRemovalParms(object,parm)
+
+  # Handle some messaging
+  if (verbose) {
+    if (object$method %in% c("Moran","Schnute"))
+      message("The ",object$lbl," was used (SEs not computed).")
+    else message("The ",object$lbl," was used.")
+  }
+  
+  # Append parm names for selecting from vector
+  parm.nms <- paste0(rep(parm,each=2),c("",".se"))
+  
+  # Get vector of results out of object.est
+  resv <- object$est[parm.nms]
+  # Matrix of results
+  resm <- matrix(resv,nrow=length(parm),byrow=TRUE)
+  colnames(resm) <- c("Estimate","Std. Error")
+  rownames(resm) <- parm
+  resm <- round(resm,digits)
+  # Data.frame of results
+  resd <- as.data.frame(t(resv))
+  # Return appropriate results
+  if (as.df) resd
+    else resm
 }

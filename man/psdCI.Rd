@@ -24,7 +24,7 @@ psdCI(
 
 \item{method}{A string that identifies the confidence interval method to use. See details.}
 
-\item{bin.type}{A string that identifies the type of method to use for calculation of the confidence intervals when \R{method="binomial"}. See details of \code{\link{binCI}}.}
+\item{bin.type}{A string that identifies the type of method to use for calculation of the confidence intervals when \code{method="binomial"}. See details of \code{\link{binCI}}.}
 
 \item{conf.level}{A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).}
 

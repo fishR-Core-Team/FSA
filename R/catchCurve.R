@@ -13,6 +13,8 @@
 #' @param ages2use A numerical vector of ages that define the descending limb of the catch curve.
 #' @param weighted A logical that indicates whether a weighted regression should be used. See details.
 #' @param negWeightReplace A single non-negative numeric that will replace negative weights (defaults to 0). Only used when \code{weighted=TRUE}. See details.
+#' @param as.df A logical that indicates whether the results of \code{coef}, \code{confint}, or \code{summary} should be returned as a data.frame. Ignored in \code{summary} if \code{parm="lm"}.
+#' @param incl.est A logical that indicated whether the parameter point estimate should be included in the results from \code{confint}. Defaults to \code{FALSE}.
 #' @param pos.est A string to identify where to place the estimated mortality rates on the plot. Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot. Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements. Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.
 #' @param cex.est A single numeric character expansion value for the estimated mortality rates on the plot.
 #' @param round.est A numeric that indicates the number of decimal place to which Z (first value) and A (second value) should be rounded. If only one value then it will be used for both Z and A.
@@ -66,11 +68,13 @@
 #' ## demonstration of formula notation
 #' cc1 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6)
 #' summary(cc1)
-#' cbind(Est=coef(cc1),confint(cc1))
+#' coef(cc1)
+#' confint(cc1)
+#' confint(cc1,incl.est=TRUE)
 #' rSquared(cc1)
 #' plot(cc1)
 #' summary(cc1,parm="Z")
-#' cbind(Est=coef(cc1,parm="Z"),confint(cc1,parm="Z"))
+#' confint(cc1,parm="Z",incl.est=TRUE)
 #' 
 #' ## demonstration of excluding ages2use
 #' cc2 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=-c(0,1))
@@ -84,7 +88,7 @@
 #'
 #' ## demonstration of returning the linear model results
 #' summary(cc3,parm="lm")
-#' cbind(Est=coef(cc3,parm="lm"),confint(cc3,parm="lm"))
+#' confint(cc3,parm="lm",incl.est=TRUE)
 #' 
 #' ## demonstration of ability to work with missing age classes
 #' df <- data.frame(age=c(  2, 3, 4, 5, 7, 9,12),
@@ -94,13 +98,45 @@
 #' plot(cc4)
 #' 
 #' ## demonstration of ability to work with missing age classes
-#' ## evein if catches are recorded as NAs
+#' ## even if catches are recorded as NAs
 #' df <- data.frame(age=c(  2, 3, 4, 5, 6, 7, 8, 9,10,11,12),
 #'                  ct= c(100,92,83,71,NA,56,NA,35,NA,NA, 1))
 #' cc5 <- catchCurve(ct~age,data=df,ages2use=4:12)
 #' summary(cc5)
 #' plot(cc5)
 #'
+#' ## Demonstration of computation for multiple groups
+#' ##   only ages on the descending limb for each group are in the data.frame
+#' # Get example data
+#' data(FHCatfish,package="FSAdata")
+#' FHCatfish
+#' 
+#' # Note use of incl.est=TRUE and as.df=TRUE
+#' if (require(dplyr)) {
+#'   res <- FHCatfish %>%
+#'     dplyr::group_by(river) %>%
+#'     dplyr::group_modify(~confint(catchCurve(abundance~age,data=.x),
+#'                                  incl.est=TRUE,as.df=TRUE)) %>%
+#'     as.data.frame() # removes tibble and grouping structure
+#'   res
+#' }
+#' 
+#' ## Demonstration of computation for multiple groups
+#' ##   ages not on descending limb are in the data.frame, but use same
+#' ##     ages.use= for each group
+#' # Get example data
+#' data(WalleyeKS,package="FSAdata")
+#' 
+#' # Note use of incl.est=TRUE and as.df=TRUE
+#' if (require(dplyr)) {
+#'   res <- WalleyeKS %>%
+#'     dplyr::group_by(reservoir) %>%
+#'     dplyr::group_modify(~confint(catchCurve(catch~age,data=.x,ages2use=2:10),
+#'                                  incl.est=TRUE,as.df=TRUE)) %>%
+#'     as.data.frame() # removes tibble and grouping structure
+#'   res
+#' }
+#' 
 #' @rdname catchCurve
 #' @export
 catchCurve <- function (x,...) {
@@ -189,32 +225,62 @@ catchCurve.formula <- function(x,data,ages2use=age,
 
 #' @rdname catchCurve
 #' @export
-summary.catchCurve <- function(object,parm=c("both","all","Z","A","lm"),...) {
+summary.catchCurve <- function(object,parm=c("both","all","Z","A","lm"),
+                               as.df=FALSE,...) {
   parm <- match.arg(parm)
-  tmp <- summary(object$lm,...)
+  res <- summary(object$lm,...)
   if (parm!="lm") {
+    # matrix of all possible results
     Z <- summary(object$lm)$coef[2,]
     Z[c(1,3)] <- -Z[c(1,3)]
     A <- c(100*(1-exp(-Z[1])),NA,NA,NA)
-    tmp <- rbind(Z,A)
-    if (!parm %in% c("both","all")) tmp <- tmp[parm,,drop=FALSE]
+    resm <- rbind(Z,A)
+    # data.frame of all possible results
+    resd <- data.frame(cbind(t(resm[1,c("Estimate","Std. Error")]),
+                             t(resm[2,c("Estimate","Std. Error")])))
+    names(resd) <- c("Z","Z_SE","A","A_SE")
+    # remove parameters not asked for
+    if (!parm %in% c("all","both")) {
+      resm <- resm[parm,,drop=FALSE]
+      resd <- resd[grepl(parm,names(resd))]
+    }
+    # prepare to return data.frame if asked for, otherwise matrix
+    if (as.df) res <- resd
+      else res <- resm
   }
-  tmp
+  res
 }
 
 #' @rdname catchCurve
 #' @export
-coef.catchCurve <- function(object,parm=c("all","both","Z","A","lm"),...) {
+coef.catchCurve <- function(object,parm=c("all","both","Z","A","lm"),
+                            as.df=FALSE,...) {
   parm <- match.arg(parm)
-  tmp <- stats::coef(object$lm,...)
-  if (parm!="lm") {
-    Z <- -tmp[2]
-    A <- 100*(1-exp(-Z))
-    tmp <- c(Z,A)
-    names(tmp) <- c("Z","A")
-    if (!parm %in% c("both","all")) tmp <- tmp[parm]
+  # matrix of lm results
+  res <- stats::coef(object$lm,...)
+  if (parm=="lm") {
+    if (as.df) {
+      resd <- data.frame(cbind(t(res[1]),t(res[2])))
+      names(resd) <- names(res)
+      res <- resd
+    }
+  } else {
+    # matrix of all possible results
+    Z <- -res[[2]]
+    resm <- c(Z=Z,A=100*(1-exp(-Z)))
+    # data.frame of all possible results
+    resd <- data.frame(cbind(t(resm[1]),t(resm[2])))
+    names(resd) <- names(resm)
+    # remove parameters not asked for
+    if (!parm %in% c("all","both")) {
+      resm <- resm[parm,drop=FALSE]
+      resd <- resd[grepl(parm,names(resd))]
+    }
+    # prepare to return data.frame if asked for, otherwise matrix
+    if (as.df) res <- resd
+      else res <- resm
   } 
-  tmp
+  res
 }
 
 #' @rdname catchCurve
@@ -226,17 +292,51 @@ anova.catchCurve <- function(object,...) {
 #' @rdname catchCurve
 #' @export
 confint.catchCurve <- function(object,parm=c("all","both","Z","A","lm"),
-                               level=conf.level,conf.level=0.95,...) {
+                               level=conf.level,conf.level=0.95,
+                               as.df=FALSE,incl.est=FALSE,...) {
   parm <- match.arg(parm)
   ## Check on conf.level
   iCheckConfLevel(conf.level) 
   ci <- stats::confint(object$lm,conf.level=level,...)
-  if (parm=="lm") res <- ci
-  else {
-    res <- rbind(Z=-ci[2,2:1],A=100*(1-exp(ci[2,2:1])))
-    if (!parm %in% c("all","both")) res <- res[parm,,drop=FALSE]
+  if (parm=="lm") {
+    # matrix of all possible results
+    resm <- ci
+    resm <- cbind(Est=stats::coef(object$lm),ci)
+    colnames(resm) <- c("Est",iCILabel(conf.level))
+    ## make data.frame of all possible results
+    resd <- data.frame(cbind(t(resm[1,]),t(resm[2,])))
+    names(resd) <- c("(Intercept)","(Intercept)_LCI","(Intercept)_UCI",
+                     "age.e","age.e_LCI","age.e_UCI")
+    ## remove estimates if not asked for
+    if (!incl.est) {
+      resm <- resm[,-which(colnames(resm)=="Est"),drop=FALSE]
+      resd <- resd[!names(resd) %in% c("(Intercept)","age.e")]
+    }
+    ## Return the appropriate matrix or data.frame
+    if (as.df) res <- resd
+      else res <- resm
+  } else {
+    # matrix of all possible results
+    resm <- cbind(coef.catchCurve(object),
+                  rbind(Z=-ci[2,2:1],A=100*(1-exp(ci[2,2:1]))))
+    colnames(resm) <- c("Est",iCILabel(conf.level))
+    # data.frame of all possible results
+    resd <- data.frame(cbind(t(resm[1,]),t(resm[2,])))
+    names(resd) <- c("Z","Z_LCI","Z_UCI","A","A_LCI","A_UCI")
+    ## remove estimates if not asked for
+    if (!incl.est) {
+      resm <- resm[,-which(colnames(resm)=="Est"),drop=FALSE]
+      resd <- resd[!names(resd) %in% c("Z","A")]
+    }
+    ## remove unasked for parameters
+    if (!parm %in% c("all","both")) {
+      resm <- resm[parm,,drop=FALSE]
+      resd <- resd[grepl(parm,names(resd))]
+    }
+    ## Return the appropriate matrix or data.frame
+    if (as.df) res <- resd
+      else res <- resm
   }
-  colnames(res) <- iCILabel(conf.level)
   res
 }
 

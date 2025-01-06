@@ -32,9 +32,9 @@ catchCurve(x, ...)
   ...
 )
 
-\method{summary}{catchCurve}(object, parm = c("both", "all", "Z", "A", "lm"), ...)
+\method{summary}{catchCurve}(object, parm = c("both", "all", "Z", "A", "lm"), as.df = FALSE, ...)
 
-\method{coef}{catchCurve}(object, parm = c("all", "both", "Z", "A", "lm"), ...)
+\method{coef}{catchCurve}(object, parm = c("all", "both", "Z", "A", "lm"), as.df = FALSE, ...)
 
 \method{anova}{catchCurve}(object, ...)
 
@@ -43,6 +43,8 @@ catchCurve(x, ...)
   parm = c("all", "both", "Z", "A", "lm"),
   level = conf.level,
   conf.level = 0.95,
+  as.df = FALSE,
+  incl.est = FALSE,
   ...
 )
 
@@ -82,9 +84,13 @@ catchCurve(x, ...)
 
 \item{parm}{A numeric or string (of parameter names) vector that specifies which parameters are to be given confidence intervals. If \code{parm="lm"} then confidence intervals for the underlying linear model are returned.}
 
+\item{as.df}{A logical that indicates whether the results of \code{coef}, \code{confint}, or \code{summary} should be returned as a data.frame. Ignored in \code{summary} if \code{parm="lm"}.}
+
 \item{level}{Same as \code{conf.level}. Used for compatibility with the generic \code{confint} function.}
 
 \item{conf.level}{A number representing the level of confidence to use for constructing confidence intervals.}
+
+\item{incl.est}{A logical that indicated whether the parameter point estimate should be included in the results from \code{confint}. Defaults to \code{FALSE}.}
 
 \item{digits}{The number of digits to round the \code{rSquared} result to.}
 
@@ -143,11 +149,13 @@ plot(catch~age,data=BrookTroutTH,pch=19)
 ## demonstration of formula notation
 cc1 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6)
 summary(cc1)
-cbind(Est=coef(cc1),confint(cc1))
+coef(cc1)
+confint(cc1)
+confint(cc1,incl.est=TRUE)
 rSquared(cc1)
 plot(cc1)
 summary(cc1,parm="Z")
-cbind(Est=coef(cc1,parm="Z"),confint(cc1,parm="Z"))
+confint(cc1,parm="Z",incl.est=TRUE)
 
 ## demonstration of excluding ages2use
 cc2 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=-c(0,1))
@@ -161,7 +169,7 @@ plot(cc3)
 
 ## demonstration of returning the linear model results
 summary(cc3,parm="lm")
-cbind(Est=coef(cc3,parm="lm"),confint(cc3,parm="lm"))
+confint(cc3,parm="lm",incl.est=TRUE)
 
 ## demonstration of ability to work with missing age classes
 df <- data.frame(age=c(  2, 3, 4, 5, 7, 9,12),
@@ -171,12 +179,44 @@ summary(cc4)
 plot(cc4)
 
 ## demonstration of ability to work with missing age classes
-## evein if catches are recorded as NAs
+## even if catches are recorded as NAs
 df <- data.frame(age=c(  2, 3, 4, 5, 6, 7, 8, 9,10,11,12),
                  ct= c(100,92,83,71,NA,56,NA,35,NA,NA, 1))
 cc5 <- catchCurve(ct~age,data=df,ages2use=4:12)
 summary(cc5)
 plot(cc5)
+
+## Demonstration of computation for multiple groups
+##   only ages on the descending limb for each group are in the data.frame
+# Get example data
+data(FHCatfish,package="FSAdata")
+FHCatfish
+
+# Note use of incl.est=TRUE and as.df=TRUE
+if (require(dplyr)) {
+  res <- FHCatfish \%>\%
+    dplyr::group_by(river) \%>\%
+    dplyr::group_modify(~confint(catchCurve(abundance~age,data=.x),
+                                 incl.est=TRUE,as.df=TRUE)) \%>\%
+    as.data.frame() # removes tibble and grouping structure
+  res
+}
+
+## Demonstration of computation for multiple groups
+##   ages not on descending limb are in the data.frame, but use same
+##     ages.use= for each group
+# Get example data
+data(WalleyeKS,package="FSAdata")
+
+# Note use of incl.est=TRUE and as.df=TRUE
+if (require(dplyr)) {
+  res <- WalleyeKS \%>\%
+    dplyr::group_by(reservoir) \%>\%
+    dplyr::group_modify(~confint(catchCurve(catch~age,data=.x,ages2use=2:10),
+                                 incl.est=TRUE,as.df=TRUE)) \%>\%
+    as.data.frame() # removes tibble and grouping structure
+  res
+}
 
 }
 \references{

@@ -28,15 +28,23 @@ chapmanRobson(x, ...)
   ...
 )
 
-\method{summary}{chapmanRobson}(object, parm = c("all", "both", "Z", "S"), verbose = FALSE, ...)
+\method{summary}{chapmanRobson}(
+  object,
+  parm = c("all", "both", "Z", "S"),
+  verbose = FALSE,
+  as.df = FALSE,
+  ...
+)
 
-\method{coef}{chapmanRobson}(object, parm = c("all", "both", "Z", "S"), ...)
+\method{coef}{chapmanRobson}(object, parm = c("all", "both", "Z", "S"), as.df = FALSE, ...)
 
 \method{confint}{chapmanRobson}(
   object,
   parm = c("all", "both", "S", "Z"),
   level = conf.level,
   conf.level = 0.95,
+  as.df = FALSE,
+  incl.est = FALSE,
   ...
 )
 
@@ -72,9 +80,13 @@ chapmanRobson(x, ...)
 
 \item{verbose}{A logical that indicates whether the method should return just the estimate (\code{FALSE}; default) or a more verbose statement.}
 
+\item{as.df}{A logical that indicates whether the results of \code{coef}, \code{confint}, or \code{summary} should be returned as a data.frame. Ignored in \code{summary} if \code{parm="lm"}.}
+
 \item{level}{Same as \code{conf.level}. Used for compatibility with the generic \code{confint} function.}
 
 \item{conf.level}{A number representing the level of confidence to use for constructing confidence intervals.}
+
+\item{incl.est}{A logical that indicated whether the parameter point estimate should be included in the results from \code{confint}. Defaults to \code{FALSE}.}
 
 \item{pos.est}{A string to identify where to place the estimated mortality rates on the plot. Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot. Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements. Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.}
 
@@ -130,12 +142,15 @@ plot(catch~age,data=BrookTroutTH,pch=19)
 cr1 <- chapmanRobson(catch~age,data=BrookTroutTH,ages2use=2:6)
 summary(cr1)
 summary(cr1,verbose=TRUE)
-cbind(Est=coef(cr1),confint(cr1))
+coef(cr1)
+confint(cr1)
+confint(cr1,incl.est=TRUE)
 plot(cr1)
 plot(cr1,axis.age="age")
 plot(cr1,axis.age="recoded age")
 summary(cr1,parm="Z")
-cbind(Est=coef(cr1,parm="Z"),confint(cr1,parm="Z"))
+coef(cr1,parm="Z")
+confint(cr1,parm="Z",incl.est=TRUE)
 
 ## demonstration of excluding ages2use
 cr2 <- chapmanRobson(catch~age,data=BrookTroutTH,ages2use=-c(0,1))
@@ -148,6 +163,38 @@ ct  <- c(100,92,83,71,56,35, 1)
 cr3 <- chapmanRobson(age,ct,4:12)
 summary(cr3)
 plot(cr3)
+
+## Demonstration of computation for multiple groups
+##   only ages on the descending limb for each group are in the data.frame
+# Get example data
+data(FHCatfish,package="FSAdata")
+FHCatfish
+
+# Note use of incl.est=TRUE and as.df=TRUE
+if (require(dplyr)) {
+  res <- FHCatfish \%>\%
+    dplyr::group_by(river) \%>\%
+    dplyr::group_modify(~confint(chapmanRobson(abundance~age,data=.x),
+                                 incl.est=TRUE,as.df=TRUE)) \%>\%
+    as.data.frame() # removes tibble and grouping structure
+  res
+}
+
+## Demonstration of computation for multiple groups
+##   ages not on descending limb are in the data.frame, but use same
+##     ages.use= for each group
+# Get example data
+data(WalleyeKS,package="FSAdata")
+
+# Note use of incl.est=TRUE and as.df=TRUE
+if (require(dplyr)) {
+  res <- WalleyeKS \%>\%
+    dplyr::group_by(reservoir) \%>\%
+    dplyr::group_modify(~confint(chapmanRobson(catch~age,data=.x,ages2use=2:10),
+                                 incl.est=TRUE,as.df=TRUE)) \%>\%
+    as.data.frame() # removes tibble and grouping structure
+  res
+}
 
 }
 \references{

@@ -1,3 +1,38 @@
+# FSA 0.9.6
+* Updated testing to use `testthat` v3.0.0.
+  * Changes to `DESCRIPTION` including adding `tidyr` in Suggests (for example in `removal()`).
+  * Replaced MANY `expect_is()` with `expect_equal(class())` idioms.
+  * Replaced many `expect_equivalent()` with `expect_equal()` as `expect_equivalent()` was not needed to begin with.
+  * Replaced many `expect_equivalent()` with `expect_equal(,ignore_attr=TRUE)` as `expect_equivalent()` was deprecated.
+  * Had to correct many tests where I expected just `matrix` but the class was `c("matrix","array")`.
+  * Had to handle multiple warnings for some tests (see [this article](https://testthat.r-lib.org/articles/third-edition.html#warnings)).
+  * Moved all `require()` in individual files to `testthat.R`. This removed many `require()` that were not needed.
+* Fixed four minor errors in documentation from legacy uses of `\R{}` rather than `\code{}`.
+* Made some accessibility changes and rebuilt favicons as suggested by `pkgdown`.
+
+* `alkPlot()`: Modified. Added note in documentation pointing to a fishR blog post on using `ggplot2` to make similar plots.
+* `catchCurve()`: Modified. Added `as.df=` to extractor functions and `incl.est=` to `confint.catchCurve()` to match functionality added to `depletion()`.
+* `chapmanRobson()`: Modified. Added `as.df=` to extractor functions and `incl.est=` to `confint.chapmanRobson()` to match functionality added to `depletion()`.
+* `depletion()`: Modified to address [#111](https://github.com/fishR-Core-Team/FSA/issues/111).
+  * Added formula notation such that `depletion()` wash changed to a method call and `depletion.default()` and `depletion.formula()` were added. Tests for the formula were included.
+  * Added `as.df=` to `coef.depletion()`, `confint.depletion()`, and `summary.depletion()` so that the result is returned as a data.frame when set to `TRUE` (default is `FALSE` to maintain backward compatability).
+  * Added `incl.est=` to `confint.depletion()` to make it easier to get away from the clunky `cbind("Est"=coef(),confint())` code.
+* `GompertzFuns()`: Modified. Accepted pull request related to [#112](https://github.com/fishR-Core-Team/FSA/issues/112) that fixed several typos and dead links in the documentation ... thanks Arni. Corrected the erroneous reference to t* (should have been t0) in the documentation for the Gompertz function (fixes [#113](https://github.com/fishR-Core-Team/FSA/issues/113) ... thanks again to Arni).
+* `metaM()`: Modified to address [#114](https://github.com/fishR-Core-Team/FSA/issues/114).
+  * Returns data.frame rather than list.
+  * Added conditional mortality rate (cm) to returned data.frame (for use with `rFAMS`).
+  * Removed `justM=` and its functionality (not needed with data.frame returned).
+  * Added `verbose=` to allow user to limit some of what is returned in data.frame.
+  * Removed `print.metaM()` method.
+  * Added Quinn and Deriso (1999), Peterson and Wroblewski (1984), and Chan and Watanabe (1989) methods from FAMS manual. These are probably only useful for comparison to FAMS results.
+  * Added an example for computing an average M or cm from multiple model results.
+* `Mmethods()`: Modified. Changed `what=` to `method=` for simplicity with `metaM()`.
+* `removal()`: Modified.
+  * Added a formula version to better match `depletion()`.
+  * Deprecated `just.ests=`. Functionality will be largely replaced with `incl.ests=` in `confint()`. Replaced split-apply example with a new one that performs similarly without `just.ests=` and is more in-line with examples in `depletion` *et al.*
+  * Added `coef()` extractor function.
+  * Modified `confint()` and `summary()` extractor functions to better match `depletion()`.
+
 # FSA 0.9.5
 * Fixed FSA-package \alias problem using the "automatic approach" (i.e., adding a "_PACKAGE" line to FSA.R) suggested in an e-mail from Kurt Hornik on 19-Aug-2023.
 

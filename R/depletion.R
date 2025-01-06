@@ -8,12 +8,15 @@
 #'
 #' Standard errors for the catchability and population size estimates are computed from formulas on page 298 (for Leslie) and 303 (for DeLury) from Seber (2002). Confidence intervals are computed using standard large-sample normal distribution theory with the regression error df.
 #' 
-#' @param catch A numeric vector of catches of fish at each time.
+#' @param catch A numeric vector of catches of fish at each time, or a formula of the form \code{catch~effort}.
+#' @param data A data.frame from which the variables in the \code{catch} formula can be found. Not used if \code{catch} is not a formula.
 #' @param effort A numeric vector of efforts expended at each time.
 #' @param method A single string that indicates which depletion method to use
 #' @param Ricker.mod A single logical that indicates whether to use the modification proposed by Ricker (=TRUE) or not (=FALSE, default).
 #' @param object An object saved from the \code{removal} call (i.e., of class \code{depletion}).
 #' @param x An object saved from the \code{depletion} call (i.e., of class \code{depletion}).
+#' @param as.df A logical that indicates whether the results of \code{coef}, \code{confint}, or \code{summary} should be returned as a data.frame. Ignored in \code{summary} if \code{parm="lm"}.
+#' @param incl.est A logical that indicated whether the parameter point estimate should be included in the results from \code{confint}. Defaults to \code{FALSE}.
 #' @param verbose A logical that indicates whether a reminder of the method used should be printed with the summary results.
 #' @param parm A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considered.
 #' @param conf.level A single number that represents the level of confidence to use for constructing confidence intervals.
@@ -73,40 +76,79 @@
 #' summary(l1,parm="No")
 #' rSquared(l1)
 #' rSquared(l1,digits=1,percent=TRUE)
-#' cbind(Est=coef(l1),confint(l1))
-#' cbind(Est=coef(l1,parm="No"),confint(l1,parm="No"))
-#' cbind(Est=coef(l1,parm="q"),confint(l1,parm="q"))
-#' summary(l1,parm="lm")
+#' coef(l1)
+#' confint(l1)
+#' confint(l1,incl.est=TRUE)
+#' confint(l1,incl.est=TRUE,parm="No")
+#' confint(l1,incl.est=TRUE,parm="q")
+#' confint(l1,incl.est=TRUE,parm="lm")
 #' plot(l1)
 #' 
 #' # with Ricker modification
 #' l2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Leslie",Ricker.mod=TRUE)
 #' summary(l2)
-#' cbind(Est=coef(l2),confint(l1))
+#' confint(l1,incl.est=TRUE)
 #' plot(l2)
 #'
-#' ## DeLury model examples
-#' # no Ricker modification
+#' ## DeLury model examples with no Ricker modification
 #' d1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="DeLury")
 #' summary(d1)
-#' summary(d1,parm="q")
-#' summary(d1,verbose=TRUE)
 #' rSquared(d1)
-#' cbind(Est=coef(d1),confint(d1))
-#' summary(d1,parm="lm")
+#' confint(d1,incl.est=TRUE)
 #' plot(d1)
-#' 
-#' # with Ricker modification
-#' d2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="DeLury",Ricker.mod=TRUE)
-#' summary(d2)
-#' cbind(Est=coef(d2),confint(d2))
-#' cbind(Est=coef(d2,parm="q"),confint(d2,parm="q"))
-#' plot(d2)
 #'
+#' # Leslie model using formula notation
+#' l3 <- depletion(catch~effort,data=SMBassLS)
+#' summary(l3)
+#' 
+#' # Leslie model by group (requires dplyr package)
+#' # Dummy example data (lake=="A" is SMBassLS example ... just FYI)
+#' tmpdf <- data.frame(ct=c(131,69,99,78,56,76,49,42,63,47,
+#'                          117,75,87,67,58,67,42),
+#'                     ft=c(7,7,7,7,7,7,7,7,7,7,
+#'                          5,7,5,5,4,6,5),
+#'                     lake=as.factor(c(rep("A",10),rep("B",7))))
+#'                                    
+#' if (require(dplyr)) {
+#'   res <- tmpdf %>%
+#'     dplyr::group_by(lake) %>%
+#'       dplyr::group_modify(~confint(depletion(ct~ft,data=.x),
+#'                                    incl.est=TRUE,as.df=TRUE)) %>%
+#'       as.data.frame() # removes tibble and grouping structure
+#'   res
+#' }
+#' 
 #' @rdname depletion
 #' @export
-depletion <- function(catch,effort,method=c("Leslie","DeLury","Delury"),
-                      Ricker.mod=FALSE) {
+depletion <- function(catch,...) {
+  UseMethod("depletion") 
+}
+
+#' @rdname depletion
+#' @export
+depletion.formula <- function(catch,data,method=c("Leslie","DeLury","Delury"),
+                              Ricker.mod=FALSE,...) {
+  ## Handle the formula and perform some checks
+  tmp <- iHndlFormula(catch,data,expNumR=1,expNumE=1)
+  if (!tmp$metExpNumR)
+    STOP("'depletion' must have only one LHS variable.")
+  if (!tmp$Rclass %in% c("numeric","integer"))
+    STOP("LHS variable (catch) must be numeric.")
+  if (!tmp$metExpNumE)
+    STOP("'depletion' must have only one RHS variable.")
+  if (!tmp$Eclass %in% c("numeric","integer"))
+    STOP("RHS variable (effort) must be numeric.")
+  ## Get variables from model frame
+  catch <- tmp$mf[,tmp$Rname]
+  effort <- tmp$mf[,tmp$Enames]
+  ## Call the default function
+  depletion.default(catch,effort,method=method,Ricker.mod=Ricker.mod)
+}
+
+#' @rdname depletion
+#' @export
+depletion.default <- function(catch,effort,method=c("Leslie","DeLury","Delury"),
+                              Ricker.mod=FALSE,...) {
   # check method, change bad spelling of DeLury if necessary
   method <- match.arg(method)
   if (method=="Delury") method <- "DeLury"
@@ -206,50 +248,106 @@ iCheckRegSig <- function(tmp) {
 
 #' @rdname depletion
 #' @export
-summary.depletion <- function(object,parm=c("all","both","No","q","lm"),verbose=FALSE,...) {
+summary.depletion <- function(object,parm=c("all","both","No","q","lm"),
+                              verbose=FALSE,as.df=FALSE,...) {
   if (verbose) message("The ",object$method," method was used.")
   parm <- match.arg(parm)
   if(parm=="lm") {
-    tmp <- summary(object$lm,...)
+    res <- summary(object$lm,...)
   } else {
-    tmp <- object$est
-    if (!parm %in% c("all","both")) tmp <- tmp[parm,,drop=FALSE]
+    # matrix of all possible results
+    resm <- object$est
+    # data.frame of all possible results
+    resd <- data.frame(cbind(t(resm[1,]),t(resm[2,])))
+    names(resd) <- c("No","No_SE","q","q_SE")
+    # remove parameters not asked for
+    if (!parm %in% c("all","both")) {
+      resm <- resm[parm,,drop=FALSE]
+      resd <- resd[grepl(parm,names(resd))]
+    }
+    # prepare to return data.frame if asked for, otherwise matrix
+    if (as.df) res <- resd
+      else res <- resm
   }
-  tmp
+  res
 }
 
 #' @rdname depletion
 #' @export
-coef.depletion <- function(object,parm=c("all","both","No","q","lm"),...) {
+coef.depletion <- function(object,parm=c("all","both","No","q","lm"),as.df=FALSE,...) {
   parm <- match.arg(parm)
   if(parm=="lm") {
-    tmp <- stats::coef(object$lm,...)
+    res <- stats::coef(object$lm,...)
+    if(as.df) res <- data.frame(Intercept=res[["(Intercept)"]],K=res[["K"]])
   } else {
-    tmp <- object$est[,"Estimate"]
-    if (!parm %in% c("all","both")) tmp <- tmp[parm]
+    # matrix of all possible results
+    resm <- object$est[,"Estimate"]
+    # data.frame of all possible results
+    resd <- data.frame(cbind(t(resm[1]),t(resm[2])))
+    names(resd) <- c("No","q")
+    # remove parameters not asked for
+    if (!parm %in% c("all","both")) {
+      resm <- resm[parm,drop=FALSE]
+      resd <- resd[grepl(parm,names(resd))]
+    }
+    # prepare to return data.frame if asked for, otherwise matrix
+    if (as.df) res <- resd
+      else res <- resm
   }
-  tmp
+  res
 }
 
 #' @rdname depletion
 #' @export
 confint.depletion <- function(object,parm=c("all","both","No","q","lm"),
-                              level=conf.level,conf.level=0.95,...) {
+                              level=conf.level,conf.level=0.95,
+                              incl.est=FALSE,as.df=FALSE,...) {
   parm <- match.arg(parm)
-  
   ## Check on conf.level
   iCheckConfLevel(conf.level) 
   
-  if (parm=="lm") res <- stats::confint(object$lm,level=conf.level)
-  else {
+  if (parm=="lm") {
+    ## make matrix of all possible results
+    resm <- cbind(stats::coef(object,parm="lm"),
+                  stats::confint(object$lm,level=conf.level))
+    colnames(resm) <- c("Est",iCILabel(conf.level))
+    ## make data.frame of all possible results
+    resd <- data.frame(cbind(t(resm[1,]),t(resm[2,])))
+    names(resd) <- c("(Intercept)","(Intercept)_LCI","(Intercept)_UCI",
+                     "K","K_LCI","K_UCI")
+    ## remove estimates if not asked for
+    if (!incl.est) {
+      resm <- resm[,-which(colnames(resm)=="Est"),drop=FALSE]
+      resd <- resd[!names(resd) %in% c("(Intercept)","K")]
+    }
+    ## Return the appropriate matrix or data.frame
+    if (as.df) resd
+      else resm
+  } else {
     t <- stats::qt(1-(1-conf.level)/2,summary(object$lm)$df[2])
     tmp <- summary(object)
-    res <- cbind(tmp[,"Estimate"]-t*tmp[,"Std. Err."],
-                 tmp[,"Estimate"]+t*tmp[,"Std. Err."])
-    if (!parm %in% c("all","both")) res <- res[parm,,drop=FALSE]
+    ## make matrix of all possible results
+    resm <- cbind(coef.depletion(object),
+                  tmp[,"Estimate"]-t*tmp[,"Std. Err."],
+                  tmp[,"Estimate"]+t*tmp[,"Std. Err."])
+    colnames(resm) <- c("Est",iCILabel(conf.level))
+    ## make data.frame of all possible results
+    resd <- data.frame(cbind(t(resm[1,]),t(resm[2,])))
+    names(resd) <- c("No","No_LCI","No_UCI","q","q_LCI","q_UCI")
+    ## remove estimates if not asked for
+    if (!incl.est) {
+      resm <- resm[,-which(colnames(resm)=="Est"),drop=FALSE]
+      resd <- resd[!names(resd) %in% c("No","q")]
+    }
+    ## remove unasked for parameters
+    if (!parm %in% c("all","both")) {
+      resm <- resm[parm,,drop=FALSE]
+      resd <- resd[grepl(parm,names(resd))]
+    }
+    ## Return the appropriate matrix or data.frame
+    if (as.df) resd
+      else resm
   }
-  colnames(res) <- iCILabel(conf.level)
-  res
 }
 
 #' @rdname depletion

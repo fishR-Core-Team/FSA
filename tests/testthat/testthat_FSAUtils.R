@@ -139,10 +139,10 @@ test_that("capFirst() results",{
   df$rnd <- runif(nrow(df))
   df$junk <- sample(c("Derek","Hugh","Ogle"),nrow(df),replace=TRUE)
   ## actual tests
-  expect_equivalent(levels(factor(capFirst(df$species))),
-                    c("Bluefin Tuna","Bluegill","Lmb"))
-  expect_equivalent(levels(factor(capFirst(df$species,which="first"))),
-                    c("Bluefin tuna","Bluegill","Lmb"))
+  expect_equal(levels(factor(capFirst(df$species))),
+               c("Bluefin Tuna","Bluegill","Lmb"))
+  expect_equal(levels(factor(capFirst(df$species,which="first"))),
+               c("Bluefin tuna","Bluegill","Lmb"))
 })
 
 test_that("capFirst() returned classes",{
@@ -151,12 +151,12 @@ test_that("capFirst() returned classes",{
   fvec <- factor(vec)
   ## first example of non-factor vector
   vec1 <- capFirst(vec)
-  expect_equivalent(class(vec),class(vec1))
-  expect_equivalent(class(vec1),"character")
+  expect_equal(class(vec),class(vec1))
+  expect_equal(class(vec1),"character")
   ## second example of factored vector
   fvec1 <- capFirst(fvec)
-  expect_equivalent(class(fvec),class(fvec1))
-  expect_equivalent(class(fvec1),"factor")
+  expect_equal(class(fvec),class(fvec1))
+  expect_equal(class(fvec1),"factor")
 })
 
 test_that("col2rgbt() results",{
@@ -171,7 +171,7 @@ test_that("fact2num() results",{
   nums <- c(1,2,6,9,3)
   tmp <- fact2num(factor(nums))
   expect_equal(tmp,nums)
-  expect_is(tmp,"numeric")
+  expect_equal(class(tmp),"numeric")
   expect_true(is.vector(tmp))
 })
 
@@ -195,23 +195,19 @@ test_that("fishR() return values",{
 test_that("geomean() / geosd() results",{
   ## Geometric mean
   # match wikipedia example
-  expect_equivalent(geomean(c(1/32,1,4)),1/2)
+  expect_equal(geomean(c(1/32,1,4)),1/2)
   # match http://www.thinkingapplied.com/means_folder/deceptive_means.htm
   tmp <- c(1.0978,1.1174,1.1341,0.9712,1.1513,1.2286,1.0930,0.9915,1.0150)
   tmp2 <- c(NA,tmp)
-  expect_equivalent(round(geomean(tmp),4),1.0861)
-  expect_equivalent(round(geosd(tmp),4),1.0795)
+  expect_equal(round(geomean(tmp),4),1.0861)
+  expect_equal(round(geosd(tmp),4),1.0795)
   # match geometric.mean in psych package
-  if (require(psych)) {
-    expect_equivalent(geomean(tmp),psych::geometric.mean(tmp))
-    expect_equivalent(geomean(tmp2,na.rm=TRUE),psych::geometric.mean(tmp2))
-  }
-  if (require(DescTools)) {
-    expect_equivalent(geomean(tmp),DescTools::Gmean(tmp))
-    expect_equivalent(geomean(tmp2,na.rm=TRUE),DescTools::Gmean(tmp2,na.rm=TRUE))
-    expect_equivalent(geosd(tmp),DescTools::Gsd(tmp))
-    expect_equivalent(geosd(tmp2,na.rm=TRUE),DescTools::Gsd(tmp2,na.rm=TRUE))
-  }
+  expect_equal(geomean(tmp),psych::geometric.mean(tmp))
+  expect_equal(geomean(tmp2,na.rm=TRUE),psych::geometric.mean(tmp2))
+  expect_equal(geomean(tmp),DescTools::Gmean(tmp))
+  expect_equal(geomean(tmp2,na.rm=TRUE),DescTools::Gmean(tmp2,na.rm=TRUE))
+  expect_equal(geosd(tmp),DescTools::Gsd(tmp))
+  expect_equal(geosd(tmp2,na.rm=TRUE),DescTools::Gsd(tmp2,na.rm=TRUE))
 })
 
 test_that("headtail() return values",{
@@ -220,7 +216,7 @@ test_that("headtail() return values",{
   expect_equal(nrow(tmp),2*n)
   expect_equal(ncol(tmp),ncol(iris))
   expect_equal(names(tmp),names(iris))
-  expect_is(tmp,"data.frame")
+  expect_equal(class(tmp),"data.frame")
   expect_equal(tmp,rbind(head(iris,n=n),tail(iris,n=n)))
   ## check more rows
   n <- 6
@@ -228,7 +224,7 @@ test_that("headtail() return values",{
   expect_equal(nrow(tmp),2*n)
   expect_equal(ncol(tmp),ncol(iris))
   expect_equal(names(tmp),names(iris))
-  expect_is(tmp,"data.frame")
+  expect_equal(class(tmp),"data.frame")
   expect_equal(tmp,rbind(head(iris,n=n),tail(iris,n=n)))
   ## check of restricted columns
   n <- 3
@@ -237,7 +233,7 @@ test_that("headtail() return values",{
   expect_equal(nrow(tmp),2*n)
   expect_equal(ncol(tmp),length(cols))
   expect_equal(names(tmp),names(iris)[cols])
-  expect_is(tmp,"data.frame")
+  expect_equal(class(tmp),"data.frame")
   
   ## check for matrix
   miris <- as.matrix(iris[,seq_len(4)])
@@ -245,18 +241,16 @@ test_that("headtail() return values",{
   expect_equal(nrow(tmp),2*n)
   expect_equal(ncol(tmp),ncol(miris))
   expect_equal(names(tmp),names(miris))
-  expect_is(tmp,"matrix")
-  expect_equivalent(tmp,rbind(head(miris,n=n),tail(miris,n=n)))
+  expect_equal(class(tmp),c("matrix","array"))
+  expect_equal(tmp,rbind(head(miris,n=n),tail(miris,n=n)),ignore_attr=TRUE)
   # check of addrownums
   tmp <- FSA::headtail(miris,addrownums=FALSE)
   expect_true(is.null(rownames(tmp)))
   
   ## check how it handles tbl_df object
-  if (require(tibble)) {
-    iris2 <- tibble::as_tibble(iris)
-    tmp <- FSA::headtail(iris2,n=15)
-    expect_is(tmp,"data.frame")
-  }
+  iris2 <- tibble::as_tibble(iris)
+  tmp <- FSA::headtail(iris2,n=15)
+  expect_equal(class(tmp),"data.frame")
 })
 
 test_that("peek() return values",{
@@ -265,14 +259,14 @@ test_that("peek() return values",{
   expect_equal(nrow(tmp),n)
   expect_equal(ncol(tmp),ncol(iris))
   expect_equal(names(tmp),names(iris))
-  expect_is(tmp,"data.frame")
+  expect_equal(class(tmp),"data.frame")
   ## check more rows
   n <- 10
   tmp <- FSA::peek(iris,n=n)
   expect_equal(nrow(tmp),n)
   expect_equal(ncol(tmp),ncol(iris))
   expect_equal(names(tmp),names(iris))
-  expect_is(tmp,"data.frame")
+  expect_equal(class(tmp),"data.frame")
   ## check of restricted columns
   n <- 20
   cols <- 2:3
@@ -280,7 +274,7 @@ test_that("peek() return values",{
   expect_equal(nrow(tmp),n)
   expect_equal(ncol(tmp),length(cols))
   expect_equal(names(tmp),names(iris)[cols])
-  expect_is(tmp,"data.frame")
+  expect_equal(class(tmp),"data.frame")
   
   ## check for matrix
   miris <- as.matrix(iris[,seq_len(4)])
@@ -288,17 +282,15 @@ test_that("peek() return values",{
   expect_equal(nrow(tmp),n)
   expect_equal(ncol(tmp),ncol(miris))
   expect_equal(names(tmp),names(miris))
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   # check of addrownums
   tmp <- FSA::peek(miris,addrownums=FALSE)
   expect_true(is.null(rownames(tmp)))
   
   ## check how it handles tbl_df object
-  if (require(tibble)) {
-    iris2 <- tibble::as_tibble(iris)
-    tmp <- FSA::peek(iris2,n=15)
-    expect_is(tmp,"data.frame")
-  }
+  iris2 <- tibble::as_tibble(iris)
+  tmp <- FSA::peek(iris2,n=15)
+  expect_equal(class(tmp),"data.frame")
 })
 
 test_that("lagratio() calculations",{
@@ -352,8 +344,8 @@ test_that("logbtcf() output",{
   cp10 <- cf10*(10^(predict(lm10,data.frame(log10x=log10(10)))))
   
   ## Check output type
-  expect_is(cfe,"numeric")
-  expect_is(cf10,"numeric")
+  expect_equal(class(cfe),"numeric")
+  expect_equal(class(cf10),"numeric")
   
   ## Results should be equal
   expect_equal(cfe,cf10)
@@ -367,7 +359,7 @@ test_that("oddeven() return values",{
   expect_false(is.even(1))
   expect_equal(is.odd(1:4),c(TRUE,FALSE,TRUE,FALSE))
   expect_equal(is.even(1:4),c(FALSE,TRUE,FALSE,TRUE))
-  expect_is(is.odd(1:4),"logical")
+  expect_equal(class(is.odd(1:4)),"logical")
 })
 
 test_that("perc() return values",{
@@ -417,8 +409,8 @@ test_that("repeatedRows2Keep() return values",{
                       stringsAsFactors=FALSE)
   keepFirst <- repeatedRows2Keep(test1,cols2ignore=1:2)
   keepLast <- repeatedRows2Keep(test1,cols2use=3:4,keep="last")
-  expect_is(keepFirst,"logical")
-  expect_is(keepLast,"logical")
+  expect_equal(class(keepFirst),"logical")
+  expect_equal(class(keepLast),"logical")
   tmp <- droplevels(subset(test1,keepFirst))
   expect_equal(tmp$ID,c(1,3:7,10))
   expect_true(all(tmp$KEEP %in% c("First","Both")))

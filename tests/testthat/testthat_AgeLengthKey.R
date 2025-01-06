@@ -159,7 +159,7 @@ test_that("Does 'seed=' work in alkIndivAge()",{
   suppressWarnings(sum1 <- Summarize(len~age,data=WR1.comb))
   suppressWarnings(sum2 <- Summarize(len~age,data=WR1.comb))
   diff <- as.matrix(sum1[,-1]-sum2[,-1])
-  expect_equivalent(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)))
+  expect_equal(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)),ignore_attr=TRUE)
   WR1.comb <- rbind(WR1.age, alkIndivAge(WR1.key,age~len,data=WR1.len,type="CR",
                                          seed=1234343))
   WR1.comb2 <- rbind(WR1.age, alkIndivAge(WR1.key,age~len,data=WR1.len,type="CR",
@@ -167,7 +167,7 @@ test_that("Does 'seed=' work in alkIndivAge()",{
   suppressWarnings(sum1 <- Summarize(len~age,data=WR1.comb))
   suppressWarnings(sum2 <- Summarize(len~age,data=WR1.comb))
   diff <- as.matrix(sum1[,-1]-sum2[,-1])
-  expect_equivalent(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)))
+  expect_equal(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)),ignore_attr=TRUE)
 })
 
 test_that("Are same results achieved when handling a missing row differently",{
@@ -200,9 +200,9 @@ test_that("Are same results achieved when handling a missing row differently",{
   suppressWarnings(sum3 <- Summarize(len~age,data=WR1.comb3))
   ## Compare the different results
   diff12 <- as.matrix(sum1[,-1]-sum2[,-1])
-  expect_equivalent(diff12,matrix(0,nrow=nrow(diff12),ncol=ncol(diff12)))
+  expect_equal(diff12,matrix(0,nrow=nrow(diff12),ncol=ncol(diff12)),ignore_attr=TRUE)
   diff23 <- as.matrix(sum2[,-1]-sum3[,-1])
-  expect_equivalent(diff23,matrix(0,nrow=nrow(diff23),ncol=ncol(diff23)))
+  expect_equal(diff23,matrix(0,nrow=nrow(diff23),ncol=ncol(diff23)),ignore_attr=TRUE)
   
   ## Apply the different ALKs with alkAgeDist
   len.n1 <- xtabs(~LCat1,data=WR1)
@@ -216,9 +216,9 @@ test_that("Are same results achieved when handling a missing row differently",{
   sum3 <- alkAgeDist(WR1.key3,len.An3,len.n3)
   ## Compare the different results
   diff12 <- as.matrix(sum1[,-1]-sum2[,-1])
-  expect_equivalent(diff12,matrix(0,nrow=nrow(diff12),ncol=ncol(diff12)))
+  expect_equal(diff12,matrix(0,nrow=nrow(diff12),ncol=ncol(diff12)),ignore_attr=TRUE)
   diff23 <- as.matrix(sum2[,-1]-sum3[,-1])
-  expect_equivalent(diff23,matrix(0,nrow=nrow(diff23),ncol=ncol(diff23)))
+  expect_equal(diff23,matrix(0,nrow=nrow(diff23),ncol=ncol(diff23)),ignore_attr=TRUE)
   
   ## Apply the different ALKs with alkMeanVar
   suppressWarnings(sum1 <- alkMeanVar(WR1.key1,len~LCat1+age,WR1.age,len.n1))
@@ -226,21 +226,24 @@ test_that("Are same results achieved when handling a missing row differently",{
   suppressWarnings(sum3 <- alkMeanVar(WR1.key3,len~LCat3+age,WR1.age,len.n3))
   ## Compare the different results
   diff12 <- as.matrix(sum1[,-1]-sum2[,-1])
-  expect_equivalent(diff12,matrix(0,nrow=nrow(diff12),ncol=ncol(diff12)))
+  expect_equal(diff12,matrix(0,nrow=nrow(diff12),ncol=ncol(diff12)),ignore_attr=TRUE)
   diff23 <- as.matrix(sum2[,-1]-sum3[,-1])
-  expect_equivalent(diff23,matrix(0,nrow=nrow(diff23),ncol=ncol(diff23)))
+  expect_equal(diff23,matrix(0,nrow=nrow(diff23),ncol=ncol(diff23)),ignore_attr=TRUE)
   
-  suppressWarnings(sum1 <- alkMeanVar(WR1.key1,len~LCat1+age,WR1.age,len.n1,
-                                      method="QuinnDeriso"))
-  suppressWarnings(sum2 <- alkMeanVar(WR1.key2,len~LCat2+age,WR1.age,len.n2,
-                                      method="QuinnDeriso"))
-  suppressWarnings(sum3 <- alkMeanVar(WR1.key3,len~LCat3+age,WR1.age,len.n3,
-                                      method="QuinnDeriso"))
+  suppressMessages(suppressWarnings(
+    sum1 <- alkMeanVar(WR1.key1,len~LCat1+age,WR1.age,len.n1,method="QuinnDeriso")
+    ))
+  suppressMessages(suppressWarnings(
+    sum2 <- alkMeanVar(WR1.key2,len~LCat2+age,WR1.age,len.n2,method="QuinnDeriso")
+    ))
+  suppressMessages(suppressWarnings(
+    sum3 <- alkMeanVar(WR1.key3,len~LCat3+age,WR1.age,len.n3,method="QuinnDeriso")
+    ))
   ## Compare the different results
   diff12 <- as.matrix(sum1[,-1]-sum2[,-1])
-  expect_equivalent(diff12,matrix(0,nrow=nrow(diff12),ncol=ncol(diff12)))
+  expect_equal(diff12,matrix(0,nrow=nrow(diff12),ncol=ncol(diff12)),ignore_attr=TRUE)
   diff23 <- as.matrix(sum2[,-1]-sum3[,-1])
-  expect_equivalent(diff23,matrix(0,nrow=nrow(diff23),ncol=ncol(diff23)))
+  expect_equal(diff23,matrix(0,nrow=nrow(diff23),ncol=ncol(diff23)),ignore_attr=TRUE)
 })
 
 
@@ -271,32 +274,30 @@ test_that("Assigned ages are correct (within rounding) with semi-random alkIndiv
 })
 
 test_that("alkAgeDist() reproduces results from Table 8.4 (left) of Quinn and Deriso (1999)",{
-  if (require(fishmethods)) {
-    ## Q&D (1999) data are alkdata and alkprop reproduces Table 8.4 results
-    data(alkdata,package="fishmethods")
-    tmp1 <- alkprop(alkdata)$results
-  }
-  if (require(FSAdata)) {
-    ## Same data in SnapperHG2 in a different format
-    ## create ALK and intermediate results
-    data(SnapperHG2,package="FSAdata")
-    len.n <- xtabs(~len,data=SnapperHG2)
-    sn.age <- subset(SnapperHG2,!is.na(age))
-    agekey <- prop.table(xtabs(~len+age,data=sn.age),1)
-    lenA.n <- xtabs(~len,data=sn.age)
-    ## get ALKAgeDist results
-    tmp2 <- alkAgeDist(agekey,lenA.n,len.n)
-    
-    ## Find difference in results
-    diff <- as.matrix(tmp2[,-1]-tmp1[,-3])
-    expect_equivalent(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)))
-    
-    ## enter Q&D results as a guard against fishmethods changing
-    props <- c(0.0003,0.0213,0.1624,0.0926,0.1533,0.1461,0.1260,
-               0.0133,0.0277,0.0763,0.0298,0.0332,0.0162,0.1017)
-    ses <- c(0.0003,0.0056,0.0157,0.0158,0.0185,0.0182,0.0150,
-             0.0050,0.0074,0.0083,0.0047,0.0050,0.0031,0.0063)
-    diff <- as.matrix(round(tmp2[,-1],4)-cbind(props,ses))
-    expect_equivalent(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)))
-  }
+  ## Q&D (1999) data are alkdata and alkprop reproduces Table 8.4 results
+  data(alkdata,package="fishmethods")
+  tmp1 <- fishmethods::alkprop(alkdata)$results
+  
+  ## Same data in SnapperHG2 in a different format
+  ## create ALK and intermediate results
+  data(SnapperHG2,package="FSAdata")
+  len.n <- xtabs(~len,data=SnapperHG2)
+  sn.age <- subset(SnapperHG2,!is.na(age))
+  agekey <- prop.table(xtabs(~len+age,data=sn.age),1)
+  lenA.n <- xtabs(~len,data=sn.age)
+  ## get ALKAgeDist results
+  tmp2 <- alkAgeDist(agekey,lenA.n,len.n)
+  
+  ## Find difference in results
+  diff <- as.matrix(tmp2[,-1]-tmp1[,-3])
+  expect_equal(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)),ignore_attr=TRUE)
+  
+  ## enter Q&D results as a guard against fishmethods changing
+  props <- c(0.0003,0.0213,0.1624,0.0926,0.1533,0.1461,0.1260,
+             0.0133,0.0277,0.0763,0.0298,0.0332,0.0162,0.1017)
+  ses <- c(0.0003,0.0056,0.0157,0.0158,0.0185,0.0182,0.0150,
+           0.0050,0.0074,0.0083,0.0047,0.0050,0.0031,0.0063)
+  diff <- as.matrix(round(tmp2[,-1],4)-cbind(props,ses))
+  expect_equal(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)),ignore_attr=TRUE)
+  
 })

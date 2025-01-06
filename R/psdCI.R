@@ -12,7 +12,7 @@
 #' @param ptbl A numeric vector or array that contains the proportion or percentage of all individuals in each length category. See details.
 #' @param n A single numeric of the number of fish used to construct \code{ptbl}.
 #' @param method A string that identifies the confidence interval method to use. See details.
-#' @param bin.type A string that identifies the type of method to use for calculation of the confidence intervals when \R{method="binomial"}. See details of \code{\link{binCI}}.
+#' @param bin.type A string that identifies the type of method to use for calculation of the confidence intervals when \code{method="binomial"}. See details of \code{\link{binCI}}.
 #' @param conf.level A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).
 #' @param label A single string that can be used to label the row of the output matrix.
 #' @param digits A numeric that indicates the number of decimals to round the result to.

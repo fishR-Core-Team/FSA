@@ -22,5 +22,7 @@ cran-comments.md
 ## Logo
 inst/sticker/
 man/figures/logo.png
+man/figures/logo.svg
+
 ^\.github$
 ^codecov\.yml$

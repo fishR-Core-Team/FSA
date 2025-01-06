@@ -1,6 +1,6 @@
 &nbsp;
 
-## FSA (Fisheries Stock Assessment)  <img src="man/figures/logo.png" align="right" height="150" width="150" />
+## FSA (Fisheries Stock Assessment)  <img src="man/figures/logo.png" align="right" height="150" width="150" alt="FSA logo" />
 
 The **FSA** package provides R functions to conduct typical introductory fisheries analyses. Example analyses that use **FSA** can be found in the [Introductory Fisheries Analyses with R book](https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r) (*see note below*) and on the [fishR website](https://fishr-core-team.github.io/fishR/). Please [cite **FSA**](https://fishr-core-team.github.io/FSA//authors.html) if you use **FSA** in a publication.
 

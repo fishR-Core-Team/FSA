@@ -117,69 +117,69 @@ test_that("mrClosed Multiple Census errors and warnings",{
 test_that("mrClosed() Single Census output",{
   ch1 <- capHistSum(BluegillJL)
   mr1 <- mrClosed(ch1)
-  expect_is(mr1,"mrClosed1")
+  expect_equal(class(mr1),"mrClosed1")
   expect_equal(mode(mr1),"list")
   expect_equal(mr1$method,"Petersen")
   mr2 <- mrClosed(ch1,method="Chapman")
-  expect_is(mr2,"mrClosed1")
+  expect_equal(class(mr2),"mrClosed1")
   expect_equal(mode(mr2),"list")
   expect_equal(mr2$method,"Chapman")
   mr3 <- mrClosed(ch1,method="Ricker")
-  expect_is(mr3,"mrClosed1")
+  expect_equal(class(mr3),"mrClosed1")
   expect_equal(mode(mr3),"list")
   expect_equal(mr3$method,"Ricker")
   mr4 <- mrClosed(ch1,method="Bailey")
-  expect_is(mr4,"mrClosed1")
+  expect_equal(class(mr4),"mrClosed1")
   expect_equal(mode(mr4),"list")
   expect_equal(mr4$method,"Bailey")
   
   tmp <- summary(mr1)
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),1)
   expect_equal(colnames(tmp),"N")
   tmp <- summary(mr1,incl.SE=TRUE)
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("N","SE"))
   expect_message(summary(mr1,verbose=TRUE),"Petersen")
   tmp <- summary(mr2)
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),1)
   expect_equal(colnames(tmp),"N")
   tmp <- summary(mr2,incl.SE=TRUE)
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("N","SE"))
   expect_message(summary(mr1,verbose=TRUE),"Petersen")
   tmp <- summary(mr3)
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),1)
   expect_equal(colnames(tmp),"N")
   tmp <- summary(mr3,incl.SE=TRUE)
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("N","SE"))
   expect_message(summary(mr1,verbose=TRUE),"Petersen")
   tmp <- summary(mr4)
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),1)
   expect_equal(colnames(tmp),"N")
   tmp <- summary(mr4,incl.SE=TRUE)
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
@@ -187,38 +187,38 @@ test_that("mrClosed() Single Census output",{
   expect_message(summary(mr1,verbose=TRUE),"Petersen")
   
   expect_message(tmp <- confint(mr1,verbose=TRUE),"Poisson")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("95% LCI","95% UCI"))
   expect_message(tmp <- confint(mr1,verbose=TRUE,type="binomial"),"binomial")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("95% LCI","95% UCI"))
   expect_message(tmp <- confint(mr1,verbose=TRUE,type="hypergeometric"),
                  "hypergeometric")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("95% LCI","95% UCI"))
   expect_message(tmp <- confint(mr2,verbose=TRUE),"Poisson")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("95% LCI","95% UCI"))
   expect_message(tmp <- confint(mr3,verbose=TRUE),"Poisson")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("95% LCI","95% UCI"))
   expect_message(tmp <- confint(mr4,verbose=TRUE),"Poisson")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
@@ -232,56 +232,68 @@ test_that("mrClosed() Single Census with subgroups output",{
   lbls <- c("YOY","Juvenile","Stock","Quality","Preferred","Memorable")
   mr1 <- mrClosed(marked,captured,recaps)
   mr2 <- mrClosed(marked,captured,recaps,labels=lbls)
-  expect_is(mr1,"mrClosed1")
+  expect_equal(class(mr1),"mrClosed1")
   expect_equal(mode(mr1),"list")
-  expect_is(mr2,"mrClosed1")
+  expect_equal(class(mr2),"mrClosed1")
   expect_equal(mode(mr2),"list")
   
-  expect_message(tmp <- summary(mr1,verbose=TRUE),"Petersen")
-  expect_is(tmp,"matrix")
+  summary(mr1,verbose=TRUE) %>%
+    expect_message("Used the 'naive' Petersen method") %>%
+    expect_message("A: M=93, n=103, and m=20") %>%
+    suppressMessages()
+  suppressMessages(tmp <- summary(mr1,verbose=TRUE))
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),length(marked)+1)
   expect_equal(ncol(tmp),1)
   expect_equal(colnames(tmp),"N")
   expect_equal(rownames(tmp),c(LETTERS[seq_along(marked)],"All"))
   tmp <- summary(mr1,incl.SE=TRUE)
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),length(marked)+1)
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("N","SE"))
   expect_equal(rownames(tmp),c(LETTERS[seq_along(marked)],"All"))
   tmp <- summary(mr1,incl.SE=TRUE,incl.all=FALSE)
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),length(marked))
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("N","SE"))
   expect_equal(rownames(tmp),LETTERS[seq_along(marked)])
   tmp <- summary(mr2,incl.SE=TRUE,incl.all=FALSE)
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),length(marked))
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("N","SE"))
   expect_equal(rownames(tmp),lbls)
   
-  expect_message(tmp <- confint(mr1,verbose=TRUE,type="binomial"),"binomial")
-  expect_is(tmp,"matrix")
+  confint(mr1,verbose=TRUE,type="binomial") %>%
+    expect_message("A - The binomial") %>%
+    expect_message("B - The binomial") %>%
+    expect_message("C - The binomial") %>%
+    expect_message("D - The binomial") %>%
+    expect_message("E - The binomial") %>%
+    expect_message("F - The binomial") %>%
+    expect_message("All - The normal distribution was used.")
+  suppressMessages(tmp <- confint(mr1,verbose=TRUE,type="binomial"))
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),length(marked)+1)
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("95% LCI","95% UCI"))
   expect_equal(rownames(tmp),c(LETTERS[seq_along(marked)],"All"))
   tmp <- confint(mr1,incl.all=FALSE)
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),length(marked))
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("95% LCI","95% UCI"))
   expect_equal(rownames(tmp),LETTERS[seq_along(marked)])
   tmp <- confint(mr2,incl.all=FALSE)
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),length(marked))
   expect_equal(ncol(tmp),2)
@@ -293,36 +305,36 @@ test_that("mrClosed() Schnabel output",{
   mr1 <- with(PikeNY,mrClosed(n=n,m=m,R=R,method="Schnabel"))
   mr2 <- with(PikeNY,mrClosed(n=n,m=m,R=R,method="Schnabel",chapman.mod=FALSE))
   
-  expect_is(mr1,"mrClosed2")
+  expect_equal(class(mr1),"mrClosed2")
   expect_equal(mode(mr1),"list")
   expect_equal(mr1$method,"Schnabel")
   expect_true(mr1$chapman.mod)
-  expect_is(mr2,"mrClosed2")
+  expect_equal(class(mr2),"mrClosed2")
   expect_equal(mode(mr2),"list")
   expect_equal(mr2$method,"Schnabel")
   expect_false(mr2$chapman.mod)
   
   expect_message(tmp <- summary(mr1,verbose=TRUE),"Schnabel")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),1)
   expect_equal(colnames(tmp),"N")
   
   expect_message(tmp <- confint(mr1,verbose=TRUE),"normal")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("95% LCI","95% UCI"))
   expect_message(tmp <- confint(mr1,verbose=TRUE,type="Poisson"),"Poisson")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("95% LCI","95% UCI"))
   expect_message(tmp <- confint(mr1,verbose=TRUE,type="normal"),"normal")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
@@ -335,30 +347,30 @@ test_that("mrClosed() Schnabel with capHistSum() output",{
   mr1 <- mrClosed(ch,method="Schnabel")
   mr2 <- mrClosed(ch,method="Schnabel",chapman.mod=FALSE)
   
-  expect_is(mr1,"mrClosed2")
+  expect_equal(class(mr1),"mrClosed2")
   expect_equal(mode(mr1),"list")
   expect_equal(mr1$method,"Schnabel")
   expect_true(mr1$chapman.mod)
-  expect_is(mr2,"mrClosed2")
+  expect_equal(class(mr2),"mrClosed2")
   expect_equal(mode(mr2),"list")
   expect_equal(mr2$method,"Schnabel")
   expect_false(mr2$chapman.mod)
   
   expect_message(tmp <- summary(mr1,verbose=TRUE),"Schnabel")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),1)
   expect_equal(colnames(tmp),"N")
   
   expect_message(tmp <- confint(mr1,verbose=TRUE,type="Poisson"),"Poisson")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("95% LCI","95% UCI"))
   expect_message(tmp <- confint(mr1,verbose=TRUE,type="normal"),"normal")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
@@ -368,18 +380,18 @@ test_that("mrClosed() Schnabel with capHistSum() output",{
 test_that("mrClosed() Schumacher-Eschmeyer output",{
   mr1 <- with(PikeNY,mrClosed(n=n,m=m,R=R,method="Schumacher"))
   
-  expect_is(mr1,"mrClosed2")
+  expect_equal(class(mr1),"mrClosed2")
   expect_equal(mode(mr1),"list")
   
   expect_message(tmp <- summary(mr1,verbose=TRUE),"Schumacher")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),1)
   expect_equal(colnames(tmp),"N")
   
   expect_message(tmp <- confint(mr1,verbose=TRUE),"normal")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
@@ -390,18 +402,18 @@ test_that("mrClosed() Schumacher-Eschmeyer capHistSum() output",{
   ch <- capHistSum(PikeNYPartial1,cols2ignore="id")
   mr1 <- mrClosed(ch,method="Schumacher")
   
-  expect_is(mr1,"mrClosed2")
+  expect_equal(class(mr1),"mrClosed2")
   expect_equal(mode(mr1),"list")
   
   expect_message(tmp <- summary(mr1,verbose=TRUE),"Schumacher")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),1)
   expect_equal(colnames(tmp),"N")
   
   expect_message(tmp <- confint(mr1,verbose=TRUE),"normal")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
@@ -464,123 +476,111 @@ test_that("mrClosed match the Chapman results from Table 3.7 and 3.8 in Seber (2
 })
 
 test_that("mrClosed match the Chapman results from mrN.single() from fishmethods",{
-  if (require(fishmethods)) {
-    tmp1 <- mrN.single(M=948,C=421,R=167)
-    
-    tmp <- mrClosed(M=948,n=421,m=167,method="Chapman")
-    stmp <- summary(tmp,incl.SE=TRUE)
-    expect_equal(stmp[[1,"N"]], round(tmp1$N[1],0))
-    expect_equal(stmp[[1,"SE"]], round(tmp1$SE[1],1))
-    
-    ctmp <- confint(tmp,type="hypergeometric")
-    ## The CIs do not equal (<1%) ... fish methods uses qhyper
-    ##   whereas FSA uses hyperCI
-    #expect_equal(ctmp[[1,"95% LCI"]], round(tmp1$LCI[1],0))
-    #expect_equal(ctmp[[1,"95% UCI"]], round(tmp1$UCI[1],0))
-  }
+  tmp1 <- fishmethods::mrN.single(M=948,C=421,R=167)
+  
+  tmp <- mrClosed(M=948,n=421,m=167,method="Chapman")
+  stmp <- summary(tmp,incl.SE=TRUE)
+  expect_equal(stmp[[1,"N"]], round(tmp1$N[1],0))
+  expect_equal(stmp[[1,"SE"]], round(tmp1$SE[1],1))
+  
+  ctmp <- confint(tmp,type="hypergeometric")
+  ## The CIs do not equal (<1%) ... fish methods uses qhyper
+  ##   whereas FSA uses hyperCI
+  #expect_equal(ctmp[[1,"95% LCI"]], round(tmp1$LCI[1],0))
+  #expect_equal(ctmp[[1,"95% UCI"]], round(tmp1$UCI[1],0))
 })
 
 
 test_that("mrClosed match the Bailey results from mrN.single() from fishmethods",{
-  if (require(fishmethods)) {
-    tmp1 <- mrN.single(M=948,C=421,R=167)
-    
-    tmp <- mrClosed(M=948,n=421,m=167,method="Bailey")
-    stmp <- summary(tmp,incl.SE=TRUE)
-    expect_equal(stmp[[1,"N"]], round(tmp1$N[2],0))
-    expect_equal(stmp[[1,"SE"]], round(tmp1$SE[2],1))
-    ctmp <- confint(tmp,type="binomial",bin.type="wilson")
-    ## CI does not match (<0.1%) ... fishmethods uses qbinom, FSA uses binCI()
-    #expect_equal(ctmp[[1,"95% LCI"]], round(tmp1$LCI[2],0))
-    #expect_equal(ctmp[[1,"95% UCI"]], round(tmp1$UCI[2],0))
-  }
+  tmp1 <- fishmethods::mrN.single(M=948,C=421,R=167)
+  
+  tmp <- mrClosed(M=948,n=421,m=167,method="Bailey")
+  stmp <- summary(tmp,incl.SE=TRUE)
+  expect_equal(stmp[[1,"N"]], round(tmp1$N[2],0))
+  expect_equal(stmp[[1,"SE"]], round(tmp1$SE[2],1))
+  ctmp <- confint(tmp,type="binomial",bin.type="wilson")
+  ## CI does not match (<0.1%) ... fishmethods uses qbinom, FSA uses binCI()
+  #expect_equal(ctmp[[1,"95% LCI"]], round(tmp1$LCI[2],0))
+  #expect_equal(ctmp[[1,"95% UCI"]], round(tmp1$UCI[2],0))
 })
 
 
 
 test_that("mrClosed match the Schnabel Results from p. 32 Krebs (1989)",{
-  if (require(FSAdata)) {
-    data(SunfishIN,package="FSAdata")
-    
-    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
-                                   method="Schnabel",chapman.mod=FALSE))
-    stmp <- summary(tmp)
-    expect_equal(stmp[[1,"N"]], 448)
-    ## See if intermediate calculations match Krebs
-    expect_equal(tmp$N, 447.5)
-    expect_equal(tmp$sum.m, 24)                # sum R in Krebs
-    expect_equal(tmp$sum.nM, 10740)            # sum CM in Krebs
-    expect_equal(tmp$sum.nM2, 970296)          # sum CM^2 in Krebs
-    expect_equal(tmp$sum.mM, 2294)             # sum RM in Krebs
-    expect_equal(round(tmp$sum.m2dn,3), 7.745) # sum R^2/C in Krebs
-    ctmp <- confint(tmp,type="Poisson")
-    ## The CIs do not equal ... Krebs uses table, FSA uses poiCI (see below)
-    #expect_equal(ctmp[[1,"95% LCI"]], 310)
-    #expect_equal(ctmp[[1,"95% UCI"]], 720)
-    ptmp <- poiCI(tmp$sum.m)
-    #expect_equal(ptmp[[1,"95% LCI"]], 14.921)
-    #expect_equal(ptmp[[1,"95% UCI"]], 34.665)
-  }
+  data(SunfishIN,package="FSAdata")
+  
+  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
+                                 method="Schnabel",chapman.mod=FALSE))
+  stmp <- summary(tmp)
+  expect_equal(stmp[[1,"N"]], 448)
+  ## See if intermediate calculations match Krebs
+  expect_equal(tmp$N, 447.5)
+  expect_equal(tmp$sum.m, 24)                # sum R in Krebs
+  expect_equal(tmp$sum.nM, 10740)            # sum CM in Krebs
+  expect_equal(tmp$sum.nM2, 970296)          # sum CM^2 in Krebs
+  expect_equal(tmp$sum.mM, 2294)             # sum RM in Krebs
+  expect_equal(round(tmp$sum.m2dn,3), 7.745) # sum R^2/C in Krebs
+  ctmp <- confint(tmp,type="Poisson")
+  ## The CIs do not equal ... Krebs uses table, FSA uses poiCI (see below)
+  #expect_equal(ctmp[[1,"95% LCI"]], 310)
+  #expect_equal(ctmp[[1,"95% UCI"]], 720)
+  ptmp <- poiCI(tmp$sum.m)
+  #expect_equal(ptmp[[1,"95% LCI"]], 14.921)
+  #expect_equal(ptmp[[1,"95% UCI"]], 34.665)
 })
 
 
 test_that("mrClosed match the Schnabel results from p. 99 Ricker (1975)",{
-  if (require(FSAdata)) {
-    data(SunfishIN,package="FSAdata")
-    
-    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
-                                   method="Schnabel",chapman.mod=FALSE))
-    stmp <- summary(tmp)
-    expect_equal(stmp[[1,"N"]], 448)
-    ## See if intermediate calculations match Krebs
-    expect_equal(tmp$sum.m, 24)                # sum R in Ricker
-    expect_equal(tmp$sum.nM, 10740)            # sum CM in Ricker
-    expect_equal(tmp$sum.nM2, 970296)          # sum CM^2 in Ricker
-    expect_equal(tmp$sum.mM, 2294)             # sum RM in Ricker
-    expect_equal(round(tmp$sum.m2dn,3), 7.745) # sum R^2/C in Ricker
-    ctmp <- confint(tmp,type="normal")
-    ## The CIs do not equal ... ???
-    #expect_equal(ctmp[[1,"95% LCI"]], 320)
-    #expect_equal(ctmp[[1,"95% UCI"]], 746)
-    
-    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
-                                   method="Schnabel",chapman.mod=TRUE))
-    stmp <- summary(tmp)
-    expect_equal(stmp[[1,"N"]], 430)
-    ctmp <- confint(tmp,type="Poisson") 
-    ## The CIs do not equal ... ???
-    #expect_equal(ctmp[[1,"95% LCI"]], 302)
-    #expect_equal(ctmp[[1,"95% UCI"]], 697) 
-  }
+  data(SunfishIN,package="FSAdata")
+  
+  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
+                                 method="Schnabel",chapman.mod=FALSE))
+  stmp <- summary(tmp)
+  expect_equal(stmp[[1,"N"]], 448)
+  ## See if intermediate calculations match Krebs
+  expect_equal(tmp$sum.m, 24)                # sum R in Ricker
+  expect_equal(tmp$sum.nM, 10740)            # sum CM in Ricker
+  expect_equal(tmp$sum.nM2, 970296)          # sum CM^2 in Ricker
+  expect_equal(tmp$sum.mM, 2294)             # sum RM in Ricker
+  expect_equal(round(tmp$sum.m2dn,3), 7.745) # sum R^2/C in Ricker
+  ctmp <- confint(tmp,type="normal")
+  ## The CIs do not equal ... ???
+  #expect_equal(ctmp[[1,"95% LCI"]], 320)
+  #expect_equal(ctmp[[1,"95% UCI"]], 746)
+  
+  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
+                                 method="Schnabel",chapman.mod=TRUE))
+  stmp <- summary(tmp)
+  expect_equal(stmp[[1,"N"]], 430)
+  ctmp <- confint(tmp,type="Poisson") 
+  ## The CIs do not equal ... ???
+  #expect_equal(ctmp[[1,"95% LCI"]], 302)
+  #expect_equal(ctmp[[1,"95% UCI"]], 697) 
 })
 
 
 test_that("mrClosed match the Schumacher-Eschmeyer results from p. 33 Krebs (1989)",{
-  if (require(FSAdata)) {
-    data(SunfishIN,package="FSAdata")
-    
-    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
-                                   method="Schumacher"))
-    stmp <- summary(tmp)
-    expect_equal(stmp[[1,"N"]], 423)
-    ctmp <- confint(tmp,type="normal") 
-    expect_equal(ctmp[[1,"95% LCI"]], 300)
-    expect_equal(ctmp[[1,"95% UCI"]], 719)
-  }
+  data(SunfishIN,package="FSAdata")
+  
+  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
+                                 method="Schumacher"))
+  stmp <- summary(tmp)
+  expect_equal(stmp[[1,"N"]], 423)
+  ctmp <- confint(tmp,type="normal") 
+  expect_equal(ctmp[[1,"95% LCI"]], 300)
+  expect_equal(ctmp[[1,"95% UCI"]], 719)
 })
 
 
 test_that("mrClosed match the Schumacher-Eschmeyer results from p. 99 Ricker (1975)",{
-  if (require(FSAdata)) {
-    data(SunfishIN,package="FSAdata")
-    
-    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
-                                   method="Schumacher"))
-    stmp <- summary(tmp)
-    expect_equal(stmp[[1,"N"]], 423)
-    ctmp <- confint(tmp,type="normal") 
-    ## The CIs do not equal ... ???
-    #expect_equal(ctmp[[1,"95% LCI"]], 304)
-    #expect_equal(ctmp[[1,"95% UCI"]], 696)
-  }
+  data(SunfishIN,package="FSAdata")
+  
+  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
+                                 method="Schumacher"))
+  stmp <- summary(tmp)
+  expect_equal(stmp[[1,"N"]], 423)
+  ctmp <- confint(tmp,type="normal") 
+  ## The CIs do not equal ... ???
+  #expect_equal(ctmp[[1,"95% LCI"]], 304)
+  #expect_equal(ctmp[[1,"95% UCI"]], 696)
 })

@@ -29,9 +29,9 @@
 #' @param rqrdPkgs A string vector that contains packages that are required for the vignette and for which all dependencies should be found.
 #' @param elapsed A numeric, usually from \code{proc.time}, that is the time required to run the vignette. If \code{NULL} then this output will not be used. See the note below.
 #' @param width A numeric that indicates the width to use for wrapping the reproducibility information when \code{out="r"}.
-#' @param addTOC A logical that indicates whether or not a table of contents entry for the reproducibility section should be added to the LaTeX output. Used only if \R{out="latex"}
-#' @param newpage A logical that indicates whether or not the reproducibility information should begin on a new page. Used only if \R{out="latex"}
-#' @param links A named character vector that will add a links bullet to the reproducibility information. The names will be shown and the values are the links. Used only if \R{out="markdown}.
+#' @param addTOC A logical that indicates whether or not a table of contents entry for the reproducibility section should be added to the LaTeX output. Used only if \code{out="latex"}
+#' @param newpage A logical that indicates whether or not the reproducibility information should begin on a new page. Used only if \code{out="latex"}
+#' @param links A named character vector that will add a links bullet to the reproducibility information. The names will be shown and the values are the links. Used only if \code{out="markdown"}.
 #' @param closeGraphics A logical that indicates whether the graphics device should be closed or not.
 #' @param ind An integer that indicates the CRAN mirror to use. Defaults to 1.
 #' @param \dots Additional arguments for the original \code{purl}.

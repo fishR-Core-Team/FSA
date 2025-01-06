@@ -38,7 +38,7 @@ test_that("lwCompPred() returns",{
   tmp2 <- FSA:::iMakeLWPred(tmp,lens=c(10,100,200),grps=levels(ChinookArg$loc),
                             vn=c("logtl","loc"),interval="confidence",
                             center.value=0,base=exp(1))
-  expect_is(tmp2,"data.frame")
+  expect_equal(class(tmp2),"data.frame")
   expect_equal(mode(tmp2),"list")
   expect_equal(nrow(tmp2),3)
   expect_equal(ncol(tmp2),3)
@@ -48,7 +48,7 @@ test_that("lwCompPred() returns",{
   tmp2 <- FSA:::iMakeLWPred(tmp,lens=c(10,100,200),grps=levels(ChinookArg$loc),
                             vn=c("logtl","loc"),interval="prediction",
                             center.value=0,base=exp(1))
-  expect_is(tmp2,"data.frame")
+  expect_equal(class(tmp2),"data.frame")
   expect_equal(mode(tmp2),"list")
   expect_equal(nrow(tmp2),3)
   expect_equal(ncol(tmp2),3)
@@ -58,7 +58,7 @@ test_that("lwCompPred() returns",{
   tmp2 <- FSA:::iMakeLWPred(tmp,lens=c(10,100,200),grps=levels(ChinookArg$loc),
                             vn=c("logtl","loc"),interval="both",
                             center.value=0,base=exp(1))
-  expect_is(tmp2,"data.frame")
+  expect_equal(class(tmp2),"data.frame")
   expect_equal(mode(tmp2),"list")
   expect_equal(nrow(tmp2),3)
   expect_equal(ncol(tmp2),5)

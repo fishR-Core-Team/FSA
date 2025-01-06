@@ -12,6 +12,8 @@
 #' @param data A data frame from which the variables in the \code{x} formula can be found. Not used if \code{x} is not a formula.
 #' @param ages2use A numerical vector of the ages that define the descending limb of the catch curve.
 #' @param zmethod  A string that indicates the method to use for estimating Z. See details.
+#' @param as.df A logical that indicates whether the results of \code{coef}, \code{confint}, or \code{summary} should be returned as a data.frame. Ignored in \code{summary} if \code{parm="lm"}.
+#' @param incl.est A logical that indicated whether the parameter point estimate should be included in the results from \code{confint}. Defaults to \code{FALSE}.
 #' @param verbose A logical that indicates whether the method should return just the estimate (\code{FALSE}; default) or a more verbose statement.
 #' @param pos.est A string to identify where to place the estimated mortality rates on the plot. Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot. Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements. Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.
 #' @param cex.est A single numeric character expansion value for the estimated mortality rates on the plot.
@@ -71,12 +73,15 @@
 #' cr1 <- chapmanRobson(catch~age,data=BrookTroutTH,ages2use=2:6)
 #' summary(cr1)
 #' summary(cr1,verbose=TRUE)
-#' cbind(Est=coef(cr1),confint(cr1))
+#' coef(cr1)
+#' confint(cr1)
+#' confint(cr1,incl.est=TRUE)
 #' plot(cr1)
 #' plot(cr1,axis.age="age")
 #' plot(cr1,axis.age="recoded age")
 #' summary(cr1,parm="Z")
-#' cbind(Est=coef(cr1,parm="Z"),confint(cr1,parm="Z"))
+#' coef(cr1,parm="Z")
+#' confint(cr1,parm="Z",incl.est=TRUE)
 #' 
 #' ## demonstration of excluding ages2use
 #' cr2 <- chapmanRobson(catch~age,data=BrookTroutTH,ages2use=-c(0,1))
@@ -89,6 +94,38 @@
 #' cr3 <- chapmanRobson(age,ct,4:12)
 #' summary(cr3)
 #' plot(cr3)
+#'
+#' ## Demonstration of computation for multiple groups
+#' ##   only ages on the descending limb for each group are in the data.frame
+#' # Get example data
+#' data(FHCatfish,package="FSAdata")
+#' FHCatfish
+#' 
+#' # Note use of incl.est=TRUE and as.df=TRUE
+#' if (require(dplyr)) {
+#'   res <- FHCatfish %>%
+#'     dplyr::group_by(river) %>%
+#'     dplyr::group_modify(~confint(chapmanRobson(abundance~age,data=.x),
+#'                                  incl.est=TRUE,as.df=TRUE)) %>%
+#'     as.data.frame() # removes tibble and grouping structure
+#'   res
+#' }
+#' 
+#' ## Demonstration of computation for multiple groups
+#' ##   ages not on descending limb are in the data.frame, but use same
+#' ##     ages.use= for each group
+#' # Get example data
+#' data(WalleyeKS,package="FSAdata")
+#' 
+#' # Note use of incl.est=TRUE and as.df=TRUE
+#' if (require(dplyr)) {
+#'   res <- WalleyeKS %>%
+#'     dplyr::group_by(reservoir) %>%
+#'     dplyr::group_modify(~confint(chapmanRobson(catch~age,data=.x,ages2use=2:10),
+#'                                  incl.est=TRUE,as.df=TRUE)) %>%
+#'     as.data.frame() # removes tibble and grouping structure
+#'   res
+#' }
 #'
 #' @rdname chapmanRobson
 #' @export
@@ -190,40 +227,79 @@ chapmanRobson.formula <- function(x,data,ages2use=age,
 #' @rdname chapmanRobson
 #' @export
 summary.chapmanRobson <- function(object,parm=c("all","both","Z","S"),
-                                  verbose=FALSE,...) {
+                                  verbose=FALSE,as.df=FALSE,...) {
   parm <- match.arg(parm)
   if (verbose) message("Intermediate statistics: ","n=",object$n,"; T=",object$T)
-  if (!parm %in% c("all","both"))
-    object$est[which(rownames(object$est)==parm),,drop=FALSE]
-  else object$est
-}
+  # matrix of all possible results
+  resm <- object$est
+  # data.frame of all possible results
+  resd <- data.frame(cbind(t(resm[1,c("Estimate","Std. Error")]),
+                           t(resm[2,c("Estimate","Std. Error")])))
+  names(resd) <- c("S","S_SE","Z","Z_SE")
+  # remove parameters not asked for
+  if (!parm %in% c("all","both")) {
+    resm <- resm[parm,,drop=FALSE]
+    resd <- resd[substr(names(resd),1,1)==parm]
+  }
+  # prepare to return data.frame if asked for, otherwise matrix
+  if (as.df) res <- resd
+    else res <- resm
+  res
+} 
 
 #' @rdname chapmanRobson
 #' @export
-coef.chapmanRobson <- function(object,parm=c("all","both","Z","S"),...) {
+coef.chapmanRobson <- function(object,parm=c("all","both","Z","S"),as.df=FALSE,...) {
   parm <- match.arg(parm)
   tmp <- summary(object,parm)
-  res <- tmp[,1]
-  names(res) <- rownames(tmp)
-  if (!parm %in% c("all","both")) res <- res[parm]
+  # matrix of lm results
+  resm <- tmp[,1]
+  names(resm) <- rownames(tmp)
+  # data.frame of all possible results
+  resd <- data.frame(cbind(t(resm[1]),t(resm[2])))
+  names(resd) <- names(resm)
+  # remove parameters not asked for
+  if (!parm %in% c("all","both")) {
+    resm <- resm[parm,drop=FALSE]
+    resd <- resd[grepl(parm,names(resd))]
+  }
+  # prepare to return data.frame if asked for, otherwise matrix
+  if (as.df) res <- resd
+    else res <- resm
   res
 }
 
 #' @rdname chapmanRobson
 #' @export
 confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),
-                                  level=conf.level,conf.level=0.95,...) {
+                                  level=conf.level,conf.level=0.95,
+                                  as.df=FALSE,incl.est=FALSE,...) {
   parm <- match.arg(parm)
-  
   ## Check on conf.level
   iCheckConfLevel(conf.level) 
   
+  # matrix of all possible results
   z <- c(-1,1)*stats::qnorm((1-(1-conf.level)/2))
-  res <- rbind(S=object$est["S","Estimate"]+z*object$est["S","Std. Error"],
-               Z=object$est["Z","Estimate"]+z*object$est["Z","Std. Error"])
-  colnames(res) <- iCILabel(conf.level)
-  # Create output matrix
-  if (!parm %in% c("all","both")) res <- res[parm,,drop=FALSE]
+  resm <- cbind(coef.chapmanRobson(object),
+                rbind(S=object$est["S","Estimate"]+z*object$est["S","Std. Error"],
+                      Z=object$est["Z","Estimate"]+z*object$est["Z","Std. Error"]))
+  colnames(resm) <- c("Est",iCILabel(conf.level))
+  # data.frame of all possible results
+  resd <- data.frame(cbind(t(resm[1,]),t(resm[2,])))
+  names(resd) <- c("S","S_LCI","S_UCI","Z","Z_LCI","Z_UCI")
+  ## remove estimates if not asked for
+  if (!incl.est) {
+    resm <- resm[,-which(colnames(resm)=="Est"),drop=FALSE]
+    resd <- resd[!names(resd) %in% c("S","Z")]
+  }
+  ## remove unasked for parameters
+  if (!parm %in% c("all","both")) {
+    resm <- resm[parm,,drop=FALSE]
+    resd <- resd[grepl(parm,names(resd))]
+  }
+  ## Return the appropriate matrix or data.frame
+  if (as.df) res <- resd
+    else res <- resm
   res
 }
 

@@ -36,20 +36,20 @@ test_that("Does ksTest() match ks.test()",{
   ## one-sample (from ks.test) still works
   tmp1 <- ksTest(x+2,"pgamma",3,2)
   tmp1o <- ks.test(x+2,"pgamma",3,2)
-  expect_is(tmp1,"htest")
+  expect_equal(class(tmp1),c("ks.test","htest"))
   expect_equal(mode(tmp1),"list")
   expect_equal(names(tmp1),names(tmp1o))
   
   ## first two-sample example in ?ks.test
   tmp1 <- ksTest(x,y)
   tmp1o <- ks.test(x,y)
-  expect_is(tmp1,"htest")
+  expect_equal(class(tmp1),c("ks.test","htest"))
   expect_equal(mode(tmp1),"list")
   expect_equal(names(tmp1),names(tmp1o))
   
   # using formula notation
   tmp1f <- ksTest(dat~grp,data=df)
-  expect_is(tmp1f,"htest")
+  expect_equal(class(tmp1f),c("ks.test","htest"))
   expect_equal(mode(tmp1f),"list")
   expect_equal(names(tmp1f),names(tmp1o))
   expect_identical(tmp1,tmp1f)

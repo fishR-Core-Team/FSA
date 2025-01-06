@@ -154,7 +154,10 @@ navbar:
   right:
     - icon: fa-newspaper
       href: news/index.html
+      aria-label: See package news
     - icon: fa-home fa
       href: index.html
+      aria-label: Goto FSA home
     - icon: fa-github fa
       href: https://github.com/fishR-Core-Team/FSA
+      aria-label: Goto FSA github page

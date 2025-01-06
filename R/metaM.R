@@ -5,7 +5,7 @@
 #' @details One of several methods is chosen with \code{method}. The available methods can be seen with \code{Mmethods()} and are listed below with a brief description of where the equation came from. The sources (listed below) should be consulted for more specific information.
 #'  \itemize{
 #'    \item \code{method="HoenigNLS"}:  The \dQuote{modified Hoenig equation derived with a non-linear model} as described in Then \emph{et al.} (2015) on the third line of Table 3. This method was the preferred method suggested by Then \emph{et al.} (2015). Requires only \code{tmax}.
-#'    \item \code{method="PaulyLNoT"}: The \dQuote{modified Pauly length equation} as described on the sixth line of Table 3 in Then \emph{et al.} (2015). Then \emph{et al.} (2015) suggested that this is the preferred model if maximum age (tmax) information was not available. Requires \code{K} and \code{Linf}.
+#'    \item \code{method="PaulyLNoT"}: The \dQuote{modified Pauly length equation} as described on the sixth line of Table 3 in Then \emph{et al.} (2015). Then \emph{et al.} (2015) suggested that this is the preferred method if maximum age (tmax) information was not available. Requires \code{K} and \code{Linf}.
 #'    \item \code{method="PaulyL"}: The \dQuote{Pauly (1980) equation using fish lengths} from his equation 11. This is the most commonly used method in the literature. Note that Pauly used common logarithms as used here but the model is often presented in other sources with natural logarithms. Requires \code{K}, \code{Linf}, and \code{T}.
 #'    \item \code{method="PaulyW"}: The \dQuote{Pauly (1980) equation for weights} from his equation 10. Requires \code{K}, \code{Winf}, and \code{T}.
 #'    \item \code{method="HoeingO"}, \code{method="HoeingOF"}, \code{method="HoeingOM"}, \code{method="HoeingOC"}: The original \dQuote{Hoenig (1983) composite}, \dQuote{fish}, \dQuote{mollusc}, and \dQuote{cetacean} (fit with OLS) equations from the second column on page 899 of Hoenig (1983). Requires only \code{tmax}.
@@ -23,11 +23,14 @@
 #'    \item \code{method="ZhangMegreyD"}, \code{method="ZhangMegreyP"}: The \dQuote{Zhang and Megrey (2006) equation} as given in their equation 8 but modified for demersal or pelagic fish. Thus, the user must choose the fish type with \code{group}. Requires \code{tmax}, \code{K}, \code{t0}, \code{t50}, and \code{b}.
 #'    \item \code{method="RikhterEfanov1"}: The \dQuote{Rikhter and Efanov (1976) equation (#2)} as given in the second column of page 541 of Kenchington (2014) and in Table 6.4 of Miranda and Bettoli (2007). Requires only \code{t50}.
 #'    \item \code{method="RikhterEfanov2"}: The \dQuote{Rikhter and Efanov (1976) equation (#1)} as given in the first column of page 541 of Kenchington (2014). Requires \code{t50}, \code{K}, \code{t0}, and \code{b}.
+#'    \item \code{method="QuinnDeriso"}: The \dQuote{Quinn & Derison (1999)} equation as given in the FAMS manual as equation 4:18. Requires \code{PS} and \code{tmax}. Included only for use with \code{rFAMS} package.
+#'    \item \code{method="ChenWatanabe"}: The \dQuote{Chen & Watanabe (1989)} equation as given in the FAMS manual as equation 4:24. As suggested in FAMS manual used \code{tmax} for final time and 1 as initial time. Requires \code{tmax}, \code{K}, and \code{t0}. Included only for use with \code{rFAMS} package.
+#'    \item \code{method="PetersonWroblewski"}: The \dQuote{Peterson & Wroblewski (1984)} equation as given in the FAMS manual as equation 4:22. As suggested in FAMS manual used \code{Winf} for weight. Requires \code{Winf}. Included only for use with \code{rFAMS} package.
 #'  } 
-#'
-#' @param what A string that indicates what grouping of methods to return. Defaults to returning all methods.
-#' @param method A string that indicates which method or equation to use. See details.
-#' @param justM A logical that indicates whether just the estimate of M (\code{TRUE}; Default) or a more descriptive list should be returned.
+#' 
+#' Conditional mortality (cm) is estimated from instantaneous natural mortality (M) with 1-exp(-M). It is returned with M here simply as a courtesy for those using the \code{rFAMS} package.
+#' 
+#' @param method A string that indicates what grouping of methods to return (defaults to all methods) in \code{Mmethods()} or which methods or equations to use in \code{metaM()}. See details.
 #' @param tmax The maximum age for the population of fish.
 #' @param K The Brody growth coefficient from the fit of the von Bertalanffy growth function.
 #' @param Linf The asymptotic mean length (cm) from the fit of the von Bertalanffy growth function.
@@ -37,23 +40,23 @@
 #' @param Temp The temperature experienced by the fish (C).
 #' @param t50 The age (time) when half the fish in the population are mature.
 #' @param Winf The asymptotic mean weight (g) from the fit of the von Bertalanffy growth function.
-#' @param x A \code{metaM} object returned from \code{metaM} when \code{justM=FALSE}.
-#' @param digits A numeric that controls the number of digits printed for the estimate of M.
-#' @param \dots Additional arguments for methods. Not implemented.
+#' @param PS The proportion of the population that survive to \code{tmax}. Should usually be around 0.01 or 0.05.
+#' @param verbose Logical for whether to include method name and given inputs in resultant data.frame. Defaults to \code{TRUE}.
 #'
-#' @return \code{Mmethods} returns a character vector with a list of methods. If only one \code{method} is chosen then \code{metaM} returns a single numeric if \code{justM=TRUE} or, otherwise, a \code{metaM} object that is a list with the following items:
+#' @return \code{Mmethods} returns a character vector with a list of methods.
+#' 
+#' \code{metaM} returns a data.frame with the following items:
 #' \itemize{
+#'    \item \code{M}: The estimated natural mortality rate.
+#'    \item \code{cm}: The estimated conditional natural mortality rate (computed directly from \code{M}).
 #'    \item \code{method}: The name for the method within the function (as given in \code{method}).
 #'    \item \code{name}: A more descriptive name for the method.
-#'    \item \code{givens}: A vector of values required by the method to estimate M.
-#'    \item \code{M}: The estimated natural mortality rate.
+#'    \item \code{givens}: A string that contains the input values required by the method to estimate M.
 #'  }
 #' 
-#' If multiple \code{method}s are chosen then a data.frame is returned with the method name abbreviation in the \code{method} variable and the associated estimated M in the \code{M} variable.
+#' @section Testing: Kenchington (2014) provided life history parameters for several stocks and used many models to estimate M. I checked the calculations for the \code{PaulyL}, \code{PaulyW}, \code{HoenigO}, \code{HoenigOF}, \code{HoenigO2}, \code{HoenigO2F}, \code{"JensenK1"}, \code{"Gislason"}, \code{"AlversonCarney"}, \code{"Charnov"}, \code{"ZhangMegrey"}, \code{"RikhterEfanov1"}, and \code{"RikhterEfanov2"} methods for three stocks. All results perfectly matched Kenchington's results for Chesapeake Bay Anchovy and Rio Formosa Seahorse. For the Norwegian Fjord Lanternfish, all results perfectly matched Kenchington's results except for \code{HoenigOF} and \code{HoenigO2F}.
 #' 
-#' @section Testing: Kenchington (2014) provided life history parameters for several stocks and used many models to estimate M. I checked the calculations for the \code{PaulyL}, \code{PaulyW}, \code{HoenigO} for \code{Hgroup="all"} and \code{Hgroup="fish"}, \code{HoenigO2} for \code{Hgroup="all"} and \code{Hgroup="fish"}, \code{"JensenK1"}, \code{"Gislason"}, \code{"AlversonCarney"}, \code{"Charnov"}, \code{"ZhangMegrey"}, \code{"RikhterEfanov1"}, and \code{"RikhterEfanov2"} methods for three stocks. All results perfectly matched Kenchington's results for Chesapeake Bay Anchovy and Rio Formosa Seahorse. For the Norwegian Fjord Lanternfish, all results perfectly matched Kenchington's results except for when \code{Hgroup="fish"} for both \code{HoenigO} and \code{HoenigO2}.
-#' 
-#' Results for the Rio Formosa Seahorse data were also tested against results from \code{\link[fishmethods]{M.empirical}} from \pkg{fishmethods} for the \code{PaulyL}, \code{PaulyW}, \code{HoenigO} for \code{Hgroup="all"} and \code{Hgroup="fish"}, \code{"Gislason"}, and \code{"AlversonCarney"} methods (the only methods in common between the two packages). All results matched perfectly.
+#' Results for the Rio Formosa Seahorse data were also tested against results from \code{\link[fishmethods]{M.empirical}} from \pkg{fishmethods} for the \code{PaulyL}, \code{PaulyW}, \code{HoenigO}, \code{HoenigOF}, \code{"Gislason"}, and \code{"AlversonCarney"} methods (the only methods in common between the two packages). All results matched perfectly.
 #' 
 #' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #' 
@@ -64,6 +67,8 @@
 #' @references Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Alverson, D.L. and M.J. Carney. 1975. A graphic review of the growth and decay of population cohorts. Journal du Conseil International pour l'Exploration de la Mer. 36:133-143.
+#' 
+#' Chen, S. and S. Watanabe. 1989. Age dependence of natural mortality coefficient in fish population dynamics. Nippon Suisan Gakkaishi 55:205-208.
 #' 
 #' Charnov, E.L., H. Gislason, and J.G. Pope. 2013. Evolutionary assembly rules for fish life histories. Fish and Fisheries. 14:213-224.
 #' 
@@ -81,7 +86,13 @@
 #' 
 #' Pauly, D. 1980. On the interrelationships between natural mortality, growth parameters, and mean environmental temperature in 175 fish stocks. Journal du Conseil International pour l'Exploration de la Mer. 39:175-192. [Was (is?) from http://innri.unuftp.is/pauly/On\%20the\%20interrelationships\%20betwe.pdf.]
 #' 
+#' Peterson, I. and J.S. Wroblewski. 1984. Mortality rate of fishes in the pelagic ecosystem. Canadian Journal of Fisheries and Aquatic Sciences. 41:1117-1120.
+#' 
+#' Quinn III, T.J. and R.B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York.
+#' 
 #' Rikhter, V.A., and V.N. Efanov. 1976. On one of the approaches for estimating natural mortality in fish populations (in Russian). ICNAF Research Document 76/IV/8, 12pp. 
+#' 
+#' Slipke, J.W. and M.J. Maceina. 2013. Fisheries Analysis and Modeling Simulator (FAMS 1.64). American Fisheries Society.
 #' 
 #' Then, A.Y., J.M. Hoenig, N.G. Hall, and D.A. Hewitt. 2015. Evaluating the predictive performance of empirical estimators of natural mortality rate using information on over 200 fish species. ICES Journal of Marine Science. 72:82-92.
 #' 
@@ -89,7 +100,7 @@
 #' 
 #' @keywords manip 
 #'    
-#' @aliases metaM print.metaM Mmethods
+#' @aliases metaM Mmethods
 #' 
 #' @examples
 #' ## List names for available methods
@@ -98,9 +109,8 @@
 #' 
 #' ## Simple Examples
 #' metaM("tmax",tmax=20)
-#' metaM("tmax",tmax=20,justM=FALSE)
 #' metaM("HoenigNLS",tmax=20)
-#' metaM("HoenigNLS",tmax=20,justM=FALSE)
+#' metaM("HoenigNLS",tmax=20,verbose=FALSE)
 #'  
 #' ## Example Patagonian Sprat ... from Table 2 in Cerna et al. (2014)
 #' ## http://www.scielo.cl/pdf/lajar/v42n3/art15.pdf
@@ -112,7 +122,6 @@
 #' t50 <- t0-(1/K)*log(1-13.5/Linf)
 #' metaM("RikhterEfanov1",t50=t50)
 #' metaM("PaulyL",K=K,Linf=Linf,Temp=Temp)
-#' metaM("PaulyL",K=K,Linf=Linf,Temp=Temp,justM=FALSE)
 #' metaM("HoenigNLS",tmax=tmax)
 #' metaM("HoenigO",tmax=tmax)
 #' metaM("HewittHoenig",tmax=tmax)
@@ -124,14 +133,21 @@
 #'
 #' ## Example of multiple methods using Mmethods
 #' # select some methods
-#' metaM(Mmethods()[-c(15,20,22:24,26)],K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
+#' metaM(Mmethods()[-c(15,20,22:24,26:29)],K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
 #' # select just the Hoenig methods
 #' metaM(Mmethods("Hoenig"),K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
 #'  
+#' ## Example of computing an average M
+#' # select multiple models used in FAMS (example only, these are not best models)
+#' ( res <- metaM(Mmethods("FAMS"),tmax=tmax,K=K,Linf=Linf,t0=t0,
+#'                Temp=Temp,PS=0.01,Winf=30) )
+#' ( meanM <- mean(res$M) )
+#' ( meancm <- mean(res$cm) )
+#' 
 #' @rdname metaM
 #' @export
-Mmethods <- function(what=c("all","tmax","K","Hoenig","Pauly")) {
-  what <- match.arg(what)
+Mmethods <- function(method=c("all","tmax","K","Hoenig","Pauly","FAMS")) {
+  method <- match.arg(method)
   all_meth <- c("HoenigNLS","HoenigO","HoenigOF","HoenigOM","HoenigOC",
                 "HoenigO2","HoenigO2F","HoenigO2M","HoenigO2C",
                 "HoenigLM","HewittHoenig","tmax1",
@@ -139,43 +155,41 @@ Mmethods <- function(what=c("all","tmax","K","Hoenig","Pauly")) {
                 "K1","K2","JensenK1","JensenK2","Gislason",
                 "AlversonCarney","Charnov",
                 "ZhangMegreyD","ZhangMegreyP",
-                "RikhterEfanov1","RikhterEfanov2")
+                "RikhterEfanov1","RikhterEfanov2",
+                "QuinnDeriso","ChenWatanabe","PetersonWroblewski")
   H_meth <- all_meth[grep("Hoenig",all_meth)]
   P_meth <- 
-  switch(what,
+  switch(method,
          all    = { meths <- all_meth },
          tmax   = { meths <- c("tmax1",H_meth)},
          K      = { meths <- c("K1","K2","JensenK1","JensenK2")},
          Hoenig = { meths <- H_meth},
-         Pauly  = { meths <- all_meth[grep("Pauly",all_meth)] })
+         Pauly  = { meths <- all_meth[grep("Pauly",all_meth)] },
+         FAMS   = { meths <- c("QuinnDeriso","HoenigOF","JensenK1",
+                               "PetersonWroblewski","PaulyL","ChenWatanabe")}
+         )
   meths
 }
 
 #' @rdname metaM
 #' @export
-metaM <- function(method=Mmethods(),justM=TRUE,
+metaM <- function(method=Mmethods(),
                   tmax=NULL,K=NULL,Linf=NULL,t0=NULL,b=NULL,
-                  L=NULL,Temp=NULL,t50=NULL,Winf=NULL) {
+                  L=NULL,Temp=NULL,t50=NULL,Winf=NULL,PS=NULL,
+                  verbose=TRUE) {
   ## Get method or methods
   method <- match.arg(method,several.ok=TRUE)
-  ## If only one method then one call to metaM1
-  if (length(method)==1) res <- metaM1(method,justM,tmax,K,Linf,t0,b,L,Temp,t50,Winf)
-  else {
-  ## If multiple methods then use apply to run all at once
-    if (justM) {
-      res <- apply(matrix(method),1,metaM1,justM,tmax,K,Linf,t0,b,L,Temp,t50,Winf)
-      ## put together as a data.frame to return
-      res <- data.frame(method,M=res,stringsAsFactors=FALSE)
-    } else {
-      for (i in method) print(metaM1(i,justM,tmax,K,Linf,t0,b,L,Temp,t50,Winf))
-      res <- NULL
-    }
-  }
+  ## Use apply to run all methods at once (even if only one)
+  res <- lapply(method,metaM1,tmax,K,Linf,t0,b,L,Temp,t50,Winf,PS)
+  ## Put together as a data.frame to return
+  res <- as.data.frame(do.call(rbind,res))
+  ## If not verbose then remove name and givens from data.frame
+  if (!verbose) res <- res[,!names(res) %in% c("name","givens")]
   ## Return the result
   res
 }
   
-metaM1 <- function(method,justM,tmax,K,Linf,t0,b,L,Temp,t50,Winf,...) {
+metaM1 <- function(method,tmax,K,Linf,t0,b,L,Temp,t50,Winf,PS,...) {
   switch(method,
          tmax1 = { ## from Then et al. (2015), Table 3, 1st line
            name <- "Then et al. (2015) tmax equation"
@@ -336,26 +350,50 @@ metaM1 <- function(method,justM,tmax,K,Linf,t0,b,L,Temp,t50,Winf,...) {
            name <- "Richter & Evanov (1976) equation #2"
            givens <- c(K=K,t0=t0,t50=t50,b=b)
            M <- (b*K)/(exp(K*(t50-t0))-1) },
+         QuinnDeriso = {
+           ## from Quinn & Deriso (1990) as described in FAMS manual
+           ##   equation 4:18 in FAMS manual
+           iCheck_PS(PS)
+           name <- "Quinn & Deriso (1999) from FAMS"
+           givens <- c(PS=PS,tmax=tmax)
+           M <- -log(PS)/tmax
+         },
+         ChenWatanabe = {
+           ## from Chen and Watanabe (1989) as described in FAMS manual
+           ##   equation 4:24 in FAMS manual
+           ##   here followed FAMS notes and used ti=1 and tf=tmax
+           ti <- 1    # initial age
+           tf <- tmax # final age
+           iCheck_K(K)
+           iCheck_t0(t0)
+           iCheck_tmax(tmax)
+           name <- "Chen & Watanabe (1989) from FAMS"
+           givens <- c(tmax=tmax,K=K,t0=t0)
+           M <- (1/(tf-ti))*log((exp(-K*tf)-exp(-K*t0))/(exp(-K*ti)-exp(-K*t0)))
+         },
+         PetersonWroblewski = {
+           ## From Peterson & Wroblewski (1984) as described in FAMS manual
+           ##   equation 4:22 in FAMS manual
+           ##   here followed FAMS notes and used W=Winf
+           W <- Winf
+           iCheck_Winf(Winf)
+           name <- "Peterson & Watanabe (1984) from FAMS"
+           givens <- c(Winf=Winf)
+           M <- 1.92*(W^(-0.25))
+         }
   ) # end switch()
-  ## Return just M result if justM=TRUE
-  if (justM) res <- M
-  else {
-  ## Otherwise a list with a class for printing
-    res <- list(method=method,name=name,givens=givens,M=M)
-    class(res) <- "metaM"
-  }
-  res
+  ## Make givens into a string
+  ### Round given values to default digits, and then convert to chracter
+  givens <- sapply(givens,
+                   FUN=function(x) as.character(round(x,digits=getOption("digits"))))
+  ### Combine givens name with givens value
+  tmpgivens <- paste0(names(givens),"=",givens)
+  ### Separate multiple givens with a comma
+  if (length(givens>1)) tmpgivens <- paste(tmpgivens,collapse=", ")
+  
+  ## Return data.frame
+  data.frame(M=M,cm=1-exp(-M),method=method,name=name,givens=tmpgivens)
 }
-
-#' @rdname metaM
-#' @export
-print.metaM <- function(x,digits=4,...) { # nocov start
-  message("M=",round(x$M,digits)," as estimated with ",x$name)
-  tmp <- paste0(names(x$givens),"=",x$givens)
-  if (length(x$givens>1)) tmp <- paste(tmp,collapse=", ")
-  message("  with givens: ",tmp)
-} # nocov end
-
 
 # ############################################################
 # Internal methods
@@ -407,4 +445,11 @@ iCheck_t50 <- function(t50) {
 iCheck_b <- function(b) {
   if (is.null(b)) STOP("A value must be given to 'b'.")  
   if (b<1 || b>5) WARN("'b' value seems unreasonable.")
+}
+
+iCheck_PS <- function(PS) {
+  if (is.null(PS)) STOP("A value must be given to 'PS'.")
+  if (PS<0) STOP("'PS' must be greater than 0.")
+  if (PS>1) STOP("'PS' should be proportion (e.g., 0.01).")
+  if (PS>0.1) WARN("'PS' value seems unreasonable (FAMS suggests 0.01 or 0.05).")
 }

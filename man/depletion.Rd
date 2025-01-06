@@ -7,25 +7,46 @@
 \alias{coef.depletion}
 \alias{anova.depletion}
 \alias{confint.depletion}
+\alias{depletion.formula}
+\alias{depletion.default}
 \alias{rSquared.depletion}
 \title{Computes the Leslie or DeLury population estimate from catch and effort data.}
 \usage{
-depletion(
+depletion(catch, ...)
+
+\method{depletion}{formula}(
+  catch,
+  data,
+  method = c("Leslie", "DeLury", "Delury"),
+  Ricker.mod = FALSE,
+  ...
+)
+
+\method{depletion}{default}(
   catch,
   effort,
   method = c("Leslie", "DeLury", "Delury"),
-  Ricker.mod = FALSE
+  Ricker.mod = FALSE,
+  ...
 )
 
-\method{summary}{depletion}(object, parm = c("all", "both", "No", "q", "lm"), verbose = FALSE, ...)
+\method{summary}{depletion}(
+  object,
+  parm = c("all", "both", "No", "q", "lm"),
+  verbose = FALSE,
+  as.df = FALSE,
+  ...
+)
 
-\method{coef}{depletion}(object, parm = c("all", "both", "No", "q", "lm"), ...)
+\method{coef}{depletion}(object, parm = c("all", "both", "No", "q", "lm"), as.df = FALSE, ...)
 
 \method{confint}{depletion}(
   object,
   parm = c("all", "both", "No", "q", "lm"),
   level = conf.level,
   conf.level = 0.95,
+  incl.est = FALSE,
+  as.df = FALSE,
   ...
 )
 
@@ -48,13 +69,17 @@ depletion(
 )
 }
 \arguments{
-\item{catch}{A numeric vector of catches of fish at each time.}
+\item{catch}{A numeric vector of catches of fish at each time, or a formula of the form \code{catch~effort}.}
 
-\item{effort}{A numeric vector of efforts expended at each time.}
+\item{\dots}{Additional arguments for methods.}
+
+\item{data}{A data.frame from which the variables in the \code{catch} formula can be found. Not used if \code{catch} is not a formula.}
 
 \item{method}{A single string that indicates which depletion method to use}
 
 \item{Ricker.mod}{A single logical that indicates whether to use the modification proposed by Ricker (=TRUE) or not (=FALSE, default).}
+
+\item{effort}{A numeric vector of efforts expended at each time.}
 
 \item{object}{An object saved from the \code{removal} call (i.e., of class \code{depletion}).}
 
@@ -62,11 +87,13 @@ depletion(
 
 \item{verbose}{A logical that indicates whether a reminder of the method used should be printed with the summary results.}
 
-\item{\dots}{Additional arguments for methods.}
+\item{as.df}{A logical that indicates whether the results of \code{coef}, \code{confint}, or \code{summary} should be returned as a data.frame. Ignored in \code{summary} if \code{parm="lm"}.}
 
 \item{level}{Same as \code{conf.level} but used for compatibility with generic \code{confint} function.}
 
 \item{conf.level}{A single number that represents the level of confidence to use for constructing confidence intervals.}
+
+\item{incl.est}{A logical that indicated whether the parameter point estimate should be included in the results from \code{confint}. Defaults to \code{FALSE}.}
 
 \item{digits}{The number of digits to round the \code{rSquared} result to.}
 
@@ -135,35 +162,47 @@ summary(l1,verbose=TRUE)
 summary(l1,parm="No")
 rSquared(l1)
 rSquared(l1,digits=1,percent=TRUE)
-cbind(Est=coef(l1),confint(l1))
-cbind(Est=coef(l1,parm="No"),confint(l1,parm="No"))
-cbind(Est=coef(l1,parm="q"),confint(l1,parm="q"))
-summary(l1,parm="lm")
+coef(l1)
+confint(l1)
+confint(l1,incl.est=TRUE)
+confint(l1,incl.est=TRUE,parm="No")
+confint(l1,incl.est=TRUE,parm="q")
+confint(l1,incl.est=TRUE,parm="lm")
 plot(l1)
 
 # with Ricker modification
 l2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Leslie",Ricker.mod=TRUE)
 summary(l2)
-cbind(Est=coef(l2),confint(l1))
+confint(l1,incl.est=TRUE)
 plot(l2)
 
-## DeLury model examples
-# no Ricker modification
+## DeLury model examples with no Ricker modification
 d1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="DeLury")
 summary(d1)
-summary(d1,parm="q")
-summary(d1,verbose=TRUE)
 rSquared(d1)
-cbind(Est=coef(d1),confint(d1))
-summary(d1,parm="lm")
+confint(d1,incl.est=TRUE)
 plot(d1)
 
-# with Ricker modification
-d2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="DeLury",Ricker.mod=TRUE)
-summary(d2)
-cbind(Est=coef(d2),confint(d2))
-cbind(Est=coef(d2,parm="q"),confint(d2,parm="q"))
-plot(d2)
+# Leslie model using formula notation
+l3 <- depletion(catch~effort,data=SMBassLS)
+summary(l3)
+
+# Leslie model by group (requires dplyr package)
+# Dummy example data (lake=="A" is SMBassLS example ... just FYI)
+tmpdf <- data.frame(ct=c(131,69,99,78,56,76,49,42,63,47,
+                         117,75,87,67,58,67,42),
+                    ft=c(7,7,7,7,7,7,7,7,7,7,
+                         5,7,5,5,4,6,5),
+                    lake=as.factor(c(rep("A",10),rep("B",7))))
+                                   
+if (require(dplyr)) {
+  res <- tmpdf \%>\%
+    dplyr::group_by(lake) \%>\%
+      dplyr::group_modify(~confint(depletion(ct~ft,data=.x),
+                                   incl.est=TRUE,as.df=TRUE)) \%>\%
+      as.data.frame() # removes tibble and grouping structure
+  res
+}
 
 }
 \references{

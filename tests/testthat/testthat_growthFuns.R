@@ -62,32 +62,32 @@ test_that("growthFunShow() & Schnute() messages",{
 ## Test Output Types ----
 test_that("growthFunShow() results",{
   for (i in vbs) {
-    expect_is(growthFunShow("vonBertalanffy",param=i),"expression")
-    expect_is(growthFunShow("vonBertalanffy",param=i,plot=TRUE),"expression")
+    expect_equal(class(growthFunShow("vonBertalanffy",param=i)),"expression")
+    expect_equal(class(growthFunShow("vonBertalanffy",param=i,plot=TRUE)),"expression")
   }
   for (i in gomps) {
-    expect_is(growthFunShow("Gompertz",param=i),"expression")
-    expect_is(growthFunShow("Gompertz",param=i,plot=TRUE),"expression")
+    expect_equal(class(growthFunShow("Gompertz",param=i)),"expression")
+    expect_equal(class(growthFunShow("Gompertz",param=i,plot=TRUE)),"expression")
   }
   for (i in logistics) {
-    expect_is(growthFunShow("Logistic",param=i),"expression")
-    expect_is(growthFunShow("Logistic",param=i,plot=TRUE),"expression")
+    expect_equal(class(growthFunShow("Logistic",param=i)),"expression")
+    expect_equal(class(growthFunShow("Logistic",param=i,plot=TRUE)),"expression")
   }
   for (i in 1:6) {
-    expect_is(growthFunShow("Richards",param=i),"expression")
-    expect_is(growthFunShow("Richards",param=i,plot=TRUE),"expression")
+    expect_equal(class(growthFunShow("Richards",param=i)),"expression")
+    expect_equal(class(growthFunShow("Richards",param=i,plot=TRUE)),"expression")
   }
   for (i in 1:4) {
-    expect_is(growthFunShow("Schnute",param=i),"expression")
-    expect_is(growthFunShow("Schnute",param=i,plot=TRUE),"expression")
+    expect_equal(class(growthFunShow("Schnute",param=i)),"expression")
+    expect_equal(class(growthFunShow("Schnute",param=i,plot=TRUE)),"expression")
   }
 })
 
 test_that("vbFuns() output",{
   ## Do all choices return a function
   for (i in vbs) {
-    expect_is(vbFuns(i),"function")
-    expect_is(vbFuns(i,simple=TRUE),"function")
+    expect_equal(class(vbFuns(i)),"function")
+    expect_equal(class(vbFuns(i,simple=TRUE)),"function")
   }
   ## Do all choices return a message with the name of the function in it
   for (i in vbs) expect_message(vbFuns(i,msg=TRUE),i)
@@ -110,8 +110,8 @@ test_that("vbFuns() arguments are in same order as vbStarts() list",{
 test_that("GompertzFuns() output",{
   ## Do all choices return a function
   for (i in gomps) {
-    expect_is(GompertzFuns(i),"function")
-    expect_is(GompertzFuns(i,simple=TRUE),"function")
+    expect_equal(class(GompertzFuns(i)),"function")
+    expect_equal(class(GompertzFuns(i,simple=TRUE)),"function")
   }
   ## Do all choices return a message with the name of the function in it
   for (i in gomps) expect_message(GompertzFuns(i,msg=TRUE),i)
@@ -120,8 +120,8 @@ test_that("GompertzFuns() output",{
 test_that("logisticFuns() output",{
   ## Do all choices return a function
   for (i in logistics) {
-    expect_is(logisticFuns(i),"function")
-    expect_is(logisticFuns(i,simple=TRUE),"function")
+    expect_equal(class(logisticFuns(i)),"function")
+    expect_equal(class(logisticFuns(i,simple=TRUE)),"function")
   }
   ## Do all choices return a message with the name of the function in it
   for (i in logistics) expect_message(logisticFuns(i,msg=TRUE),i)
@@ -130,18 +130,18 @@ test_that("logisticFuns() output",{
 test_that("RichardsFuns() output",{
   ## Do all choices return a function
   for (i in 1:6) {
-    expect_is(RichardsFuns(i),"function")
-    expect_is(RichardsFuns(i,simple=TRUE),"function")
+    expect_equal(class(RichardsFuns(i)),"function")
+    expect_equal(class(RichardsFuns(i,simple=TRUE)),"function")
   }
   ## Do all choices return a message with the name of the function in it
   for (i in 1:6) expect_message(RichardsFuns(i,msg=TRUE),paste0("Richards",i))
 })
 
 test_that("Schnute() output",{
-  expect_is(Schnute(3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
-  expect_is(Schnute(3,case=2,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
-  expect_is(Schnute(3,case=3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
-  expect_is(Schnute(3,case=4,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
+  expect_equal(class(Schnute(3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)),"numeric")
+  expect_equal(class(Schnute(3,case=2,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)),"numeric")
+  expect_equal(class(Schnute(3,case=3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)),"numeric")
+  expect_equal(class(Schnute(3,case=4,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)),"numeric")
 })
 
 

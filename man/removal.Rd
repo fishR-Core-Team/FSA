@@ -4,9 +4,28 @@
 \alias{removal}
 \alias{summary.removal}
 \alias{confint.removal}
+\alias{removal.formula}
+\alias{removal.default}
+\alias{coef.removal}
 \title{Population estimates for k-, 3-, or 2-pass removal data.}
 \usage{
-removal(
+removal(catch, ...)
+
+\method{removal}{formula}(
+  catch,
+  data,
+  method = c("CarleStrub", "Zippin", "Seber3", "Seber2", "RobsonRegier2", "Moran",
+    "Schnute", "Burnham"),
+  alpha = 1,
+  beta = 1,
+  CS.se = c("Zippin", "alternative"),
+  conf.level = 0.95,
+  Tmult = 3,
+  CIMicroFish = FALSE,
+  ...
+)
+
+\method{removal}{default}(
   catch,
   method = c("CarleStrub", "Zippin", "Seber3", "Seber2", "RobsonRegier2", "Moran",
     "Schnute", "Burnham"),
@@ -14,31 +33,41 @@ removal(
   beta = 1,
   CS.se = c("Zippin", "alternative"),
   conf.level = 0.95,
-  just.ests = FALSE,
   Tmult = 3,
-  CIMicroFish = FALSE
-)
-
-\method{summary}{removal}(
-  object,
-  parm = c("No", "p", "p1"),
-  digits = getOption("digits"),
-  verbose = FALSE,
+  CIMicroFish = FALSE,
+  just.ests = FALSE,
   ...
 )
 
+\method{coef}{removal}(object, parm = c("all", "No", "p", "p1"), as.df = FALSE, ...)
+
 \method{confint}{removal}(
   object,
-  parm = c("No", "p"),
+  parm = c("all", "No", "p", "p1"),
   level = conf.level,
   conf.level = NULL,
   digits = getOption("digits"),
   verbose = FALSE,
+  incl.est = FALSE,
+  as.df = FALSE,
+  ...
+)
+
+\method{summary}{removal}(
+  object,
+  parm = c("all", "No", "p", "p1"),
+  digits = getOption("digits"),
+  verbose = FALSE,
+  as.df = FALSE,
   ...
 )
 }
 \arguments{
-\item{catch}{A numerical vector of catch at each pass.}
+\item{catch}{A numerical vector of catch at each pass, or a formula of the form \code{~catch}.}
+
+\item{\dots}{Additional arguments for methods.}
+
+\item{data}{A data.frame from which the variables in the \code{catch} formula can be found. Not used if \code{catch} is not a formula.}
 
 \item{method}{A single string that identifies the removal method to use. See details.}
 
@@ -50,26 +79,28 @@ removal(
 
 \item{conf.level}{A single number representing the level of confidence to use for constructing confidence intervals. This is sent in the main \code{removal} function rather than \code{confint}.}
 
-\item{just.ests}{A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.}
-
 \item{Tmult}{A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute methods. Large values are much slower to compute, but values that are too low may result in missing the best estimate. A warning is issued if too low of a value is suspected.}
 
 \item{CIMicroFish}{A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two or three decimals and whether the confidence intervals for No should be rounded to whole numbers as done in MicroFish 3.0. The default (\code{=FALSE}) is to NOT round the t values or No confidence interval. This option is provided only so that results will exactly match MicroFish results (see testing).}
+
+\item{just.ests}{Deprecated as of v0.9.6. This was primarily used when using \code{removal} with a split-and-apply approach to estimate N for multiple groups. See examples and use of \code{incl.ests=} in \code{confint} for similar functionality.}
 
 \item{object}{An object saved from \code{removal()}.}
 
 \item{parm}{A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considered.}
 
+\item{as.df}{A logical that indicates whether the results of \code{coef}, \code{confint}, or \code{summary} should be returned as a data.frame. Defaults to \code{FALSE}.}
+
+\item{level}{Not used, but here for compatibility with generic \code{confint} function.}
+
 \item{digits}{A single numeric that controls the number of decimals in the output from \code{summary} and \code{confint}.}
 
 \item{verbose}{A logical that indicates whether descriptive labels should be printed from \code{summary} and if certain warnings are shown with \code{confint}.}
 
-\item{\dots}{Additional arguments for methods.}
-
-\item{level}{Not used, but here for compatibility with generic \code{confint} function.}
+\item{incl.est}{A logical that indicated whether the parameter point estimate should be included in the results from \code{confint}. Defaults to \code{FALSE}.}
 }
 \value{
-A vector that contains the estimates and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with at least the following items:
+A list with at least the following items:
  \itemize{
    \item catch The original vector of observed catches.
    \item method The method used (provided by the user).
@@ -166,6 +197,11 @@ p4 <- removal(ct2,method="Seber2")
 summary(p4,verbose=TRUE)
 confint(p4)
 
+## Use formula with a data.frame
+d <- data.frame(ct=ct3)
+p1a <- removal(~ct,data=d)
+summary(p1a,verbose=TRUE)
+confint(p1a,incl.est=TRUE)
 
 ### Test if catchability differs between first sample and the other samples
 # chi-square test statistic from  negative log-likelihoods
@@ -179,50 +215,54 @@ ct4 <- c(45,11,18,8)
 p2a <- removal(ct4,method="Moran")
 p3a <- removal(ct4,method="Schnute")
 chi2.val <- 2*(p2a$min.nlogLH-p3a$min.nlogLH)  # 4.74 in Schnute(1983)
-pchisq(chi2.val,df=1,lower.tail=FALSE)         # significant difference (catchability differs)
+pchisq(chi2.val,df=1,lower.tail=FALSE)         # sig diff (catchability differs)
 summary(p3a)
 
-
-### Using lapply() to use removal() on many different groups
-###   with the removals in a single variable ("long format")
+# Demonstrate multiple groups ... data in long format
 ## create a dummy data frame
-lake <- factor(rep(c("Ash Tree","Bark","Clay"),each=5))
-year <- factor(rep(c("2010","2011","2010","2011","2010","2011"),times=c(2,3,3,2,2,3)))
-pass <- factor(c(1,2,1,2,3,1,2,3,1,2,1,2,1,2,3))
-catch <- c(57,34,65,34,12,54,26,9,54,27,67,34,68,35,12)
-d <- data.frame(lake,year,pass,catch)
-
-## create a variable that indicates each different group
-d$group <- with(d,interaction(lake,year))
+d <- data.frame(lake=factor(rep(c("Ash Tree","Bark","Clay"),each=5)),
+                year=factor(rep(c("2010","2011","2010","2011","2010","2011"),
+                                times=c(2,3,3,2,2,3))),
+                pass=factor(c(1,2,1,2,3,1,2,3,1,2,1,2,1,2,3)),
+                catch=c(57,34,65,34,12,54,26,9,54,27,67,34,68,35,12))
 d
-## split the catch by the different groups (creates a list of catch vectors)
-ds <- split(d$catch,d$group)
-## apply removal() to each catch vector (i.e., different group)
-res <- lapply(ds,removal,just.ests=TRUE)
-res <- data.frame(t(data.frame(res,check.names=FALSE)))
-## get rownames from above and split into separate columns
-nms <- t(data.frame(strsplit(rownames(res),"\\\\.")))
-attr(nms,"dimnames") <- NULL
-fnl <- data.frame(nms,res)
-## put names together with values
-rownames(fnl) <- NULL
-colnames(fnl)[1:2] <- c("Lake","Year")
-fnl
 
+## note use of confint with incl.est= and as.df=
+if (require(dplyr) & require(tidyr)) {
+  res <- d \%>\%
+    dplyr::group_by(interaction(lake,year)) \%>\%
+    dplyr::group_modify(~confint(removal(~catch,data=.x),
+                                 incl.est=TRUE,as.df=TRUE)) \%>\%
+    tidyr::separate_wider_delim(1,names=c("lake","year"),delim=".") \%>\%
+    as.data.frame() # removes tibble and grouping structure
+  res
+}
 
-### Using apply() to use removal() on many different groups
-###   with the removals in several variables ("wide format")
-## create a dummy data frame (just reshaped from above as
-## an example; -5 to ignore the group variable from above)
-d1 <- reshape(d[,-5],timevar="pass",idvar=c("lake","year"),direction="wide")
-## apply restore() to each row of only the catch data
-res1 <- apply(d1[,3:5],MARGIN=1,FUN=removal,method="CarleStrub",just.ests=TRUE)
-res1 <- data.frame(t(data.frame(res1,check.names=FALSE)))
-## add the grouping information to the results
-fnl1 <- data.frame(d1[,1:2],res1)
-## put names together with values
-rownames(fnl1) <- NULL
-fnl1
+# Demonstrate multiple groups ... data in wide format
+## create a dummy data frame ... same data as previous ... note that this is
+##   not an efficient way to enter data, used here just for simple example
+d2w <- rbind(data.frame(lake="Ash Tree",year=2011,pass1=65,pass2=34,pass3=12),
+             data.frame(lake="Bark",year=2010,pass1=54,pass2=26,pass3=9),
+             data.frame(lake="Bark",year=2011,pass1=54,pass2=27,pass3=NA),
+             data.frame(lake="Clay",year=2010,pass1=67,pass2=34,pass3=NA),
+             data.frame(lake="Clay",year=2011,pass1=68,pass2=35,pass3=12))
+d2w
+
+## convert to long format first
+d2l <- tidyr::pivot_longer(d2w,cols=c("pass1","pass2","pass3"),
+                           names_to="pass",values_to="catch")
+d2l
+
+## then same process as previous example
+if (require(dplyr)) {
+  res2 <- d2l \%>\%
+    dplyr::group_by(interaction(lake,year)) \%>\%
+    dplyr::group_modify(~confint(removal(~catch,data=.x),
+                                 incl.est=TRUE,as.df=TRUE)) \%>\%
+    tidyr::separate_wider_delim(1,names=c("lake","year"),delim=".") \%>\%
+    as.data.frame() # removes tibble and grouping structure
+  res2
+}
 
 }
 \references{

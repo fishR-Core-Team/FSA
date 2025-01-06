@@ -80,12 +80,12 @@ test_that("srStarts() messages",{
   expect_error(srStarts(recruits~stock,data=CodNorwegian,param=3,
                         fixed=list(Rp=1)),
                "is not a parameter")
-  expect_warning(srStarts(recruits~stock,data=CodNorwegian,param=1,
-                          fixed=list(a=-1)),
-                 "not positive")
-  expect_warning(srStarts(recruits~stock,data=CodNorwegian,param=1,
-                          fixed=list(b=-1)),
-                 "not positive")
+  srStarts(recruits~stock,data=CodNorwegian,param=1,fixed=list(a=-1)) %>%
+    expect_warning("'a' parameter not positive") %>%
+    suppressWarnings()
+  srStarts(recruits~stock,data=CodNorwegian,param=1,fixed=list(b=-1)) %>%
+    expect_warning("'b' parameter not positive") %>%
+    suppressWarnings()
   expect_warning(srStarts(recruits~stock,data=CodNorwegian,param=2,
                           fixed=list(Rp=-1)),
                  "not positive")
@@ -122,12 +122,12 @@ test_that("srStarts() messages",{
   expect_error(srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",
                         fixed=list(a=3,d=1)),
                "not named")
-  expect_warning(srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",
-                          fixed=list(a=-1)),
-                 "not positive")
-  expect_warning(srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",
-                          fixed=list(b=-1)),
-                 "not positive")
+  srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",fixed=list(a=-1)) %>%
+    expect_warning("'a' parameter not positive") %>%
+    suppressWarnings()
+  srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",fixed=list(b=-1)) %>%
+    expect_warning("'b' parameter not positive") %>%
+    suppressWarnings()
   expect_warning(srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",
                           fixed=list(c=-1)),
                  "not positive")
@@ -173,27 +173,27 @@ test_that("srFuns() output",{
 
 test_that("srFuns() output",{
   ## Do all choices return a function
-  expect_is(srFuns("BevertonHolt",param=1),"function")
-  expect_is(srFuns("BevertonHolt",param=2),"function")
-  expect_is(srFuns("BevertonHolt",param=3),"function")
-  expect_is(srFuns("BevertonHolt",param=4),"function")
-  expect_is(srFuns("Ricker",param=1),"function")
-  expect_is(srFuns("Ricker",param=2),"function")
-  expect_is(srFuns("Ricker",param=3),"function")
-  expect_is(srFuns("Shepherd"),"function")
-  expect_is(srFuns("Saila"),"function")
-  expect_is(srFuns("independence"),"function")
+  expect_equal(class(srFuns("BevertonHolt",param=1)),"function")
+  expect_equal(class(srFuns("BevertonHolt",param=2)),"function")
+  expect_equal(class(srFuns("BevertonHolt",param=3)),"function")
+  expect_equal(class(srFuns("BevertonHolt",param=4)),"function")
+  expect_equal(class(srFuns("Ricker",param=1)),"function")
+  expect_equal(class(srFuns("Ricker",param=2)),"function")
+  expect_equal(class(srFuns("Ricker",param=3)),"function")
+  expect_equal(class(srFuns("Shepherd")),"function")
+  expect_equal(class(srFuns("Saila")),"function")
+  expect_equal(class(srFuns("independence")),"function")
   
-  expect_is(srFuns("BevertonHolt",param=1,simple=TRUE),"function")
-  expect_is(srFuns("BevertonHolt",param=2,simple=TRUE),"function")
-  expect_is(srFuns("BevertonHolt",param=3,simple=TRUE),"function")
-  expect_is(srFuns("BevertonHolt",param=4,simple=TRUE),"function")
-  expect_is(srFuns("Ricker",param=1,simple=TRUE),"function")
-  expect_is(srFuns("Ricker",param=2,simple=TRUE),"function")
-  expect_is(srFuns("Ricker",param=3,simple=TRUE),"function")
-  expect_is(srFuns("Shepherd",simple=TRUE),"function")
-  expect_is(srFuns("Saila",simple=TRUE),"function")
-  expect_is(srFuns("independence",simple=TRUE),"function")
+  expect_equal(class(srFuns("BevertonHolt",param=1,simple=TRUE)),"function")
+  expect_equal(class(srFuns("BevertonHolt",param=2,simple=TRUE)),"function")
+  expect_equal(class(srFuns("BevertonHolt",param=3,simple=TRUE)),"function")
+  expect_equal(class(srFuns("BevertonHolt",param=4,simple=TRUE)),"function")
+  expect_equal(class(srFuns("Ricker",param=1,simple=TRUE)),"function")
+  expect_equal(class(srFuns("Ricker",param=2,simple=TRUE)),"function")
+  expect_equal(class(srFuns("Ricker",param=3,simple=TRUE)),"function")
+  expect_equal(class(srFuns("Shepherd",simple=TRUE)),"function")
+  expect_equal(class(srFuns("Saila",simple=TRUE)),"function")
+  expect_equal(class(srFuns("independence",simple=TRUE)),"function")
   
   ## Do all choices return a message with the name of the function in it
   expect_message(srFuns("BevertonHolt",param=1,msg=TRUE),
@@ -219,34 +219,34 @@ test_that("srStarts() output",{
   CodNorwegian$fyear <- factor(CodNorwegian$year)
   ## Returns a list with proper names
   tmp <- srStarts(recruits~stock,data=CodNorwegian,type="BevertonHolt",param=1)
-  expect_is(tmp,"list")
+  expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("a","b"))
   tmp <- srStarts(recruits~stock,data=CodNorwegian,type="BevertonHolt",param=2)
-  expect_is(tmp,"list")
+  expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("a","Rp"))
   tmp <- srStarts(recruits~stock,data=CodNorwegian,type="BevertonHolt",param=3)
-  expect_is(tmp,"list")
+  expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("a","b"))
   tmp <- srStarts(recruits~stock,data=CodNorwegian,type="BevertonHolt",param=4)
-  expect_is(tmp,"list")
+  expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("a","Rp"))
   tmp <- srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=1)
-  expect_is(tmp,"list")
+  expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("a","b"))
   tmp <- srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=2)
-  expect_is(tmp,"list")
+  expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("a","b"))
   tmp <- srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=3)
-  expect_is(tmp,"list")
+  expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("a","Rp"))
   tmp <- srStarts(recruits~stock,data=CodNorwegian,type="Shepherd")
-  expect_is(tmp,"list")
+  expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("a","b","c"))
   tmp <- srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda")
-  expect_is(tmp,"list")
+  expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("a","b","c"))
   tmp <- srStarts(recruits~stock,data=CodNorwegian,type="independence")
-  expect_is(tmp,"list")
+  expect_equal(class(tmp),"list")
   expect_equal(names(tmp),"a")
 })
 
