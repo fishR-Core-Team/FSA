@@ -9,13 +9,14 @@
   * Moved all `require()` in individual files to `testthat.R`. This removed many `require()` that were not needed.
 * Fixed four minor errors in documentation from legacy uses of `\R{}` rather than `\code{}`.
 
-* `catchCurve()`: Added `as.df=` to extractor functions and `incl.est=` to `confint.catchCurve()` to match functionality added to `depletion()`.
-* `chapmanRobson()`: Added `as.df=` to extractor functions and `incl.est=` to `confint.chapmanRobson()` to match functionality added to `depletion()`.
+* `alkPlot()`: Modified. Added note in documentation pointing to a fishR blog post on using `ggplot2` to make similar plots.
+* `catchCurve()`: Modified. Added `as.df=` to extractor functions and `incl.est=` to `confint.catchCurve()` to match functionality added to `depletion()`.
+* `chapmanRobson()`: Modified. Added `as.df=` to extractor functions and `incl.est=` to `confint.chapmanRobson()` to match functionality added to `depletion()`.
 * `depletion()`: Modified to address [#111](https://github.com/fishR-Core-Team/FSA/issues/111).
   * Added formula notation such that `depletion()` wash changed to a method call and `depletion.default()` and `depletion.formula()` were added. Tests for the formula were included.
   * Added `as.df=` to `coef.depletion()`, `confint.depletion()`, and `summary.depletion()` so that the result is returned as a data.frame when set to `TRUE` (default is `FALSE` to maintain backward compatability).
   * Added `incl.est=` to `confint.depletion()` to make it easier to get away from the clunky `cbind("Est"=coef(),confint())` code.
-* `GompertzFuns()`: Accepted pull request related to [#112](https://github.com/fishR-Core-Team/FSA/issues/112) that fixed several typos and dead links in the documentation ... thanks Arni. Corrected the erroneous reference to t* (should have been t0) in the documentation for the Gompertz function (fixes [#113](https://github.com/fishR-Core-Team/FSA/issues/113) ... thanks again to Arni).
+* `GompertzFuns()`: Modified. Accepted pull request related to [#112](https://github.com/fishR-Core-Team/FSA/issues/112) that fixed several typos and dead links in the documentation ... thanks Arni. Corrected the erroneous reference to t* (should have been t0) in the documentation for the Gompertz function (fixes [#113](https://github.com/fishR-Core-Team/FSA/issues/113) ... thanks again to Arni).
 * `metaM()`: Modified to address [#114](https://github.com/fishR-Core-Team/FSA/issues/114).
   * Returns data.frame rather than list.
   * Added conditional mortality rate (cm) to returned data.frame (for use with `rFAMS`).

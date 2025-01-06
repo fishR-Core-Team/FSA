@@ -10,7 +10,10 @@
 #'   \item A plot with (differently colored) lines, as estimated by loess splines, that connect the proportions of ages within each length interval is constructed with \code{type="splines"}.
 #'   \item A \dQuote{bubble} plot where circles whose size is proportional to the proportion of fish of each age in each length interval is constructed with \code{type="bubble"}. The color of the bubbles can be controlled with \code{col=} and an underlying grid for ease of seeing the age and length interval for each bubble can be controlled with \code{grid=}. Bubbles from a second age-length key can be overlaid on an already constructed bubble plot by using \code{add=TRUE} in a second call to \code{alkPlot}.
 #' }
+#' 
 #' Note that all plots are \dQuote{vertically conditional} -- i.e., each represents the proportional ages WITHIN each length interval.
+#' 
+#' @note These plots are used primarily to explore the structure of an age-length key. While some may find them of "publication-quality", that level of quality and overall control of aspects of the plot are not the primary purpose of this function. Publication-quality plots can be readily made using \code{ggplot2} as demonstrated \href{https://fishr-core-team.github.io/fishR/blog/posts/2025-1-5_ALKPlots_GGplot/}{in this fishR post}.
 #' 
 #' @param key A numeric matrix that contains the age-length key.
 #' @param type A string that indicates the type of plot to construct. See details.
