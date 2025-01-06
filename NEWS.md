@@ -1,4 +1,4 @@
-# FSA 0.9.5.9000
+# FSA 0.9.6
 * Updated testing to use `testthat` v3.0.0.
   * Changes to `DESCRIPTION` including adding `tidyr` in Suggests (for example in `removal()`).
   * Replaced MANY `expect_is()` with `expect_equal(class())` idioms.
@@ -8,6 +8,7 @@
   * Had to handle multiple warnings for some tests (see [this article](https://testthat.r-lib.org/articles/third-edition.html#warnings)).
   * Moved all `require()` in individual files to `testthat.R`. This removed many `require()` that were not needed.
 * Fixed four minor errors in documentation from legacy uses of `\R{}` rather than `\code{}`.
+* Made some accessibility changes and rebuilt favicons as suggested by `pkgdown`.
 
 * `alkPlot()`: Modified. Added note in documentation pointing to a fishR blog post on using `ggplot2` to make similar plots.
 * `catchCurve()`: Modified. Added `as.df=` to extractor functions and `incl.est=` to `confint.catchCurve()` to match functionality added to `depletion()`.

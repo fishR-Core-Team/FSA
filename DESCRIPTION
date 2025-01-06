@@ -1,6 +1,6 @@
 Package: FSA
-Version: 0.9.5.9000
-Date: 2024-12-30
+Version: 0.9.6
+Date: 2025-1-6
 Title: Simple Fisheries Stock Assessment Methods
 Description: A variety of simple fish stock assessment methods.
 Authors@R: c(
