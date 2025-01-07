@@ -1,276 +1,94 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/404.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/index.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/BluegillJL.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/BrookTroutTH.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/ChinookArg.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/CodNorwegian.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/CutthroatAL.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/Ecoli.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/FSA-defunct.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/FSA-internals.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/FSA.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/Mirex.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/PSDlit.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/PikeNY.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/PikeNYPartial1.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/SMBassLS.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/SMBassWB.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/Schnute.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/SchnuteRichards.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/SpotVA1.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/Summarize.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/WR79.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/WSlit.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/WhitefishLC.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/addZeroCatch.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/ageBias.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/agePrecision.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/alkAgeDist.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/alkIndivAge.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/alkMeanVar.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/alkPlot.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/binCI.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/boot.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/capFirst.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/capHistConvert.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/capHistSum.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/catchCurve.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/chapmanRobson.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/col2rgbt.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/depletion.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/dunnTest.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/expandCounts.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/expandLenFreq.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/extraTests.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/fact2num.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/fishR.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/geomean.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/growthModels.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/headtail.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/hist.formula.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/histFromSum.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/hyperCI.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/is.odd.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/knitUtil.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/ksTest.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/lagratio.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/lencat.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/logbtcf.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/lwCompPreds.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/metaM.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/mrClosed.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/mrOpen.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/nlsBoot.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/nlsTracePlot.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/peek.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/perc.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/plotAB.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/poiCI.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/psdAdd.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/psdCI.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/psdCalc.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/psdPlot.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/psdVal.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/rSquared.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/rcumsum.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/removal.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/repeatedRows2Keep.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/se.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/srFuns.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/srStarts.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/sumTable.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/tictactoe.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/validn.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/vbStarts.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/wrAdd.html</loc>
-  </url>
-  <url>
-    <loc>https://fishr-core-team.github.io/FSA/reference/wsVal.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://fishr-core-team.github.io/FSA/404.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/LICENSE-text.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/authors.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/index.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/news/index.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/BluegillJL.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/BrookTroutTH.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/ChinookArg.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/CodNorwegian.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/CutthroatAL.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/Ecoli.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/FSA-defunct.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/FSA-internals.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/FSA.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/Mirex.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/PSDlit.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/PikeNY.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/PikeNYPartial1.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/SMBassLS.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/SMBassWB.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/Schnute.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/SchnuteRichards.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/SpotVA1.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/Summarize.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/WR79.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/WSlit.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/WhitefishLC.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/addZeroCatch.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/ageBias.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/agePrecision.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/alkAgeDist.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/alkIndivAge.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/alkMeanVar.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/alkPlot.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/binCI.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/boot.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/capFirst.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/capHistConvert.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/capHistSum.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/catchCurve.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/chapmanRobson.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/col2rgbt.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/depletion.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/dunnTest.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/expandCounts.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/expandLenFreq.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/extraTests.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/fact2num.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/fishR.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/geomean.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/growthModels.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/headtail.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/hist.formula.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/histFromSum.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/hyperCI.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/index.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/is.odd.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/knitUtil.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/ksTest.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/lagratio.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/lencat.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/logbtcf.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/lwCompPreds.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/metaM.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/mrClosed.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/mrOpen.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/nlsBoot.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/nlsTracePlot.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/peek.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/perc.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/plotAB.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/poiCI.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/psdAdd.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/psdCI.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/psdCalc.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/psdPlot.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/psdVal.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/rSquared.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/rcumsum.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/removal.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/repeatedRows2Keep.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/se.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/srFuns.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/srStarts.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/sumTable.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/tictactoe.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/validn.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/vbStarts.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/wrAdd.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/wsVal.html</loc></url>
 </urlset>
+
