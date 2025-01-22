@@ -132,7 +132,8 @@ predict.boot <- function(object,FUN,conf.level=0.95,digits=NULL,...) {
 #' @export
 hist.boot <- function(x,same.ylim=TRUE,ymax=NULL,
                       rows=round(sqrt(ncol(x$t))),
-                      cols=ceiling(sqrt(ncol(x$t))),...){ # nocov start
+                      cols=ceiling(sqrt(ncol(x$t))),...){
+  # nocov start
   ## Set graphing parameters
   withr::local_par(list(mfrow=c(rows,cols)))
 	## If not given ymax, then find highest count on all histograms
@@ -145,7 +146,8 @@ hist.boot <- function(x,same.ylim=TRUE,ymax=NULL,
 	## Make the plots
 	for(i in seq_len(ncol(x$t)))
 	  hist.formula(~x$t[,i],xlab=colnames(x$t)[i],ylim=c(0,ymax[i]),...)
-} # nocov end
+  # nocov end
+}
 
 
 
