@@ -13,7 +13,7 @@ vbStarts(
   type = param,
   fixed = NULL,
   meth0 = c("yngAge", "poly"),
-  methLinf = c("Walford", "oldAge", "longFish"),
+  methLinf = c("Walford", "oldAge", "longFish", "poly"),
   num4Linf = 1,
   ages2use = NULL,
   methEV = c("means", "poly"),
@@ -128,17 +128,10 @@ vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5),methEV="means")
 
 ## Examples with a Plot
 vbStarts(tl~age,data=SpotVA1,plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="original",plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="GQ",plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Mooij",plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Weisberg",plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5),plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5),plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Somers",plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Somers2",plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Pauly",plot=TRUE)
 vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(tr=0),plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(Lr=8),plot=TRUE)
+vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5),plot=TRUE)
+vbStarts(tl~age,data=SpotVA1,type="Somers",plot=TRUE)
+vbStarts(tl~age,data=SpotVA1,type="Pauly",plot=TRUE)
 
 ## Examples where some parameters are fixed by the user
 vbStarts(tl~age,data=SpotVA1,fixed=list(Linf=15))

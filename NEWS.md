@@ -2,6 +2,7 @@
 * Updated `test-coverage.yaml` and moved a `# nocov start` and `# nocov end` in `bootstrap.r` to address the errors with `test-coverage.yaml`. Addresses [#118](https://github.com/fishR-Core-Team/FSA/issues/118).
 
 * `growthFunShow()`: Modified. Fixed expression for QuinnDeriso3 parametrization of the Gompertz function (i.e., erroneous t* changed to t0 ... related to fixing [#113](https://github.com/fishR-Core-Team/FSA/issues/113)).
+* `vbStarts()`: Modified. Streamlined some of the internal functions (making it easier to use for `GompertzStarts()`). Fixed some typos.
 
 
 # FSA 0.9.6

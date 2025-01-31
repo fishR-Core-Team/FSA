@@ -1,9 +1,12 @@
 # also see test_growthFuns
 
+## Get some data for the following tests
+data(Kimura,package="fishmethods")
+data(SpottedSucker1,package="FSAdata")
+
+
 ## Test Messages ----
 test_that("vbStarts() messages",{
-  ## Get some data for the following attempts
-  data(Kimura,package="fishmethods")
   ## Asked for a dynamicPlot, which now does not exist
   expect_warning(vbStarts(length~age,data=Kimura,dynamicPlot=TRUE),
                  "functionality has been moved to")
@@ -29,7 +32,7 @@ test_that("vbStarts() messages",{
   expect_error(vbStarts(length~age,data=Kimura,methLinf="oldAge",num4Linf=30),
                "less than the number of observed ages")
   expect_error(vbStarts(length~age,data=Kimura,methLinf="longFish",num4Linf=500),
-               "less than the number of recorded lengths")
+               "less than the number of observed lengths")
   ## Two variables on LHS
   expect_error(vbStarts(length+age~age,data=Kimura,param="typical"),
                "more than one variable on the LHS")
@@ -82,24 +85,21 @@ test_that("vbStarts() messages",{
                  "less than minimum observed length")
   ## too few ages to estimate Linf
   expect_error(vbStarts(length~age,data=subset(Kimura,age<3)),
-               "cannot be automatically determined")
+               "'Walford' method cannot be used to find starting values")
   
-  data(SpottedSucker1,package="FSAdata")
   ## gives warning about a poor estimate for K and Linf
   sv <- list(Linf=max(SpottedSucker1$tl),K=0.3,t0=0)
   vbStarts(tl~age,data=SpottedSucker1,param="typical") %>%
-    expect_warning("Starting value for Linf is very different from the observed") %>%
+    expect_warning("Starting value for 'Linf' is very different from the observed") %>%
     expect_warning("The suggested starting value for K is negative")
   ## too few ages to estimate Linf
   expect_error(vbStarts(tl~age,data=subset(SpottedSucker1,age<5)),
-               "cannot be automatically determined")
+               "'Walford' method cannot be used to find starting values")
 })
 
 
 ## Test Output Types ----
 test_that("vbStarts() output",{
-  ## Get some data for the following attempts
-  data(Kimura,package="fishmethods")
   ## Returns a list with proper names
   tmp <- vbStarts(length~age,data=Kimura,param="typical")
   expect_equal(class(tmp),"list")
@@ -108,21 +108,21 @@ test_that("vbStarts() output",{
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","K","t0"))
   tmp <- vbStarts(length~age,data=Kimura,param="typical",
-                  fixed=list(Linf=30))
+                  fixed=list(Linf=50))
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","K","t0"))
-  expect_equal(tmp[["Linf"]],30)
+  expect_equal(tmp[["Linf"]],50)
   tmp <- vbStarts(length~age,data=Kimura,param="typical",
-                  fixed=list(Linf=30,K=0.3))
+                  fixed=list(Linf=50,K=0.3))
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","K","t0"))
-  expect_equal(tmp[["Linf"]],30)
+  expect_equal(tmp[["Linf"]],50)
   expect_equal(tmp[["K"]],0.3)
   tmp <- vbStarts(length~age,data=Kimura,param="typical",
-                  fixed=list(Linf=30,K=0.3,t0=0))
+                  fixed=list(Linf=50,K=0.3,t0=0))
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","K","t0"))
-  expect_equal(tmp[["Linf"]],30)
+  expect_equal(tmp[["Linf"]],50)
   expect_equal(tmp[["K"]],0.3)
   expect_equal(tmp[["t0"]],0)
   tmp <- vbStarts(length~age,data=Kimura,param="BevertonHolt")
@@ -138,10 +138,10 @@ test_that("vbStarts() output",{
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","K","L0"))
   tmp <- vbStarts(length~age,data=Kimura,param="original",
-                  fixed=list(Linf=30,K=0.3,L0=2))
+                  fixed=list(Linf=50,K=0.3,L0=2))
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","K","L0"))
-  expect_equal(tmp[["Linf"]],30)
+  expect_equal(tmp[["Linf"]],50)
   expect_equal(tmp[["K"]],0.3)
   expect_equal(tmp[["L0"]],2)
   tmp <- vbStarts(length~age,data=Kimura,param="vonBertalanffy")
@@ -176,10 +176,10 @@ test_that("vbStarts() output",{
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","L0","omega"))
   tmp <- vbStarts(length~age,data=Kimura,param="Mooij",
-                  fixed=list(Linf=30,L0=2,omega=20))
+                  fixed=list(Linf=50,L0=2,omega=20))
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","L0","omega"))
-  expect_equal(tmp[["Linf"]],30)
+  expect_equal(tmp[["Linf"]],50)
   expect_equal(tmp[["L0"]],2)
   expect_equal(tmp[["omega"]],20)
   tmp <- vbStarts(length~age,data=Kimura,param="Weisberg")
@@ -189,10 +189,10 @@ test_that("vbStarts() output",{
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","t50","t0"))
   tmp <- vbStarts(length~age,data=Kimura,param="Weisberg",
-                  fixed=list(Linf=30,t50=2,t0=0))
+                  fixed=list(Linf=50,t50=2,t0=0))
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","t50","t0"))
-  expect_equal(tmp[["Linf"]],30)
+  expect_equal(tmp[["Linf"]],50)
   expect_equal(tmp[["t50"]],2)
   expect_equal(tmp[["t0"]],0)
   tmp <- vbStarts(length~age,data=Kimura,param="Schnute",ages2use=c(1,10))
@@ -230,10 +230,10 @@ test_that("vbStarts() output",{
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","K","t0","C","ts"))
   tmp <- vbStarts(length~age,data=Kimura,param="Somers",
-                  fixed=list(Linf=30,K=0.3,t0=0,C=0.3,ts=0.5))
+                  fixed=list(Linf=50,K=0.3,t0=0,C=0.3,ts=0.5))
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","K","t0","C","ts"))
-  expect_equal(tmp[["Linf"]],30)
+  expect_equal(tmp[["Linf"]],50)
   expect_equal(tmp[["K"]],0.3)
   expect_equal(tmp[["t0"]],0)
   expect_equal(tmp[["C"]],0.3)
@@ -245,10 +245,10 @@ test_that("vbStarts() output",{
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","K","t0","C","WP"))
   tmp <- vbStarts(length~age,data=Kimura,param="Somers2",
-                  fixed=list(Linf=30,K=0.3,t0=0,C=0.3,WP=0.5))
+                  fixed=list(Linf=50,K=0.3,t0=0,C=0.3,WP=0.5))
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","K","t0","C","WP"))
-  expect_equal(tmp[["Linf"]],30)
+  expect_equal(tmp[["Linf"]],50)
   expect_equal(tmp[["K"]],0.3)
   expect_equal(tmp[["t0"]],0)
   expect_equal(tmp[["C"]],0.3)
@@ -260,10 +260,10 @@ test_that("vbStarts() output",{
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","Kpr","t0","ts","NGT"))
   tmp <- vbStarts(length~age,data=Kimura,param="Pauly",
-                  fixed=list(Linf=30,Kpr=0.3,t0=0,ts=0.5,NGT=0.2))
+                  fixed=list(Linf=50,Kpr=0.3,t0=0,ts=0.5,NGT=0.2))
   expect_equal(class(tmp),"list")
   expect_equal(names(tmp),c("Linf","Kpr","t0","ts","NGT"))
-  expect_equal(tmp[["Linf"]],30)
+  expect_equal(tmp[["Linf"]],50)
   expect_equal(tmp[["Kpr"]],0.3)
   expect_equal(tmp[["t0"]],0)
   expect_equal(tmp[["ts"]],0.5)
