@@ -573,7 +573,8 @@ iPlotGrowStarts <- function(formula,data,mod,type,sv,consts,
   # get the appropriate growth function
   switch(mod,
          "von Bertalanffy"= { mdl <- vbFuns(type) },
-         "Gompertz"= { mdl <- GompertzFuns(type) }
+         "Gompertz"= { mdl <- GompertzFuns(type) },
+         "Logistic" = { mdl <- logisticFuns(type) }
   )
   
   # plotting must be handled slightly differently for Francis/Schnute VBs

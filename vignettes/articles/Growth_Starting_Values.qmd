@@ -242,7 +242,7 @@ $$ L = \frac{L_\infty}{1+ae^{-g_{-\infty}t}} $$ {#eq-CJ2}
 
 where $a$ is a nuisance parameter without any real interpretation.
 
-Again, the only difference between @eq-CJ2 and @eq-rSSlogis is in the denominator after the "1+", and no simplification is needed when comparing @eq-CJ2 to @eq-rSSlogis1 to notice that $g_{-\infty}=\frac{1}{\text{scal}}$ and $a=\frac{\text{xmid}}{\text{scal}}$.
+Again, the only difference between @eq-CJ2 and @eq-rSSlogis is in the denominator after the "1+", and no simplification is needed when comparing @eq-CJ2 to @eq-rSSlogis1 to notice that $g_{-\infty}=\frac{1}{\text{scal}}$ and $a=e^{\frac{\text{xmid}}{\text{scal}}}$.
 
 ## Karkach Parameterization
 The "Karkach" parameterization implemented in `FSA` is
@@ -272,7 +272,7 @@ $$
 | Parameterization    | $L_\infty$ | $L_0$ | $g_{-\infty}$ | $t_i$ |  $a$  |
 |---------------------|-------|-------|-------|-------|-------|
 | "Campana & Jones 1" | $\text{Asym}$ | | $\frac{1}{\text{scal}}$ | $\text{xmid}$ | |
-| "Campana & Jones 2" | $\text{Asym}$ | | $\frac{1}{\text{scal}}$ | | $\frac{\text{xmid}}{\text{scal}}$ |
+| "Campana & Jones 2" | $\text{Asym}$ | | $\frac{1}{\text{scal}}$ | | $e^{\frac{\text{xmid}}{\text{scal}}}$ |
 | "Karkach"           | $\text{Asym}$ | $\frac{L_\infty}{1+e^{\frac{\text{xmid}}{\text{scal}}}}$ | $\frac{1}{\text{scal}}$ | | |
 
 : Conversion from `SSlogis()` parameters ($\text{Asym}$, $\text{xmid}$, and $\text{scal}$) to parameters for the common logistic parameterizations used to model fish growth in `FSA`. {#tbl-logisticConvert}
