@@ -1,0 +1,278 @@
+---
+title: "Growth_Starting_Values"
+author: "Derek H. Ogle"
+date: "`r Sys.Date()`"
+format: 
+  html: 
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    reference-location: margin
+    fig-cap-location: bottom
+    tbl-cap-location: top
+    code-summary: "Show Code"
+    echo: false
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+```{r}
+#| label: setup
+#| results: hide
+#| message: false
+library(FSA)
+```
+
+# von Bertalanffy (Brody)
+## R Self-Starter Function
+The `stats` package in base R contains `SSasymp()` which is a self-starting function for using `nls()` to fit an "asymptotic regression" function to data. According to the documentation for `SSasymp()` the parameterization of this function is
+
+$$ Y = \text{Asym}+(\text{R0}-\text{Asym})~e^{-e^{\text{lrc}\times\text{input}}} $$
+
+where $Y$ and $\text{input}$ are the response and explanatory variables, respectively, $\text{Asym}$ is a parameter for the vertical (i.e., $Y$) asymptote, $\text{R0}$ is a parameter related to the value of $Y$ at $X=0$, and $lrc$ is a "parameter representing the natural logarithm of the rate constant."
+
+In growth (in length) modeling, $Y$ is $L$ (for length); $\text{input}$ is $t$ (for time as measured by age); $\text{Asym}$ is clearly $L_{\infty}$, the asympotic mean length; and $\text{R0}$ is clearly $L_0$, the mean length at $t=0$ (i.e., the y-intercept). Thus, at this point, the R "asymptotic regression" function can be re-written for the purposes of growth modeling as 
+
+$$ L = L_\infty - (L_\infty-L_0)~e^{-e^{\text{lrc}\times t}} $$
+
+If we move $\text{lrc}$ off of the log scale by defining $K=e^{\text{lrc}}$, i.e., the Brody growth coefficient, we can further write this function as
+
+$$ L = L_\infty - (L_\infty-L_0)~e^{-Kt} $$ {#eq-rSSasymp}
+
+This function is **exactly** the "Original" (or synomymously the "von Bertalanffy") parameterization in `FSA` of the von Bertalanffy growth function. Thus, `SSasymp()` is a parameterization of the von Bertalanffy growth function commonly used to model fish growth. Thus, the initial values produced by `SSasymp()` can be used as initial values for the "original" parameterization of the von Bertalanffy growth function. In the following sections, I show how to use the values produced by `SSasymp()` to derive starting values for the other parameterizations of the von Bertalanffy growth function in `FSA`.
+
+## Original (or von Bertalanffy) Parameterization
+As noted above, @eq-SSasymp is the "original" parameterization of the von Bertalanffy growth function implemented in `FSA`. Also, as noted above, $L_\infty=\text{Asym}$, $L_{0}=\text{R0}$, and $K=e^{\text{lrc}}$.
+
+## Typical (or Beverton-Holt) Parameterization
+The "Typical" (or Beverton-Holt) parameterization implemented in `FSA` is
+
+$$ L = L_\infty (1-e^{-K(t-t_0))} $$ {#eq-BevertonHolt}
+
+where $t_0$ is the hypothetical age at $L=0$ (i.e., the x-intercept). The only difference in parameters between @eq-BevertonHolt and @eq-rSSasymp is $t_0$, which is clearly defined at $t$ when $L=0$. Thus, if $L=0$ is plugged into @eq-rSSasymp and we solve for $t$ we get
+
+## 
+
+@eq-rSSasymp can be re-written as (note $t$ was replaced with $t_0$ as we are finding the $t$ when $L=0$)
+
+$$
+\begin{align}
+0 &= L_\infty - (L_\infty-L_0)~e^{-Kt}  \\
+L_\infty  &= (L_\infty-L_0)~e^{-Kt_0}  \\
+\frac{L_\infty}{L_\infty-L_0} &= e^{-Kt_0}  \\
+log(\frac{L_\infty}{L_\infty-L_0}) &= -Kt_0 \\
+-\frac{log(\frac{L_\infty}{L_\infty-L_0})}{K} &= t_0
+\end{align}
+$$
+
+Thus, the parameters for the "Typical" parameterization can be found from the $L_\infty$, $K$, and $t_0$ found for the "Original" parameterization.
+
+
+
+# Gompertz
+## R Self-Starter Function
+The `stats` package in base R contains `SSgompertz()` which is a self-starting function for using `nls()` to fit a Gompertz function to data. According to the documentation for `SSgompertz()` the parameterization of this function is
+
+$$ Y = \text{Asym}~e^{-b_2b_3^X} $$
+
+where $Y$ and $X$ are the response and explanatory variables, respectively, $\text{Asym}$ is a parameter for the vertical (i.e., $Y$) asymptote, $b_2$ is a parameter related to the value of $Y$ at $X=0$, and $b_3$ is a "parameter related to the scale of the x-axis."
+
+In growth (in length) modeling, $Y$ is $L$ (for length), $X$ is $t$ (for time as measured by age), and $\text{Asym}$ is clearly $L_{\infty}$. Thus, at this point, the R Gompertz function can be re-written for the purposes of growth modeling as 
+
+$$ L = L_\infty e^{-b_2b_3^t} $$ {#eq-rSSgomp}
+
+It is not immediately clear how $b_2$ and $b_3$ relate to parameters from common parameterizations of the Gompertz functions used to model fish growth. In the following sections I show how parameters in the common parameterizations of the Gompertz function relate to $b_2$ and $b_3$ (and, possibly, $L_{\infty}$). Understanding these relationships will allow use of `SSgompertz()` to derive starting values for $L_{\infty}$, $b_2$, and $b_3$ which can then be translated into starting values for the other parameterizations.
+
+## "Ricker1" Paramaterization
+The "Ricker1" parameterization implemented in `FSA` is
+
+$$ L = L_\infty e^{-e^{-g_i(t-t_i)}} $$ {#eq-Ricker1}
+
+where $t_i$ is the age at the inflection point and $g_i$ is the instantaneous growth rate at $t_i$.
+
+The difference between @eq-Ricker1 and @eq-rSSgomp is completely after the negative in the exponent of $e$. Thus, I begin by algebraically simplifying this exponent.
+
+$$
+\begin{align}
+& e^{-g_i(t-t_i)} \\
+& e^{-g_it+g_it_i} \\
+& e^{-g_it}e^{g_it_i} \\
+& e^{g_it_i}e^{-g_it}
+\end{align}
+$$
+
+If we define $b_2=e^{g_it_i}$ and $b_3=e^{-g_i}$, then this simplified exponent from @eq-Ricker1 is the same as the exponent in @eq-rSSgomp. Thus, $g_i=-log(b_3)$ and $t_i=\frac{log(b_2)}{g_i}$.
+
+## "Ricker 2" or "Quinn-Deriso 1" Paramaterization
+The "Ricker 2" or "Quinn-Deriso 1" parameterization implemented in `FSA` is
+
+$$ L = L_0 e^{a(1-e^{-g_it})} $$ {#eq-Ricker2}
+
+where $L_0$ is the mean length at $t=0$ (i.e., the y-intercept) and $a$ is a "nuisance" parameter with no particular biological or modeling meaning.
+
+There is no asymptote in @eq-Ricker2 so the entire expressions must be manipulated to show equivalence to @eq-rSSgomp.
+
+$$
+\begin{align}
+& L_0 e^{a(1-e^{-g_it})} \\
+& L_0 e^{a-ae^{-g_it}} \\
+& L_0 e^{a}e^{-ae^{-g_it}} \\
+\end{align}
+$$
+If we define $L_\infty=L_0e^a$, $b_2=a$, and, again, $b_3=e^{-g_i}$ then @eq-Ricker2 is equivalent to @eq-rSSgomp. Thus, $a=b_2$, $g_i=-log(b_3)$, and $L_0=\frac{L_\infty}{e^a}$.
+
+## "Ricker 3" or "Quinn-Deriso 2" Paramaterization
+The "Ricker 3" or "Quinn-Deriso 2" parameterization implemented in `FSA` is
+
+$$ L = L_\infty e^{-ae^{-g_it}} $$ {#eq-Ricker3}
+
+Here it is obvious that $b_2=a$ and if we again define $b_3=e^{-g_i}$ then @eq-Ricker3 is equivalent to @eq-rSSgomp. Thus, $a=b_2$ and $g_i=-log(b_3)$.
+
+## "Quinn-Deriso 3" Paramaterization
+The "Quinn-Deriso 3" parameterization implemented in `FSA` is
+
+$$ L = L_\infty e^{-\frac{1}{g_i}e^{-g_i(t-t_0)}} $$ {#eq-QD3}
+
+where $t_0$ appears to be defined, as in the von Bertalanffy function, as the age where the mean length is zero. $t_0$ is an x-intercept, but the three-parameter Gompertz function used here has a lower asymptote at $L=0$ and, thus, does not have an x-intercept. Therefore, it is not exactly clear what $t_0$ is.
+
+Again, the exponent (after the negative) of @eq-QD3 can be rearranged as follows
+
+$$
+\begin{align}
+& \frac{1}{g_i}e^{-g_i(t-t_0)} \\
+& \frac{1}{g_i}e^{-g_it+g_it_0} \\
+& \frac{1}{g_i}e^{-g_it}e^{g_it_0} \\
+& \frac{1}{g_i}e^{g_it_0}e^{-g_it}
+\end{align}
+$$
+
+If we define $b_2=\frac{1}{g_i}e^{g_it_0}$ and $b_3=e^{-g_i}$, then this simplified exponent from @eq-QD3 is the same as the exponent in @eq-rSSgomp. Thus, $g_i=-log(b_3)$ and $t_0=\frac{log(b_2g_i)}{g_i}$.
+
+## "Original" Paramaterization
+The "Original" parameterization implemented in `FSA` is
+
+$$ L = L_\infty e^{-e^{(a-g_it)}} $$ {#eq-Original}
+
+Again, the exponent (after the negative) of @eq-Original can be rearranged as follows
+
+$$
+\begin{align}
+& e^{(a-g_it)} \\
+& e^{a}e^{-g_it)}
+\end{align}
+$$
+
+If we define $b_2=e^a$ and $b_3=e^{-g_i}$, then this simplified exponent from @eq-Original is the same as the exponent in @eq-rSSgomp. Thus, $g_i=-log(b_3)$ and $a=log(b_2)$.
+
+## Converting Conclusion
+
+| Parameterization   | $L_\infty$ | $L_0$ | $g_i$ | $t_i$ | $t_0$ |  $a$  |
+|--------------------|-------|-------|-------|-------|-------|-------|
+| "Ricker 1"         | $\text{Asym}$ | | $-log(b_3)$ | $\frac{log(b_2)}{g_i}$ |  |  |
+| "Ricker 2" / "QD1" |  | $\frac{L_\infty}{e^a}$ | $-log(b_3)$ |  |  | $b_2$ |
+| "Ricker 3" / "QD2" | $\text{Asym}$ | | $-log(b_3)$ |  |  | $b_2$ |
+| "QD3"              | $\text{Asym}$ | | $-log(b_3)$ |  | $\frac{log(b_2g_i)}{g_i}$ |  |
+| "Original"         | $\text{Asym}$ | | $-log(b_3)$ |  |  | $log(b_2)$ |
+
+: Conversion from `SSgompertz()` parameters ($\text{Asym}$, $b_2$, and $b_3$) to parameters for the common Gompertz parameterizations used to model fish growth in `FSA`. {#tbl-gompConvert}
+
+
+# Logistic
+## R Self-Starter Function
+The `stats` package in base R contains `SSlogis()` which is a self-starting function for using `nls()` to fit a Gompertz function to data. According to the documentation for `SSlogis()` the parameterization of this function is
+
+$$ Y = \frac{\text{Asym}}{1+e^{\frac{\text{xmid}-\text{input}}{\text{scal}}}} $$
+
+where $Y$ and $\text{input}$ are the response and explanatory variables, respectively, $\text{Asym}$ is a parameter for the vertical (i.e., $Y$) asymptote, $xmid$ is a parameter for the value of $X$ at the inflection point, and $scal$ is a "parameter on the input axis."
+
+In growth (in length) modeling, $Y$ is $L$ (for length), $\text{input}$ is $t$ (for time as measured by age), and $\text{Asym}$ is clearly $L_{\infty}$. Most likely $xmid$ is $t_i$, but it is not 100% clear at this point. Thus, at this point, the R logistic function can be re-written for the purposes of growth modeling as 
+
+$$ L = \frac{L_\infty}{1+e^{\frac{\text{xmid}-t}{\text{scal}}}} $$ {#eq-rSSlogis}
+
+It is not immediately clear how $\text{scal}$ relates to parameters from common parameterizations of the logistic functions used to model fish growth. In the following sections I show how parameters in the common parameterizations of the logistic function relate to $\text{xmid}$ and $\text{scal}$ (and, possibly, $L_{\infty}$). Understanding these relationships will allow use of `SSlogis()` to derive starting values for $L_{\infty}$, $\text{xmid}$, and $\text{scal}$ which can then be translated into starting values for the other parameterizations.
+
+For the explanations below, it will be easier if @eq-rSSlogis is presented in a more verbose form
+
+$$
+\begin{align}
+L &= \frac{L_\infty}{1+e^{\frac{\text{xmid}-t}{\text{scal}}}} \\
+  &= \frac{L_\infty}{1+e^{\frac{\text{xmid}}{\text{scal}}-\frac{t}{\text{scal}}}} \\
+  &= \frac{L_\infty}{1+e^{\frac{\text{xmid}}{\text{scal}}}e^{-\frac{t}{\text{scal}}}}
+\end{align}
+$$ {#eq-rSSlogis1}
+
+
+## Campana Jones 1 Parameterization
+The "Campana and Jones 1" parameterization implemented in `FSA` is
+
+$$ L = \frac{L_\infty}{1+e^{-g_{-\infty}(t-t_i)}} $$ {#eq-CJ1}
+
+where $-g_{-\infty}$ is the instantaneous growth rate at $t=-\infty$.
+
+The only difference between @eq-CJ1 and @eq-rSSlogis is in the denominator after the "1+". This portion can be rewritten as
+
+$$
+\begin{align}
+& e^{-g_{-\infty}(t-t_i)} \\
+& e^{-g_{-\infty}t+g_{-\infty}t_i} \\
+& e^{-g_{-\infty}t}e^{g_{-\infty}t_i} \\
+& e^{g_{-\infty}t_i}e^{-g_{-\infty}t}
+\end{align}
+$$
+
+Comparing this to @eq-rSSlogis1 it becomes apparent that $g_{-\infty}=\frac{1}{\text{scal}}$ and $g_{-\infty}t_i=\frac{\text{xmid}}{\text{scal}}$. The latter can be simplified as
+
+$$
+\begin{align}
+g_{-\infty}t_i &= \frac{\text{xmid}}{\text{scal}} \\
+t_i &= \frac{\text{xmid}}{g_{-\infty}\text{scal}} \\
+t_i &= \frac{\text{xmid}g_{-\infty}}{g_{-\infty}} \\
+t_i &= \text{xmid}
+\end{align}
+$$
+
+Thus, $\text{xmid}$ is the abcissa of the inflection point.
+
+## Campana Jones 2 Parameterization
+The "Campana and Jones 2" parameterization implemented in `FSA` is
+
+$$ L = \frac{L_\infty}{1+ae^{-g_{-\infty}t}} $$ {#eq-CJ2}
+
+where $a$ is a nuisance parameter without any real interpretation.
+
+Again, the only difference between @eq-CJ2 and @eq-rSSlogis is in the denominator after the "1+", and no simplification is needed when comparing @eq-CJ2 to @eq-rSSlogis1 to notice that $g_{-\infty}=\frac{1}{\text{scal}}$ and $a=\frac{\text{xmid}}{\text{scal}}$.
+
+## Karkach Parameterization
+The "Karkach" parameterization implemented in `FSA` is
+
+$$ L = \frac{L_0L_\infty}{L_0+(L_\infty - L_0)e^{-g_{-\infty}t}} $$ {#eq-Karkach}
+
+Here we must rewrite the whole function first by dividing both the numerator and denominator by $L_0$ to get
+
+$$ L = \frac{L_\infty}{1+\frac{L_\infty - L_0}{L_0}e^{-g_{-\infty}t}} $$
+
+In this form the only difference from @eq-rSSlogis is again in the denominator after the "1+". Again, by comparing this to @eq-rSSlogis1, it is apparent that $g_{-\infty}=\frac{1}{\text{scal}}$ and $\frac{L_\infty - L_0}{L_0}=e^{\frac{\text{xmid}}{\text{scal}}}$. This second value is solved for $L_0$ with
+
+$$
+\begin{align}
+\frac{L_\infty - L_0}{L_0} &= e^{\frac{\text{xmid}}{\text{scal}}} \\
+L_\infty - L_0 &= L_0e^{\frac{\text{xmid}}{\text{scal}}} \\
+L_\infty &= L_0 + L_0e^{\frac{\text{xmid}}{\text{scal}}} \\
+L_\infty &= L_0(1+e^{\frac{\text{xmid}}{\text{scal}}}) \\
+\frac{L_\infty}{1+e^{\frac{\text{xmid}}{\text{scal}}}} &= L_0
+\end{align}
+$$
+
+
+
+## Converting Conclusion
+
+| Parameterization    | $L_\infty$ | $L_0$ | $g_{-\infty}$ | $t_i$ |  $a$  |
+|---------------------|-------|-------|-------|-------|-------|
+| "Campana & Jones 1" | $\text{Asym}$ | | $\frac{1}{\text{scal}}$ | $\text{xmid}$ | |
+| "Campana & Jones 2" | $\text{Asym}$ | | $\frac{1}{\text{scal}}$ | | $\frac{\text{xmid}}{\text{scal}}$ |
+| "Karkach"           | $\text{Asym}$ | $\frac{L_\infty}{1+e^{\frac{\text{xmid}}{\text{scal}}}}$ | $\frac{1}{\text{scal}}$ | | |
+
+: Conversion from `SSlogis()` parameters ($\text{Asym}$, $\text{xmid}$, and $\text{scal}$) to parameters for the common logistic parameterizations used to model fish growth in `FSA`. {#tbl-logisticConvert}

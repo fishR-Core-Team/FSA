@@ -10,3 +10,4 @@
 NEWS.html
 # docs page for automatic webpage through Travis-CI
 docs/*
+**/.quarto/

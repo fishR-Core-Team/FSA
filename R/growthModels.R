@@ -26,12 +26,12 @@
 #'   \itemize{
 #'     \item The \sQuote{Ricker2} and \sQuote{QuinnDeriso1} are synonymous, as are \sQuote{Ricker3} and \sQuote{QuinnDeriso2}.
 #'     \item The parameterizations and parameters for the Gompertz function are varied and confusing in the literature. I have attempted to use a uniform set of parameters in these functions, but that makes a direct comparison to the literature difficult. Common sources for Gompertz models are listed in the references below. I make some comments here to aid comparisons to the literature.
-#'     \item Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, ti is the age at the inflection point, gi is the instantaneous growth rate at the inflection point, t0 is a dimensionless parameter related to time/age, and a is a dimensionless parameter related to growth.
-#'     \item In the Quinn and Deriso (1999) functions (the \sQuote{QuinnDerisoX} functions), the a parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there. Also note that their Y is L here.
-#'     \item In the Ricker (1979)[p. 705] functions (the \sQuote{RickerX} functions), the a parameter here is equal to k there and the gi parameter here is equal to the g parameter there. Also note that their w is L here. In the Ricker (1979) functions as presented in Campana and Jones (1992), the a parameter here is equal to k parameter there and the gi parameter here is equal to the G parameter there. Also note that their X is L here.
+#'     \item Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, ti is the age at the inflection point, gi is the instantaneous growth rate at the inflection point, t0 is a the hypothetical age at a mean length of 0, and a, b, and c are nuisance parameters with no real-world interpretations.
 #'     \item The function in Ricker (1975)[p. 232] is the same as \sQuote{Ricker2} where the a parameter here is equal to G there and the gi parameter here is equal to the g parameter there. Also note that their w is L here.
+#'     \item In the Ricker (1979)[p. 705] functions (the \sQuote{RickerX} functions), the a parameter here is equal to k there and the gi parameter here is equal to the g parameter there. Also note that their w is L here. In the Ricker (1979) functions as presented in Campana and Jones (1992), the a parameter here is equal to k parameter there and the gi parameter here is equal to the G parameter there. Also note that their X is L here.
+#'     \item In the Quinn and Deriso (1999) functions (the \sQuote{QuinnDerisoX} functions), the a parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there. Also note that their Y is L here.
 #'     \item The function in Quist \emph{et al.} (2012)[p. 714] is the same as \sQuote{Ricker1} where the gi parameter here is equal to the G parameter there and the ti parameter here is equal to the t0 parameter there.
-#'     \item The function in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker1} where the gi parameter here is equal to k2 parameter there and the ti parameter here is equal to the t2 parameter there.
+#'     \item The function in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker1} where the gi parameter here is equal to the k2 parameter there and the ti parameter here is equal to the t2 parameter there.
 #'   }
 #'   \item Richards
 #'   \itemize{
@@ -90,6 +90,8 @@
 #' 
 #' Tjorve, E. and K. M. C. Tjorve. 2010. A unified approach to the Richards-model family for use in growth analyses: Why we need only two model forms. Journal of Theoretical Biology 267:417-425. [Was (is?) from https://www.researchgate.net/profile/Even_Tjorve/publication/46218377_A_unified_approach_to_the_Richards-model_family_for_use_in_growth_analyses_why_we_need_only_two_model_forms/links/54ba83b80cf29e0cb04bd24e.pdf.]
 #' 
+#' Tjorve, K. M. C. and E. Tjorve. 2017. The use of Gompertz models in growth analyses, and new Gompertz-model approach: An addition to the Unified-Richards family. PLOS One. [Was (is?) from https://doi.org/10.1371/journal.pone.0178691.]
+#' 
 #' Troynikov, V. S., R. W. Day, and A. M. Leorke. Estimation of seasonal growth parameters using a stochastic Gompertz model for tagging data. Journal of Shellfish Research 17:833-838. [Was (is?) from https://www.researchgate.net/profile/Robert_Day2/publication/249340562_Estimation_of_seasonal_growth_parameters_using_a_stochastic_gompertz_model_for_tagging_data/links/54200fa30cf203f155c2a08a.pdf.]
 #' 
 #' Vaughan, D. S. and T. E. Helser. 1990. Status of the Red Drum stock of the Atlantic coast: Stock assessment report for 1989. NOAA Technical Memorandum NMFS-SEFC-263, 117 p. [Was (is?) from https://repository.library.noaa.gov/view/noaa/5927/noaa_5927_DS1.pdf.]
@@ -116,7 +118,7 @@
 #' ( gomp1 <- GompertzFuns() )
 #' plot(gomp1(ages,Linf=800,gi=0.5,ti=5)~ages,type="b",pch=19)
 #' ( gomp2 <- GompertzFuns("Ricker2") )
-#' plot(gomp2(ages,L0=2,a=6,gi=0.5)~ages,type="b",pch=19)
+#' plot(gomp2(ages,L0=2,b=6,gi=0.5)~ages,type="b",pch=19)
 #' ( gomp2c <- GompertzFuns("Ricker2",simple=TRUE) )   # compare to gomp2
 #' ( gompT <- GompertzFuns("Troynikov1"))
 #'
@@ -200,7 +202,7 @@
 #' curve(gomp1(x,Linf=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
 #'
 #' # Fit third Ricker parameterization
-#' fit2 <- nls(len~gomp2(age,L0,a,gi),data=df,start=list(L0=30,a=3,gi=0.3))
+#' fit2 <- nls(len~gomp2(age,L0,c,gi),data=df,start=list(L0=30,c=3,gi=0.3))
 #' summary(fit2,correlation=TRUE)
 #' curve(gomp2(x,L0=coef(fit2)),from=0,to=15,col="blue",lwd=5,add=TRUE)
 #'
@@ -701,23 +703,23 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
   SRicker1 <- function(t,Linf,gi,ti) {
     Linf*exp(-exp(-gi*(t-ti)))
   }
-  QD1 <- QuinnDeriso1 <- Ricker2 <- function(t,L0,a=NULL,gi=NULL) {
-    if (length(L0)==3) { a <- L0[[2]]
+  QD1 <- QuinnDeriso1 <- Ricker2 <- function(t,L0,b=NULL,gi=NULL) {
+    if (length(L0)==3) { b <- L0[[2]]
     gi <- L0[[3]]
     L0 <- L0[[1]] }
-    L0*exp(a*(1-exp(-gi*t)))
+    L0*exp(b*(1-exp(-gi*t)))
   }
-  SQD1 <- SQuinnDeriso1 <- SRicker2 <- function(t,L0,a,gi) {
-    L0*exp(a*(1-exp(-gi*t)))
+  SQD1 <- SQuinnDeriso1 <- SRicker2 <- function(t,L0,b,gi) {
+    L0*exp(b*(1-exp(-gi*t)))
   }
-  QD2 <- QuinnDeriso2 <- Ricker3 <-  function(t,Linf,a=NULL,gi=NULL) {
-    if (length(Linf)==3) { a <- Linf[[2]]
+  QD2 <- QuinnDeriso2 <- Ricker3 <-  function(t,Linf,c=NULL,gi=NULL) {
+    if (length(Linf)==3) { c <- Linf[[2]]
     gi <- Linf[[3]]
     Linf <- Linf[[1]] }
-    Linf*exp(-a*exp(-gi*t))
+    Linf*exp(-c*exp(-gi*t))
   }
-  SQD2 <- SQuinnDeriso2 <- SRicker3 <- function(t,Linf,a,gi) {
-    Linf*exp(-a*exp(-gi*t))
+  SQD2 <- SQuinnDeriso2 <- SRicker3 <- function(t,Linf,c,gi) {
+    Linf*exp(-c*exp(-gi*t))
   }
   QD3 <- QuinnDeriso3 <- function(t,Linf,gi=NULL,t0=NULL) {
     if (length(Linf)==3) { gi <- Linf[[2]]
@@ -754,7 +756,7 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
                      "  E[L|t] = Linf*exp(-exp(a-gi*t))\n\n",
                      "where Linf = asymptotic mean length\n",
                      "      gi = decrease in growth rate at the inflection point\n",
-                     "      a = an undefined parameter\n\n")
+                     "      a = a nuisance parameter with no interpretation\n\n")
            },
            Ricker1= {
              message("You have chosen the 'Ricker1' ",comcat,
@@ -765,17 +767,17 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
            },
            Ricker2=,QD1=,QuinnDeriso1= {
              message("You have chosen the 'Ricker2'/'QuinnDeriso1' ",comcat,
-                     "  E[L|t] = L0*exp(a*(1-exp(-gi*t)))\n\n",
+                     "  E[L|t] = L0*exp(b*(1-exp(-gi*t)))\n\n",
                      "  where L0 = the mean length at age-0 (i.e., hatching or birth)\n",
                      "        gi = instantaneous growth rate at the inflection point\n",
-                     "         a = dimenstionless parameter related to growth\n\n")
+                     "         b = a nuisance parameter with no interpretation\n\n")
            },
            Ricker3=,QD2=,QuinnDeriso2= {
              message("You have chosen the 'Ricker3'/'QuinnDeriso2' ",comcat,
-                     "  E[L|t] = Linf*exp(-(a/gi)*exp(-gi*t))\n\n",
+                     "  E[L|t] = Linf*exp(-(c/gi)*exp(-gi*t))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "          gi = instantaneous growth rate at the inflection point\n",
-                     "           a = dimenstionless parameter related to growth\n\n")
+                     "           c = a nuisance parameter with no interpretation\n\n")
            },
            QD3=,QuinnDeriso3= {
              message("You have chosen the 'QuinnDeriso3' ",comcat,

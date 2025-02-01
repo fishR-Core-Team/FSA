@@ -61,8 +61,7 @@ GompertzStarts <- function(formula,data=NULL,
                            param=c("Ricker1","Ricker2","Ricker3",
                                    "QuinnDeriso1","QuinnDeriso2","QuinnDeriso3",
                                    "QD1","QD2","QD3",
-                                   "Original","original"),
-                           type=param,
+                                   "Original","original"),type=param,
                            fixed=NULL,
                            plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,
                            cex.main=0.9,col.main="red",...) {
@@ -85,91 +84,26 @@ GompertzStarts <- function(formula,data=NULL,
   if (!tmp$Eclass %in% c("numeric","integer")) 
     STOP("RHS variable must be numeric.")
   
-  ## get the length and age vectors
-  len <- tmp$mf[,tmp$Rname[1]]
-  age <- tmp$mf[,tmp$Enames[1]]
+  ## Get initial values from SSgompertz
+  ssform <- stats::as.formula(paste0(tmp$Rname[1],"~stats::SSgompertz(",
+                                     tmp$Enames[1],",Asym,b2,b3)"))
+  sstmp <- stats::getInitial(ssform,data=data)
+  Linf <- sstmp[["Asym"]]
+  gi <- -log(sstmp[["b3"]])
+  b2 <- sstmp[["b2"]]
   
-  ## Find mean lengths at age for the polynomial model
-  meanL <- tapply(len,age,mean)
-  ages <- as.numeric(names(meanL))
-
-  ## fit 3rd degree polynomial, create data.frame of modeled values
-  respoly <- stats::lm(meanL~stats::poly(ages,3,raw=TRUE))
-  mdldf <- data.frame(age=seq(min(ages),max(ages),length.out=299))
-  mdldf$len <- stats::predict(respoly,data.frame(ages=mdldf$age))
-  tmp <- stats::coef(respoly)
-  mdldf$deriv <- tmp[2]+tmp[3]*mdldf$age+tmp[4]*mdldf$age^2
-  
-  ## get the starting values
-  Linf <- ifelse ("Linf" %in% names(fixed),fixed[["Linf"]],max(mdldf$len))
-  L0 <- ifelse ("L0" %in% names(fixed),fixed[["L0"]],stats::predict(respoly,data.frame(ages=0)))
-  Linfpt <- Linf/exp(1)
-  infpt.pos <- which(mdldf$len>Linfpt)[[1]]
-  ti <- ifelse ("ti" %in% names(fixed),fixed[["ti"]],mdldf$age[infpt.pos])
-  infpt.pos <- c(infpt.pos,infpt.pos+1)
-  gi <- ifelse ("gi" %in% names(fixed),fixed[["gi"]],
-                as.numeric(diff(log(mdldf$len[infpt.pos]))/diff(mdldf$age[infpt.pos])))
-  if ("t0" %in% names(fixed)) t0 <- fixed[["t0"]]
-  else {
-    # get real component of roots to polynomial equation
-    resroots <- Re(polyroot(stats::coef(respoly)))
-    # find starting value for t0 as polynomial root closest to zero
-    t0 <- resroots[which(abs(resroots)==min(abs(resroots)))]
-    # removes the attributes and will return only the first
-    #  root if a "double root" was found
-    t0 <- t0[[1]]
-  }
-  # starting value for a depends on param/type ... so handled differently
-  if (!type %in% c("Ricker1","QuinnDeriso3","QD3")) {
-    if ("a" %in% names(fixed)) a <- fixed[["a"]]
-    else {
-      switch(type,
-             Ricker2=,QuinnDeriso1=,QD1={ a <- exp(gi*t0)/gi },
-             Ricker3=,QuinnDeriso2=,QD2={ a <- exp(gi*ti) },
-             Original=,original={ a <- gi*ti }
-             ) # end switch
-    }
-  }
-
-  ## return values appropriate to the param chosen
+  ## get starting values depending on type
   switch(type,
-         Ricker1={ sv <- list(Linf=Linf,gi=gi,ti=ti)},
-         Ricker2=,QuinnDeriso1=,QD1={ sv <- list(L0=L0,a=a,gi=gi)},
-         Ricker3=,QuinnDeriso2=,QD2=,Original=,original={ sv <- list(Linf=Linf,a=a,gi=gi)},
-         QuinnDeriso3=,QD3={ sv <- list(Linf=Linf,gi=gi,t0=t0)}
+         Ricker1={  sv <- list(Linf=Linf,gi=gi,ti=log(b2)/gi)  },
+         Ricker2=,QuinnDeriso1=,QD1={  sv <- list(L0=Linf/exp(b2),b=b2,gi=gi)  },
+         Ricker3=,QuinnDeriso2=,QD2={  sv <- list(Linf=Linf,c=b2,gi=gi)  },
+         QuinnDeriso3=,QD3={  sv <- list(Linf=Linf,gi=gi,t0=log(b2*gi)/gi)  },
+         Original=,original={  sv <- list(Linf=Linf,a=log(b2),gi=gi)  },
   ) # end 'type' switch
-  
+
   ## make the static plot if asked for
-  if (plot) iGompStartsPlot(age,len,type,sv,
+  if (plot) iPlotGrowStarts(formula,data,"Gompertz",type,sv,NULL,
                             col.mdl,lwd.mdl,lty.mdl,cex.main,col.main)
   ## return starting values list
   sv
-}
-
-
-#===============================================================================
-# Static plot of starting values
-#===============================================================================
-iGompStartsPlot <- function(age,len,type,sv,
-                            col.mdl,lwd.mdl,lty.mdl,cex.main,col.main) { # nocov start
-  ## attempting to get by bindings warning in RCMD CHECK
-  x <- NULL
-  ## Plot the data
-  # create a transparency value that attempts to not be too transparent
-  tmp <- max(table(age,len))
-  clr <- grDevices::rgb(0,0,0,ifelse(tmp>2 & tmp<20,2/tmp,0.1))
-  # Make the base plot
-  graphics::plot(age,len,pch=19,col=clr,xlab="Age",ylab="Length",
-                 main=paste0("Gompertz (",type,") STARTING VALUES"),
-                 cex.main=cex.main,col.main=col.main)
-  ## Plot the model
-  mdl <- GompertzFuns(type)
-  min.age <- min(age,na.rm=TRUE)
-  max.age <- max(age,na.rm=TRUE)
-  graphics::curve(mdl(x,unlist(sv)),from=min.age,to=max.age,
-                  col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
-  ## Put the starting values to put on the plot
-  graphics::legend("bottomright",
-                   paste(names(sv),formatC(unlist(sv),format="f",digits=2),
-                         sep="="),bty="n")
-} # nocov end
+}  

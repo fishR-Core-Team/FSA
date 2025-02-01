@@ -161,8 +161,12 @@ vbStarts <- function(formula,data=NULL,
     Pauly= { sv <- iVBStarts.Pauly(age,len,type,meth0,methLinf,num4Linf,fixed) }
   ) # end 'type' switch
   ## make the static plot if asked for
-  if (plot) iVBStartsPlot(age,len,type,sv,ages2use,valOgle,
-                          col.mdl,lwd.mdl,lty.mdl,cex.main,col.main)
+  # first handle "consts" for iPlotGrowthStarts
+  if (type=="Ogle") tmp <- valOgle
+  else if (type %in% c("Francis","Schnute")) tmp <- ages2use
+  else tmp <- NULL
+  if (plot) iPlotGrowStarts(formula,data,"von Bertalanffy",type,sv,tmp,
+                            col.mdl,lwd.mdl,lty.mdl,cex.main,col.main)
   ## Check if user wants to choose starting values from an interactive plot
   if (dynamicPlot) 
     WARN("The 'dynamicPlot' functionality has been moved to 'vbStartsDP' in the 'FSAsim' package.")
@@ -540,44 +544,55 @@ iVBStarts.Ls <- function(age,len,type,methEV,ages2use,fixed) {
 
 
 
-
-#===============================================================================
-# Static plot of starting values
-#===============================================================================
-iGrowSVBasePlot <- function(age,len,mod,type,cex.main,col.main) {
+################################################################################
+# INTERNAL FUNCTIONS -- Static plot of starting values
+################################################################################
+iPlotGrowStarts <- function(formula,data,mod,type,sv,consts,
+                            col.mdl,lwd.mdl,lty.mdl,cex.main,col.main) { # nocov start
+  # Trying to fix no visible binding error for x
+  x <- NULL
+  # Get model data (to be returned later)
+  mdata <- stats::model.frame(formula,data=data)
+  # Get variable names from formula and data.frame
+  varNms <- names(mdata)
+  # Separate into L(ength) and A(ge) names ... assumes Length first
+  varNmL <- varNms[1]
+  varNmA <- varNms[2]
+  
   # create a transparency value that attempts to not be too transparent
-  tmp <- max(table(age,len))
+  tmp <- max(stats::xtabs(stats::as.formula(paste0("~",varNmL,"+",varNmA)),
+                          data=data))
   clr <- grDevices::rgb(0,0,0,ifelse(tmp>2 & tmp<20,2/tmp,0.1))
+  
   # Make the base plot
-  graphics::plot(age,len,pch=19,col=clr,xlab="Age",ylab="Length",
+  graphics::plot(formula,data,pch=19,col=clr,xlab="Age",ylab="Length",
                  main=paste0(mod," (",type,") at STARTING VALUES"),
                  cex.main=cex.main,col.main=col.main)
   
-}
-iVBStartsPlot <- function(age,len,type,sv,ages2use,valOgle,
-                          col.mdl,lwd.mdl,lty.mdl,cex.main,col.main) { # nocov start
-  ## attempting to get by bindings warning in RCMD CHECK
-  x <- NULL
-  ## Plot the data
-  iGrowSVBasePlot(age,len,mod="von Bertalanffy",type,cex.main,col.main)
   ## Plot the model
-  mdl <- vbFuns(type)
-  min.age <- min(age,na.rm=TRUE)
-  max.age <- max(age,na.rm=TRUE)
-  if (!type %in% c("Schnute","Francis","Ogle")) {
-    graphics::curve(mdl(x,unlist(sv)),from=min.age,to=max.age,
-                    col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
-  } else if (type=="Ogle") {
-    # Ogle requires valOgle
-    sv <- unlist(c(sv,valOgle))[c("Linf","K","tr","Lr")]
-    graphics::curve(mdl(x,sv),from=min.age,to=max.age,
+  # get the appropriate growth function
+  switch(mod,
+         "von Bertalanffy"= { mdl <- vbFuns(type) },
+         "Gompertz"= { mdl <- GompertzFuns(type) }
+  )
+  
+  # plotting must be handled slightly differently for Francis/Schnute VBs
+  #   note that age2use will be in consts
+  if (mod=="von Bertalanffy" & type %in% c("Francis","Schnute")) {
+    # add the curve
+    graphics::curve(mdl(x,unlist(sv),t1=consts),
                     col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
   } else {
-    # Schnute/Francis requires t1 argument
-    graphics::curve(mdl(x,unlist(sv),t1=ages2use),from=min.age,to=max.age,
+    # get the argument values (those from sv and from consts)
+    tmp <- unlist(c(sv,consts))
+    # make sure arguments in same order as expected from mdl
+    tmp <- tmp[names(formals(mdl)[-1])]
+    # add the curve
+    graphics::curve(mdl(x,tmp),
                     col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
   }
-  ## Put the starting values on the plot
-  tmp <- paste(names(sv),formatC(unlist(sv),format="f",digits=2),sep="=")
-  graphics::legend("bottomright",tmp,bty="n")
+  # Put the starting values to put on the plot
+  graphics::legend("bottomright",
+                   paste(names(sv),formatC(unlist(sv),format="f",digits=2),
+                         sep="="),bty="n")
 } # nocov end

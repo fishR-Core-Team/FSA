@@ -1,8 +1,11 @@
 # FSA 0.9.6.9000
 * Updated `test-coverage.yaml` and moved a `# nocov start` and `# nocov end` in `bootstrap.r` to address the errors with `test-coverage.yaml`. Addresses [#118](https://github.com/fishR-Core-Team/FSA/issues/118).
+* Added an "article" (for the package webpage) that describes how the starting values for the growth equations are derived.
 
-* `growthFunShow()`: Modified. Fixed expression for QuinnDeriso3 parametrization of the Gompertz function (i.e., erroneous t* changed to t0 ... related to fixing [#113](https://github.com/fishR-Core-Team/FSA/issues/113)).
-* `vbStarts()`: Modified. Streamlined some of the internal functions (making it easier to use for `GompertzStarts()`). Fixed some typos.
+* `GompertzFuns()`: Modified. Changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization.
+* `GompertzStarts()`: Added.
+* `growthFunShow()`: Modified. Fixed expression for QuinnDeriso3 parametrization of the Gompertz function (i.e., erroneous t* changed to t0 ... related to fixing [#113](https://github.com/fishR-Core-Team/FSA/issues/113)). Also changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization.
+* `vbStarts()`: Modified. Streamlined some of the internal functions (making it easier to use for `GompertzStarts()`). Fixed some typos. Replaced `iVBStartsPlot()` with `iPlotGrowthStarts()` to be more general.
 
 
 # FSA 0.9.6
