@@ -1,11 +1,18 @@
 # FSA 0.9.6.9000
 * Updated `test-coverage.yaml` and moved a `# nocov start` and `# nocov end` in `bootstrap.r` to address the errors with `test-coverage.yaml`. Addresses [#118](https://github.com/fishR-Core-Team/FSA/issues/118).
+* Added `FlexParamCurve` to Imports for use of `modpar()` in `RichardsStarts()`.
 * Added an "article" (for the package webpage) that describes how the starting values for the growth equations are derived.
 
 * `GompertzFuns()`: Modified. Changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization.
 * `GompertzStarts()`: Added.
-* `growthFunShow()`: Modified. Fixed expression for QuinnDeriso3 parametrization of the Gompertz function (i.e., erroneous t* changed to t0 ... related to fixing [#113](https://github.com/fishR-Core-Team/FSA/issues/113)). Also changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization.
+* `growthFunShow()`: Modified. Fixed expression for QuinnDeriso3 parameterization of the Gompertz function (i.e., erroneous t* changed to t0 ... related to fixing [#113](https://github.com/fishR-Core-Team/FSA/issues/113)). Also changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization.
 * `logisticStarts()`: Added.
+* `RichardsFuns()`: Modified.
+  * Restricted to only 4-parameter functions; thus, removed sixth parameterization
+  * Removed first parameterization as it had limited placement for the inflection point.
+  * Moved the old parameterization to new places as follows: third to first, fifth to second, second to fourth, and fourth to fifth. Thus, the first parameterization will be the one that most closely follows the parameterization of the self-starting function to be used in `RichardsStarts()`.
+  * Changed some of the "b" parameters to "b1", "b2", and "b3" as they did not have the same meaning (or values) across the various parameterizations.
+* `RichardsStarts()`: Added.
 * `vbStarts()`: Modified. Streamlined some of the internal functions (making it easier to use for `GompertzStarts()`). Fixed some typos. Replaced `iVBStartsPlot()` with `iPlotGrowthStarts()` to be more general.
 
 

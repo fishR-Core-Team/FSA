@@ -443,8 +443,8 @@ iVBStarts.t0 <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
       st0 <- st0[[1]]
     } else {
       # find starting values for Linf and K
-      Linf <- iVBStarts.Linf(age,len,methLinf,num4Linf,fixed,pdegree=2)
-      K <- iVBStarts.K(age,len,type,fixed)
+      Linf <- iVBStarts.Linf(age,len,methLinf,num4Linf,fixed,pdegree=2,check=FALSE)
+      K <- iVBStarts.K(age,len,type,fixed,check=FALSE)
       # find the youngest age with a n>=1
       if (all(ns==1)) yngAge <- min(ages)
       else yngAge <- min(ages[which(ns>=1)])
@@ -574,7 +574,8 @@ iPlotGrowStarts <- function(formula,data,mod,type,sv,consts,
   switch(mod,
          "von Bertalanffy"= { mdl <- vbFuns(type) },
          "Gompertz"= { mdl <- GompertzFuns(type) },
-         "Logistic" = { mdl <- logisticFuns(type) }
+         "Logistic" = { mdl <- logisticFuns(type) },
+         "Richards" = { mdl <- RichardsFuns(type) }
   )
   
   # plotting must be handled slightly differently for Francis/Schnute VBs

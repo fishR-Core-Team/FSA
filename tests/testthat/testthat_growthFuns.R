@@ -129,12 +129,12 @@ test_that("logisticFuns() output",{
 
 test_that("RichardsFuns() output",{
   ## Do all choices return a function
-  for (i in 1:6) {
+  for (i in 1:5) {
     expect_equal(class(RichardsFuns(i)),"function")
     expect_equal(class(RichardsFuns(i,simple=TRUE)),"function")
   }
   ## Do all choices return a message with the name of the function in it
-  for (i in 1:6) expect_message(RichardsFuns(i,msg=TRUE),paste0("Richards",i))
+  for (i in 1:5) expect_message(RichardsFuns(i,msg=TRUE),paste0("Richards",i))
 })
 
 test_that("Schnute() output",{

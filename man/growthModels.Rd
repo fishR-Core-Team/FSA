@@ -86,8 +86,9 @@ Take note of the following for parameterizations (i.e., \code{param}) of each gr
   }
   \item Richards
   \itemize{
-    \item Within FSA, Linf is the mean asymptotic length, ti is the age at the inflection point, k controls the slope at the inflection point (maximum relative growth rate), b is dimensionless but related to the vertical position (i.e., size) of the inflection point, a is dimensionless but related to the horizontal position (i.e., age) of the inflection point, and L0 is the mean length at age-0.
-    \item The parameterizations (1-6) correspond to functions/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010). Note that their A, S, k, d, and B are Linf, a, k, b, and L0, respectively, here (in FSA). Their (Tjorve and Tjorve 2010) K does not appear here.
+    \item Only 4-parameter parameterizations from Tjorve and Tjorve (2010) that seemed useful for modeling fish growth are provided here.
+    \item Within FSA, Linf is the mean asymptotic length; ti is the age at the inflection point; k controls the slope at the inflection point (maximum relative growth rate); a is dimensionless but related to the horizontal position (i.e., age) of the inflection point; b, c, and d are dimensionless but related to the vertical position (i.e., size) of the inflection point; and L0 is the mean length at age-0.
+    \item The parameterizations (1-5) correspond to functions/equations 5, 3(alt), 7, 4, and 6, respectively, in Tjorve and Tjorve (2010). Note that their A, S, k are Linf, a, k and their d is b, c, and d, respectively, here (in FSA).
   }
   \item logistic
   \itemize{
@@ -118,19 +119,17 @@ plot(gomp2(ages,L0=2,b=6,gi=0.5)~ages,type="b",pch=19)
 ( gompT <- GompertzFuns("Troynikov1"))
 
 ## Simple Examples -- Richards
-( rich1 <- RichardsFuns() )
-plot(rich1(ages,Linf=800,k=0.5,a=1,b=6)~ages,type="b",pch=19)
+( rich1 <- RichardsFuns(1) )
+plot(rich1(ages,Linf=800,k=0.5,ti=3,b1=0.15)~ages,type="b",pch=19)
 ( rich2 <- RichardsFuns(2) )
-plot(rich2(ages,Linf=800,k=0.5,ti=3,b=6)~ages,type="b",pch=19)
+plot(rich2(ages,Linf=800,k=0.5,t0=-1,b2=6)~ages,type="b",pch=19)
 ( rich3 <- RichardsFuns(3) )
-plot(rich3(ages,Linf=800,k=0.5,ti=3,b=0.15)~ages,type="b",pch=19)
+plot(rich3(ages,Linf=800,k=0.5,L0=50,b3=1.5)~ages,type="b",pch=19)
 ( rich4 <- RichardsFuns(4) )
-plot(rich4(ages,Linf=800,k=0.5,ti=3,b=0.95)~ages,type="b",pch=19)
-lines(rich4(ages,Linf=800,k=0.5,ti=3,b=1.5)~ages,type="b",pch=19,col="blue")
+plot(rich4(ages,Linf=800,k=0.5,ti=3,b2=6)~ages,type="b",pch=19)
 ( rich5 <- RichardsFuns(5) )
-plot(rich5(ages,Linf=800,k=0.5,L0=50,b=1.5)~ages,type="b",pch=19)
-( rich6 <- RichardsFuns(6) )
-plot(rich6(ages,Linf=800,k=0.5,ti=3,Lninf=50,b=1.5)~ages,type="b",pch=19)
+plot(rich5(ages,Linf=800,k=0.5,ti=3,b3=0.95)~ages,type="b",pch=19)
+lines(rich5(ages,Linf=800,k=0.5,ti=3,b3=1.5)~ages,type="b",pch=19,col="blue")
 ( rich2c <- RichardsFuns(2,simple=TRUE) ) # compare to rich2
 
 ## Simple Examples -- Logistic
@@ -174,6 +173,7 @@ fit3 <- nls(tl~vb3(age,L1,L3,K,t1=0,t3=4),data=SpotVA1,
 summary(fit3,correlation=TRUE)
 curve(vb3(x,L1=coef(fit3),t1=c(0,4)),from=0,to=5,col="green",lwd=2,add=TRUE)
 
+
 ## Gompertz
 # Make some fake data using the original parameterization
 gompO <- GompertzFuns("original")
@@ -208,62 +208,9 @@ summary(fit3,correlation=TRUE)
 curve(gomp3(x,Linf=coef(fit3)[1],gi=coef(fit3)[2],t0=coef(fit3)[3]),
       from=0,to=15,col="green",lwd=2,add=TRUE)
 
-## Richards
-
-\dontrun{
-# Fit first Richards parameterization ... DOES NOT CONVERGE
-fit1 <- nls(len~rich1(age,Linf,k,a,b),data=df,
-            start=list(Linf=450,k=0.3,a=0.2,b=3))
-summary(fit1,correlation=TRUE)
-curve(rich1(x,Linf=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
-
-# Fit second Richards parameterization ... DOES NOT CONVERGE
-fit2 <- nls(len~rich2(age,Linf,k,ti,b),data=df,
-            start=list(Linf=450,k=0.25,ti=3,b=3))
-summary(fit2,correlation=TRUE)
-curve(rich2(x,Linf=coef(fit2)),from=0,to=15,col="blue",lwd=7,add=TRUE)
-}
-
-plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
-
-# Fit third Richards parameterization
-fit3 <- nls(len~rich3(age,Linf,k,ti,b),data=df,
-            start=list(Linf=450,k=0.25,ti=3,b=-0.1))
-summary(fit3,correlation=TRUE)
-curve(rich3(x,Linf=coef(fit3)),from=0,to=15,col="green",lwd=4,add=TRUE)
-
-# Fit fourth Richards parameterization
-fit4 <- nls(len~rich4(age,Linf,k,ti,b),data=df,
-            start=list(Linf=450,k=0.25,ti=3,b=0.7))
-summary(fit4,correlation=TRUE)
-curve(rich4(x,Linf=coef(fit4)),from=0,to=15,col="black",lwd=1,add=TRUE)
-
-## Logistic
-plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
-
-# Fit first Campana-Jones parameterization
-fit1 <- nls(len~log1(age,Linf,gninf,ti),data=df,
-            start=list(Linf=450,gninf=0.45,ti=4))
-summary(fit1,correlation=TRUE)
-curve(log1(x,Linf=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
-
-# Fit second Campana-Jones parameterization
-fit2 <- nls(len~log2(age,Linf,gninf,a),data=df,
-            start=list(Linf=450,gninf=0.45,a=7))
-summary(fit2,correlation=TRUE)
-curve(log2(x,Linf=coef(fit2)),from=0,to=15,col="blue",lwd=5,add=TRUE)
-
-# Fit Karkach parameterization (using simple=TRUE model)
-log3 <- logisticFuns("Karkach",simple=TRUE)
-fit3 <- nls(len~log3(age,Linf,L0,gninf),data=df,
-            start=list(Linf=450,L0=30,gninf=0.45))
-summary(fit3,correlation=TRUE)
-curve(log3(x,Linf=coef(fit3)[1],L0=coef(fit3)[2],gninf=coef(fit3)[3]),
-      from=0,to=15,col="green",lwd=2,add=TRUE)
-
 
 #############################################################################
-## Create expressions of the models
+## Create expressions of VB models
 #############################################################################
 # Typical von Bertalanffy ... Show as a stand-alone plot
 growthFunShow("vonBertalanffy","Typical",plot=TRUE)

@@ -31,7 +31,7 @@ The `stats` package in base R contains `SSasymp()` which is a self-starting func
 
 $$ Y = \text{Asym}+(\text{R0}-\text{Asym})~e^{-e^{\text{lrc}\times\text{input}}} $$
 
-where $Y$ and $\text{input}$ are the response and explanatory variables, respectively, $\text{Asym}$ is a parameter for the vertical (i.e., $Y$) asymptote, $\text{R0}$ is a parameter related to the value of $Y$ at $X=0$, and $lrc$ is a "parameter representing the natural logarithm of the rate constant."
+where $Y$ and $\text{input}$ are the response and explanatory variables, respectively, $\text{Asym}$ is a parameter for the horizontal (i.e., $Y$) asymptote, $\text{R0}$ is a parameter related to the value of $Y$ at $X=0$, and $lrc$ is a "parameter representing the natural logarithm of the rate constant."
 
 In growth (in length) modeling, $Y$ is $L$ (for length); $\text{input}$ is $t$ (for time as measured by age); $\text{Asym}$ is clearly $L_{\infty}$, the asympotic mean length; and $\text{R0}$ is clearly $L_0$, the mean length at $t=0$ (i.e., the y-intercept). Thus, at this point, the R "asymptotic regression" function can be re-written for the purposes of growth modeling as 
 
@@ -44,12 +44,12 @@ $$ L = L_\infty - (L_\infty-L_0)~e^{-Kt} $$ {#eq-rSSasymp}
 This function is **exactly** the "Original" (or synomymously the "von Bertalanffy") parameterization in `FSA` of the von Bertalanffy growth function. Thus, `SSasymp()` is a parameterization of the von Bertalanffy growth function commonly used to model fish growth. Thus, the initial values produced by `SSasymp()` can be used as initial values for the "original" parameterization of the von Bertalanffy growth function. In the following sections, I show how to use the values produced by `SSasymp()` to derive starting values for the other parameterizations of the von Bertalanffy growth function in `FSA`.
 
 ## Original (or von Bertalanffy) Parameterization
-As noted above, @eq-SSasymp is the "original" parameterization of the von Bertalanffy growth function implemented in `FSA`. Also, as noted above, $L_\infty=\text{Asym}$, $L_{0}=\text{R0}$, and $K=e^{\text{lrc}}$.
+As noted above, @eq-rSSasymp is the "original" parameterization of the von Bertalanffy growth function implemented in `FSA`. Also, as noted above, $L_\infty=\text{Asym}$, $L_{0}=\text{R0}$, and $K=e^{\text{lrc}}$.
 
 ## Typical (or Beverton-Holt) Parameterization
 The "Typical" (or Beverton-Holt) parameterization implemented in `FSA` is
 
-$$ L = L_\infty (1-e^{-K(t-t_0))} $$ {#eq-BevertonHolt}
+$$ L = L_\infty\left(1-e^{-K(t-t_0)}\right) $$ {#eq-BevertonHolt}
 
 where $t_0$ is the hypothetical age at $L=0$ (i.e., the x-intercept). The only difference in parameters between @eq-BevertonHolt and @eq-rSSasymp is $t_0$, which is clearly defined at $t$ when $L=0$. Thus, if $L=0$ is plugged into @eq-rSSasymp and we solve for $t$ we get
 
@@ -62,12 +62,12 @@ $$
 0 &= L_\infty - (L_\infty-L_0)~e^{-Kt}  \\
 L_\infty  &= (L_\infty-L_0)~e^{-Kt_0}  \\
 \frac{L_\infty}{L_\infty-L_0} &= e^{-Kt_0}  \\
-log(\frac{L_\infty}{L_\infty-L_0}) &= -Kt_0 \\
--\frac{log(\frac{L_\infty}{L_\infty-L_0})}{K} &= t_0
+log\left(\frac{L_\infty}{L_\infty-L_0}\right) &= -Kt_0 \\
+-\frac{log\left(\frac{L_\infty}{L_\infty-L_0}\right)}{K} &= t_0
 \end{align}
 $$
 
-Thus, the parameters for the "Typical" parameterization can be found from the $L_\infty$, $K$, and $t_0$ found for the "Original" parameterization.
+Thus, the parameters for the "Typical" parameterization can be found from the $L_\infty$, $K$, and $L_0$ found for the "Original" parameterization.
 
 
 
@@ -77,7 +77,7 @@ The `stats` package in base R contains `SSgompertz()` which is a self-starting f
 
 $$ Y = \text{Asym}~e^{-b_2b_3^X} $$
 
-where $Y$ and $X$ are the response and explanatory variables, respectively, $\text{Asym}$ is a parameter for the vertical (i.e., $Y$) asymptote, $b_2$ is a parameter related to the value of $Y$ at $X=0$, and $b_3$ is a "parameter related to the scale of the x-axis."
+where $Y$ and $X$ are the response and explanatory variables, respectively, $\text{Asym}$ is a parameter for the horizontal (i.e., $Y$) asymptote, $b_2$ is a parameter related to the value of $Y$ at $X=0$, and $b_3$ is a "parameter related to the scale of the x-axis."
 
 In growth (in length) modeling, $Y$ is $L$ (for length), $X$ is $t$ (for time as measured by age), and $\text{Asym}$ is clearly $L_{\infty}$. Thus, at this point, the R Gompertz function can be re-written for the purposes of growth modeling as 
 
@@ -185,7 +185,7 @@ The `stats` package in base R contains `SSlogis()` which is a self-starting func
 
 $$ Y = \frac{\text{Asym}}{1+e^{\frac{\text{xmid}-\text{input}}{\text{scal}}}} $$
 
-where $Y$ and $\text{input}$ are the response and explanatory variables, respectively, $\text{Asym}$ is a parameter for the vertical (i.e., $Y$) asymptote, $xmid$ is a parameter for the value of $X$ at the inflection point, and $scal$ is a "parameter on the input axis."
+where $Y$ and $\text{input}$ are the response and explanatory variables, respectively, $\text{Asym}$ is a parameter for the horizontal (i.e., $Y$) asymptote, $xmid$ is a parameter for the value of $X$ at the inflection point, and $scal$ is a "parameter on the input axis."
 
 In growth (in length) modeling, $Y$ is $L$ (for length), $\text{input}$ is $t$ (for time as measured by age), and $\text{Asym}$ is clearly $L_{\infty}$. Most likely $xmid$ is $t_i$, but it is not 100% clear at this point. Thus, at this point, the R logistic function can be re-written for the purposes of growth modeling as 
 
@@ -260,12 +260,10 @@ $$
 \frac{L_\infty - L_0}{L_0} &= e^{\frac{\text{xmid}}{\text{scal}}} \\
 L_\infty - L_0 &= L_0e^{\frac{\text{xmid}}{\text{scal}}} \\
 L_\infty &= L_0 + L_0e^{\frac{\text{xmid}}{\text{scal}}} \\
-L_\infty &= L_0(1+e^{\frac{\text{xmid}}{\text{scal}}}) \\
+L_\infty &= L_0\left(1+e^{\frac{\text{xmid}}{\text{scal}}}\right) \\
 \frac{L_\infty}{1+e^{\frac{\text{xmid}}{\text{scal}}}} &= L_0
 \end{align}
 $$
-
-
 
 ## Converting Conclusion
 
@@ -276,3 +274,70 @@ $$
 | "Karkach"           | $\text{Asym}$ | $\frac{L_\infty}{1+e^{\frac{\text{xmid}}{\text{scal}}}}$ | $\frac{1}{\text{scal}}$ | | |
 
 : Conversion from `SSlogis()` parameters ($\text{Asym}$, $\text{xmid}$, and $\text{scal}$) to parameters for the common logistic parameterizations used to model fish growth in `FSA`. {#tbl-logisticConvert}
+
+
+# Richards
+The `FlexParamCurve` package in R contains `SSposnegRichards()` which is a self-starting function for using `nls()` to fit a "Positive-Negative Richards growth" function to data. This functions can fit an 8-parameter curve but if some of the parameters are not used then it is possible to fit a 4-parameter Richards curve, similar to what is done in `FSA`. Their "twelfth model" (i.e., `modno=12`) can be written, using their R function parameters, as
+
+$$ Y = \frac{\text{Asym}}{\left[1+Me^{-K(X-\text{Infl})}\right]^{\frac{1}{M}}} $$
+where $Y$ and $X$ are the response and explanatory variables, respectively, $\text{Asym}$ is a parameter for the horizontal (i.e., $Y$) asymptote, $K$ is a "rate parameter", $\text{Infl}$ is the "inflection point" (i.e., the x-axis position of the inflection point), and $M$ is a "shape parameter".
+
+In growth (in length) modeling, $Y$ is $L$ (for length), $X$ is $t$ (for time as measured by age), and $\text{Asym}$ is clearly $L_{\infty}$. Thus, at this point, their function can be re-written for the purposes of growth modeling as 
+
+$$ L = \frac{L_\infty}{\left[1+Me^{-K(t-\text{Infl})}\right]^{\frac{1}{M}}} $$
+
+It is also likely that $\text{Infl}$ is equal to $t_i$, but we will explore this below.
+
+## First Parameterization
+The first parameterization of the Richards growth function implemented in `FSA` is
+
+$$ L = \frac{L_\infty}{\left[1+b_1e^{-k(t-t_i)}\right]^\frac{1}{b_1}} $$ {#eq-Richards1}
+
+where $t_i$ is the time (or age) of the inflection point and $b_1$ is a scaling factor.
+
+There is no further work to be done here as a direct comparison of @eq-Richards1 to @rSSRichards shows that $b_1=M$, $k=K$, and $t_i=\text{Infl}$.
+
+## Second Parameterization
+The second parameterization of the Richards growth function implemented in `FSA` is
+
+$$ L = \frac{L_\infty}{\left(1+e^{-k(t-t_0)}\right)^{-b_2}} $$ {#eq-Richards2}
+
+NEED TO COME BACK TO THIS, BUT SOMEHOW I FOUND THAT
+
+$t_0 = -\frac{log\left(\frac{1}{M}\right)}{K}+\text{Infl}$ and $b_2 = -\frac{1}{M}$
+
+
+## Third Parameterization
+The third parameterization of the Richards growth function implemented in `FSA` is
+
+$$ L = L_\infty\left[1+\left(\left(\frac{L_0}{L_\infty}\right)^{1-b_3}-1\right)e^{-kt}\right]^\frac{1}{1-b_3} $$ {#eq-Richards3}
+
+where $L_0$ is the mean length at $t=0$. As shown in the original reference (see `?RichardsFuns`) this parameterization was formed from setting $b_3=1+b_1$, so $b_3=1+M$. In addition, if $t$ is set to $0$ in @eq-Richards1 then $L_0=\frac{L_\infty}{\left[1+b_1e^{kt_i}\right]^\frac{1}{b_1}}$ such that $L_0$ can be estimated from the starting values of $L_\infty$, $k$, $t_i$, and $b_1$ from the first parameterization.
+
+## Fourth Parameterization
+The fourth parameterization of the Richards growth function implemented in `FSA` is
+
+$$ L = L_\infty\left[1-\frac{1}{b_2}e^{-k(t-t_i)}\right]^{b_2} $$ {#eq-Richards4}
+
+As shown in the original reference (see `?RichardsFuns`) this is exactly @eq-Richards1 with $b_2=-\frac{1}{b_1}$. Thus, from the work done for the first parameterization, $b_2=-\frac{1}{M}$, $k=K$, and $t_i=\text{Infl}$.
+
+
+## Fifth Parameterization
+The fifth parameterization of the Richards growth function implemented in `FSA` is
+
+$$ L = L_\infty\left[1+(b_3-1)e^{-k(t-t_i)}\right]^\frac{1}{1-b_3} $$ {#eq-Richards5}
+
+As shown in the original reference (see `?RichardsFuns`) this is exactly @eq-Richards1 with $b_3=1+b_1$. Thus, from the work done for the first parameterization, $b_3=1+M$, $k=K$, and $t_i=\text{Infl}$.
+
+
+## Converting Conclusion
+
+| Parameterization | $L_\infty$ | $L_0$ | $k$ | $t_i$ |  $t_0$  | $\text{b\#}$
+|------------------|-------|-------|-------|-------|-------|-------|
+| 1 | $\text{Asym}$ |  | $K$ | $\text{Infl}$ |  | $M$ |
+| 2 | $\text{Asym}$ |  |  |  | $-\frac{log\left(\frac{1}{M}\right)}{K}+\text{Infl}$ | $-\frac{1}{M}$ |
+| 3 | $\text{Asym}$ | $\frac{L_\infty}{\left[1+be^{kt_i}\right]^\frac{1}{b}}$ | $K$ |  |  | $1+M$ |
+| 4 | $\text{Asym}$ |  | $K$ | $\text{Infl}$ |  | $-\frac{1}{M}$ |
+| 5 | $\text{Asym}$ |  | $K$ | $\text{Infl}$ |  | $1+M$ |
+
+: Conversion from `SSposnegRichards()` parameters ($\text{Asym}$, $\text{Infl}$, $K$, and $M$) to parameters for the common Richards parameterizations used to model fish growth in `FSA`. {#tbl-RichardsConvert}

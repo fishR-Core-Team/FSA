@@ -29,6 +29,7 @@ Imports:
     utils,
     car,
     dunn.test,
+    FlexParamCurve,
     lmtest,
     plotrix,
     withr
