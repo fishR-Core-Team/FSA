@@ -67,7 +67,72 @@ log\left(\frac{L_\infty}{L_\infty-L_0}\right) &= -Kt_0 \\
 \end{align}
 $$
 
-Thus, the parameters for the "Typical" parameterization can be found from the $L_\infty$, $K$, and $L_0$ found for the "Original" parameterization.
+## Gallucci-Quinn Parameterization
+The "GallucciQuinn" parameterization implemented in `FSA` is
+
+$$ L = \frac{\omega}{K}\left(1-e^{-K(t-t_0)}\right) $$ {#eq-GQ}
+
+where $\omega=KL_\infty$ and represents a growth rate near $t_0$. Given this definition of $\omega$ all starting values for this parameterization are equal to or can be easily derived from the starting values from the "traditional" parameterization.
+
+## Mooij Parameterization
+The Mooij parameterization implemented in `FSA` is
+
+$$ L = L_\infty - (L_\infty-L_0)~e^{-\frac{\omega}{L_\infty}t} $$ {#eq-Mooij}
+
+Given the definition of $\omega$ above, all starting values for this parameterization are equal to or can be easily derived from the starting values from the "original" parameterization.
+
+## Weisberg Parameterization
+The Weisberg parameterization implemented in `FSA` is
+
+$$ L = L_\infty\left(1-e^{-log(2)\frac{t-t_0}{t_{50}-t_0}}\right) $$ {#eq-BevertonHolt}
+
+where $t_{50}$ is the time (or age) when half of $L_\infty$ has been reached.
+
+The Weisberg parameterization clearly stems from the typical parameterization in @eq-BevertonHolt. A conversion for $t_{50}$ can be found by solving @eq-BevertonHolt for $t$ when $\frac{L}{L_\infty}=\frac{1}{2}$.
+
+
+$$
+\begin{align}
+L &= L_\infty\left(1-e^{-K(t-t_0)}\right) \\
+\frac{L}{L_\infty} &= 1-e^{-K(t-t_0)} \\
+\frac{1}{2} &= 1-e^{-K(t_{50}-t_0)} \\
+e^{-K(t_{50}-t_0)} &= \frac{1}{2} \\
+-K(t_{50}-t_0) &= log\left(\frac{1}{2}\right) \\
+t_{50}-t_0 &= \frac{log(2)}{K} \\
+t_{50} &= t_0+\frac{log(2)}{K}
+\end{align}
+$$
+
+Thus, $t_{50}$ can be derived from values from the typical parameterization.
+
+## Ogle Parameterization
+The Ogle parameterization implemented in `FSA` is
+
+$$ L = L_r + (L_\infty-L_r)~e^{-e^{-K(t-t_r)}} $$ {#eq-Ogle}
+
+where $L_r$ is the mean length at $t_r$. Note that either $L_r$ or $t_r$ must be specified so that this is still a 3-parameter von Bertalanffy model. Thus, this is used to either find a parameter that is the mean length at a specific time, or to find the time when a specific mean length is reached.
+
+
+## Converting Conclusion
+
+| Parameterization   | $L_\infty$ | $L_0$ | $K$ | $\omega$ | $t_0$ | $t_{50}$ |
+|--------------------|-------|-------|-------|-------|-------|-------|
+| "Original"         | $\text{Asym}$ | $\text{R0}$ | $e^{\text{lrc}}$ |  |  |  |
+| "BevertonHolt"     | $\text{Asym}$ | | $e^{\text{lrc}}$ |  | $-\frac{log\left(\frac{L_\infty}{L_\infty-L_0}\right)}{K}$ |  |
+| "GallucciQuinn"    | $\text{Asym}$ | | $e^{\text{lrc}}$ | $KL_\infty$ |  |  |
+| "Mooij"            | $\text{Asym}$ | $\text{R0}$ | | $KL_\infty$ |  |  |
+| "Weisberg"         | $\text{Asym}$ | | | | $-\frac{log\left(\frac{L_\infty}{L_\infty-L_0}\right)}{K}$ | $t_0+\frac{log(2)}{K}$ |
+| "Ogle"             | $\text{Asym}$ | | $e^{\text{lrc}}$ | | | | | |
+| "Schnute"          | | | $e^{\text{lrc}}$ | | | | |
+
+: Conversion from `SSasymp()` parameters ($\text{Asym}$, $\text{R0}$, and $\text{lrc}$) to parameters for the common von Bertalanffy parameterizations used to model fish growth in `FSA`. Note that the Ogle, Schnute, Francis, Somers, and Pauly parameterizations have other parameters that are not estimated from the parameters returned by `SSasymp()` and, thus, are not shown in this table. {#tbl-vbConvert}
+
+# von Bertalanffy -- Expected Value Parameterizations
+
+
+
+# von Bertalanffy -- Seasonal Growth Parameterizations
+
 
 
 
