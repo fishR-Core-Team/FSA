@@ -49,14 +49,15 @@
 #' head(df)
 #' 
 #' ##----- Example starting values for 1st parameterization of each type
-#' findGrowStarts(tlv~age,data=df,type="von Bertalanffy")
-#' findGrowStarts(tlg~age,data=df,type="Gompertz")
-#' findGrowStarts(tll~age,data=df,type="logistic")
-#' findGrowStarts(tlr~age,data=df,type="Richards")
+#' findGrowthStarts(tlv~age,data=df,type="von Bertalanffy")
+#' findGrowthStarts(tlg~age,data=df,type="Gompertz")
+#' findGrowthStarts(tll~age,data=df,type="logistic")
+#' findGrowthStarts(tlr~age,data=df,type="Richards")
 #' 
-#' @export findGrowStarts
+#' @rdname findGrowthStarts
+#' @export
 
-findGrowStarts <- function(formula,data,
+findGrowthStarts <- function(formula,data,
                            type=c("von Bertalanffy","Gompertz","logistic","Richards"),
                            param=1,constvals=NULL,fixed=NULL,plot=FALSE) {
   #===== Checks

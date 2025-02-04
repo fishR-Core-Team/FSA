@@ -62,10 +62,13 @@ reference:
   - title: Individual Growth
     desc: Fit various growth models (von Bertalanffy, Gompertz, logistic, Richards, Schnute) to individual fish.
     contents:
-      - vbFuns
-      - vbStarts
+      - makeGrowthFun
+      - showGrowthFun
+      - findGrowthStarts
       - Schnute
       - SchnuteRichards
+      - growthModels
+      - vbStarts
   - title: Mortality Rates
     desc: Estimate mortality rates from catch curve data and empirical models.
     contents:
