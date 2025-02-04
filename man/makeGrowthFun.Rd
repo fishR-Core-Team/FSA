@@ -19,28 +19,56 @@ makeGrowthFun(
 \item{simple}{A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}).}
 
 \item{msg}{A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}; DEFAULT) or not (\code{=FALSE}).}
-
-\item{case}{A numeric that indicates the specific case of the Schnute function to use. See details.}
-
-\item{plot}{A logical that indicates whether the growth function expression should be shown as an equation in a simple plot.}
-
-\item{\dots}{Not implemented.}
 }
 \value{
-Return a function that can be used to predict fish size given a vector of ages and values for the growth function parameters and, in some parameterizations, values for constants. The result should be saved to an object that is then the function name. When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}). If \code{simple=FALSE} (DEFAULT), then the values for all parameters may be included as a vector in the first parameter argument (but in the same order). Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}). If \code{simple=TRUE}, then all parameters and constants must be declared individually. The resulting function is somewhat easier to read when \code{simple=TRUE}, but is less general for some applications.
+Returns a function that can be used to predict fish size given a vector of ages and values for the growth function parameters and, in some parameterizations, values for constants. The result should be saved to an object that is then the function name. When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}). If \code{simple=FALSE} (DEFAULT), then the values for all parameters may be included as a vector in the first parameter argument (but in the same order). Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}). If \code{simple=TRUE}, then all parameters and constants must be declared individually. The resulting function is somewhat easier to read when \code{simple=TRUE}, but is less general for some applications.
 
-An expression of the equation for each growth function may be created with \code{growthFunShow}. In this function \code{type=} is used to select the major function type (e.g., von Bertalanffy, Gompertz, Richards, Logistic, Schnute) and \code{param=} is used to select a specific parameterization of that growth function. If \code{plot=TRUE}, then a simple graphic will be created with the equation using \code{\link{plotmath}} for a pretty format.
+An expression of the equation for each growth function may be created with \code{showGrowthFun} using the same \code{type=} and \code{param} arguments.
 }
 \description{
-Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions. Use \code{growthFunShow()} to see the equations for each growth function.
+Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions. Use \code{showGrowthFun} to see the equations for each growth function.
 }
 \note{
+The von Bertalanffy parameterizations for simple length and annual age data are
+
+\tabular{ccl}{
+\strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
+1  \tab \eqn{E(L_t)=L_\infty\left(1-e^{-K(t-t_0)}\right)} \tab Beverton and Holt \cr
+2  \tab \eqn{E(L_t)=L_\infty - (L_\infty-L_0)~e^{-Kt}} \tab von Bertalanffy \cr
+3  \tab \eqn{E(L_t)=\frac{\omega}{K}\left(1-e^{-K(t-t_0)}\right)} \tab Gallucci and Quinn \cr
+4  \tab \eqn{E(L_t)=L_\infty - (L_\infty-L_0)~e^{-\frac{\omega}{L_\infty}t}} \tab Mooij \cr
+5  \tab \eqn{E(L_t)=L_\infty\left(1-e^{-log(2)\frac{t-t_0}{t_{50}-t_0}}\right)} \tab Weisberg \cr
+6  \tab \eqn{E(L_t)=L_r + (L_\infty-L_r)~e^{-e^{-K(t-t_r)}}} \tab Ogle and Isermann \cr
+7  \tab \eqn{E(L_t)=L_1+(L_3-L_1)\frac{1-e^{-K(t-t_1)}}{1-e^{-K(t_3-t_1)}}} \tab Schnute \cr
+8  \tab \eqn{E(L_t)=L_1+(L_3-L_1)\frac{1-r^{2\frac{t-t_1}{t_3-t_1}}}{1-r^2}} \tab Francis \cr
+   \tab with \eqn{r=\frac{L_3-L_2}{L_2-L_1}} \tab \cr
+9  \tab \eqn{E(L_t)=L_\infty\frac{\left(1-e^{-K_2(t-t_0)}\right)\left(1+e^{-b(t-t_0-a)}\right)}{\left(1+e^{ab}\right)^{-\frac{K_2K_1}{b}}}} \tab Laslett and Polacheck \cr
+}
+
+The von Bertalanffy parameterizations for simple length and seasonal age data are
+
+\tabular{ccl}{
+\strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
+10 \tab \eqn{L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi sin(2\pi(t-t_s))}+\frac{CK}{2\pi sin(2\pi(t_0-t_s))}}\right)} \tab Somers \cr
+11 \tab \eqn{L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi sin(2\pi(t-WP+0.5))}+\frac{CK}{2\pi sin(2\pi(t_0-WP+0.5))}}\right)} \tab Somers (alt) \cr
+12 \tab \eqn{L_\infty(1-e^{-q}} \tab Pauly \cr
+   \tab with \eqn{q=K'(t'-t_0) + \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)(t'-t_s)}) - \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)(t_0-t_s)})} \tab \cr
+}
+
+The von Bertalanffy parameterizations for tag-recapture data are
+
+\tabular{ccl}{
+\strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
+13 \tab \eqn{-} \tab \cr
+14 \tab \eqn{-} \tab \cr
+15 \tab \eqn{-} \tab \cr
+16 \tab \eqn{-} \tab \cr
+17 \tab \eqn{-} \tab \cr
+18 \tab \eqn{-} \tab \cr
+}
+
 Take note of the following for parameterizations (i.e., \code{param}) of each growth function:
 \itemize{
-  \item von Bertalanffy
-  \itemize{
-    \item The \sQuote{Original} and \sQuote{vonBertalanffy} are synonymous as are \sQuote{Typical}, \sQuote{Traditional}, and \sQuote{BevertonHolt}. Further note that the \sQuote{Ogle} parameterization has the \sQuote{Original}/\sQuote{vonBertalanffy} and \sQuote{Typical}/\sQuote{Traditional}/\sQuote{BevertonHolt} parameterizations as special cases.
-  }
   \item Gompertz
   \itemize{
     \item The \sQuote{Ricker2} and \sQuote{QuinnDeriso1} are synonymous, as are \sQuote{Ricker3} and \sQuote{QuinnDeriso2}.
@@ -68,6 +96,10 @@ Take note of the following for parameterizations (i.e., \code{param}) of each gr
  12-Individual Growth.
 }
 
+\examples{
+makeGrowthFun()
+
+}
 \references{
 Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 

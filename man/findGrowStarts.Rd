@@ -19,9 +19,9 @@ findGrowStarts(
 
 \item{data}{A data frame that contains the variables in \code{formula}.}
 
-\item{type}{A string for the model type to use (von Bertalanffy, Gompertz, logistic, Richards).}
+\item{type}{A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards}) that indicates the type of growth function to show.}
 
-\item{param}{A numeric that indicates the specific parameterization of the model in \code{type} to use. See details.}
+\item{param}{A single numeric that indicates the specific parameterization of the growth function. See details.}
 
 \item{constvals}{A NAMED vector or list of constant values (either lengths or ages) to be used in some of the von Bertalanffy parameterizations. See details.}
 
@@ -77,7 +77,7 @@ findGrowStarts(tlr~age,data=df,type="Richards")
 
 }
 \seealso{
-See \code{\link{growthFunShow}} to make functions that use these starting values and \code{\link{showGrowFun}} to display the equations used in \pkg{FSA}. See \code{\link{nlsTracePlot}} for help troubleshooting nonlinear models that don't converge.
+See \code{\link{makeGrowthFun}} to make functions that use these starting values and \code{\link{showGrowthFun}} to display the equations used in \pkg{FSA}. See \code{\link{nlsTracePlot}} for help troubleshooting nonlinear models that don't converge.
 }
 \author{
 Derek H. Ogle, \email{DerekOgle51@gmail.com}

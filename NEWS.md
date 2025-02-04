@@ -10,7 +10,7 @@
 * `logisticFuns()`: Deprecated (replaced with `makeGrowthFun()`).
 * `makeGrowthFun()`: Added. This replaces `vbFuns()`, `GompertzFuns()`, `logisticFuns()`, and `RichardsFuns()`. Along the way, the following changes were made.
   * Changed parameterizations from being named to being numbered. These are described in the article.
-  * In Gompertz functions ... changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization.
+  * In Gompertz functions ... changed 1 parameter in "Original" to a1, changed a parameter to a2 in Ricker2 and QuinnDeriso1, and a to a2 in Ricker3 and QuinnDeriso2, to distinguish them when they are different.
   * In Richards functions ...
     * Restricted to only 4-parameter functions; thus, removed sixth parameterization
     * Removed first parameterization as it had limited placement for the inflection point.

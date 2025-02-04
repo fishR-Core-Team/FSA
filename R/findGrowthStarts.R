@@ -7,11 +7,9 @@
 #' BLAH-BLAH-BLAH
 #' 
 #' 
-#'
+#' @inheritParams makeGrowthFun
 #' @param formula A formula of the form \code{len~age}.
 #' @param data A data frame that contains the variables in \code{formula}.
-#' @param type A string for the model type to use (von Bertalanffy, Gompertz, logistic, Richards).
-#' @param param A numeric that indicates the specific parameterization of the model in \code{type} to use. See details.
 #' @param constvals A NAMED vector or list of constant values (either lengths or ages) to be used in some of the von Bertalanffy parameterizations. See details.
 #' @param fixed A NAMED vector or list that contains user-defined (i.e., fixed rather than automatically generated) starting values for one or more parameters. See details.
 #' @param plot A logical that indicates whether a plot of the data with the superimposed model fit at the starting values should be created. This plot is for diagnostic purposes and, thus, cannot be modified in this function.
@@ -24,7 +22,7 @@
 #' 
 #' @section IFAR Chapter: 12-Individual Growth.
 #' 
-#' @seealso See \code{\link{growthFunShow}} to make functions that use these starting values and \code{\link{showGrowFun}} to display the equations used in \pkg{FSA}. See \code{\link{nlsTracePlot}} for help troubleshooting nonlinear models that don't converge.
+#' @seealso See \code{\link{makeGrowthFun}} to make functions that use these starting values and \code{\link{showGrowthFun}} to display the equations used in \pkg{FSA}. See \code{\link{nlsTracePlot}} for help troubleshooting nonlinear models that don't converge.
 #' 
 #' @keywords manip
 #'
@@ -222,10 +220,10 @@ iGompStarts <- function(ynm,xnm,data,param) {
   # Create starting value list specific to parameterization
   sv <- NULL
   switch(param,
-         Gompertz1={  sv <- list(Linf=Linf,gi=gi,a=log(b2))  },
+         Gompertz1={  sv <- list(Linf=Linf,gi=gi,a1=log(b2))  },
          Gompertz2={  sv <- list(Linf=Linf,gi=gi,ti=log(b2)/gi)  },
-         Gompertz3={  sv <- list(L0=Linf/exp(b2),gi=gi,b=b2)  },
-         Gompertz4={  sv <- list(Linf=Linf,gi=gi,c=b2)  },
+         Gompertz3={  sv <- list(L0=Linf/exp(b2),gi=gi,a2=b2)  },
+         Gompertz4={  sv <- list(Linf=Linf,gi=gi,a2=b2)  },
          Gompertz5={  sv <- list(Linf=Linf,gi=gi,t0=log(b2*gi)/gi)  },
   )
   
@@ -308,7 +306,7 @@ iPlotGrowStarts <- function(sv,data,ynm,xnm,type,param,constvals) { # nocov star
   clr <- grDevices::rgb(0,0,0,ifelse(tmp>2 & tmp<20,2/tmp,0.1))
   
   # Make the base plot
-  graphics::plot(as.formula(paste0(ynm,"~",xnm)),data,
+  graphics::plot(stats::as.formula(paste0(ynm,"~",xnm)),data,
                  pch=19,col=clr,xlab="Age",ylab="Length",
                  main=paste0(type," Paramaterization #",param," at STARTING VALUES"),
                  cex.main=0.9)

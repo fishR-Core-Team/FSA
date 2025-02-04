@@ -2,24 +2,57 @@
 #' 
 #' @title Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.
 #'
-#' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions. Use \code{growthFunShow()} to see the equations for each growth function.
+#' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions. Use \code{showGrowthFun} to see the equations for each growth function.
 #'
 #' @param type A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards}) that indicates the type of growth function to show.
 #' @param param A single numeric that indicates the specific parameterization of the growth function. See details.
-#' @param case A numeric that indicates the specific case of the Schnute function to use. See details.
 #' @param simple A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}; DEFAULT) or not (\code{=FALSE}).
 #' 
-#' @return Return a function that can be used to predict fish size given a vector of ages and values for the growth function parameters and, in some parameterizations, values for constants. The result should be saved to an object that is then the function name. When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}). If \code{simple=FALSE} (DEFAULT), then the values for all parameters may be included as a vector in the first parameter argument (but in the same order). Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}). If \code{simple=TRUE}, then all parameters and constants must be declared individually. The resulting function is somewhat easier to read when \code{simple=TRUE}, but is less general for some applications.
+#' @return Returns a function that can be used to predict fish size given a vector of ages and values for the growth function parameters and, in some parameterizations, values for constants. The result should be saved to an object that is then the function name. When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}). If \code{simple=FALSE} (DEFAULT), then the values for all parameters may be included as a vector in the first parameter argument (but in the same order). Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}). If \code{simple=TRUE}, then all parameters and constants must be declared individually. The resulting function is somewhat easier to read when \code{simple=TRUE}, but is less general for some applications.
 #' 
-#' An expression of the equation for each growth function may be created with \code{growthFunShow}. In this function \code{type=} is used to select the major function type (e.g., von Bertalanffy, Gompertz, Richards, Logistic, Schnute) and \code{param=} is used to select a specific parameterization of that growth function. If \code{plot=TRUE}, then a simple graphic will be created with the equation using \code{\link{plotmath}} for a pretty format.
+#' An expression of the equation for each growth function may be created with \code{showGrowthFun} using the same \code{type=} and \code{param} arguments.
 #'
-#' @note Take note of the following for parameterizations (i.e., \code{param}) of each growth function:
+#' @note The von Bertalanffy parameterizations for simple length and annual age data are
+#' 
+#' \tabular{ccl}{
+#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
+#' 1  \tab \eqn{E(L_t)=L_\infty\left(1-e^{-K(t-t_0)}\right)} \tab Beverton and Holt \cr
+#' 2  \tab \eqn{E(L_t)=L_\infty - (L_\infty-L_0)~e^{-Kt}} \tab von Bertalanffy \cr
+#' 3  \tab \eqn{E(L_t)=\frac{\omega}{K}\left(1-e^{-K(t-t_0)}\right)} \tab Gallucci and Quinn \cr
+#' 4  \tab \eqn{E(L_t)=L_\infty - (L_\infty-L_0)~e^{-\frac{\omega}{L_\infty}t}} \tab Mooij \cr
+#' 5  \tab \eqn{E(L_t)=L_\infty\left(1-e^{-log(2)\frac{t-t_0}{t_{50}-t_0}}\right)} \tab Weisberg \cr
+#' 6  \tab \eqn{E(L_t)=L_r + (L_\infty-L_r)~e^{-e^{-K(t-t_r)}}} \tab Ogle and Isermann \cr
+#' 7  \tab \eqn{E(L_t)=L_1+(L_3-L_1)\frac{1-e^{-K(t-t_1)}}{1-e^{-K(t_3-t_1)}}} \tab Schnute \cr
+#' 8  \tab \eqn{E(L_t)=L_1+(L_3-L_1)\frac{1-r^{2\frac{t-t_1}{t_3-t_1}}}{1-r^2}} \tab Francis \cr
+#'    \tab with \eqn{r=\frac{L_3-L_2}{L_2-L_1}} \tab \cr
+#' 9  \tab \eqn{E(L_t)=L_\infty\frac{\left(1-e^{-K_2(t-t_0)}\right)\left(1+e^{-b(t-t_0-a)}\right)}{\left(1+e^{ab}\right)^{-\frac{K_2K_1}{b}}}} \tab Laslett and Polacheck \cr
+#' }
+#' 
+#' The von Bertalanffy parameterizations for simple length and seasonal age data are
+#' 
+#' \tabular{ccl}{
+#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
+#' 10 \tab \eqn{L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi sin(2\pi(t-t_s))}+\frac{CK}{2\pi sin(2\pi(t_0-t_s))}}\right)} \tab Somers \cr
+#' 11 \tab \eqn{L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi sin(2\pi(t-WP+0.5))}+\frac{CK}{2\pi sin(2\pi(t_0-WP+0.5))}}\right)} \tab Somers (alt) \cr
+#' 12 \tab \eqn{L_\infty(1-e^{-q}} \tab Pauly \cr
+#'    \tab with \eqn{q=K'(t'-t_0) + \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)(t'-t_s)}) - \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)(t_0-t_s)})} \tab \cr
+#' }
+#' 
+#' The von Bertalanffy parameterizations for tag-recapture data are
+#' 
+#' \tabular{ccl}{
+#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
+#' 13 \tab \eqn{-} \tab \cr
+#' 14 \tab \eqn{-} \tab \cr
+#' 15 \tab \eqn{-} \tab \cr
+#' 16 \tab \eqn{-} \tab \cr
+#' 17 \tab \eqn{-} \tab \cr
+#' 18 \tab \eqn{-} \tab \cr
+#' }
+#' 
+#' Take note of the following for parameterizations (i.e., \code{param}) of each growth function:
 #' \itemize{
-#'   \item von Bertalanffy
-#'   \itemize{
-#'     \item The \sQuote{Original} and \sQuote{vonBertalanffy} are synonymous as are \sQuote{Typical}, \sQuote{Traditional}, and \sQuote{BevertonHolt}. Further note that the \sQuote{Ogle} parameterization has the \sQuote{Original}/\sQuote{vonBertalanffy} and \sQuote{Typical}/\sQuote{Traditional}/\sQuote{BevertonHolt} parameterizations as special cases.
-#'   }
 #'   \item Gompertz
 #'   \itemize{
 #'     \item The \sQuote{Ricker2} and \sQuote{QuinnDeriso1} are synonymous, as are \sQuote{Ricker3} and \sQuote{QuinnDeriso2}.
@@ -104,6 +137,7 @@
 #' @keywords manip hplot
 #'
 #' @examples 
+#' makeGrowthFun()
 #' 
 #' @rdname makeGrowthFun
 #' @export
@@ -121,7 +155,6 @@ makeGrowthFun <- function(type=c("von Bertalanffy","Gompertz","logistic","Richar
     STOP("'param' must be between 1 and ",max.param[[type]]," for ",type," model")
   
   #===== Make message (if asked to)
-  
   # make a combined parameter name ... remove spaces from type
   pnm <- paste0(gsub(" ","",type),param)
   if (msg) message(msgsGrow[[pnm]])
@@ -542,20 +575,20 @@ msgsGrow <- c("vonBertalanffy1"=msg_vonBertalanffy1,
 #-- Gompertz parameterizations
 #-------------------------------------------------------------------------------
 # was Original
-Gompertz1 <- function(t,Linf,gi=NULL,a=NULL) {
+Gompertz1 <- function(t,Linf,gi=NULL,a1=NULL) {
   if (length(Linf)==3) {
-    a <- Linf[[3]]
+    a1 <- Linf[[3]]
     gi <- Linf[[2]]
     Linf <- Linf[[1]] }
-  Linf*exp(-exp(a-gi*t))
+  Linf*exp(-exp(a1-gi*t))
 }
-SGompertz1 <-function(t,Linf,gi,a) { Linf*exp(-exp(a-gi*t)) }
+SGompertz1 <-function(t,Linf,gi,a1) { Linf*exp(-exp(a1-gi*t)) }
 msg_Gompertz1 <- paste0("You have chosen paramaterization 1 (original) of ",
                         "the Gompertz growth function.\n\n",
                         "  E[L|t] = Linf*exp(-exp(a-gi*t))\n\n",
                         "where Linf = asymptotic mean length\n",
                         "        gi = decrease in growth rate at inflection point\n",
-                        "         a = nuisance parameter (no interpretation)\n\n")
+                        "        a1 = nuisance parameter (no interpretation)\n\n")
 
 # was Ricker1
 Gompertz2 <- function(t,Linf,gi=NULL,ti=NULL) {
@@ -574,36 +607,36 @@ msg_Gompertz2 <- paste0("You have chosen paramaterization 2 of ",
                         "          ti = time at the inflection point\n\n")
 
 # was QuinnDeriso1, Ricker2
-Gompertz3 <- function(t,L0,gi=NULL,b=NULL) {
+Gompertz3 <- function(t,L0,gi=NULL,a2=NULL) {
   if (length(L0)==3) {
-    b <- L0[[3]]
+    a2 <- L0[[3]]
     gi <- L0[[2]]
     L0 <- L0[[1]] }
-  L0*exp(b*(1-exp(-gi*t)))
+  L0*exp(a2*(1-exp(-gi*t)))
 }
-SGompertz3 <- function(t,L0,gi,b) { L0*exp(b*(1-exp(-gi*t))) }
+SGompertz3 <- function(t,L0,gi,a2) { L0*exp(a2*(1-exp(-gi*t))) }
 msg_Gompertz3 <- paste0("You have chosen paramaterization 3 of ",
                         "the Gompertz growth function.\n\n",
                         "  E[L|t] = L0*exp(b*(1-exp(-gi*t)))\n\n",
                         "  where L0 = the mean length at age-0 (i.e., hatching or birth)\n",
                         "        gi = instantaneous growth rate at the inflection point\n",
-                        "         b = nuisance parameter (no interpretation)\n\n")
+                        "        a2 = nuisance parameter (no interpretation)\n\n")
 
 # was QuinnDeriso2, Ricker3
-Gompertz4 <-  function(t,Linf,gi=NULL,c=NULL) {
+Gompertz4 <-  function(t,Linf,gi=NULL,a2=NULL) {
   if (length(Linf)==3) {
-    c <- Linf[[3]]
+    a2 <- Linf[[3]]
     gi <- Linf[[2]]
     Linf <- Linf[[1]] }
-  Linf*exp(-c*exp(-gi*t))
+  Linf*exp(-a2*exp(-gi*t))
 }
-SGompertz4 <- function(t,Linf,gi,c) { Linf*exp(-c*exp(-gi*t)) }
+SGompertz4 <- function(t,Linf,gi,a2) { Linf*exp(-a2*exp(-gi*t)) }
 msg_Gompertz4 <- paste0("You have chosen paramaterization 4 of ",
                         "the Gompertz growth function.\n\n",
-                        "  E[L|t] = Linf*exp(-(c/gi)*exp(-gi*t))\n\n",
+                        "  E[L|t] = Linf*exp(-(a2/gi)*exp(-gi*t))\n\n",
                         "  where Linf = asymptotic mean length\n",
                         "          gi = instantaneous growth rate at inflection point\n",
-                        "           c = nuisance parameter (no interpretation)\n\n")
+                        "          a2 = nuisance parameter (no interpretation)\n\n")
 
 # was QuinnDeriso3
 Gompertz5 <- function(t,Linf,gi=NULL,t0=NULL) {
