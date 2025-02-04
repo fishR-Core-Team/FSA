@@ -30,6 +30,7 @@ Imports:
     car,
     dunn.test,
     FlexParamCurve,
+    lifecycle,
     lmtest,
     plotrix,
     withr

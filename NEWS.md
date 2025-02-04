@@ -1,19 +1,25 @@
 # FSA 0.9.6.9000
 * Updated `test-coverage.yaml` and moved a `# nocov start` and `# nocov end` in `bootstrap.r` to address the errors with `test-coverage.yaml`. Addresses [#118](https://github.com/fishR-Core-Team/FSA/issues/118).
 * Added `FlexParamCurve` to Imports for use of `modpar()` in `RichardsStarts()`.
+* Added `lifecycle` to Imports for use with deprecating and badges.
 * Added an "article" (for the package webpage) that describes how the starting values for the growth equations are derived.
 
-* `GompertzFuns()`: Modified. Changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization.
-* `GompertzStarts()`: Added.
-* `growthFunShow()`: Modified. Fixed expression for QuinnDeriso3 parameterization of the Gompertz function (i.e., erroneous t* changed to t0 ... related to fixing [#113](https://github.com/fishR-Core-Team/FSA/issues/113)). Also changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization.
-* `logisticStarts()`: Added.
-* `RichardsFuns()`: Modified.
-  * Restricted to only 4-parameter functions; thus, removed sixth parameterization
-  * Removed first parameterization as it had limited placement for the inflection point.
-  * Moved the old parameterization to new places as follows: third to first, fifth to second, second to fourth, and fourth to fifth. Thus, the first parameterization will be the one that most closely follows the parameterization of the self-starting function to be used in `RichardsStarts()`.
-  * Changed some of the "b" parameters to "b1", "b2", and "b3" as they did not have the same meaning (or values) across the various parameterizations.
-* `RichardsStarts()`: Added.
-* `vbStarts()`: Modified. Streamlined some of the internal functions (making it easier to use for `GompertzStarts()`). Fixed some typos. Replaced `iVBStartsPlot()` with `iPlotGrowthStarts()` to be more general.
+* `findGrowthStarts()`: Added. This replaces `vbStarts()` and includes starting values for Gompertz, logistic, and Richards functions.
+* `GompertzFuns()`: Deprecated (replaced with `makeGrowthFun()`).
+* `growthFunShow()`: Deprecated (replaced with `showGrowthFun()`). But also fixed expression for QuinnDeriso3 parameterization of the Gompertz function (i.e., erroneous t* changed to t0 ... related to fixing [#113](https://github.com/fishR-Core-Team/FSA/issues/113)). Also changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization. Will be deleted in future versions.
+* `logisticFuns()`: Deprecated (replaced with `makeGrowthFun()`).
+* `makeGrowthFun()`: Added. This replaces `vbFuns()`, `GompertzFuns()`, `logisticFuns()`, and `RichardsFuns()`. Along the way, the following changes were made.
+  * Changed parameterizations from being named to being numbered. These are described in the article.
+  * In Gompertz functions ... changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization.
+  * In Richards functions ...
+    * Restricted to only 4-parameter functions; thus, removed sixth parameterization
+    * Removed first parameterization as it had limited placement for the inflection point.
+    * Moved the old parameterization to new places as follows: third to first, fifth to second, second to fourth, and fourth to fifth. Thus, the first parameterization will be the one that most closely follows the parameterization of the self-starting function to be used in `mqkeGrowthStarts()`.
+    * Changed some of the "b" parameters to "b1", "b2", and "b3" as they did not have the same meaning (or values) across the various parameterizations.
+* `RichardsFuns()`: Deprecated (replaced with `makeGrowthFun()`).
+* `showGrowthFun()`: Added. Updated and replaces `GrowthFunShow()`.
+* `vbFuns()`: Deprecated (replaced with `makeGrowthFun()`).
+* `vbStarts()`: Deprecated (replaced with `makeGrowthStarts()`. But also streamlined some of the internal functions, fixed some typos, and replaced `iVBStartsPlot()` with `iPlotGrowthStarts()` to be more general.
 
 
 # FSA 0.9.6

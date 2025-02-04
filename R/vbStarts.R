@@ -114,6 +114,10 @@ vbStarts <- function(formula,data=NULL,
                      ages2use=NULL,methEV=c("means","poly"),valOgle=NULL,
                      plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,
                      cex.main=0.9,col.main="red",dynamicPlot=FALSE,...) {
+  
+  lifecycle::deprecate_soft("0.10.0","vbStarts()","findGrowthStarts()",
+                            details="findGrowthStarts() is updated to provide starting values based on a better theoretical approach. The starting values from findGrowthStarts() should generally work better than those provided by vbStarts().")
+  
   ## some checks of arguments
   type <- match.arg(type,c("Typical","typical","Traditional",
                            "traditional","BevertonHolt",
@@ -165,7 +169,7 @@ vbStarts <- function(formula,data=NULL,
   if (type=="Ogle") tmp <- valOgle
   else if (type %in% c("Francis","Schnute")) tmp <- ages2use
   else tmp <- NULL
-  if (plot) iPlotGrowStarts(formula,data,"von Bertalanffy",type,sv,tmp,
+  if (plot) iPlotGrowStartsOLD(formula,data,"von Bertalanffy",type,sv,tmp,
                             col.mdl,lwd.mdl,lty.mdl,cex.main,col.main)
   ## Check if user wants to choose starting values from an interactive plot
   if (dynamicPlot) 
@@ -547,7 +551,7 @@ iVBStarts.Ls <- function(age,len,type,methEV,ages2use,fixed) {
 ################################################################################
 # INTERNAL FUNCTIONS -- Static plot of starting values
 ################################################################################
-iPlotGrowStarts <- function(formula,data,mod,type,sv,consts,
+iPlotGrowStartsOLD <- function(formula,data,mod,type,sv,consts,
                             col.mdl,lwd.mdl,lty.mdl,cex.main,col.main) { # nocov start
   # Trying to fix no visible binding error for x
   x <- NULL

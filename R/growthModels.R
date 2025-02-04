@@ -427,6 +427,8 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
     ((L2*g1-L1*g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^((t2-t1)+S2-S1))
   }
   
+  lifecycle::deprecate_soft("0.10.0","vbFuns()","makeGrowthFun()",
+                            details="makeGrowthFun() provides an updated and more synthetic approach.")
   param <- match.arg(param)
   if (msg) {
     switch(param,
@@ -694,6 +696,9 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
     Linf*((Lm/Linf)^exp(-gi*dt))
   }
   ## Main function
+  lifecycle::deprecate_soft("0.10.0","GompertzFuns()","makeGrowthFun()",
+                            details="makeGrowthFun() provides an updated and more synthetic approach.")
+
   param <- match.arg(param)
   comcat <- "parameterization of the Gompertz function.\n\n"
   if (msg) {
@@ -815,6 +820,9 @@ RichardsFuns <- function(param=1,simple=FALSE,msg=FALSE) {
   }
 
   ## Main function
+  lifecycle::deprecate_soft("0.10.0","RichardsFuns()","makeGrowthFun()",
+                            details="makeGrowthFun() provides an updated and more synthetic approach.")
+  
   if (!param %in% 1:5) STOP("'param' must be in 1:5.")
   param <- paste0("Richards",param)
   if (msg) {
@@ -908,6 +916,9 @@ logisticFuns <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1",
     dLmax/(1+exp(log(19)*((Lm-L50)/(L95-L50))))
   }
   ## Main function
+  lifecycle::deprecate_soft("0.10.0","logisticFuns()","makeGrowthFun()",
+                            details="makeGrowthFun() provides an updated and more synthetic approach.")
+
   param <- match.arg(param)
   comcat <- "parameterization of the logistic growth function.\n\n"
   if (msg) {
@@ -1080,14 +1091,18 @@ SchnuteRichards <- function(t,Linf=NULL,k=NULL,a=NULL,b=NULL,c=NULL) {
 growthFunShow <- function(type=c("vonBertalanffy","Gompertz","Richards",
                                  "Logistic","Schnute","SchnuteRichards"),
                           param=NULL,case=param,plot=FALSE,...) {
+  
+  lifecycle::deprecate_warn("0.10.0","growthFunShow()","showGrowthFun()",
+                            details="All of the growth model functions were updated such that growthFunShow() is not out-of-date. Updates (current and future) are represented in the new showGrowthFun().")
+  
   type <- match.arg(type)
   switch(type,
-         vonBertalanffy = { expr <- iSGF_VB(param) },
-         Gompertz = { expr <- iSGF_GOMP(param) },
-         Richards = { expr <- iSGF_RICHARDS(param) },
-         Logistic = { expr <- iSGF_LOGISTIC(param) },
-         Schnute = { expr <- iSGF_SCHNUTE(case) },
-         SchnuteRichards = { expr <- iSGF_SCHNUTERICHARDS()})
+         vonBertalanffy = { expr <- iSGF_VB_OLD(param) },
+         Gompertz = { expr <- iSGF_GOMP_OLD(param) },
+         Richards = { expr <- iSGF_RICHARDS_OLD(param) },
+         Logistic = { expr <- iSGF_LOGISTIC_OLD(param) },
+         Schnute = { expr <- iSGF_SCHNUTE_OLD(case) },
+         SchnuteRichards = { expr <- iSGF_SCHNUTERICHARDS_OLD()})
   if (plot) {
     withr::local_par(list(mar=c(0.1,0.1,0.1,0.1)))
     graphics::plot(0,type="n",ylim=c(0,1),xlim=c(0,1),xaxt="n",yaxt="n",
@@ -1100,7 +1115,7 @@ growthFunShow <- function(type=c("vonBertalanffy","Gompertz","Richards",
 ################################################################################
 ## Internal functions for growth model expressions
 ################################################################################
-iSGF_VB <- function(param=c("Original","original","vonBertalanffy",
+iSGF_VB_OLD <- function(param=c("Original","original","vonBertalanffy",
                             "Typical","typical","Traditional","traditional","BevertonHolt",
                             "GallucciQuinn","GQ","Mooij","Weisberg","Ogle",
                             "Schnute","Francis","Laslett","Polacheck",
@@ -1170,7 +1185,7 @@ iSGF_VB <- function(param=c("Original","original","vonBertalanffy",
   expr
 }
 
-iSGF_GOMP <- function(param=c("Original","original","Ricker1","Ricker2","Ricker3",
+iSGF_GOMP_OLD <- function(param=c("Original","original","Ricker1","Ricker2","Ricker3",
                               "QuinnDeriso1","QuinnDeriso2","QuinnDeriso3","QD1","QD2","QD3",
                               "Troynikov1","Troynikov2")) {
   if(!is.character(param)) STOP("'param' must be a character string.")
@@ -1200,7 +1215,7 @@ iSGF_GOMP <- function(param=c("Original","original","Ricker1","Ricker2","Ricker3
   expr
 }
 
-iSGF_RICHARDS <- function(param=1:6) {
+iSGF_RICHARDS_OLD <- function(param=1:6) {
   if (!is.numeric(param)) STOP("'param' must be numeric when type='Richards'.")
   if (!param %in% 1:6) STOP("'param' must be from 1-6 when type='Richards'.")
   if(param==1){
@@ -1219,7 +1234,7 @@ iSGF_RICHARDS <- function(param=1:6) {
   expr
 }
 
-iSGF_LOGISTIC <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","CampanaJones2")) {
+iSGF_LOGISTIC_OLD <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","CampanaJones2")) {
   if(!is.character(param)) STOP("'param' must be a character string.")
   param <- match.arg(param)
   switch(param,
@@ -1238,7 +1253,7 @@ iSGF_LOGISTIC <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1"
   expr
 }
 
-iSGF_SCHNUTE <- function(case=1:4) {
+iSGF_SCHNUTE_OLD <- function(case=1:4) {
   if (!is.numeric(case)) STOP("'case' must be numeric when type='Schnute'.")
   if (!case %in% 1:4) STOP("'case' must be from 1-4 when type='Schnute'.")
   if(case==1){
@@ -1253,7 +1268,7 @@ iSGF_SCHNUTE <- function(case=1:4) {
   expr
 }
 
-iSGF_SCHNUTERICHARDS <- function() {
+iSGF_SCHNUTERICHARDS_OLD <- function() {
   expression(E(L[t])==L[infinity]*~bgroup("(",1-a*e^{-kt^{c}},")")^{frac(1,b)})
 }
 

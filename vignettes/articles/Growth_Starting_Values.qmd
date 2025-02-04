@@ -26,7 +26,55 @@ library(FSA)
 ```
 
 # von Bertalanffy (Brody)
-## R Self-Starter Function
+Blah-Blah-Blah
+
+## Annual Length-at-Age Models
+### The Parametrizations
+`FSA` provides a wide variety of von Bertalanffy parameterizations for modeling simple length-at-age data (@tbl-VBparams1).
+
+| param | Equation $L =$ |
+|-------|-----------------------------------------------------|
+|   1   | $L_\infty\left(1-e^{-K(t-t_0)}\right)$ |
+|   2   | $L_\infty - (L_\infty-L_0)~e^{-Kt}$ |
+|   3   | $\frac{\omega}{K}\left(1-e^{-K(t-t_0)}\right)$ |
+|   4   | $L_\infty - (L_\infty-L_0)~e^{-\frac{\omega}{L_\infty}t}$ |
+|   5   | $L_\infty\left(1-e^{-log(2)\frac{t-t_0}{t_{50}-t_0}}\right)$ |
+|   6   | $L_r + (L_\infty-L_r)~e^{-e^{-K(t-t_r)}}$ |
+|   7   | $L_1+(L_3-L_1)\frac{1-e^{-K(t-t_1)}}{1-e^{-K(t_3-t_1)}}$ |
+|   8   | $L_1+(L_3-L_1)\frac{1-r^{2\frac{t-t_1}{t_3-t_1}}}{1-r^2}$ with $r=\frac{L_3-L_2}{L_2-L_1}$|
+|   9   | $L_\infty\frac{\left(1-e^{-K_2(t-t_0)}\right)\left(1+e^{-b(t-t_0-a)}\right)}{\left(1+e^{ab}\right)^{-\frac{K_2K_1}{b}}}$
+
+: Parameterizations of the von Bertalanffy growth equation for length-at-age data available in `FSA`. {#tbl-VBparams1}
+
+<br>
+
+The response variable, $L$, is the mean length and the explanatory variable, $t$ is age. Parameters in these growth functions are:
+
+- $L_\infty$ = asymptotic mean length
+- $K$ = exponential rate of approach to $L_\infty$
+- $t_0$ = hypothetical time/age when mean length is 0
+- $L_0$ = mean length at age-0 (i.e., hatching or birth)
+- $\omega$ = growth rate near $t_0$
+- $t_{50}$ = age when half of $L_\infty$ is reached
+- $t_r$ = mean age at $L_r$ (*sometimes this is a constant*)
+- $L_r$ = mean length at $t_r$ (*sometimes this is a constant*)
+- $L_1$ = mean length at $t_1$ (generally a younger age)
+- $L_2$ = mean length at $t_2$ (generally an intermediate age)
+- $L_3$ = mean length at $t_3$ (generally a older age)
+- $K_1$ = first exponential rate of approach to $L_\infty$
+- $K_2$ = second exponential rate of approach to $L_\infty$
+- $b$ = controls rate of transition from $K_1$ to $K_2$
+- $a$ = central age of transition from $K_1$ to $K_2$
+
+
+Constant values (i.e., set by the user) are:
+- $t_r$ = mean age at $L_r$ (*sometimes this is a parameter*)
+- $L_r$ = mean length at $t_r$ (*sometimes this is a parameter*)
+- $t_1$ = a younger (generally) age
+- $t_2$ = an age halfway between $t_1$ and $t_2$
+- $t_3$ = an older (generally) age
+
+### Starting Values
 The `stats` package in base R contains `SSasymp()` which is a self-starting function for using `nls()` to fit an "asymptotic regression" function to data. According to the documentation for `SSasymp()` the parameterization of this function is
 
 $$ Y = \text{Asym}+(\text{R0}-\text{Asym})~e^{-e^{\text{lrc}\times\text{input}}} $$
@@ -41,55 +89,23 @@ If we move $\text{lrc}$ off of the log scale by defining $K=e^{\text{lrc}}$, i.e
 
 $$ L = L_\infty - (L_\infty-L_0)~e^{-Kt} $$ {#eq-rSSasymp}
 
-This function is **exactly** the "Original" (or synomymously the "von Bertalanffy") parameterization in `FSA` of the von Bertalanffy growth function. Thus, `SSasymp()` is a parameterization of the von Bertalanffy growth function commonly used to model fish growth. Thus, the initial values produced by `SSasymp()` can be used as initial values for the "original" parameterization of the von Bertalanffy growth function. In the following sections, I show how to use the values produced by `SSasymp()` to derive starting values for the other parameterizations of the von Bertalanffy growth function in `FSA`.
+@eq-rSSasymp is **exactly** the second parameterization of the von Bertalanffy growth function in `FSA`.^[This is von Bertalanffy's original parameterization.] Thus, the starting values produced by `SSasymp()` can be used to find starting values for the second parameterization of the von Bertalanffy growth function in `FSA` (@tbl-VBstarts1). Indeed these values can be used for all parameterizations that use $L_\infty$, $L_0$, and $K$. Starting values for other parameters in other parameterizations can also be derived from these values.
 
-## Original (or von Bertalanffy) Parameterization
-As noted above, @eq-rSSasymp is the "original" parameterization of the von Bertalanffy growth function implemented in `FSA`. Also, as noted above, $L_\infty=\text{Asym}$, $L_{0}=\text{R0}$, and $K=e^{\text{lrc}}$.
-
-## Typical (or Beverton-Holt) Parameterization
-The "Typical" (or Beverton-Holt) parameterization implemented in `FSA` is
-
-$$ L = L_\infty\left(1-e^{-K(t-t_0)}\right) $$ {#eq-BevertonHolt}
-
-where $t_0$ is the hypothetical age at $L=0$ (i.e., the x-intercept). The only difference in parameters between @eq-BevertonHolt and @eq-rSSasymp is $t_0$, which is clearly defined at $t$ when $L=0$. Thus, if $L=0$ is plugged into @eq-rSSasymp and we solve for $t$ we get
-
-## 
-
-@eq-rSSasymp can be re-written as (note $t$ was replaced with $t_0$ as we are finding the $t$ when $L=0$)
+A starting value for $t_0$, the "hypothetical time when the mean length is zero", is derived by setting $L=0$ in @eq-rSSasymp and solving for $t$.
 
 $$
 \begin{align}
 0 &= L_\infty - (L_\infty-L_0)~e^{-Kt}  \\
-L_\infty  &= (L_\infty-L_0)~e^{-Kt_0}  \\
-\frac{L_\infty}{L_\infty-L_0} &= e^{-Kt_0}  \\
-log\left(\frac{L_\infty}{L_\infty-L_0}\right) &= -Kt_0 \\
--\frac{log\left(\frac{L_\infty}{L_\infty-L_0}\right)}{K} &= t_0
+L_\infty  &= (L_\infty-L_0)~e^{-Kt}  \\
+\frac{L_\infty}{L_\infty-L_0} &= e^{-Kt}  \\
+log\left(\frac{L_\infty}{L_\infty-L_0}\right) &= -K \\
+-\frac{log\left(\frac{L_\infty}{L_\infty-L_0}\right)}{K} &= t
 \end{align}
 $$
 
-## Gallucci-Quinn Parameterization
-The "GallucciQuinn" parameterization implemented in `FSA` is
+The $\omega$ parameter was introduced into the fisheries growth modeling literature as $\omega=KL_\infty$ (CITATION). Thus, a starting value for $\omega$ is simply the product of $K$ and $L_\infty$ starting values.
 
-$$ L = \frac{\omega}{K}\left(1-e^{-K(t-t_0)}\right) $$ {#eq-GQ}
-
-where $\omega=KL_\infty$ and represents a growth rate near $t_0$. Given this definition of $\omega$ all starting values for this parameterization are equal to or can be easily derived from the starting values from the "traditional" parameterization.
-
-## Mooij Parameterization
-The Mooij parameterization implemented in `FSA` is
-
-$$ L = L_\infty - (L_\infty-L_0)~e^{-\frac{\omega}{L_\infty}t} $$ {#eq-Mooij}
-
-Given the definition of $\omega$ above, all starting values for this parameterization are equal to or can be easily derived from the starting values from the "original" parameterization.
-
-## Weisberg Parameterization
-The Weisberg parameterization implemented in `FSA` is
-
-$$ L = L_\infty\left(1-e^{-log(2)\frac{t-t_0}{t_{50}-t_0}}\right) $$ {#eq-BevertonHolt}
-
-where $t_{50}$ is the time (or age) when half of $L_\infty$ has been reached.
-
-The Weisberg parameterization clearly stems from the typical parameterization in @eq-BevertonHolt. A conversion for $t_{50}$ can be found by solving @eq-BevertonHolt for $t$ when $\frac{L}{L_\infty}=\frac{1}{2}$.
-
+A starting value for $t_50$ is derived (most easily) by solving the first parameterization equation for $t$ when $\frac{L}{L_\infty}=\frac{1}{2}$.
 
 $$
 \begin{align}
@@ -103,36 +119,67 @@ t_{50} &= t_0+\frac{log(2)}{K}
 \end{align}
 $$
 
-Thus, $t_{50}$ can be derived from values from the typical parameterization.
+A starting value for $L_r$ (i.e., mean length at time $t_r$) can be found by simply plugging $t_r$ into any parameterization^[Of course, one that does not include $t_r$ and has starting values for the other parameters. Using one of the first two parameterizations will suffice here.] and solving for $L$. This strategy generalizes to find starting values for $L_1$, $L_2$, and $L_3$.
 
-## Ogle Parameterization
-The Ogle parameterization implemented in `FSA` is
+A starting value for $t_r$ can be found by plugging $L_r$ for $L$ into any of the parameterizations and solving for $t$.
 
-$$ L = L_r + (L_\infty-L_r)~e^{-e^{-K(t-t_r)}} $$ {#eq-Ogle}
+<br>
 
-where $L_r$ is the mean length at $t_r$. Note that either $L_r$ or $t_r$ must be specified so that this is still a 3-parameter von Bertalanffy model. Thus, this is used to either find a parameter that is the mean length at a specific time, or to find the time when a specific mean length is reached.
+| Param | $L_\infty$ | $L_0$ | $K$ | $\omega$ | $t_0$ | $t_{50}$ |
+|-------|-------|-------|-------|-------|-------|-------|
+|   1   | $\text{Asym}$ | $\text{R0}$ | $e^{\text{lrc}}$ |  |  |  |
+|   2   | $\text{Asym}$ | | $e^{\text{lrc}}$ |  | $-\frac{log\left(\frac{L_\infty}{L_\infty-L_0}\right)}{K}$ |  |
+|   3   | $\text{Asym}$ | | $e^{\text{lrc}}$ | $KL_\infty$ |  |  |
+|   4   | $\text{Asym}$ | $\text{R0}$ | | $KL_\infty$ |  |  |
+|   5   | $\text{Asym}$ | | | | $-\frac{log\left(\frac{L_\infty}{L_\infty-L_0}\right)}{K}$ | $t_0+\frac{log(2)}{K}$ |
+|   6   | $\text{Asym}$ | | $e^{\text{lrc}}$ | | | | | |
+|   7   | | | $e^{\text{lrc}}$ | | | | |
+
+: Conversion from `SSasymp()` parameters ($\text{Asym}$, $\text{R0}$, and $\text{lrc}$) to parameters for the common von Bertalanffy parameterizations used to model fish growth in `FSA`. Note that parameterizations 6, 7, 8, and 9 have other parameters not shown in this table (but described in the main text). {#tbl-VBstarts1}
+
+<br>
+
+## Seasonal Length-at-Age Data
+### Parameterizations
+There are also several parameterizations that include a seasonal component in the model such that age is not recorded annually @tbl-VBparams2
+
+<br>
+
+| param | Equation $L =$ |
+|-------|-----------------------------------------------------|
+|  10   | $L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi sin(2\pi(t-t_s))}+\frac{CK}{2\pi sin(2\pi(t_0-t_s))}}\right)$ |
+|  11   | $L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi sin(2\pi(t-WP+0.5))}+\frac{CK}{2\pi sin(2\pi(t_0-WP+0.5))}}\right)$ |
+|  12   | $L_\infty(1-e^{-q}$ with $q=K'(t'-t_0) + \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)(t'-t_s)}) - \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)(t_0-t_s)})$ |
+
+: Parameterizations of the von Bertalanffy growth equation for length-at-age data with a seasonal component available in `FSA`. {#tbl-VBparams2}
+
+<br>
+
+Parameters in these growth functions are:^[One parameterization uses a modified time scale, symbolized with $t'$.]
+
+- $C$ = proportional growth depression at "winter peak"
+- $t_s$ = time from $t=0$ until first growth oscillation begins
+- $WP$ = "winter peak" (point of slowest growth)
+- $K'$ = exponential rate of approach to $L_\infty$ during the growth period
+- $NGT$ = length of "no-growth period"
 
 
-## Converting Conclusion
 
-| Parameterization   | $L_\infty$ | $L_0$ | $K$ | $\omega$ | $t_0$ | $t_{50}$ |
-|--------------------|-------|-------|-------|-------|-------|-------|
-| "Original"         | $\text{Asym}$ | $\text{R0}$ | $e^{\text{lrc}}$ |  |  |  |
-| "BevertonHolt"     | $\text{Asym}$ | | $e^{\text{lrc}}$ |  | $-\frac{log\left(\frac{L_\infty}{L_\infty-L_0}\right)}{K}$ |  |
-| "GallucciQuinn"    | $\text{Asym}$ | | $e^{\text{lrc}}$ | $KL_\infty$ |  |  |
-| "Mooij"            | $\text{Asym}$ | $\text{R0}$ | | $KL_\infty$ |  |  |
-| "Weisberg"         | $\text{Asym}$ | | | | $-\frac{log\left(\frac{L_\infty}{L_\infty-L_0}\right)}{K}$ | $t_0+\frac{log(2)}{K}$ |
-| "Ogle"             | $\text{Asym}$ | | $e^{\text{lrc}}$ | | | | | |
-| "Schnute"          | | | $e^{\text{lrc}}$ | | | | |
+## Tag-Recapture Data
+### The Parameterizations
+Still other parameterizations of the von Bertalanffy model are used with tag-recapture data (@tbl-VBparams3).
 
-: Conversion from `SSasymp()` parameters ($\text{Asym}$, $\text{R0}$, and $\text{lrc}$) to parameters for the common von Bertalanffy parameterizations used to model fish growth in `FSA`. Note that the Ogle, Schnute, Francis, Somers, and Pauly parameterizations have other parameters that are not estimated from the parameters returned by `SSasymp()` and, thus, are not shown in this table. {#tbl-vbConvert}
+| param | Equation |
+|-------|-----------------------------------------------------|
+|  13   | $a$ |
+|  14   | $a$ |
+|  15   | $a$ |
+|  16   | $a$ |
+|  17   | $a$ |
+|  18   | $a$ |
+|  19   | $a$ |
 
-# von Bertalanffy -- Expected Value Parameterizations
-
-
-
-# von Bertalanffy -- Seasonal Growth Parameterizations
-
+: Parameterizations of the von Bertalanffy growth equation for length at tag and recapture data available in `FSA` and their equations. {#tbl-VBparams3}
 
 
 
