@@ -232,7 +232,7 @@ Still other parameterizations of the von Bertalanffy model are used with tag-rec
 |:-----:|:----------------------------------------------------|
 |   1   | $L_\infty e^{-e^{a_1-g_it}}$ |
 |   2   | $L_\infty e^{-e^{-g_i(t-t_i)}}$ |
-|   3   | $L = L_0 e^{a_2(1-e^{-g_it})}$ |
+|   3   | $L_0 e^{a_2(1-e^{-g_it})}$ |
 |   4   | $L_\infty e^{-a_2e^{-g_it}}$ |
 |   5   | $L_\infty e^{-\frac{1}{g_i}e^{-g_i(t-t_0)}}$ |
 

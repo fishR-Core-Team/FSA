@@ -92,11 +92,11 @@ iGrowthModelExpression <- function(type,param) {
     "vonBertalanffy14"= {
       expression(E(L[r])==L[m]+(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")")) },
     "vonBertalanffy15"= {
-      expression(E(L[r]-L[m])==(L[infinity]+beta*(L[t]-L[t])-L[m])*bgroup("(",1-e^{-K*Delta*t},")")) },
+      expression(E(L[r]-L[m])==(L[infinity]+beta*(bar(L)[m]-L[m])-L[m])*bgroup("(",1-e^{-K*Delta*t},")")) },
     "vonBertalanffy16"= {
-      expression(E(L[r]-L[m])==(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")")) },
+      expression(E(L[r]-L[m])==(alpha+beta*L[m])*bgroup("(",1-e^{-K*Delta*t},")")) },
     "vonBertalanffy17"= {
-      expression(E(L[r])==L[m]+(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")")) },
+      expression(E(L[r])==L[m]+(alpha+beta*L[m])*bgroup("(",1-e^{-K*Delta*t},")")) },
     "vonBertalanffy18"= { NULL },
     "vonBertalanffy19"= { NULL },
     "Gompertz1" = {

@@ -33,48 +33,91 @@
 #' 
 #' \tabular{ccl}{
 #' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
-#' 10 \tab \eqn{L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi sin(2\pi(t-t_s))}+\frac{CK}{2\pi sin(2\pi(t_0-t_s))}}\right)} \tab Somers \cr
-#' 11 \tab \eqn{L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi sin(2\pi(t-WP+0.5))}+\frac{CK}{2\pi sin(2\pi(t_0-WP+0.5))}}\right)} \tab Somers (alt) \cr
+#' 10 \tab \eqn{L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi \text{sin}(2\pi(t-t_s))}+\frac{CK}{2\pi \text{sin}(2\pi(t_0-t_s))}}\right)} \tab Somers \cr
+#' 11 \tab \eqn{L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi \text{sin}(2\pi(t-WP+0.5))}+\frac{CK}{2\pi \text{sin}(2\pi(t_0-WP+0.5))}}\right)} \tab Somers (alt) \cr
 #' 12 \tab \eqn{L_\infty(1-e^{-q}} \tab Pauly \cr
-#'    \tab with \eqn{q=K'(t'-t_0) + \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)(t'-t_s)}) - \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)(t_0-t_s)})} \tab \cr
+#'    \tab with \eqn{q=K'(t'-t_0) + \frac{K'(1-NGT)}{2\pi}\text{sin}(\frac{2\pi}{(1-NGT)(t'-t_s)}) - \frac{K'(1-NGT)}{2\pi}\text{sin}(\frac{2\pi}{(1-NGT)(t_0-t_s)})} \tab \cr
 #' }
 #' 
 #' The von Bertalanffy parameterizations for tag-recapture data are
 #' 
 #' \tabular{ccl}{
 #' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
-#' 13 \tab \eqn{-} \tab \cr
-#' 14 \tab \eqn{-} \tab \cr
-#' 15 \tab \eqn{-} \tab \cr
-#' 16 \tab \eqn{-} \tab \cr
-#' 17 \tab \eqn{-} \tab \cr
-#' 18 \tab \eqn{-} \tab \cr
+#' 13 \tab \eqn{E(L_r-L_m)=(L_\infty-L_m)\left(1-e^{-K\delta t}\right)} \tab Fabens \cr
+#' 14 \tab \eqn{E(L_r)=L_m + (L_\infty-L_m)\left(1-e^{-K\delta t}\right)} \tab Fabens (alt)\cr
+#' 15 \tab \eqn{E(L_r-L_m)=(L_\infty+\beta(\bar{L}_m-L_m)-L_m)\left(1-e^{-K\delta t}\right)} \tab Wang \cr
+#' 16 \tab \eqn{E(L_r-L_m)=(\alpha+\beta L_m\left(1-e^{-K\delta t}\right)} \tab Wang 2 \cr
+#' 17 \tab \eqn{E(L_r)=L_m+(\alpha+\beta L_m\left(1-e^{-K\delta t}\right)} \tab Wang 2 (alt)\cr
+#' 18 \tab \eqn{E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1+L_2}\right)^{dt}\right]} \tab Francis \cr
 #' }
 #' 
-#' Take note of the following for parameterizations (i.e., \code{param}) of each growth function:
-#' \itemize{
-#'   \item Gompertz
-#'   \itemize{
-#'     \item The \sQuote{Ricker2} and \sQuote{QuinnDeriso1} are synonymous, as are \sQuote{Ricker3} and \sQuote{QuinnDeriso2}.
-#'     \item The parameterizations and parameters for the Gompertz function are varied and confusing in the literature. I have attempted to use a uniform set of parameters in these functions, but that makes a direct comparison to the literature difficult. Common sources for Gompertz models are listed in the references below. I make some comments here to aid comparisons to the literature.
-#'     \item Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, ti is the age at the inflection point, gi is the instantaneous growth rate at the inflection point, t0 is a the hypothetical age at a mean length of 0, and a, b, and c are nuisance parameters with no real-world interpretations.
-#'     \item The function in Ricker (1975)[p. 232] is the same as \sQuote{Ricker2} where the a parameter here is equal to G there and the gi parameter here is equal to the g parameter there. Also note that their w is L here.
-#'     \item In the Ricker (1979)[p. 705] functions (the \sQuote{RickerX} functions), the a parameter here is equal to k there and the gi parameter here is equal to the g parameter there. Also note that their w is L here. In the Ricker (1979) functions as presented in Campana and Jones (1992), the a parameter here is equal to k parameter there and the gi parameter here is equal to the G parameter there. Also note that their X is L here.
-#'     \item In the Quinn and Deriso (1999) functions (the \sQuote{QuinnDerisoX} functions), the a parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there. Also note that their Y is L here.
-#'     \item The function in Quist \emph{et al.} (2012)[p. 714] is the same as \sQuote{Ricker1} where the gi parameter here is equal to the G parameter there and the ti parameter here is equal to the t0 parameter there.
-#'     \item The function in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker1} where the gi parameter here is equal to the k2 parameter there and the ti parameter here is equal to the t2 parameter there.
-#'   }
-#'   \item Richards
-#'   \itemize{
-#'     \item Only 4-parameter parameterizations from Tjorve and Tjorve (2010) that seemed useful for modeling fish growth are provided here.
-#'     \item Within FSA, Linf is the mean asymptotic length; ti is the age at the inflection point; k controls the slope at the inflection point (maximum relative growth rate); a is dimensionless but related to the horizontal position (i.e., age) of the inflection point; b, c, and d are dimensionless but related to the vertical position (i.e., size) of the inflection point; and L0 is the mean length at age-0.
-#'     \item The parameterizations (1-5) correspond to functions/equations 5, 3(alt), 7, 4, and 6, respectively, in Tjorve and Tjorve (2010). Note that their A, S, k are Linf, a, k and their d is b, c, and d, respectively, here (in FSA).
-#'   }
-#'   \item logistic
-#'   \itemize{
-#'     \item Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, ti is the age at the inflection point, and gninf is the instantaneous growth rate at negative infinity.
-#'   }
+#' The von Bertalanffy parameterizations for tag-recapture data are
+#' 
+#' \tabular{ccl}{
+#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
+#' 19 \tab \eqn{E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1+L_2}\right)^{t_2-t_1+S_2-S_1}\right]} \tab Francis \cr
+#'    \tab with \eqn{S_1=u\text{sin}\left(\frac{2\pi(t_1-w)}{2\pi}\right)} \tab \cr
+#'    \tab and \eqn{S_2=u\text{sin}\left(\frac{2\pi(t_2-w)}{2\pi}\right)} \tab \cr
 #' }
+#' 
+#' The Gompertz parameterizations for simple length and annual age data are
+#' 
+#' \tabular{ccl}{
+#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
+#' 1  \tab \eqn{E(L_t)=L_\infty e^{-e^{a_1-g_it}}} \tab Compertz \cr
+#' 2  \tab \eqn{E(L_t)=L_\infty e^{-e^{-g_i(t-t_i)}}} \tab  \cr
+#' 3  \tab \eqn{E(L_t)=L_0 e^{a_2(1-e^{-g_it})}} \tab  \cr
+#' 4  \tab \eqn{E(L_t)=L_\infty e^{-a_2e^{-g_it}}} \tab  \cr
+#' 5  \tab \eqn{E(L_t)=L_\infty e^{-\frac{1}{g_i}e^{-g_i(t-t_0)}}} \tab  \cr
+#' }
+#' 
+#' The parameterizations and parameters for the Gompertz function are varied and confusing in the literature. I have attempted to use a uniform set of parameters in these functions, but that makes a direct comparison to the literature difficult. Common sources for Gompertz models are listed in the references below. I make some comments here to aid comparisons to the literature.
+#' 
+#' \itemize{
+#'  \item Within FSA, \eqn{L_0} is the mean length at age 0, \eqn{L_\infty} is the mean asymptotic length, \eqn{t_i} is the age at the inflection point, \eqn{g_i} is the instantaneous growth rate at the inflection point, \eqn{t_0} is a the hypothetical age at a mean length of 0, and \eqn{a_1} and \eqn{a_2} are nuisance parameters with no real-world interpretations.
+#' The function in Ricker (1975)[p. 232] is the same as the third parameterization where \eqn{a_2} here is \eqn{G} there and \eqn{g_i} here is \eqn{g}. Also their \eqn{w} is \eqn{L} here.
+#'  \item In the Ricker (1979)[p. 705] functions (parameterizations 2-4), \eqn{a} here is \eqn{k} there and \eqn{g_i} here is \eqn{g} there. Also note that their \eqn{w} is \eqn{L} here. In the Ricker (1979) functions as presented in Campana and Jones (1992), \eqn{a} here is \eqn{k} there and \eqn{g_i} here is \eqn{G} there. Also note that their \eqn{X} is \eqn{L} here.
+#'  \item In the Quinn and Deriso (1999) functions (parameterizations 3-5), \eqn{a} here is \eqn{\frac{\lambda}{K}} there and the \eqn{g_i} here is \eqn{K} there. Also note that their \eqn{Y} is \eqn{L} here.
+#'  \item The function in Quist \emph{et al.} (2012)[p. 714] is the same as parameterization 2 where \eqn{g_i} here is \eqn{G} there and \eqn{t_i} here is \eqn{t_0} there.
+#' \item The function in Katsanevakis and Maravelias (2008) is the same as parameterization 2 where \eqn{g_i} here is \eqn{k_2} there and \eqn{t_i} here is \eqn{t_2} there.
+#' }
+#' 
+#' The Gompertz parameterizations for tag-recapture data are
+#' 
+#' \tabular{ccl}{
+#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
+#' 6  \tab \eqn{E(L_r-L_m)=L_{\infty}\left[\frac{L_m}{L_{\infty}}\right]^{e^{-g_i\Delta t}}-L_m} \tab Troynikov \cr
+#' 7  \tab \eqn{E(L_r)=L_{\infty}\left[\frac{L_m}{L_{\infty}}\right]^{e^{-g_i\Delta t}}} \tab Troynikov (alt) \cr
+#' }
+#' 
+#' The logistic parameterizations for simple length and annual age data are
+#' 
+#' \tabular{ccl}{
+#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
+#' 1  \tab \eqn{E(L_t)=\frac{L_\infty}{1+e^{-g_{-\infty}(t-t_i)}}} \tab Campana and Jones \cr
+#' 2  \tab \eqn{E(L_t)=\frac{L_\infty}{1+ae^{-g_{-\infty}t}}} \tab Campana and Jones \cr
+#' 3  \tab \eqn{E(L_t)=\frac{L_0L_\infty}{L_0+(L_\infty - L_0)e^{-g_{-\infty}t}}} \tab Karkach \cr
+#' }
+#' 
+#' The logistic parameterizations for tag-recapture data are
+#' 
+#' \tabular{ccl}{
+#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
+#' 4  \tab \eqn{E(L_r-L_m)=\frac{\Delta L_{max}}{1+e^{log(19)/frac{L_m-L_{50}}{L_{95}-L_{50}}}}} \tab Haddon \cr
+#' }
+#' 
+#' The Richards parameterizations for simple length and annual age data are
+#' 
+#' \tabular{ccl}{
+#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
+#' 1  \tab \eqn{E(L_t)=\frac{L_\infty}{\left[1+b_1e^{-k(t-t_i)}\right]^\frac{1}{b_1}}} \tab Tjorve and Tjorve (2010) Eqn 5 \cr
+#' 2  \tab \eqn{E(L_t)=\frac{L_\infty}{\left(1+e^{-k(t-t_0)}\right)^{-b_2}}} \tab Tjorve and Tjorve (2010) Eqn 3(alt) \cr
+#' 3  \tab \eqn{E(L_t)=L_\infty\left[1+\left(\left(\frac{L_0}{L_\infty}\right)^{1-b_3}-1\right)e^{-kt}\right]^\frac{1}{1-b_3}} \tab Tjorve and Tjorve (2010) Eqn 7 \cr
+#' 4  \tab \eqn{E(L_t)=L_\infty\left[1-\frac{1}{b_2}e^{-k(t-t_i)}\right]^{b_2}} \tab Tjorve and Tjorve (2010) Eqn 4 \cr
+#' 5  \tab \eqn{E(L_t)=L_\infty\left[1+(b_3-1)e^{-k(t-t_i)}\right]^\frac{1}{1-b_3}} \tab Tjorve and Tjorve (2010) Eqn 6 \cr
+#' }
+#' 
+#' Only 4-parameter parameterizations from Tjorve and Tjorve (2010) that seemed useful for modeling fish growth are provided here. In Tjorve and Tjorve (2010) their \eqn{A}, \eqn{k}, \eqn{W_0}, and \eqn{T_i} are \eqn{L_\infty}, \eqn{k}, \eqn{L_0}, and \eqn{t_i}, and their \eqn{d} is \eqn{b_1}, \eqn{b_2}, and \eqn{b_3}, respectively, here (in FSA).
 #'
 #' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
