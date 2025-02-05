@@ -69,9 +69,11 @@ vbStarts(
 A list that contains reasonable starting values. Note that the parameters will be listed in the same order and with the same names as listed in \code{\link{vbFuns}}.
 }
 \description{
-Finds reasonable starting values for the parameters in a specific parameterization of the von Bertalanffy growth function.
+DEPRECATED (as of v0.10.0). Finds reasonable starting values for the parameters in a specific parameterization of the von Bertalanffy growth function.
 }
 \details{
+DEPRECATED ... use \code{\link{findGrowthStarts}} instead.
+
 This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth function. There is no guarantee that these starting values are the \sQuote{best} starting values. One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
 
 If \code{methLinf="Walford"}, then the Linf and K parameters are estimated via the concept of the Ford-Walford plot. If \code{methLinf="oldAge"} then Linf is estimated as the mean length of the \code{num4Linf} longest observed lengths.

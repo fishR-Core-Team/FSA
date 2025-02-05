@@ -1,20 +1,19 @@
 # FSA 0.9.6.9000
 * Updated `test-coverage.yaml` and moved a `# nocov start` and `# nocov end` in `bootstrap.r` to address the errors with `test-coverage.yaml`. Addresses [#118](https://github.com/fishR-Core-Team/FSA/issues/118).
 * Added `FlexParamCurve` to Imports for use of `modpar()` in `RichardsStarts()`.
-* Added `lifecycle` to Imports for use with deprecating and badges.
 * Added an "article" (for the package webpage) that describes how the starting values for the growth equations are derived.
 
 * `findGrowthStarts()`: Added. This replaces `vbStarts()` and includes starting values for Gompertz, logistic, and Richards functions.
 * `GompertzFuns()`: Deprecated (replaced with `makeGrowthFun()`).
 * `growthFunShow()`: Deprecated (replaced with `showGrowthFun()`). But also fixed expression for QuinnDeriso3 parameterization of the Gompertz function (i.e., erroneous t* changed to t0 ... related to fixing [#113](https://github.com/fishR-Core-Team/FSA/issues/113)). Also changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization. Will be deleted in future versions.
 * `logisticFuns()`: Deprecated (replaced with `makeGrowthFun()`).
-* `makeGrowthFun()`: Added. This replaces `vbFuns()`, `GompertzFuns()`, `logisticFuns()`, and `RichardsFuns()`. Along the way, the following changes were made.
+* `findeGrowthFun()`: Added. This replaces `vbFuns()`, `GompertzFuns()`, `logisticFuns()`, and `RichardsFuns()`. Along the way, the following changes were made.
   * Changed parameterizations from being named to being numbered. These are described in the article.
   * In Gompertz functions ... changed 1 parameter in "Original" to a1, changed a parameter to a2 in Ricker2 and QuinnDeriso1, and a to a2 in Ricker3 and QuinnDeriso2, to distinguish them when they are different.
   * In Richards functions ...
     * Restricted to only 4-parameter functions; thus, removed sixth parameterization
     * Removed first parameterization as it had limited placement for the inflection point.
-    * Moved the old parameterization to new places as follows: third to first, fifth to second, second to fourth, and fourth to fifth. Thus, the first parameterization will be the one that most closely follows the parameterization of the self-starting function to be used in `mqkeGrowthStarts()`.
+    * Moved the old parameterization to new places as follows: third to first, fifth to second, second to fourth, and fourth to fifth. Thus, the first parameterization will be the one that most closely follows the parameterization of the self-starting function to be used in `findGrowthStarts()`.
     * Changed some of the "b" parameters to "b1", "b2", and "b3" as they did not have the same meaning (or values) across the various parameterizations.
 * `RichardsFuns()`: Deprecated (replaced with `makeGrowthFun()`).
 * `showGrowthFun()`: Added. Updated and replaces `GrowthFunShow()`.

@@ -1,9 +1,11 @@
 #' @name growthModels
 #' 
-#' @title Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.
+#' @title DEPRECATED (as of v0.10.0). Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.
 #'
-#' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions. Use \code{growthFunShow()} to see the equations for each growth function.
+#' @description DEPRECATED (as of v0.10.0). Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions. Use \code{growthFunShow()} to see the equations for each growth function.
 #'
+#' @details DEPRECATED ... use \code{\link{makeGrowthFun}} and \code{\link{showGrowthFun}} instead. 
+#' 
 #' @param type A string (in \code{growthFunShow}) that indicates the type of growth function to show.
 #' @param param A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function. See details.
 #' @param case A numeric that indicates the specific case of the Schnute function to use. See details.
@@ -426,9 +428,10 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
     S2 <- u*sin(2*pi*(t2-w))/(2*pi)
     ((L2*g1-L1*g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^((t2-t1)+S2-S1))
   }
+
+  ## make note of deprecation
+  .Deprecated("makeGrowthFun",msg="'vbFuns()' is deprecated as of v0.10.0. Please use 'makeGrowthFun()' instead as it will be continuously updated in the future.")
   
-  lifecycle::deprecate_soft("0.10.0","vbFuns()","makeGrowthFun()",
-                            details="makeGrowthFun() provides an updated and more synthetic approach.")
   param <- match.arg(param)
   if (msg) {
     switch(param,
@@ -695,10 +698,11 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
   STroynikov2 <- function(Lm,dt,Linf,gi) {
     Linf*((Lm/Linf)^exp(-gi*dt))
   }
+  
   ## Main function
-  lifecycle::deprecate_soft("0.10.0","GompertzFuns()","makeGrowthFun()",
-                            details="makeGrowthFun() provides an updated and more synthetic approach.")
-
+  ## make note of deprecation
+  .Deprecated("makeGrowthFun",msg="'GompertzFuns()' is deprecated as of v0.10.0. Please use 'makeGrowthFun()' instead as it will be continuously updated in the future.")
+  
   param <- match.arg(param)
   comcat <- "parameterization of the Gompertz function.\n\n"
   if (msg) {
@@ -820,8 +824,8 @@ RichardsFuns <- function(param=1,simple=FALSE,msg=FALSE) {
   }
 
   ## Main function
-  lifecycle::deprecate_soft("0.10.0","RichardsFuns()","makeGrowthFun()",
-                            details="makeGrowthFun() provides an updated and more synthetic approach.")
+  ## make note of deprecation
+  .Deprecated("makeGrowthFun",msg="'RichardsFuns()' is deprecated as of v0.10.0. Please use 'makeGrowthFun()' instead as it will be continuously updated in the future.")
   
   if (!param %in% 1:5) STOP("'param' must be in 1:5.")
   param <- paste0("Richards",param)
@@ -915,10 +919,11 @@ logisticFuns <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1",
   SHaddon <- function(Lm,dLmax,L50,L95) {
     dLmax/(1+exp(log(19)*((Lm-L50)/(L95-L50))))
   }
+  
   ## Main function
-  lifecycle::deprecate_soft("0.10.0","logisticFuns()","makeGrowthFun()",
-                            details="makeGrowthFun() provides an updated and more synthetic approach.")
-
+  ## make note of deprecation
+  .Deprecated("makeGrowthFun",msg="'logisticFuns()' is deprecated as of v0.10.0. Please use 'makeGrowthFun()' instead as it will be continuously updated in the future.")
+  
   param <- match.arg(param)
   comcat <- "parameterization of the logistic growth function.\n\n"
   if (msg) {
@@ -1091,9 +1096,9 @@ SchnuteRichards <- function(t,Linf=NULL,k=NULL,a=NULL,b=NULL,c=NULL) {
 growthFunShow <- function(type=c("vonBertalanffy","Gompertz","Richards",
                                  "Logistic","Schnute","SchnuteRichards"),
                           param=NULL,case=param,plot=FALSE,...) {
-  
-  lifecycle::deprecate_warn("0.10.0","growthFunShow()","showGrowthFun()",
-                            details="All of the growth model functions were updated such that growthFunShow() is not out-of-date. Updates (current and future) are represented in the new showGrowthFun().")
+
+  ## make note of deprecation
+  .Deprecated("showGrowthFun",msg="'growthFunShow()' is deprecated as of v0.10.0. All of the growth model functions were updated such that 'growthFunShow()' is now out-of-date. Updates (current and future) are represented in the new 'showGrowthFun()'.")
   
   type <- match.arg(type)
   switch(type,

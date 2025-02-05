@@ -7,7 +7,7 @@
 \alias{RichardsFuns}
 \alias{logisticFuns}
 \alias{growthFunShow}
-\title{Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.}
+\title{DEPRECATED (as of v0.10.0). Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.}
 \usage{
 vbFuns(
   param = c("Typical", "typical", "Traditional", "traditional", "BevertonHolt",
@@ -64,7 +64,10 @@ The functions ending in \code{xxxFuns} return a function that can be used to pre
 An expression of the equation for each growth function may be created with \code{growthFunShow}. In this function \code{type=} is used to select the major function type (e.g., von Bertalanffy, Gompertz, Richards, Logistic, Schnute) and \code{param=} is used to select a specific parameterization of that growth function. If \code{plot=TRUE}, then a simple graphic will be created with the equation using \code{\link{plotmath}} for a pretty format.
 }
 \description{
-Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions. Use \code{growthFunShow()} to see the equations for each growth function.
+DEPRECATED (as of v0.10.0). Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions. Use \code{growthFunShow()} to see the equations for each growth function.
+}
+\details{
+DEPRECATED ... use \code{\link{makeGrowthFun}} and \code{\link{showGrowthFun}} instead.
 }
 \note{
 Take note of the following for parameterizations (i.e., \code{param}) of each growth function:

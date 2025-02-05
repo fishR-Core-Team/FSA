@@ -1,8 +1,10 @@
 #' @title Find reasonable starting values for a von Bertalanffy growth function.
 #' 
-#' @description Finds reasonable starting values for the parameters in a specific parameterization of the von Bertalanffy growth function.
+#' @description DEPRECATED (as of v0.10.0). Finds reasonable starting values for the parameters in a specific parameterization of the von Bertalanffy growth function.
 #' 
-#' @details This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth function. There is no guarantee that these starting values are the \sQuote{best} starting values. One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
+#' @details DEPRECATED ... use \code{\link{findGrowthStarts}} instead.
+#' 
+#' This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth function. There is no guarantee that these starting values are the \sQuote{best} starting values. One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
 #' 
 #' If \code{methLinf="Walford"}, then the Linf and K parameters are estimated via the concept of the Ford-Walford plot. If \code{methLinf="oldAge"} then Linf is estimated as the mean length of the \code{num4Linf} longest observed lengths.
 #' 
@@ -115,8 +117,8 @@ vbStarts <- function(formula,data=NULL,
                      plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,
                      cex.main=0.9,col.main="red",dynamicPlot=FALSE,...) {
   
-  lifecycle::deprecate_soft("0.10.0","vbStarts()","findGrowthStarts()",
-                            details="findGrowthStarts() is updated to provide starting values based on a better theoretical approach. The starting values from findGrowthStarts() should generally work better than those provided by vbStarts().")
+  ## make note of deprecation
+  .Deprecated("findGrowthStarts",msg="'vbStarts()' is deprecated as of v0.10.0. Please use 'findGrowthStarts()' instead as it provides starting values based on a better theoretical approach which should generally work better than those provided by vbStarts().")
   
   ## some checks of arguments
   type <- match.arg(type,c("Typical","typical","Traditional",
