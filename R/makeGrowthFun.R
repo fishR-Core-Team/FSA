@@ -1,10 +1,10 @@
 #' @name makeGrowthFun
 #' 
-#' @title Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.
+#' @title Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, logistic, Richards, and Schnute-Richards growth functions.
 #'
-#' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions. Use \code{showGrowthFun} to see the equations for each growth function.
+#' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, logistic, Richards, and Schnute-Richards growth functions. Use \code{showGrowthFun} to see the equations for each growth function.
 #'
-#' @param type A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards}) that indicates the type of growth function to show.
+#' @param type A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards} \dQuote{Schnute-Richards}) that indicates the type of growth function to show.
 #' @param param A single numeric that indicates the specific parameterization of the growth function. See details.
 #' @param simple A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}; DEFAULT) or not (\code{=FALSE}).
@@ -118,6 +118,8 @@
 #' }
 #' 
 #' Only 4-parameter parameterizations from Tjorve and Tjorve (2010) that seemed useful for modeling fish growth are provided here. In Tjorve and Tjorve (2010) their \eqn{A}, \eqn{k}, \eqn{W_0}, and \eqn{T_i} are \eqn{L_\infty}, \eqn{k}, \eqn{L_0}, and \eqn{t_i}, and their \eqn{d} is \eqn{b_1}, \eqn{b_2}, and \eqn{b_3}, respectively, here (in FSA).
+#' 
+#' #' The Schnute-Richards model for simple length and annual age data \eqn{E(L_t)=L_\infty\left(1-ae^{-kt^c}\right)^{1/b}}. Note that this function is slightly modified (a \eqn{+} was changed to a \eqn{-} so that \eqn{a} is positive) from the original in Schnute and Richards (1990).
 #'
 #' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
@@ -160,6 +162,8 @@
 #' Ricker, W.E. 1979. Growth rates and models. Pages 677-743 In W.S. Hoar, D.J. Randall, and J.R. Brett, editors. Fish Physiology, Vol. 8: Bioenergetics and Growth. Academic Press, New York, NY. [Was (is?) from https://books.google.com/books?id=CB1qu2VbKwQC&pg=PA705&lpg=PA705&dq=Gompertz+fish&source=bl&ots=y34lhFP4IU&sig=EM_DGEQMPGIn_DlgTcGIi_wbItE&hl=en&sa=X&ei=QmM4VZK6EpDAgwTt24CABw&ved=0CE8Q6AEwBw#v=onepage&q=Gompertz\%20fish&f=false.]
 #'
 #' Schnute, J. 1981. A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries and Aquatic Sciences, 38:1128-1140.
+#' 
+#' Schnute, J.T. and L.J. Richards. 1990. A unified approach to the analysis of fish growth, maturity, and survivorship data. Canadian Journal of Fisheries and Aquatic Sciences 47:24-40.
 #'
 #' Somers, I. F. 1988. On a seasonally oscillating growth function. Fishbyte 6(1):8-11. [Was (is?) from https://www.fishbase.us/manual/English/fishbaseSeasonal_Growth.htm.]
 #' 
@@ -185,7 +189,8 @@
 #' @rdname makeGrowthFun
 #' @export
 
-makeGrowthFun <- function(type=c("von Bertalanffy","Gompertz","logistic","Richards"),
+makeGrowthFun <- function(type=c("von Bertalanffy","Gompertz","logistic",
+                                 "Richards","Schnute-Richards"),
                         param=1,simple=FALSE,msg=FALSE) {
   #===== Checks
   # Correct growth model type
@@ -193,13 +198,15 @@ makeGrowthFun <- function(type=c("von Bertalanffy","Gompertz","logistic","Richar
   
   # Correct parameterization ... depends on growth model type
   if (param<1) STOP("'param' must be greater than 1")
-  max.param <- c("von Bertalanffy"=19,"Gompertz"=7,"logistic"=4,"Richards"=5)
+  max.param <- c("von Bertalanffy"=19,"Gompertz"=7,"logistic"=4,"Richards"=5,
+                 "Schnute-Richards"=1)
   if (param>max.param[[type]])
     STOP("'param' must be between 1 and ",max.param[[type]]," for ",type," model")
   
   #===== Make message (if asked to)
-  # make a combined parameter name ... remove spaces from type
+  # make a combined parameter name ... remove spaces and hyphens from type
   pnm <- paste0(gsub(" ","",type),param)
+  pnm <- gsub("-","",pnm)
   if (msg) message(msgsGrow[[pnm]])
   
   #===== Return the function
@@ -916,3 +923,25 @@ msgsGrow <- c(msgsGrow,
               "Richards4"=msg_Richards4,
               "Richards5"=msg_Richards5)
 
+#-------------------------------------------------------------------------------
+#-- Schnute-Richards parameterizations
+#-------------------------------------------------------------------------------
+SchnuteRichards1 <- function(t,Linf=NULL,k=NULL,a=NULL,b=NULL,c=NULL) {
+  if (length(Linf)==5) {
+    c <- Linf[[5]]
+    b <- Linf[[4]]
+    a <- Linf[[3]]
+    k <- Linf[[2]]
+    Linf <- Linf[[1]]
+  }
+  Linf*(1-a*exp(-k*t^c))^(1/b)
+}
+
+SSchnuteRichards1 <- function(t,Linf,k,a,b,c) { Linf*(1-a*exp(-k*t^c))^(1/b) }
+msg_SchnuteRichards1 <- paste0("You have chosen the Schnute-Richards growth function.\n\n",
+                        "  Linf*(1-a*exp(-k*t^c))^(1/b)\n\n",
+                        "  where Linf = asymptotic mean length\n",
+                        "           k = controls slope at inflection point\n",
+                        "       a,b,c = nuisance (no meaning) parameters (b!=0)\n\n")
+
+msgsGrow <- c(msgsGrow,"SchnuteRichards1"=msg_SchnuteRichards1)

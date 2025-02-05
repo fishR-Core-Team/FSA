@@ -7,7 +7,7 @@
 * `GompertzFuns()`: Deprecated (replaced with `makeGrowthFun()`).
 * `growthFunShow()`: Deprecated (replaced with `showGrowthFun()`). But also fixed expression for QuinnDeriso3 parameterization of the Gompertz function (i.e., erroneous t* changed to t0 ... related to fixing [#113](https://github.com/fishR-Core-Team/FSA/issues/113)). Also changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization. Will be deleted in future versions.
 * `logisticFuns()`: Deprecated (replaced with `makeGrowthFun()`).
-* `findeGrowthFun()`: Added. This replaces `vbFuns()`, `GompertzFuns()`, `logisticFuns()`, and `RichardsFuns()`. Along the way, the following changes were made.
+* `makeGrowthFun()`: Added. This replaces `vbFuns()`, `GompertzFuns()`, `logisticFuns()`, and `RichardsFuns()`. Along the way, the following changes were made.
   * Changed parameterizations from being named to being numbered. These are described in the article.
   * In Gompertz functions ... changed 1 parameter in "Original" to a1, changed a parameter to a2 in Ricker2 and QuinnDeriso1, and a to a2 in Ricker3 and QuinnDeriso2, to distinguish them when they are different.
   * In Richards functions ...
@@ -16,6 +16,8 @@
     * Moved the old parameterization to new places as follows: third to first, fifth to second, second to fourth, and fourth to fifth. Thus, the first parameterization will be the one that most closely follows the parameterization of the self-starting function to be used in `findGrowthStarts()`.
     * Changed some of the "b" parameters to "b1", "b2", and "b3" as they did not have the same meaning (or values) across the various parameterizations.
 * `RichardsFuns()`: Deprecated (replaced with `makeGrowthFun()`).
+* `Schnute()`: Modified. Changed order of arguments so that the parameters appear before the constants, to be consistent with other growth functions. Pulled out of the `growthModels.r` file as the rest of the functions in that file are deprecated and will soon be defunct.
+* `SchnuteRichards()`: Deleted (made defunct) as it was added to `makeGrowthFun()` and was likely little used.
 * `showGrowthFun()`: Added. Updated and replaces `GrowthFunShow()`.
 * `vbFuns()`: Deprecated (replaced with `makeGrowthFun()`).
 * `vbStarts()`: Deprecated (replaced with `makeGrowthStarts()`. But also streamlined some of the internal functions, fixed some typos, and replaced `iVBStartsPlot()` with `iPlotGrowthStarts()` to be more general.

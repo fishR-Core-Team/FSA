@@ -2,17 +2,17 @@
 % Please edit documentation in R/makeGrowthFun.R
 \name{makeGrowthFun}
 \alias{makeGrowthFun}
-\title{Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.}
+\title{Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, logistic, Richards, and Schnute-Richards growth functions.}
 \usage{
 makeGrowthFun(
-  type = c("von Bertalanffy", "Gompertz", "logistic", "Richards"),
+  type = c("von Bertalanffy", "Gompertz", "logistic", "Richards", "Schnute-Richards"),
   param = 1,
   simple = FALSE,
   msg = FALSE
 )
 }
 \arguments{
-\item{type}{A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards}) that indicates the type of growth function to show.}
+\item{type}{A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards} \dQuote{Schnute-Richards}) that indicates the type of growth function to show.}
 
 \item{param}{A single numeric that indicates the specific parameterization of the growth function. See details.}
 
@@ -26,7 +26,7 @@ Returns a function that can be used to predict fish size given a vector of ages 
 An expression of the equation for each growth function may be created with \code{showGrowthFun} using the same \code{type=} and \code{param} arguments.
 }
 \description{
-Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions. Use \code{showGrowthFun} to see the equations for each growth function.
+Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, logistic, Richards, and Schnute-Richards growth functions. Use \code{showGrowthFun} to see the equations for each growth function.
 }
 \note{
 The von Bertalanffy parameterizations for simple length and annual age data are
@@ -134,6 +134,8 @@ The Richards parameterizations for simple length and annual age data are
 }
 
 Only 4-parameter parameterizations from Tjorve and Tjorve (2010) that seemed useful for modeling fish growth are provided here. In Tjorve and Tjorve (2010) their \eqn{A}, \eqn{k}, \eqn{W_0}, and \eqn{T_i} are \eqn{L_\infty}, \eqn{k}, \eqn{L_0}, and \eqn{t_i}, and their \eqn{d} is \eqn{b_1}, \eqn{b_2}, and \eqn{b_3}, respectively, here (in FSA).
+
+#' The Schnute-Richards model for simple length and annual age data \eqn{E(L_t)=L_\infty\left(1-ae^{-kt^c}\right)^{1/b}}. Note that this function is slightly modified (a \eqn{+} was changed to a \eqn{-} so that \eqn{a} is positive) from the original in Schnute and Richards (1990).
 }
 \section{IFAR Chapter}{
  12-Individual Growth.
@@ -179,6 +181,8 @@ Ricker, W.E. 1975. Computation and interpretation of biological statistics of fi
 Ricker, W.E. 1979. Growth rates and models. Pages 677-743 In W.S. Hoar, D.J. Randall, and J.R. Brett, editors. Fish Physiology, Vol. 8: Bioenergetics and Growth. Academic Press, New York, NY. [Was (is?) from https://books.google.com/books?id=CB1qu2VbKwQC&pg=PA705&lpg=PA705&dq=Gompertz+fish&source=bl&ots=y34lhFP4IU&sig=EM_DGEQMPGIn_DlgTcGIi_wbItE&hl=en&sa=X&ei=QmM4VZK6EpDAgwTt24CABw&ved=0CE8Q6AEwBw#v=onepage&q=Gompertz\%20fish&f=false.]
 
 Schnute, J. 1981. A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries and Aquatic Sciences, 38:1128-1140.
+
+Schnute, J.T. and L.J. Richards. 1990. A unified approach to the analysis of fish growth, maturity, and survivorship data. Canadian Journal of Fisheries and Aquatic Sciences 47:24-40.
 
 Somers, I. F. 1988. On a seasonally oscillating growth function. Fishbyte 6(1):8-11. [Was (is?) from https://www.fishbase.us/manual/English/fishbaseSeasonal_Growth.htm.]
 

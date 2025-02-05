@@ -105,7 +105,8 @@ findGrowthStarts <- function(formula,data,
          "von Bertalanffy"= { sv <- iVonBStarts(lennm,agenm,data,param,constvals) },
          "Gompertz"=        { sv <- iGompStarts(lennm,agenm,data,param) },
          "logistic"=        { sv <- iLogiStarts(lennm,agenm,data,param) },
-         "Richards"=        { sv <- iRichStarts(lennm,agenm,data,param) })
+         "Richards"=        { sv <- iRichStarts(lennm,agenm,data,param) },
+         "Schnute-Richards"={ sv <- NULL })
   
   # replace with values in fixed (if any & named correctly)
   if (!is.null(fixed)) {

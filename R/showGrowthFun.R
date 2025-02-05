@@ -55,8 +55,9 @@ showGrowthFun <- function(type=c("von Bertalanffy","Gompertz","Richards",
 }
 
 iGrowthModelExpression <- function(type,param) {
-  # make a combined parameter name ... remove spaces from type
+  # make a combined parameter name ... remove spaces and hyphen from type
   pnm <- paste0(gsub(" ","",type),param)
+  pnm <- gsub("-","",pnm)
   
   #Find expression to return 
   switch(pnm,
@@ -137,7 +138,7 @@ iGrowthModelExpression <- function(type,param) {
     "Schnute3" = {
       expression(E(L[t])==bgroup("[",L[1]^{b}+(L[3]^{b}-L[1]^{b})*~frac(~t~-~t[1],~t[3]~-~t[1]),"]")^{~frac(1,b)}) },
     "Schnute4" = {expression(E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(~t~-~t[1],~t[3]~-~t[1])}) },
-    "Schnute-Richards1" = {
+    "SchnuteRichards1" = {
       expression(E(L[t])==L[infinity]*~bgroup("(",1-a*e^{-kt^{c}},")")^{frac(1,b)}) }
   )
 }
