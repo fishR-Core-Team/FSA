@@ -288,9 +288,6 @@ Weisberg, S., G.R. Spangler, and L. S. Richmond. 2010. Mixed effects models for 
 
 Winsor, C.P. 1932. The Gompertz curve as a growth curve. Proceedings of the National Academy of Sciences. 18:1-8. [Was (is?) from https://pmc.ncbi.nlm.nih.gov/articles/PMC1076153/pdf/pnas01729-0009.pdf.]
 }
-\seealso{
-See \code{\link{Schnute}} for an implementation of the Schnute (1981) model.
-}
 \author{
 Derek H. Ogle, \email{DerekOgle51@gmail.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 }

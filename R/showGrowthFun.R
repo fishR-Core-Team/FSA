@@ -16,6 +16,7 @@
 #' showGrowthFun(plot=TRUE)
 #' showGrowthFun(plot=TRUE,cex=2)
 #' showGrowthFun(type="Richards",param=3,plot=TRUE,cex=1.5)
+#' showGrowthFun(type="Schnute",case=2,plot=TRUE,cex=1.5)
 #' 
 #' @rdname showGrowthFun
 #' @export
@@ -31,7 +32,9 @@ showGrowthFun <- function(type=c("von Bertalanffy","Gompertz","Richards",
     if(type=="Schnute") param <- case
     else STOP("'case' only used when 'type' is 'Schnute'")
   }
-  # Correct parameterization ... depends on growth model
+  # Correct parameterization ... depends on growth model ... note that the 4
+  #   cases of the Schnute will be treated as 4 parameterizations here ... so 
+  #   leave at 4 for "Schnute"
   if (param<1) STOP("'param' must be greater than 1")
   max.param <- c("von Bertalanffy"=19,"Gompertz"=7,"logistic"=4,"Richards"=5,
                  "Schnute"=4,"Schnute-Richards"=1)
@@ -39,7 +42,7 @@ showGrowthFun <- function(type=c("von Bertalanffy","Gompertz","Richards",
     STOP("'param' must be between 1 and ",max.param[[type]]," for ",type," model")
 
   #===== Find expression to return
-  tpexpr <- iGrowthModelExpression(type,param)
+  tpexpr <- iGrowthModelExpression(type,param,max.param)
   if (is.null(tpexpr)) STOP("Not yet implemented for ",type," parameterization #",param)
   
   #===== Write expression on a plot if asked for 
@@ -54,11 +57,13 @@ showGrowthFun <- function(type=c("von Bertalanffy","Gompertz","Richards",
   tpexpr
 }
 
-iGrowthModelExpression <- function(type,param) {
-  # make a combined parameter name ... remove spaces and hyphen from type
+iGrowthModelExpression <- function(type,param,max.param) {
+  # param is irrelevant if type only has 1 param ... so set to NULL
+  if (type %in% names(max.param)[max.param==1]) param <- NULL
+  # make a combined parameter name ... remove spaces and hyphens from type
   pnm <- paste0(gsub(" ","",type),param)
   pnm <- gsub("-","",pnm)
-  
+
   #Find expression to return 
   switch(pnm,
     "vonBertalanffy1" = {

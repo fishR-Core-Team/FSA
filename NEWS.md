@@ -16,8 +16,8 @@
     * Moved the old parameterization to new places as follows: third to first, fifth to second, second to fourth, and fourth to fifth. Thus, the first parameterization will be the one that most closely follows the parameterization of the self-starting function to be used in `findGrowthStarts()`.
     * Changed some of the "b" parameters to "b1", "b2", and "b3" as they did not have the same meaning (or values) across the various parameterizations.
 * `RichardsFuns()`: Deprecated (replaced with `makeGrowthFun()`).
-* `Schnute()`: Modified. Changed order of arguments so that the parameters appear before the constants, to be consistent with other growth functions. Pulled out of the `growthModels.r` file as the rest of the functions in that file are deprecated and will soon be defunct.
-* `SchnuteRichards()`: Deleted (made defunct) as it was added to `makeGrowthFun()` and was likely little used.
+* `Schnute()`: Deleted (made defunct) as it was added to `makeGrowthFun()` (use `Schnute <- makeGrowthFun("Schnute")` instead). Note that order of arguments was changed so that the parameters appear before the constants to be consistent with other growth functions.
+* `SchnuteRichards()`: Deleted (made defunct) as it was added to `makeGrowthFun()` (use `SchnuteRichards <- makeGrowthFun("Schnute-Richards")` instead) and was likely little used.
 * `showGrowthFun()`: Added. Updated and replaces `GrowthFunShow()`.
 * `vbFuns()`: Deprecated (replaced with `makeGrowthFun()`).
 * `vbStarts()`: Deprecated (replaced with `makeGrowthStarts()`. But also streamlined some of the internal functions, fixed some typos, and replaced `iVBStartsPlot()` with `iPlotGrowthStarts()` to be more general.

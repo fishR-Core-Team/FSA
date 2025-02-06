@@ -51,8 +51,6 @@
 #'
 #' @section IFAR Chapter: 12-Individual Growth.
 #'
-#' @seealso See \code{\link{Schnute}} for an implementation of the Schnute (1981) model.
-#'
 #' @references Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Campana, S.E. and C.M. Jones. 1992. Analysis of otolith microstructure data. Pages 73-100 In D.K. Stevenson and S.E. Campana, editors. Otolith microstructure examination and analysis. Canadian Special Publication of Fisheries and Aquatic Sciences 117. [Was (is?) from https://waves-vagues.dfo-mpo.gc.ca/library-bibliotheque/141734.pdf.]

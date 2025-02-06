@@ -125,8 +125,6 @@
 #'
 #' @section IFAR Chapter: 12-Individual Growth.
 #'
-#' @seealso See \code{\link{Schnute}} for an implementation of the Schnute (1981) model.
-#'
 #' @references Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Campana, S.E. and C.M. Jones. 1992. Analysis of otolith microstructure data. Pages 73-100 In D.K. Stevenson and S.E. Campana, editors. Otolith microstructure examination and analysis. Canadian Special Publication of Fisheries and Aquatic Sciences 117. [Was (is?) from https://waves-vagues.dfo-mpo.gc.ca/library-bibliotheque/141734.pdf.]
@@ -184,13 +182,60 @@
 #' @keywords manip hplot
 #'
 #' @examples 
-#' makeGrowthFun()
+#' #===== Create typical von B function, calc length at single then multiple ages
+#' vb <- makeGrowthFun()
+#' vb(t=1,Linf=450,K=0.3,t0=-0.5)
+#' vb(t=1:5,Linf=450,K=0.3,t0=-0.5)
+#' 
+#' #===== Create the third parameterization of the logistic growth function
+#' #         and show some details, and demo calculations
+#' logi <- makeGrowthFun(type="logistic",param=3,msg=TRUE)
+#' logi(t=1:10,Linf=450,gninf=0.3,L0=25)
+#' 
+#' #===== Simple example of copmaring several models
+#' vb <- makeGrowthFun(type="von Bertalanffy")
+#' gomp <- makeGrowthFun(type="Gompertz",param=2)
+#' logi <- makeGrowthFun(type="logistic")
+#' 
+#' ages <- 0:15
+#' vb1 <- vb(ages,Linf=450,K=0.3,t0=-0.5)
+#' gomp1 <- gomp(ages,Linf=450,gi=0.3,ti=3)
+#' logi1 <- logi(ages,Linf=450,gninf=0.3,ti=3)
+#' 
+#' plot(vb1~ages,type="l",lwd=2,ylim=c(0,450))
+#' lines(gomp1~ages,lwd=2,col="red")
+#' lines(logi1~ages,lwd=2,col="blue")
+#' 
+#' #===== Simple example with four cases of Schnute model
+#' ages <- 0:15
+#' Schnute <- makeGrowthFun(type="Schnute")
+#' s1 <- Schnute(ages,case=1,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
+#' s2 <- Schnute(ages,case=2,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
+#' s3 <- Schnute(ages,case=3,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
+#' s4 <- Schnute(ages,case=4,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
+#' 
+#' plot(s1~ages,type="l",lwd=2,ylim=c(0,450))
+#' lines(s2~ages,lwd=2,col="red")
+#' lines(s3~ages,lwd=2,col="blue")
+#' lines(s4~ages,lwd=2,col="green")
+#' 
+#' #===== Fitting the 8th parameterization of the von B growth model to data
+#' # make von B function
+#' vb8 <- makeGrowthFun(type="von Bertalanffy",param=8,msg=TRUE)
+#' # get starting values
+#' sv8 <- findGrowthStarts(tl~age,data=SpotVA1,type="von Bertalanffy",param=8,
+#'                         constvals=c(t1=1,t3=5))
+#' # fit function
+#' nls8 <- nls(tl~vb8(age,L1,L2,L3,t1=c(t1=1,t3=5)),data=SpotVA1,start=sv8)
+#' cbind(Est=coef(nls8),confint(nls8))
+#' plot(tl~age,data=SpotVA1,pch=19,col=col2rgbt("black",0.1))
+#' curve(vb8(x,L1=coef(nls8),t1=c(t1=1,t3=5)),col="blue",lwd=3,add=TRUE)
 #' 
 #' @rdname makeGrowthFun
 #' @export
 
 makeGrowthFun <- function(type=c("von Bertalanffy","Gompertz","logistic",
-                                 "Richards","Schnute-Richards"),
+                                 "Richards","Schnute","Schnute-Richards"),
                         param=1,simple=FALSE,msg=FALSE) {
   #===== Checks
   # Correct growth model type
@@ -199,14 +244,17 @@ makeGrowthFun <- function(type=c("von Bertalanffy","Gompertz","logistic",
   # Correct parameterization ... depends on growth model type
   if (param<1) STOP("'param' must be greater than 1")
   max.param <- c("von Bertalanffy"=19,"Gompertz"=7,"logistic"=4,"Richards"=5,
-                 "Schnute-Richards"=1)
+                 "Schnute"=1,"Schnute-Richards"=1)
   if (param>max.param[[type]])
     STOP("'param' must be between 1 and ",max.param[[type]]," for ",type," model")
   
   #===== Make message (if asked to)
+  # param is irrelevant if type only has 1 param ... so set to NULL
+  if (type %in% names(max.param)[max.param==1]) param <- NULL
   # make a combined parameter name ... remove spaces and hyphens from type
   pnm <- paste0(gsub(" ","",type),param)
   pnm <- gsub("-","",pnm)
+
   if (msg) message(msgsGrow[[pnm]])
   
   #===== Return the function
@@ -924,24 +972,48 @@ msgsGrow <- c(msgsGrow,
               "Richards5"=msg_Richards5)
 
 #-------------------------------------------------------------------------------
-#-- Schnute-Richards parameterizations
+#-- Schnute function
 #-------------------------------------------------------------------------------
-SchnuteRichards1 <- function(t,Linf=NULL,k=NULL,a=NULL,b=NULL,c=NULL) {
+Schnute <- function(t,case,L1=NULL,L3=NULL,a=NULL,b=NULL,t1=NULL,t3=NULL) {
+  if (length(L1)==4) {
+    b <- L1[[4]];  a <- L1[[3]]
+    L3 <- L1[[2]]; L1 <- L1[[1]]
+  }  
+  if (length(t1)==2) { t3 <- t1[[2]]; t1 <- t1[[1]] }
+  switch(as.character(case),
+    "1"={ ((L1^b)+((L3^b)-(L1^b))*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))^(1/b) },
+    "2"={ L1*exp(log(L3/L1)*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1))))) },
+    "3"={ ((L1^b)+((L3^b)-(L1^b))*((t-t1)/(t3-t1)))^(1/b) },
+    "4"={ L1*exp(log(L3/L1)*((t-t1)/(t3-t1))) }
+  )
+}
+SSchnute <- function(t,case,L1,L3,a,b,t1,t3) {
+  switch(as.character(case),
+         "1"={ ((L1^b)+((L3^b)-(L1^b))*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))^(1/b) },
+         "2"={ L1*exp(log(L3/L1)*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1))))) },
+         "3"={ ((L1^b)+((L3^b)-(L1^b))*((t-t1)/(t3-t1)))^(1/b) },
+         "4"={ L1*exp(log(L3/L1)*((t-t1)/(t3-t1))) } )
+}
+msg_Schnute <- paste0("Something will be here!!","\n\n")
+
+msgsGrow <- c(msgsGrow,"Schnute"=msg_Schnute)
+
+#-------------------------------------------------------------------------------
+#-- Schnute-Richards function
+#-------------------------------------------------------------------------------
+SchnuteRichards <- function(t,Linf=NULL,k=NULL,a=NULL,b=NULL,c=NULL) {
   if (length(Linf)==5) {
-    c <- Linf[[5]]
-    b <- Linf[[4]]
-    a <- Linf[[3]]
-    k <- Linf[[2]]
-    Linf <- Linf[[1]]
+    c <- Linf[[5]]; b <- Linf[[4]]; a <- Linf[[3]]
+    k <- Linf[[2]]; Linf <- Linf[[1]]
   }
   Linf*(1-a*exp(-k*t^c))^(1/b)
 }
 
-SSchnuteRichards1 <- function(t,Linf,k,a,b,c) { Linf*(1-a*exp(-k*t^c))^(1/b) }
-msg_SchnuteRichards1 <- paste0("You have chosen the Schnute-Richards growth function.\n\n",
+SSchnuteRichards <- function(t,Linf,k,a,b,c) { Linf*(1-a*exp(-k*t^c))^(1/b) }
+msg_SchnuteRichards <- paste0("You have chosen the Schnute-Richards growth function.\n\n",
                         "  Linf*(1-a*exp(-k*t^c))^(1/b)\n\n",
                         "  where Linf = asymptotic mean length\n",
                         "           k = controls slope at inflection point\n",
                         "       a,b,c = nuisance (no meaning) parameters (b!=0)\n\n")
 
-msgsGrow <- c(msgsGrow,"SchnuteRichards1"=msg_SchnuteRichards1)
+msgsGrow <- c(msgsGrow,"SchnuteRichards"=msg_SchnuteRichards)

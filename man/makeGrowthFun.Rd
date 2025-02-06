@@ -5,7 +5,8 @@
 \title{Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, logistic, Richards, and Schnute-Richards growth functions.}
 \usage{
 makeGrowthFun(
-  type = c("von Bertalanffy", "Gompertz", "logistic", "Richards", "Schnute-Richards"),
+  type = c("von Bertalanffy", "Gompertz", "logistic", "Richards", "Schnute",
+    "Schnute-Richards"),
   param = 1,
   simple = FALSE,
   msg = FALSE
@@ -142,7 +143,54 @@ Only 4-parameter parameterizations from Tjorve and Tjorve (2010) that seemed use
 }
 
 \examples{
-makeGrowthFun()
+#===== Create typical von B function, calc length at single then multiple ages
+vb <- makeGrowthFun()
+vb(t=1,Linf=450,K=0.3,t0=-0.5)
+vb(t=1:5,Linf=450,K=0.3,t0=-0.5)
+
+#===== Create the third parameterization of the logistic growth function
+#         and show some details, and demo calculations
+logi <- makeGrowthFun(type="logistic",param=3,msg=TRUE)
+logi(t=1:10,Linf=450,gninf=0.3,L0=25)
+
+#===== Simple example of copmaring several models
+vb <- makeGrowthFun(type="von Bertalanffy")
+gomp <- makeGrowthFun(type="Gompertz",param=2)
+logi <- makeGrowthFun(type="logistic")
+
+ages <- 0:15
+vb1 <- vb(ages,Linf=450,K=0.3,t0=-0.5)
+gomp1 <- gomp(ages,Linf=450,gi=0.3,ti=3)
+logi1 <- logi(ages,Linf=450,gninf=0.3,ti=3)
+
+plot(vb1~ages,type="l",lwd=2,ylim=c(0,450))
+lines(gomp1~ages,lwd=2,col="red")
+lines(logi1~ages,lwd=2,col="blue")
+
+#===== Simple example with four cases of Schnute model
+ages <- 0:15
+Schnute <- makeGrowthFun(type="Schnute")
+s1 <- Schnute(ages,case=1,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
+s2 <- Schnute(ages,case=2,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
+s3 <- Schnute(ages,case=3,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
+s4 <- Schnute(ages,case=4,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
+
+plot(s1~ages,type="l",lwd=2,ylim=c(0,450))
+lines(s2~ages,lwd=2,col="red")
+lines(s3~ages,lwd=2,col="blue")
+lines(s4~ages,lwd=2,col="green")
+
+#===== Fitting the 8th parameterization of the von B growth model to data
+# make von B function
+vb8 <- makeGrowthFun(type="von Bertalanffy",param=8,msg=TRUE)
+# get starting values
+sv8 <- findGrowthStarts(tl~age,data=SpotVA1,type="von Bertalanffy",param=8,
+                        constvals=c(t1=1,t3=5))
+# fit function
+nls8 <- nls(tl~vb8(age,L1,L2,L3,t1=c(t1=1,t3=5)),data=SpotVA1,start=sv8)
+cbind(Est=coef(nls8),confint(nls8))
+plot(tl~age,data=SpotVA1,pch=19,col=col2rgbt("black",0.1))
+curve(vb8(x,L1=coef(nls8),t1=c(t1=1,t3=5)),col="blue",lwd=3,add=TRUE)
 
 }
 \references{
@@ -199,9 +247,6 @@ Wang, Y.-G. 1998. An improved Fabens method for estimation of growth parameters 
 Weisberg, S., G.R. Spangler, and L. S. Richmond. 2010. Mixed effects models for fish growth. Canadian Journal of Fisheries And Aquatic Sciences 67:269-277.
 
 Winsor, C.P. 1932. The Gompertz curve as a growth curve. Proceedings of the National Academy of Sciences. 18:1-8. [Was (is?) from https://pmc.ncbi.nlm.nih.gov/articles/PMC1076153/pdf/pnas01729-0009.pdf.]
-}
-\seealso{
-See \code{\link{Schnute}} for an implementation of the Schnute (1981) model.
 }
 \author{
 Derek H. Ogle, \email{DerekOgle51@gmail.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.

@@ -14,7 +14,6 @@
 \alias{mapvalues}
 \alias{plotBinResp}
 \alias{residPlot}
-\alias{SchnuteRichards}
 \alias{Subset}
 \title{DEFUNCT functions.}
 \usage{
@@ -41,8 +40,6 @@ mapvalues(...)
 plotBinResp(...)
 
 residPlot(...)
-
-SchnuteRichards(...)
 
 Subset(...)
 }

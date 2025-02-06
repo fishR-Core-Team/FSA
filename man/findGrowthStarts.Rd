@@ -48,7 +48,7 @@ BLAH-BLAH-BLAH
 }
 
 \examples{
-##----- Make fake data
+#===== Make fake data
 # Setup ages, sample sizes (general reduction in numbers with
 #   increasing age), and additive SD to model
 t <- 0:15
@@ -69,11 +69,35 @@ df$tlr <- round(r1(df$age,Linf=450,ti=2,k=0.5,b1=1.5)+rnorm(sum(n),0,sd),0)
 # brief view of data
 head(df)
 
-##----- Example starting values for 1st parameterization of each type
-findGrowthStarts(tlv~age,data=df,type="von Bertalanffy")
-findGrowthStarts(tlg~age,data=df,type="Gompertz")
-findGrowthStarts(tll~age,data=df,type="logistic")
-findGrowthStarts(tlr~age,data=df,type="Richards")
+#===== Example starting values for 1st parameterization of each type
+( svonb1 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy") )
+( sgomp1 <- findGrowthStarts(tlg~age,data=df,type="Gompertz") )
+( slogi1 <- findGrowthStarts(tll~age,data=df,type="logistic") )
+( srich1 <- findGrowthStarts(tlr~age,data=df,type="Richards") )
+
+#====== Example starting values at other parameterizations
+( svonb4 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=4) )
+( sgomp2 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=2) )
+( slogi3 <- findGrowthStarts(tll~age,data=df,type="logistic",param=3) )
+( srich4 <- findGrowthStarts(tlr~age,data=df,type="Richards",param=4) )
+( svonb8 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",
+                             param=8,constvals=c(t1=2,t3=11)) )
+
+#===== Starting values with diagnostic plot
+( sgomp3 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=3,plot=TRUE) )
+
+#===== Plot at starting and final values
+#----- creating growth function corresponding to first param of von B
+vonb1 <- makeGrowthFun(type="von Bertalanffy")
+#----- plot data
+plot(tlv~age,data=df,pch=19,col=col2rgbt("black",0.2))
+#----- plot von b growth function at starting values (svonb1 from above)
+curve(vonb1(x,Linf=svonb1),col="blue",lwd=5,add=TRUE)
+#----- fit growth function to data
+rvonb1 <- nls(tlv~vonb1(age,Linf,K,t0),data=df,start=svonb1)
+cvonb1 <- coef(rvonb1)
+#----- plot von b growth function at final values ... startin values are very good!
+curve(vonb1(x,Linf=cvonb1),col="red",lwd=2,add=TRUE)
 
 }
 \seealso{

@@ -77,12 +77,6 @@ residPlot <- function(...) {
 
 #' @rdname FSA-defunct
 #' @export
-SchnuteRichards <- function(...) {
-  .Defunct(msg="'SchnuteRichards' has been removed; use 'SchnuteRichards <- makeGrowthFun(\"Schnute-Richards\")' instead.")
-}
-
-#' @rdname FSA-defunct
-#' @export
 Subset <- function(...) {
   .Defunct(msg="'Subset' has been removed; use 'subset' or 'dplyr::filter' followed by 'droplevels' for the same functionality.")
 }

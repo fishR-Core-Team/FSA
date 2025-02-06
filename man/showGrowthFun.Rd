@@ -35,6 +35,7 @@ showGrowthFun()
 showGrowthFun(plot=TRUE)
 showGrowthFun(plot=TRUE,cex=2)
 showGrowthFun(type="Richards",param=3,plot=TRUE,cex=1.5)
+showGrowthFun(type="Schnute",case=2,plot=TRUE,cex=1.5)
 
 }
 \seealso{
