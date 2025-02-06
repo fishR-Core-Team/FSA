@@ -381,11 +381,11 @@ iVBStarts.Linf <- function(age,len,methLinf,num4Linf,fixed,pdegree,check=TRUE) {
       }
     }
   }
-  if (check) iCheckLinf(sLinf,len)
+  if (check) iChecLinfKOLD(sLinf,len)
   sLinf
 }
 
-iCheckLinf <- function(sLinf,len) {
+iChecLinfKOLD <- function(sLinf,len) {
   if ((sLinf<0.5*max(len,na.rm=TRUE)) | sLinf>1.5*max(len,na.rm=TRUE)) {
     WARN("Starting value for 'Linf' is very different from the observed maximum\n",
          "length, which suggests a model fitting problem. See a Walford or\n",
@@ -405,11 +405,11 @@ iVBStarts.K <- function(age,len,type,fixed,check=TRUE) {
     cfs <- iFitWalford(age,len)
     sK <- -log(cfs[[2]])
   }
-  if (check) iCheckK(sK,type)
+  if (check) iCheckKOLD(sK,type)
   sK  
 }
 
-iCheckK <- function(sK,type) {
+iCheckKOLD <- function(sK,type) {
   if (sK<0) {
     if (type %in% c("Typical","typical","Original","original","BevertonHolt",
                     "vonBertalanffy","GQ","GallucciQuinn","Schnute")) {

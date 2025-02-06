@@ -59,8 +59,18 @@
 #' ( sgomp2 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=2) )
 #' ( slogi3 <- findGrowthStarts(tll~age,data=df,type="logistic",param=3) )
 #' ( srich4 <- findGrowthStarts(tlr~age,data=df,type="Richards",param=4) )
+#' 
+#' #====== Some vonB parameterizations require constant values in constvals=
 #' ( svonb8 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",
 #'                              param=8,constvals=c(t1=2,t3=11)) )
+#' 
+#' #====== Demonstrate use of fixed= with 2nd parameterization of von B as e.g.
+#' ( svonb2 <- findGrowthStarts(tlv~age,data=df,param=2) )
+#' ( svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=500)) )
+#' ( svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=500,K=0.25)) )
+#' #----- useful with plot=TRUE to iteratively guess "close" starting values
+#' svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=600,K=0.25),plot=TRUE)
+#' svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=450,K=0.25),plot=TRUE)
 #' 
 #' #===== Starting values with diagnostic plot
 #' ( sgomp3 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=3,plot=TRUE) )
@@ -75,7 +85,7 @@
 #' #----- fit growth function to data
 #' rvonb1 <- nls(tlv~vonb1(age,Linf,K,t0),data=df,start=svonb1)
 #' cvonb1 <- coef(rvonb1)
-#' #----- plot von b growth function at final values ... startin values are very good!
+#' #----- plot growth function at final values ... starting values were very good!
 #' curve(vonb1(x,Linf=cvonb1),col="red",lwd=2,add=TRUE)
 #' 
 #' @rdname findGrowthStarts
@@ -215,19 +225,19 @@ iVonBStarts <- function(ynm,xnm,data,param,constvals) {
   # Create starting value list specific to parameterization
   sv <- NULL
   switch(as.character(param),
-          "1"= {  sv <- list(Linf=Linf,K=K,t0=t0)  },
-          "2"= {  sv <- list(Linf=Linf,K=K,L0=L0)  },
+          "1"= {  sv <- list(Linf=iChkLinf(Linf,data[[ynm]]),K=K,t0=t0)  },
+          "2"= {  sv <- list(Linf=iChkLinf(Linf,data[[ynm]]),K=K,L0=iChkL0(L0,data[[ynm]]))  },
           "3"= {  sv <- list(omega=omega,K=K,t0=t0)  },
-          "4"= {  sv <- list(Linf=Linf,L0=L0,omega=omega)  },
-          "5"= {  sv <- list(Linf=Linf,t0=t0,t50=t50)  },
+          "4"= {  sv <- list(Linf=iChkLinf(Linf,data[[ynm]]),L0=iChkL0(L0,data[[ynm]]),omega=omega)  },
+          "5"= {  sv <- list(Linf=iChkLinf(Linf,data[[ynm]]),t0=t0,t50=iChkt50(t50))  },
           "6"= {  sv <- sv6  },
           "7"= {  sv <- list(L1=L1,L3=L3,K=K)  },
           "8"= {  sv <- list(L1=L1,L2=L2,L3=L3)  },
-         "10"= {  sv <- list(Linf=Linf,K=K,t0=t0,C=0.5,ts=0.3)  },
-         "11"= {  sv <- list(Linf=Linf,K=K,t0=t0,C=0.5,WP=0.8)  },
+         "10"= {  sv <- list(Linf=iChkLinf(Linf,data[[ynm]]),K=K,t0=t0,C=0.5,ts=0.3)  },
+         "11"= {  sv <- list(Linf=iChkLinf(Linf,data[[ynm]]),K=K,t0=t0,C=0.5,WP=0.8)  },
          "12"= {  sv <- list(Kpr=K/(1-0.3),t0=t0,ts=0.3,NGT=0.3)  },
-         "13"= {  sv <- list(Linf=Linf,K=K)  },
-         "14"= {  sv <- list(Linf=Linf,K=K)  }
+         "13"= {  sv <- list(Linf=iChkLinf(Linf,data[[ynm]]),K=K)  },
+         "14"= {  sv <- list(Linf=iChkLinf(Linf,data[[ynm]]),K=K)  }
   )
   sv
 }
@@ -248,11 +258,11 @@ iGompStarts <- function(ynm,xnm,data,param) {
   # Create starting value list specific to parameterization
   sv <- NULL
   switch(param,
-         Gompertz1={  sv <- list(Linf=Linf,gi=gi,a1=log(b2))  },
-         Gompertz2={  sv <- list(Linf=Linf,gi=gi,ti=log(b2)/gi)  },
-         Gompertz3={  sv <- list(L0=Linf/exp(b2),gi=gi,a2=b2)  },
-         Gompertz4={  sv <- list(Linf=Linf,gi=gi,a2=b2)  },
-         Gompertz5={  sv <- list(Linf=Linf,gi=gi,t0=log(b2*gi)/gi)  },
+         Gompertz1={  sv <- list(Linf=iChkLinf(Linf,data[[ynm]]),gi=gi,a1=log(b2))  },
+         Gompertz2={  sv <- list(Linf=iChkLinf(Linf,data[[ynm]]),gi=gi,ti=iChkti(log(b2)/gi))  },
+         Gompertz3={  sv <- list(L0=iChkL0(Linf/exp(b2),data[[ynm]]),gi=gi,a2=b2)  },
+         Gompertz4={  sv <- list(Linf=iChkLinf(Linf,data[[ynm]]),gi=gi,a2=b2)  },
+         Gompertz5={  sv <- list(Linf=iChkLinf(Linf,data[[ynm]]),gi=gi,t0=log(b2*gi)/gi)  },
   )
   
   # Return the starting value list
@@ -272,13 +282,14 @@ iLogiStarts <- function(ynm,xnm,data,param) {
   gninf <- 1/scal
   
   # Perform sanity checks on values ... could indicate model problems
+  Linf <- iChkLinf(Linf,data[[ynm]])
   
   # Create starting value list specific to parameterization
   sv <- NULL
   switch(param,
-         logistic1={  sv <- list(Linf=Linf,gninf=gninf,ti=xmid)  },
+         logistic1={  sv <- list(Linf=Linf,gninf=gninf,ti=iChkti(xmid))  },
          logistic2={  sv <- list(Linf=Linf,gninf=gninf,a=exp(xmid/scal))  },
-         logistic3={  sv <- list(Linf=Linf,gninf=gninf,L0=Linf/(1+exp(xmid/scal)))  }
+         logistic3={  sv <- list(Linf=Linf,gninf=gninf,L0=iChkL0(Linf/(1+exp(xmid/scal)),data[[ynm]]))  }
   )
   
   # Return the starting value list
@@ -292,7 +303,7 @@ iRichStarts <- function(ynm,xnm,data,param) {
                                   pn.options="sstmp",width.bounds=2,force4par=TRUE,
                                   verbose=FALSE,suppress.text=TRUE)
   
-  # Convert SSgompertz parameter starting values to VB parameters
+  # Convert SSposnegRichards parameter starting values to Richards parameters
   Linf <- sstmp[["Asym"]]
   k <- sstmp[["K"]]
   ti <- sstmp[["Infl"]]
@@ -301,15 +312,16 @@ iRichStarts <- function(ynm,xnm,data,param) {
   L0 <- Linf/((1+M*exp(k*ti)))^(1/M)
   
   # Perform sanity checks on values ... could indicate model problems
+  Linf <- iChkLinf(Linf,data[[ynm]]) # do here as all params use Linf
   
   # Create starting value list specific to parameterization
   sv <- NULL
   switch(param,
-         Richards1={  sv <- list(Linf=Linf,k=k,ti=ti,b1=M)  },
+         Richards1={  sv <- list(Linf=Linf,k=k,ti=iChkti(ti),b1=M)  },
          Richards2={  sv <- list(Linf=Linf,k=k,t0=t0,b2=-(1/M))  },
-         Richards3={  sv <- list(Linf=Linf,k=k,L0=L0,b3=1+M)  },
-         Richards4={  sv <- list(Linf=Linf,k=k,ti=ti,b2=-(1/M))  },
-         Richards5={  sv <- list(Linf=Linf,k=k,ti=ti,b3=1+M)  }
+         Richards3={  sv <- list(Linf=Linf,k=k,L0=iChkL0(L0,data[[ynm]]),b3=1+M)  },
+         Richards4={  sv <- list(Linf=Linf,k=k,ti=iChkti(ti),b2=-(1/M))  },
+         Richards5={  sv <- list(Linf=Linf,k=k,ti=iChkti(ti),b3=1+M)  }
   )
   
   # Return the starting value list
@@ -319,9 +331,52 @@ iRichStarts <- function(ynm,xnm,data,param) {
 #===============================================================================
 #== Internal Functions -- Parameter sanity checks
 #===============================================================================
+iChkLinf <- function(sLinf,len) {
+  if (is.lt(sLinf,0.5*max(len,na.rm=TRUE)) | is.gt(sLinf,1.5*max(len,na.rm=TRUE))) {
+    WARN("Starting value for 'Linf' is very different from the observed maximum\n",
+         "length, which suggests a model fitting problem. Try plotting the data\n",
+         "with the model at the starting values superimposed with 'plot=TRUE' to\n",
+         "potentially diagnose any problems. Also consider using 'fixed=c(Linf=)'\n",
+         "to manually set 'Linf' to a reasonable value.\n")
+  }
+  sLinf
+}
 
+iChkL0 <- function(sL0,len) {
+  if (is.lt(sL0,0))
+    WARN("Starting value for 'L0' is negative, which does not make biological\n",
+         "sense and suggests a model fitting problem. Try plotting the data\n",
+         "with the model at the starting values superimposed with 'plot=TRUE' to\n",
+         "potentially diagnose any problems. Also consider using 'fixed=c(L0=)'\n",
+         "to manually set 'L0' to a reasonable value.\n")
+  else if (is.gt(sL0,0.25*min(len,na.rm=TRUE)))
+    WARN("Starting value for 'L0' is more than 25% of the minimum observed length\n",
+         "which is possible but it may also suggests a model fitting problem. Try\n",
+         "plotting the data with the model at the starting values superimposed with\n",
+         "'plot=TRUE' to potentially diagnose any problems. Also consider using\n",
+         "'fixed=c(Linf=)' to manually set 'L0' to a reasonable value.\n")
+  sL0
+}
 
+iChkti <- function(sti) {
+  if (is.lt(sti,0))
+    WARN("Starting value for 'ti' is negative, which does not make biological\n",
+         "sense and suggests a model fitting problem. Try plotting the data\n",
+         "with the model at the starting values superimposed with 'plot=TRUE' to\n",
+         "potentially diagnose any problems. Also consider using 'fixed=c(ti=)'\n",
+         "to manually set 'ti' to a reasonable value.\n")
+  sti
+}
 
+iChkt50 <- function(st50) {
+  if (is.lt(st50,0))
+    WARN("Starting value for 't50' is negative, which does not make biological\n",
+         "sense and suggests a model fitting problem. Try plotting the data\n",
+         "with the model at the starting values superimposed with 'plot=TRUE' to\n",
+         "potentially diagnose any problems. Also consider using 'fixed=c(t50=)'\n",
+         "to manually set 't50' to a reasonable value.\n")
+  st50
+}
 #===============================================================================
 #== Internal Functions -- Diagnostic plot for starting values
 #===============================================================================

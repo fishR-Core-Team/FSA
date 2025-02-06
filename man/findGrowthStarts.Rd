@@ -80,8 +80,18 @@ head(df)
 ( sgomp2 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=2) )
 ( slogi3 <- findGrowthStarts(tll~age,data=df,type="logistic",param=3) )
 ( srich4 <- findGrowthStarts(tlr~age,data=df,type="Richards",param=4) )
+
+#====== Some vonB parameterizations require constant values in constvals=
 ( svonb8 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",
                              param=8,constvals=c(t1=2,t3=11)) )
+
+#====== Demonstrate use of fixed= with 2nd parameterization of von B as e.g.
+( svonb2 <- findGrowthStarts(tlv~age,data=df,param=2) )
+( svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=500)) )
+( svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=500,K=0.25)) )
+#----- useful with plot=TRUE to iteratively guess "close" starting values
+svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=600,K=0.25),plot=TRUE)
+svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=450,K=0.25),plot=TRUE)
 
 #===== Starting values with diagnostic plot
 ( sgomp3 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=3,plot=TRUE) )
@@ -96,7 +106,7 @@ curve(vonb1(x,Linf=svonb1),col="blue",lwd=5,add=TRUE)
 #----- fit growth function to data
 rvonb1 <- nls(tlv~vonb1(age,Linf,K,t0),data=df,start=svonb1)
 cvonb1 <- coef(rvonb1)
-#----- plot von b growth function at final values ... startin values are very good!
+#----- plot growth function at final values ... starting values were very good!
 curve(vonb1(x,Linf=cvonb1),col="red",lwd=2,add=TRUE)
 
 }

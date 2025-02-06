@@ -417,3 +417,27 @@ iCheckConfLevel <- function(conf.level) {
   if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
 }
   
+
+# Logicals for less than (equal) or greater than (equal) to value
+is.lte <- function(x,value) ifelse(x<=value,TRUE,FALSE)
+
+is.lt <- function(x,value) ifelse(x<value,TRUE,FALSE)
+
+is.gte <- function(x,value) ifelse(x>=value,TRUE,FALSE)
+
+is.gt <- function(x,value) ifelse(x>value,TRUE,FALSE)
+
+
+# Error if less than (equal) or greater than (equal) to value
+iChkGTE <- function(x,value) if (is.lt(x,value))
+  STOP(deparse(substitute(x))," must be >=",value,".")
+
+iChkGT <- function(x,value) if (is.lte(x,value))
+  STOP(deparse(substitute(x))," must be strictly >",value,".")
+
+iChkLTE <- function(x,value) if (is.gt(x,value))
+  STOP(deparse(substitute(x))," must be <=",value,".")
+
+iChkLT <- function(x,value) if (is.gte(x,value))
+  STOP(deparse(substitute(x))," must be strictly <",value,".")
+
