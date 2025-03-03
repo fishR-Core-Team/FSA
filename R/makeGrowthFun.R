@@ -1,10 +1,10 @@
 #' @name makeGrowthFun
 #' 
-#' @title Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, logistic, Richards, and Schnute-Richards growth functions.
+#' @title Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, logistic, Richards, Schnute, and Schnute-Richards growth functions.
 #'
 #' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, logistic, Richards, and Schnute-Richards growth functions. Use \code{showGrowthFun} to see the equations for each growth function.
 #'
-#' @param type A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards} \dQuote{Schnute-Richards}) that indicates the type of growth function to show.
+#' @param type A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards}, \dQuote{Schnute}, \dQuote{Schnute-Richards}) that indicates the type of growth function to show.
 #' @param param A single numeric that indicates the specific parameterization of the growth function. See details.
 #' @param simple A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}; DEFAULT) or not (\code{=FALSE}).
@@ -13,7 +13,8 @@
 #' 
 #' An expression of the equation for each growth function may be created with \code{showGrowthFun} using the same \code{type=} and \code{param} arguments.
 #'
-#' @note The von Bertalanffy parameterizations for simple length and annual age data are
+#' @details
+#' The von Bertalanffy parameterizations for simple length and annual age data are
 #' 
 #' \tabular{ccl}{
 #' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
@@ -51,7 +52,7 @@
 #' 18 \tab \eqn{E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1+L_2}\right)^{dt}\right]} \tab Francis \cr
 #' }
 #' 
-#' The von Bertalanffy parameterizations for tag-recapture data are
+#' The von Bertalanffy parameterizations for seasonal tag-recapture data are
 #' 
 #' \tabular{ccl}{
 #' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
@@ -64,7 +65,7 @@
 #' 
 #' \tabular{ccl}{
 #' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
-#' 1  \tab \eqn{E(L_t)=L_\infty e^{-e^{a_1-g_it}}} \tab Compertz \cr
+#' 1  \tab \eqn{E(L_t)=L_\infty e^{-e^{a_1-g_it}}} \tab Gompertz \cr
 #' 2  \tab \eqn{E(L_t)=L_\infty e^{-e^{-g_i(t-t_i)}}} \tab  \cr
 #' 3  \tab \eqn{E(L_t)=L_0 e^{a_2(1-e^{-g_it})}} \tab  \cr
 #' 4  \tab \eqn{E(L_t)=L_\infty e^{-a_2e^{-g_it}}} \tab  \cr
@@ -118,8 +119,18 @@
 #' }
 #' 
 #' Only 4-parameter parameterizations from Tjorve and Tjorve (2010) that seemed useful for modeling fish growth are provided here. In Tjorve and Tjorve (2010) their \eqn{A}, \eqn{k}, \eqn{W_0}, and \eqn{T_i} are \eqn{L_\infty}, \eqn{k}, \eqn{L_0}, and \eqn{t_i}, and their \eqn{d} is \eqn{b_1}, \eqn{b_2}, and \eqn{b_3}, respectively, here (in FSA).
+#'
+#' The four cases for the Schnute model for simple length and annual age data are
 #' 
-#' #' The Schnute-Richards model for simple length and annual age data \eqn{E(L_t)=L_\infty\left(1-ae^{-kt^c}\right)^{1/b}}. Note that this function is slightly modified (a \eqn{+} was changed to a \eqn{-} so that \eqn{a} is positive) from the original in Schnute and Richards (1990).
+#' \tabular{cl}{
+#' \strong{Case} \tab \strong{Equation} \cr
+#' 1 \tab \eqn{E(L_t)=\left[L^b_1+(L^b_3-L^b_1)\frac{1-e^{-a(t-t_1)}}{1-e^{-a(t_3-t_1)}}\right]^{\frac{1}{b}}} \cr
+#' 2 \tab \eqn{E(L_t)=L_1e^{log\left(\frac{L_3}{L_1}\right)\frac{1-e^{-a(t-t_1)}}{1-e^{-a(t_3-t_1)}}}} \cr
+#' 3 \tab \eqn{E(L_t)=\left[L^b_1+(L^b_3-L^b_1)\frac{t-t_1}{t_3-t_1}\right]^{\frac{1}{b}}} \cr
+#' 4 \tab \eqn{E(L_t)=L_1e^{log\left(\frac{L_3}{L_1}\right)\frac{t-t_1}{t_3-t_1}}} \cr
+#' } 
+#' 
+#' The Schnute-Richards model for simple length and annual age data is \eqn{E(L_t)=L_\infty\left(1-ae^{-kt^c}\right)^{1/b}}. Note that this function is slightly modified (a \eqn{+} was changed to a \eqn{-} so that \eqn{a} is positive) from the original in Schnute and Richards (1990).
 #'
 #' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'

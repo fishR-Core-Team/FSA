@@ -429,15 +429,15 @@ is.gt <- function(x,value) ifelse(x>value,TRUE,FALSE)
 
 
 # Error if less than (equal) or greater than (equal) to value
-iChkGTE <- function(x,value) if (is.lt(x,value))
-  STOP(deparse(substitute(x))," must be >=",value,".")
-
-iChkGT <- function(x,value) if (is.lte(x,value))
-  STOP(deparse(substitute(x))," must be strictly >",value,".")
-
 iChkLTE <- function(x,value) if (is.gt(x,value))
   STOP(deparse(substitute(x))," must be <=",value,".")
 
 iChkLT <- function(x,value) if (is.gte(x,value))
   STOP(deparse(substitute(x))," must be strictly <",value,".")
+
+iChkGTE <- function(x,value) if (is.lt(x,value))
+  STOP(deparse(substitute(x))," must be >=",value,".")
+
+iChkGT <- function(x,value) if (is.lte(x,value))
+  STOP(deparse(substitute(x))," must be strictly >",value,".")
 

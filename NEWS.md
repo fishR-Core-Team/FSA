@@ -3,7 +3,7 @@
 * Added `FlexParamCurve` to Imports for use of `modpar()` in `RichardsStarts()`.
 * Added an "article" (for the package webpage) that describes how the starting values for the growth equations are derived.
 
-* interals: Added functions to return a logical about whether a value is less than, less than or equal, greater than, or greater than or equal. Added functions that use those logical and return an informative error if the logical is FALSE. The errors can "grab" the name of the object so that the error can be specific though the function is general.
+* internals: Added functions to return a logical about whether a value is less than, less than or equal, greater than, or greater than or equal (i.e., `is.lte()`, `is.lt()`, `is.gte()`, and `is.gt()`). Added functions that use those logical and return an informative error if the logical is FALSE (i.e., `iChkLTE()`, `iChkLT()`, `iChkGTE()`, and `iChkGT()`). The errors can "grab" the name of the object so that the error can be specific though the function is general.
 * `findGrowthStarts()`: Added. This replaces `vbStarts()` and includes starting values for Gompertz, logistic, and Richards functions.
 * `GompertzFuns()`: Deprecated (replaced with `makeGrowthFun()`).
 * `growthFunShow()`: Deprecated (replaced with `showGrowthFun()`). But also fixed expression for QuinnDeriso3 parameterization of the Gompertz function (i.e., erroneous t* changed to t0 ... related to fixing [#113](https://github.com/fishR-Core-Team/FSA/issues/113)). Also changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization. Will be deleted in future versions.

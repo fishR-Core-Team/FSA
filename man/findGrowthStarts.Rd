@@ -19,7 +19,7 @@ findGrowthStarts(
 
 \item{data}{A data frame that contains the variables in \code{formula}.}
 
-\item{type}{A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards} \dQuote{Schnute-Richards}) that indicates the type of growth function to show.}
+\item{type}{A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards}, \dQuote{Schnute}, \dQuote{Schnute-Richards}) that indicates the type of growth function to show.}
 
 \item{param}{A single numeric that indicates the specific parameterization of the growth function. See details.}
 
