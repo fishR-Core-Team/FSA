@@ -6,11 +6,9 @@ format:
   html: 
     toc: true
     toc-depth: 2
-    code-fold: true
     reference-location: margin
     fig-cap-location: bottom
     tbl-cap-location: top
-    code-summary: "Show Code"
     echo: false
 knitr:
   opts_chunk:
@@ -25,34 +23,37 @@ knitr:
 library(FSA)
 ```
 
-# von Bertalanffy (Brody)
-Blah-Blah-Blah
+# Introduction
+The most common growth models used in fisheries, such as von Bertalanffy, Gompertz, logistic, and Richards, are non-linear models. Computer functions used to estimate parameters for these models require "starting values" to initiate the parameter search algorithm. Previous versions of `FSA` (v0.9.6 and lower) used *ad hoc* methods to estimate starting values for parameterizations of the von Bertalanffy function, but did not provide any method to derive starting values for the ohter common growth functions.
 
-## Annual Length-at-Age Models
-### The Parametrizations
-`FSA` provides a wide variety of von Bertalanffy parameterizations for modeling simple length-at-age data (@tbl-VBparams1).
+Several "self-starting" non-linear models are provided in R, with three of these found in base R and one in an add-on package that correspond to the common fisheries growth models. These functions provide starting values that are based on robust theory. Herein, I show how the starting values provided by these self-starting functions can be used to derive starting values for the common parameterizations of the common growth models used in fisheries. I will conclude by briefly demonstrating a new function in `FSA` that will provide the starting values demonstrated here.
 
-| param | Equation $L =$ |
+<br>
+
+# Derivation of Starting Values
+## von Bertalanffy Length-at-Age
+`FSA` provides a wide variety of von Bertalanffy parameterizations for modeling simple length-at-age data (@tbl-VBparams1).^[Note that $E(L_t)$ is the "expectation of length at time t" which, in practice, generally means "mean length at age t."]
+
+| param | Equation |
 |:-----:|:----------------------------------------------------|
-|   1   | $L_\infty\left(1-e^{-K(t-t_0)}\right)$ |
-|   2   | $L_\infty - (L_\infty-L_0)~e^{-Kt}$ |
-|   3   | $\frac{\omega}{K}\left(1-e^{-K(t-t_0)}\right)$ |
-|   4   | $L_\infty - (L_\infty-L_0)~e^{-\frac{\omega}{L_\infty}t}$ |
-|   5   | $L_\infty\left(1-e^{-log(2)\frac{t-t_0}{t_{50}-t_0}}\right)$ |
-|   6   | $L_r + (L_\infty-L_r)~e^{-e^{-K(t-t_r)}}$ |
-|   7   | $L_1+(L_3-L_1)\frac{1-e^{-K(t-t_1)}}{1-e^{-K(t_3-t_1)}}$ |
-|   8   | $L_1+(L_3-L_1)\frac{1-r^{2\frac{t-t_1}{t_3-t_1}}}{1-r^2}$ with $r=\frac{L_3-L_2}{L_2-L_1}$|
-|   9   | $L_\infty\frac{\left(1-e^{-K_2(t-t_0)}\right)\left(1+e^{-b(t-t_0-a)}\right)}{\left(1+e^{ab}\right)^{-\frac{K_2K_1}{b}}}$
+|   1   | $E(L_t) = L_\infty\left(1-e^{-K(t-t_0)}\right)$ |
+|   2   | $E(L_t) = L_\infty - (L_\infty-L_0)~e^{-Kt}$ |
+|   3   | $E(L_t) = \frac{\omega}{K}\left(1-e^{-K(t-t_0)}\right)$ |
+|   4   | $E(L_t) = L_\infty - (L_\infty-L_0)~e^{-\frac{\omega}{L_\infty}t}$ |
+|   5   | $E(L_t) = L_\infty\left(1-e^{-log(2)\frac{t-t_0}{t_{50}-t_0}}\right)$ |
+|   6   | $E(L_t) = L_r + (L_\infty-L_r)~e^{-e^{-K(t-t_r)}}$ |
+|   7   | $E(L_t) = L_1+(L_3-L_1)\frac{1-e^{-K(t-t_1)}}{1-e^{-K(t_3-t_1)}}$ |
+|   8   | $E(L_t) = L_1+(L_3-L_1)\frac{1-r^{2\frac{t-t_1}{t_3-t_1}}}{1-r^2}$ with $r=\frac{L_3-L_2}{L_2-L_1}$|
 
 : Parameterizations of the von Bertalanffy growth equation for length-at-age data available in `FSA`. {#tbl-VBparams1}
 
 <br>
 
-The response variable, $L$, is the mean length and the explanatory variable, $t$ is age. Parameters in these growth functions are:
+The response variable, $L$, is length and the explanatory variable, $t$ is age. Parameters in these growth functions are:
 
 - $L_\infty$ = asymptotic mean length
 - $K$ = exponential rate of approach to $L_\infty$
-- $t_0$ = hypothetical time/age when mean length is 0
+- $t_0$ = nuisance parameter that is the hypothetical time/age when mean length is 0
 - $L_0$ = mean length at age-0 (i.e., hatching or birth)
 - $\omega$ = growth rate near $t_0$
 - $t_{50}$ = age when half of $L_\infty$ is reached
@@ -61,20 +62,18 @@ The response variable, $L$, is the mean length and the explanatory variable, $t$
 - $L_1$ = mean length at $t_1$ (generally a younger age)
 - $L_2$ = mean length at $t_2$ (generally an intermediate age)
 - $L_3$ = mean length at $t_3$ (generally a older age)
-- $K_1$ = first exponential rate of approach to $L_\infty$
-- $K_2$ = second exponential rate of approach to $L_\infty$
-- $b$ = controls rate of transition from $K_1$ to $K_2$
-- $a$ = central age of transition from $K_1$ to $K_2$
 
 Constant values (i.e., set by the user) are:
+
 - $t_r$ = mean age at $L_r$ (*sometimes this is a parameter*)
 - $L_r$ = mean length at $t_r$ (*sometimes this is a parameter*)
 - $t_1$ = a younger (generally) age
 - $t_2$ = an age halfway between $t_1$ and $t_2$
 - $t_3$ = an older (generally) age
 
-### Starting Values
-The `stats` package in base R contains `SSasymp()` which is a self-starting function for using `nls()` to fit an "asymptotic regression" function to data. According to the documentation for `SSasymp()` the parameterization of this function is
+<br>
+
+`SSasymp()` is a self-starting function^[From the `stats` package in base R.] to fit an "asymptotic regression" function to data. The parameterization for this function is^[According to `?SSasymp`.]
 
 $$ Y = \text{Asym}+(\text{R0}-\text{Asym})~e^{-e^{\text{lrc}\times\text{input}}} $$
 
@@ -84,11 +83,11 @@ In growth (in length) modeling, $Y$ is $L$ (for length); $\text{input}$ is $t$ (
 
 $$ L = L_\infty - (L_\infty-L_0)~e^{-e^{\text{lrc}\times t}} $$
 
-If we move $\text{lrc}$ off of the log scale by defining $K=e^{\text{lrc}}$, i.e., the Brody growth coefficient, we can further write this function as
+If we move $\text{lrc}$ off of the log scale by defining $K=e^{\text{lrc}}$, we can further write this function as
 
 $$ L = L_\infty - (L_\infty-L_0)~e^{-Kt} $$ {#eq-rSSasymp}
 
-@eq-rSSasymp is **exactly** the second parameterization of the von Bertalanffy growth function in `FSA`.^[This is von Bertalanffy's original parameterization.] Thus, the starting values produced by `SSasymp()` can be used to find starting values for the second parameterization of the von Bertalanffy growth function in `FSA` (@tbl-VBstarts1). Indeed these values can be used for all parameterizations that use $L_\infty$, $L_0$, and $K$. Starting values for other parameters in other parameterizations can also be derived from these values.
+@eq-rSSasymp is **exactly** the second parameterization of the von Bertalanffy growth function in `FSA`.^[This is von Bertalanffy's original parameterization.] Thus, the starting values produced by `SSasymp()` can be used directly to find starting values for the second parameterization of the von Bertalanffy growth function in `FSA` (@tbl-VBstarts1). Indeed these values can be used for all parameterizations that have $L_\infty$, $L_0$, and $K$. Starting values for other parameters in other parameterizations are derived from these values as shown below.
 
 A starting value for $t_0$, the "hypothetical time when the mean length is zero", is derived by setting $L=0$ in @eq-rSSasymp and solving for $t$.
 
@@ -102,9 +101,9 @@ log\left(\frac{L_\infty}{L_\infty-L_0}\right) &= -K \\
 \end{align}
 $$
 
-The $\omega$ parameter was introduced into the fisheries growth modeling literature as $\omega=KL_\infty$ (CITATION). Thus, a starting value for $\omega$ is simply the product of $K$ and $L_\infty$ starting values.
+The $\omega$ parameter was introduced into the fisheries growth modeling literature as $\omega=KL_\infty$ (Gallucci and Quin 1979^[All citations are in `?makeGrowthFun`]). Thus, a starting value for $\omega$ is simply the product of the starting values for $K$ and $L_\infty$.
 
-A starting value for $t_50$ is derived (most easily) by solving the first parameterization equation for $t$ when $\frac{L}{L_\infty}=\frac{1}{2}$.
+A starting value for $t_{50}$ is derived (most easily) by solving the first parameterization equation for $t$ when $\frac{L}{L_\infty}=\frac{1}{2}$.
 
 $$
 \begin{align}
@@ -134,7 +133,7 @@ A starting value for $t_r$ can be found by plugging $L_r$ for $L$ into any of th
 |   6   | $\text{Asym}$ | | $e^{\text{lrc}}$ | | | | | |
 |   7   | | | $e^{\text{lrc}}$ | | | | |
 
-: Conversion from `SSasymp()` parameters ($\text{Asym}$, $\text{R0}$, and $\text{lrc}$) to parameters for the common von Bertalanffy parameterizations used to model fish growth in `FSA`. Note that parameterizations 6, 7, 8, and 9 have other parameters not shown in this table (but described in the main text). {#tbl-VBstarts1}
+: Conversion from `SSasymp()` parameters ($\text{Asym}$, $\text{R0}$, and $\text{lrc}$) to parameters for the common von Bertalanffy parameterizations used to model fish growth in `FSA`. Note that parameterizations 6, 7, and 8 have other parameters not shown in this table (but described in the main text). {#tbl-VBstarts1}
 
 <br>
 
@@ -179,23 +178,36 @@ curve(vb8(x,L1=Asym*(1-exp(-K*(t1-t0))),L2=Asym*(1-exp(-K*(t2-t0))),
 
 <br>
 
-## Seasonal Length-at-Age Data
-### Parameterizations
-There are also several parameterizations that include a seasonal component in the model such that age is not recorded annually @tbl-VBparams2
+The ninth parameterization (@tbl-VBparams2) of the von Bertalanffy model in `FSA` is a so-called "double von Bertalanffy" model.^[Note that $K_1$ and $K_2$ are the first and second exponential rates of approach to $L_\infty$, $a$ is the central age of transition from $K_1$ to $K_2$, and $b$ controls the rate of transition from $K_1$ to $K_2$.]
 
-<br>
-
-| param | Equation $L =$ |
+| param | Equation |
 |:-----:|:----------------------------------------------------|
-|  10   | $L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi sin(2\pi(t-t_s))}+\frac{CK}{2\pi sin(2\pi(t_0-t_s))}}\right)$ |
-|  11   | $L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi sin(2\pi(t-WP+0.5))}+\frac{CK}{2\pi sin(2\pi(t_0-WP+0.5))}}\right)$ |
-|  12   | $L_\infty(1-e^{-q}$ with $q=K'(t'-t_0) + \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)(t'-t_s)}) - \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)(t_0-t_s)})$ |
+|   9   | $E(L_t) = L_\infty\frac{\left(1-e^{-K_2(t-t_0)}\right)\left(1+e^{-b(t-t_0-a)}\right)}{\left(1+e^{ab}\right)^{-\frac{K_2K_1}{b}}}$
 
-: Parameterizations of the von Bertalanffy growth equation for length-at-age data with a seasonal component available in `FSA`. {#tbl-VBparams2}
+: Parameterizations of the von Bertalanffy growth equation for length-at-age data available in `FSA`. {#tbl-VBparams2}
+
+::: {.callout-warning}
+Starting values for the ninth parameterization (i.e., the "double") von Bertalanffy growth model have not been developed in `FSA`. Starting values for this parameterization will have to be developed by other means.
+:::
 
 <br>
 
-Parameters in these growth functions are:^[One parameterization uses a modified time scale, symbolized with $t'$.]
+## von Bertalanffy Seasonal Length-at-Age
+There are also several parameterizations of the von Bertalanffy model that include a seasonal component in the model for when age is not recorded annually (@tbl-VBparams3).
+
+<br>
+
+| param | Equation |
+|:-----:|:----------------------------------------------------|
+|  10   | $E(L_t) = L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi sin(2\pi(t-t_s))}+\frac{CK}{2\pi sin(2\pi(t_0-t_s))}}\right)$ |
+|  11   | $E(L_t) = L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi sin(2\pi(t-WP+0.5))}+\frac{CK}{2\pi sin(2\pi(t_0-WP+0.5))}}\right)$ |
+|  12   | $E(L_t) = L_\infty(1-e^{-q})$ with $q=K'(t'-t_0) + \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)(t'-t_s)}) - \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)(t_0-t_s)})$ |
+
+: Parameterizations of the von Bertalanffy growth equation for length-at-age data with a seasonal component available in `FSA`. {#tbl-VBparams3}
+
+<br>
+
+New parameters in these growth functions are:^[One parameterization uses a modified time scale, symbolized with $t'$.]
 
 - $C$ = proportional growth depression at "winter peak"
 - $t_s$ = time from $t=0$ until first growth oscillation begins
@@ -203,55 +215,79 @@ Parameters in these growth functions are:^[One parameterization uses a modified 
 - $K'$ = exponential rate of approach to $L_\infty$ during the growth period
 - $NGT$ = length of "no-growth period"
 
+<br>
 
+Starting values for $L_\infty$, $K$, and $t_0$ are derived as if the data were recorded as *annual* lengths-at-age. Starting values for the other parameters are defined *ad hoc* as follows. 
 
-## Tag-Recapture Data
-### The Parameterizations
-Still other parameterizations of the von Bertalanffy model are used with tag-recapture data (@tbl-VBparams3).
+- $C$ set at an intermediate value of 0.5
+- $t_s$ set at 0.3, a likely fraction of the year for growth to start in the northern hemisphere.
+- $WP$ set at 0.8, because $WP=t_2+0.5$
+- $NGT$ set at 0.3, a likely fraction of the year for "no growth" in the northern hemisphere.
+- $K'$ set at $\frac{K}(1-NGT)$, assuming that $K$ was only over the "growth period" (i.e., $1-NGT$).
+
+::: {.callout-warning}
+Starting values for the seasonal growth models are much less tested than those for annual growth models. Please consider them carefully.
+:::
+
+## von Bertalanffy Tag-Recapture
+Still other parameterizations of the von Bertalanffy model are used with tag-recapture data (@tbl-VBparams4).
 
 | param | Equation |
 |:-----:|:----------------------------------------------------|
-|  13   | $a$ |
-|  14   | $a$ |
-|  15   | $a$ |
-|  16   | $a$ |
-|  17   | $a$ |
-|  18   | $a$ |
-|  19   | $a$ |
+|  13   | $E(L_r-L_m)=(L_\infty-L_m)\left(1-e^{-K\delta t}\right)$ |
+|  14   | $E(L_r)=L_m + (L_\infty-L_m)\left(1-e^{-K\delta t}\right)$ |
+|  15   | $E(L_r-L_m)=(L_\infty+\beta(\bar{L}_m-L_m)-L_m)\left(1-e^{-K\delta t}\right)$ |
+|  16   | $E(L_r-L_m)=(\alpha+\beta L_m\left(1-e^{-K\delta t}\right)$ |
+|  17   | $E(L_r)=L_m+(\alpha+\beta L_m\left(1-e^{-K\delta t}\right)$ |
+|  18   | $E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1+L_2}\right)^{dt}\right]$ |
+|  19   | $E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1+L_2}\right)^{t_2-t_1+S_2-S_1}\right]$ with $S_1=u\text{sin}\left(\frac{2\pi(t_1-w)}{2\pi}\right)$ and $S_2=u\text{sin}\left(\frac{2\pi(t_2-w)}{2\pi}\right)$ |
 
-: Parameterizations of the von Bertalanffy growth equation for length at tag and recapture data available in `FSA`. {#tbl-VBparams3}
+: Parameterizations of the von Bertalanffy growth equation for length at tag and recapture data available in `FSA`. {#tbl-VBparams4}
 
+The response variable is generally the change in length (i.e., growth increment) from time of tagging to time of recapture, $L_r-L_m$. Some models are parameterized to have $L_m$ on the right-hand-side though. The explanatory variable is the change in time between the time of tagging and recapture, $\delta t$.
 
+New parameters in these growth functions are:
 
-# Gompertz
-## Annual Length-at-Age Models
-### The Parametrizations
+- $\alpha$ =
+- $\beta$ =
+- $L_1$ =
+- $L_2$ =
+- $g_1$ =
+- $g_2$ =
+- $u$ =
+- $w$ = 
+
+<br>
+
+::: {.callout-warning}
+Starting values for the tag-recapture growth models have not been developed for `FSA`. Starting values for these parameterizations will have to be developed by other means.
+:::
+
+<br>
+
+## Gompertz Length-at-Age
 `FSA` provides several parameterizations of the Gompertz function for modeling simple length-at-age data (@tbl-Gompparams1).
 
-| param | Equation $L =$ |
+| param | Equation |
 |:-----:|:----------------------------------------------------|
-|   1   | $L_\infty e^{-e^{a_1-g_it}}$ |
-|   2   | $L_\infty e^{-e^{-g_i(t-t_i)}}$ |
-|   3   | $L_0 e^{a_2(1-e^{-g_it})}$ |
-|   4   | $L_\infty e^{-a_2e^{-g_it}}$ |
-|   5   | $L_\infty e^{-\frac{1}{g_i}e^{-g_i(t-t_0)}}$ |
+|   1   | $E(L_t) = L_\infty e^{-e^{a_1-g_it}}$ |
+|   2   | $E(L_t) = L_\infty e^{-e^{-g_i(t-t_i)}}$ |
+|   3   | $E(L_t) = L_0 e^{a_2(1-e^{-g_it})}$ |
+|   4   | $E(L_t) = L_\infty e^{-a_2e^{-g_it}}$ |
+|   5   | $E(L_t) = L_\infty e^{-\frac{1}{g_i}e^{-g_i(t-t_0)}}$ |
 
 : Parameterizations of the Gompertz growth equation for length-at-age data available in `FSA`. {#tbl-Gompparams1}
 
 <br>
 
-The response variable, $L$, is the mean length and the explanatory variable, $t$ is age. Parameters in these growth functions are:
-
-- $L_\infty$ = asymptotic mean length
-- $t_0$ = hypothetical time/age when mean length is 0
-- $L_0$ = mean length at age-0 (i.e., hatching or birth)
+New parameters in these growth functions are:^[$L_\infty$, $t_0$, and $L_0$ are as defined for the von Bertalanffy model.]
 - $t_i$ = age at the inflection point
 - $g_i$ = instantaneous growth rate at $t_i$, the inflection point
 - $a_1$, $a_2$ = nuisance parameters with no biological meaning
 
+<br>
 
-### Starting Values
-The `stats` package in base R contains `SSgompertz()` which is a self-starting function for using `nls()` to fit a Gompertz function to data. According to the documentation for `SSgompertz()` the parameterization of this function is
+`SSgompertz()` is a self-starting function^[From the `stats` package in base R.] to fit a Gompertz function to data. The parameterization for this function is^[According to `?SSgompertz`.]
 
 $$ Y = \text{Asym}~e^{-b_2b_3^X} $$
 
@@ -285,7 +321,7 @@ $$
 \end{align}
 $$
 
-If we $b_2=e^{g_it_i}$ and $b_3=e^{-g_i}$ then this simplified exponent is the same as the exponent in @eq-rSSgomp. Thus, $g_i=-log(b_3)$ and $t_i=\frac{log(b_2)}{g_i}$.
+If $b_2=e^{g_it_i}$ and $b_3=e^{-g_i}$ then this simplified exponent is the same as the exponent in @eq-rSSgomp. Thus, $g_i=-log(b_3)$ and $t_i=\frac{log(b_2)}{g_i}$.
 
 There is no asymptote in the third parameterizations, so the entire function must be manipulated to show equivalence to @eq-rSSgomp.
 
@@ -356,45 +392,45 @@ curve(g5(x,Linf=450,gi=-log(b3),t0=-log(-b2*log(b3))/log(b3)),from=0,to=15,col="
 
 <br>
 
-## Tag-Recapture Data
-### The Parameterizations
+## Gompertz Tag-Recapture
 Still other parameterizations of the Gompertz model are used with tag-recapture data (@tbl-Gompparams2).
 
 | param | Equation |
 |:-----:|:----------------------------------------------------|
-|   6   | $a$ |
-|   7   | $a$ |
+|   6   | $E(L_r-L_m)=L_{\infty}\left[\frac{L_m}{L_{\infty}}\right]^{e^{-g_i\Delta t}}-L_m$ |
+|   7   | $E(L_r)=L_{\infty}\left[\frac{L_m}{L_{\infty}}\right]^{e^{-g_i\Delta t}$ |
 
 : Parameterizations of the Gompertz growth equation for length at tag and recapture data available in `FSA`. {#tbl-Gompparams2}
 
 <br>
 
-# Logistic
-## Annual Length-at-Age Models
-### The Parametrizations
+::: {.callout-warning}
+Starting values for the tag-recapture growth models have not been developed for `FSA`. Starting values for these parameterizations will have to be developed by other means.
+:::
+
+<br>
+
+## Logistic Length-at-Age
 `FSA` provides several parameterizations of the logistic function for modeling simple length-at-age data (@tbl-Logisparams1).
 
-| param | Equation $L =$ |
+| param | Equation |
 |:-----:|:----------------------------------------------------|
-|   1   | $\frac{L_\infty}{1+e^{-g_{-\infty}(t-t_i)}}$ |
-|   2   | $\frac{L_\infty}{1+ae^{-g_{-\infty}t}}$ |
-|   3   | $\frac{L_0L_\infty}{L_0+(L_\infty - L_0)e^{-g_{-\infty}t}}$ |
+|   1   | $E(L_t) = \frac{L_\infty}{1+e^{-g_{-\infty}(t-t_i)}}$ |
+|   2   | $E(L_t) = \frac{L_\infty}{1+ae^{-g_{-\infty}t}}$ |
+|   3   | $E(L_t) = \frac{L_0L_\infty}{L_0+(L_\infty - L_0)e^{-g_{-\infty}t}}$ |
 
 : Parameterizations of the logistic growth equation for length-at-age data available in `FSA`. {#tbl-Logisparams1}
 
 <br>
 
-The response variable, $L$, is the mean length and the explanatory variable, $t$ is age. Parameters in these growth functions are:
+The response variable, $L$, is the mean length and the explanatory variable, $t$ is age. Parameters in these growth functions are:^[$L_\infty$ and $L_0$ are as defined for the von Bertalanffy model and $t_i$ is as defined for the Gompertz model.]
 
-- $L_\infty$ = asymptotic mean length
-- $L_0$ = mean length at age-0 (i.e., hatching or birth)
 - $g_{-\infty}$ is the instantaneous growth rate at $t=-\infty$
-- $t_i$ = age at the inflection point
 - $a$ = nuisance parameters with no biological meaning
 
+<br>
 
-### Starting Values
-The `stats` package in base R contains `SSlogis()` which is a self-starting function for using `nls()` to fit a Gompertz function to data. According to the documentation for `SSlogis()` the parameterization of this function is
+`SSlogis()` is a self-starting function^[From the `stats` package in base R.] to fit a logistic function to data. The parameterization for this function is^[According to `?SSlogis`.]
 
 $$ Y = \frac{\text{Asym}}{1+e^{\frac{\text{xmid}-\text{input}}{\text{scal}}}} $$
 
@@ -439,7 +475,7 @@ $$
 
 Thus, $\text{xmid}$ is the abcissa of the inflection point. Starting values for the first parameterization are thus $L_\infty=\text{Asym}$, $g_{-\infty}=\frac{1}{\text{scal}}$, and $t_i=\text{xmid}$.
 
-The second paramaterization only difference from @eq-rSSlogis in the denominator after the "1+", and no simplification is needed to notice that $g_{-\infty}=\frac{1}{\text{scal}}$ and $a=e^{\frac{\text{xmid}}{\text{scal}}}$.
+The second paramaterization only differs from @eq-rSSlogis in the denominator after the "1+", and no simplification is needed to notice that $g_{-\infty}=\frac{1}{\text{scal}}$ and $a=e^{\frac{\text{xmid}}{\text{scal}}}$.
 
 The third parameterizations differs more substantively and requires more work. First, rewrite the whole equation by dividing both the numerator and denominator by $L_0$ to get
 
@@ -458,6 +494,8 @@ L_\infty &= L_0\left(1+e^{\frac{\text{xmid}}{\text{scal}}}\right) \\
 $$
 
 These findings are summarized in @tbl-logisstarts.
+
+<br>
 
 | param | $L_\infty$ | $L_0$ | $g_{-\infty}$ | $t_i$ |  $a$  |
 |:-----:|-------|-------|-------|-------|-------|
@@ -492,34 +530,28 @@ curve(l3(x,Linf=Asym,gninf=1/scal,L0=Asym/(1+exp(xmid/scal))),from=0,to=15,col="
 
 <br>
 
-# Richards
-## Annual Length-at-Age Models
-### The Parametrizations
+## Richards Length-at-Age
 `FSA` provides several parameterizations of the Richards function for modeling simple length-at-age data (@tbl-Richparams1).
 
-| param | Equation $L =$ |
+| param | Equation |
 |:-----:|:----------------------------------------------------|
-|   1   | $\frac{L_\infty}{\left[1+b_1e^{-k(t-t_i)}\right]^\frac{1}{b_1}}$ |
-|   2   | $\frac{L_\infty}{\left(1+e^{-k(t-t_0)}\right)^{-b_2}}$ |
-|   3   | $L_\infty\left[1+\left(\left(\frac{L_0}{L_\infty}\right)^{1-b_3}-1\right)e^{-kt}\right]^\frac{1}{1-b_3}$ |
-|   4   | $L_\infty\left[1-\frac{1}{b_2}e^{-k(t-t_i)}\right]^{b_2}$ |
-|   5   | $L_\infty\left[1+(b_3-1)e^{-k(t-t_i)}\right]^\frac{1}{1-b_3}$ |
+|   1   | $E(L_t) = \frac{L_\infty}{\left[1+b_1e^{-k(t-t_i)}\right]^\frac{1}{b_1}}$ |
+|   2   | $E(L_t) = \frac{L_\infty}{\left(1+e^{-k(t-t_0)}\right)^{-b_2}}$ |
+|   3   | $E(L_t) = L_\infty\left[1+\left(\left(\frac{L_0}{L_\infty}\right)^{1-b_3}-1\right)e^{-kt}\right]^\frac{1}{1-b_3}$ |
+|   4   | $E(L_t) = L_\infty\left[1-\frac{1}{b_2}e^{-k(t-t_i)}\right]^{b_2}$ |
+|   5   | $E(L_t) = L_\infty\left[1+(b_3-1)e^{-k(t-t_i)}\right]^\frac{1}{1-b_3}$ |
 
 : Parameterizations of the Richards growth equation for length-at-age data available in `FSA`. {#tbl-Richparams1}
 
 <br>
 
-The response variable, $L$, is the mean length and the explanatory variable, $t$ is age. Parameters in these growth functions are:
+The response variable, $L$, is the mean length and the explanatory variable, $t$ is age. New parameters in these growth functions are:^[$L_\infty$, $L_0$, and $t_0$ are as defined for the von Bertalanffy model and $t_i$ is as defined for the Gompertz model.]
 
-- $L_\infty$ = asymptotic mean length
-- $L_0$ = mean length at age-0 (i.e., hatching or birth)
 - $k$ = growth rate parameter
-- $t_i$ = age at the inflection point
-- $t_0$ = hypothetical age when the mean length is 0
 - $b_1$, $b_2$, $b_3$ = nuisance parameters with no biological meaning
 
+<br>
 
-### Starting Values
 The `FlexParamCurve` package contains `SSposnegRichards()` which is a self-starting function for using `nls()` to fit a "Positive-Negative Richards growth" function to data. This function can fit an 8-parameter curve but if some of the parameters are not used then it is possible to fit a 4-parameter Richards function, a function similar to the Richards parameterizations in `FSA`. Their "twelfth model" (i.e., `modno=12`) can be written, using their R function parameters, as
 
 $$ Y = \frac{\text{Asym}}{\left[1+Me^{-K(X-\text{Infl})}\right]^{\frac{1}{M}}} $$
@@ -531,7 +563,7 @@ $$ L = \frac{L_\infty}{\left[1+Me^{-K(t-\text{Infl})}\right]^{\frac{1}{M}}} $$ {
 
 It is also likely that $\text{Infl}$ is equal to $t_i$, but this is explored more below.
 
-The first parameterization of the Richards growth function implemented in `FSA` is exactly the same as @rSSRichards  when $b_1=M$, $k=K$, and $t_i=\text{Infl}$ (and, of course, $L_\infty=\text{Asym}$.
+The first parameterization of the Richards growth function implemented in `FSA` is exactly the same as @eq-rSSRichards when $b_1=M$, $k=K$, and $t_i=\text{Infl}$ (and, of course, $L_\infty=\text{Asym}$).
 
 The second parameterization of the Richards growth function **NEED TO COME BACK TO THIS, BUT SOMEHOW I FOUND THAT** $t_0 = -\frac{log\left(\frac{1}{M}\right)}{K}+\text{Infl}$ and $b_2 = -\frac{1}{M}$
 
@@ -561,7 +593,7 @@ The equivalency of the parameterizations and the starting values across paramete
 #| label: fig-richstarts
 #| fig-width: 4.5
 #| fig-height: 4.5
-#| fig-cap: All parameterizations of the Richards growth functions evaluated at starting values derived from the parameters of `SSposnegrichards` ($\text{Asym}$=450, $\text{Infl}$=2.5, $K$=0.5, $M=0.1). The linewidth decreases from the first to last parameterization (and the color differs) to show how the curves are plotted on top of each other.
+#| fig-cap: All parameterizations of the Richards growth functions evaluated at starting values derived from the parameters of `SSposnegrichards` ($\text{Asym}$=450, $\text{Infl}$=2.5, $K$=0.5, $M$=0.1). The linewidth decreases from the first to last parameterization (and the color differs) to show how the curves are plotted on top of each other.
 r1 <- makeGrowthFun(type="Richards",param=1)
 r2 <- makeGrowthFun(type="Richards",param=2)
 r3 <- makeGrowthFun(type="Richards",param=3)
@@ -582,3 +614,95 @@ curve(r5(x,Linf=Asym,k=K,ti=Infl,b3=1+M),from=0,to=15,col="black",lwd=1,add=TRUE
 ```
 
 <br>
+
+# Finding Starting Values in FSA
+In `FSA` versions >0.9.6, `findGrowthStarts()` can be used to find the starting values described here. This function has four main parameters. The first two are a formula of the form `length~age` and `data=` which contain the length and age data from which the starting values will be derived. Additionally, use `type=` to choose the type of growth function to be used (i.e., `"von Bertalanffy"`, `"Gompertz"`, `"logistic"`, or `"Richards"`) and `param=` to choose the particularly parameterization for the model by the number shown in @tbl-VBparams1, @tbl-VBparams3, @tbl-Gompparams1, @tbl-Logisparams1, and @tbl-Richparams1.
+
+For example, suppose that length-at-age data similar to that shown below is available in a data.frame named `df`.
+
+```{r}
+#===== Make fake data
+# Setup ages, sample sizes (general reduction in numbers with
+#   increasing age), and additive SD to model
+set.seed(234234)
+t <- 0:15
+n <- c(5,10,40,35,25,12,10,10,8,6,5,3,3,3,2,2)
+sd <- 15
+# Expand ages and put in a data.frame
+df <- data.frame(age=rep(t,n))
+# Add lengths from 1st parameterization of each model type with
+#   random error for individuals
+vb1 <- makeGrowthFun(type="von Bertalanffy")
+df$tlv <- round(vb1(df$age,Linf=450,K=0.3,t0=-0.5)+rnorm(sum(n),0,sd),0)
+g1 <- makeGrowthFun(type="Gompertz")
+df$tlg <- round(g1(df$age,Linf=450,a=1,g=0.3)+rnorm(sum(n),0,sd),0)
+l1 <- makeGrowthFun(type="logistic")
+df$tll <- round(l1(df$age,Linf=450,gninf=0.3,ti=2)+rnorm(sum(n),0,sd),0)
+r1 <- makeGrowthFun(type="Richards")
+df$tlr <- round(r1(df$age,Linf=450,ti=2,k=0.5,b1=1.5)+rnorm(sum(n),0,sd),0)
+# brief view of data
+print(peek(df[,c("age","tlv")],n=6),row.names=FALSE)
+```
+
+The starting values for the first parameterization of the von Bertalanffy model could be obtained as below.
+
+```{r}
+#| echo: true
+( sv1 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=1) )
+```
+
+There may be times when the provided starting values are non-sensical (you may get a warning message) or they do not lead to model convergence when fitting the non-linear regression to data. In these instances it may be useful to view a quick diagnostic plot of how the model evaluated at the starting values "fits" the data. Such a plot can be made by including `plot=TRUE` in `findGrowthStarts()`.
+
+```{r}
+#| echo: true
+#| label: fig-ex-vb1
+#| fig-width: 4.5
+#| fig-height: 4.5
+sv1 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=1,
+                        plot=TRUE)
+```
+
+Additionally, it may be useful to "fix" some starting values at values of your choice (rather than having them determined from the data). Such parameters can be included in a **NAMED** vector given to `fixed=` in `findGrowthStarts()`. For example, the `K` parameter is fixed at 0.5 below.
+
+```{r}
+#| echo: true
+( sv2 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=1,
+                          fixed=c("K"=0.5)) )
+```
+
+Some parameterizations of the von Bertalanffy require the user to choose values for certain constants. For example, `param=7` requires you to choose a "young" age for `t1` and an "older" age for `t2`. These constants should be set in a **NAMED** vector that is given to `constvals=` in `findGrowthStarts()`.
+
+```{r}
+#| echo: true
+( sv3 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=7,
+                          constvals=c("t1"=1,"t3"=13)) )
+```
+
+Of course, all of these optional arguments may be used together.^[Though fixing $K$ looks inappropriate in this example.]
+
+```{r}
+#| echo: true
+#| label: fig-ex-vb2
+#| fig-width: 4.5
+#| fig-height: 4.5
+sv4 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=7,
+                        constvals=c("t1"=1,"t3"=13),fixed=c("K"=0.5),plot=TRUE)
+```
+
+Of course, similar code is used for the other growth models (and parameterizations).
+
+
+```{r}
+#| echo: true
+( sv5 <- findGrowthStarts(tlv~age,data=df,type="Gompertz",param=2) )
+```
+
+It is important to note that these are examples of find the starting values only. These starting values would then be provided to a nonlinear model fitting algorithm (e.g., `nls()`) to find the best-fit parameter estimates. This is demonstrated more thoroughly elsewhere, but below is a quick example using the starting values for first parameterization of von Bertalanffy derived above.
+
+```{r}
+#| echo: true
+vonb1 <- makeGrowthFun(type="von Bertalanffy")
+rvb1 <- nls(tlv~vonb1(age,Linf,K,t0),data=df,start=sv1)
+coef(rvb1)
+```
+

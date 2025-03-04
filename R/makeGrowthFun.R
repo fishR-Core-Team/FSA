@@ -203,7 +203,7 @@
 #' logi <- makeGrowthFun(type="logistic",param=3,msg=TRUE)
 #' logi(t=1:10,Linf=450,gninf=0.3,L0=25)
 #' 
-#' #===== Simple example of copmaring several models
+#' #===== Simple example of comparing several models
 #' vb <- makeGrowthFun(type="von Bertalanffy")
 #' gomp <- makeGrowthFun(type="Gompertz",param=2)
 #' logi <- makeGrowthFun(type="logistic")
@@ -213,7 +213,7 @@
 #' gomp1 <- gomp(ages,Linf=450,gi=0.3,ti=3)
 #' logi1 <- logi(ages,Linf=450,gninf=0.3,ti=3)
 #' 
-#' plot(vb1~ages,type="l",lwd=2,ylim=c(0,450))
+#' plot(vb1~ages,type="l",lwd=2,ylim=c(0,450),ylab="Length",xlab="Age")
 #' lines(gomp1~ages,lwd=2,col="red")
 #' lines(logi1~ages,lwd=2,col="blue")
 #' 
@@ -225,7 +225,7 @@
 #' s3 <- Schnute(ages,case=3,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
 #' s4 <- Schnute(ages,case=4,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
 #' 
-#' plot(s1~ages,type="l",lwd=2,ylim=c(0,450))
+#' plot(s1~ages,type="l",lwd=2,ylim=c(0,450),ylab="Length",xlab="Age")
 #' lines(s2~ages,lwd=2,col="red")
 #' lines(s3~ages,lwd=2,col="blue")
 #' lines(s4~ages,lwd=2,col="green")

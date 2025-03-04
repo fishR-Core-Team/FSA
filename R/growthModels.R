@@ -179,63 +179,6 @@
 #' curve(vb3(x,L1=coef(fit3),t1=c(0,4)),from=0,to=5,col="green",lwd=2,add=TRUE)
 #'
 #'
-#' ## Gompertz
-#' # Make some fake data using the original parameterization
-#' gompO <- GompertzFuns("original")
-#' # setup ages, sample sizes (general reduction in numbers with
-#' # increasing age), and additive SD to model
-#' t <- 1:15
-#' n <- c(10,40,35,25,12,10,10,8,6,5,3,3,3,2,2)
-#' sd <- 15
-#' # expand ages
-#' ages <- rep(t,n)
-#' # get lengths from gompertz and a random error for individuals
-#' lens <- gompO(ages,Linf=450,a=1,gi=0.3)+rnorm(length(ages),0,sd)
-#' # put together as a data.frame
-#' df <- data.frame(age=ages,len=round(lens,0))
-#'
-#' plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
-#'   
-#' # Fit first Ricker parameterization
-#' fit1 <- nls(len~gomp1(age,Linf,gi,ti),data=df,start=list(Linf=500,gi=0.3,ti=3))
-#' summary(fit1,correlation=TRUE)
-#' curve(gomp1(x,Linf=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
-#'
-#' # Fit third Ricker parameterization
-#' fit2 <- nls(len~gomp2(age,L0,c,gi),data=df,start=list(L0=30,c=3,gi=0.3))
-#' summary(fit2,correlation=TRUE)
-#' curve(gomp2(x,L0=coef(fit2)),from=0,to=15,col="blue",lwd=5,add=TRUE)
-#'
-#' # Fit third Quinn and Deriso parameterization (using simple=TRUE model)
-#' gomp3 <- GompertzFuns("QD3",simple=TRUE)
-#' fit3 <- nls(len~gomp3(age,Linf,gi,t0),data=df,start=list(Linf=500,gi=0.3,t0=0))
-#' summary(fit3,correlation=TRUE)
-#' curve(gomp3(x,Linf=coef(fit3)[1],gi=coef(fit3)[2],t0=coef(fit3)[3]),
-#'       from=0,to=15,col="green",lwd=2,add=TRUE)
-#' 
-#'
-#' #############################################################################
-#' ## Create expressions of VB models
-#' #############################################################################
-#' # Typical von Bertalanffy ... Show as a stand-alone plot
-#' growthFunShow("vonBertalanffy","Typical",plot=TRUE)
-#' # Get and save the expression
-#' ( tmp <- growthFunShow("vonBertalanffy","Typical") )
-#' # Use expression as title on a plot
-#' lens <- vb1(ages,Linf=20,K=0.3,t0=-0.2)
-#' plot(lens~ages,type="b",pch=19,main=tmp)
-#' # Put expression in the main plot
-#' text(10,5,tmp)
-#' # Put multiple expressions on a plot
-#' op <- par(mar=c(0.1,0.1,0.1,0.1))
-#' plot(0,type="n",xlab="",ylab="",xlim=c(0,1),ylim=c(0,3),xaxt="n",yaxt="n")
-#' text(0,2.5,"Original:",pos=4)
-#' text(0.5,2.5,growthFunShow("vonBertalanffy","Original"))
-#' text(0,1.5,"Typical:",pos=4)
-#' text(0.5,1.5,growthFunShow("vonBertalanffy","Typical"))
-#' text(0,0.5,"Francis:",pos=4)
-#' text(0.5,0.5,growthFunShow("vonBertalanffy","Francis"))
-#' par(op)
 NULL
 
 #' @rdname growthModels

@@ -308,3 +308,32 @@ test_that("iTypeoflm() messages and results",{
   tmp <- lm(mirex~yearZ*speciesZ,data=Mirex)
   expect_warning(FSA:::iTypeoflm(tmp),"variable is a 'character'")
 })
+
+test_that("is.lt() et al. and iCheckLT() messages and results",{
+  expect_false(FSA:::is.lt(x=1,0))
+  expect_true(FSA:::is.lt(x=-1,0))
+  expect_false(FSA:::is.lte(x=1,0))
+  expect_true(FSA:::is.lte(x=0,0))
+  expect_true(FSA:::is.lte(x=-1,0))
+  
+  expect_false(FSA:::is.gt(x=-1,0))
+  expect_true(FSA:::is.gt(x=1,0))
+  expect_false(FSA:::is.gte(x=-1,0))
+  expect_true(FSA:::is.gte(x=0,0))
+  expect_true(FSA:::is.gte(x=1,0))
+
+  y <- 1
+  expect_error(FSA:::iChkLT(y,0),"y must be strictly <0")
+  expect_error(FSA:::iChkLTE(y,0),"y must be <=0")
+  
+  expect_error(FSA:::iChkGT(y,2),"y must be strictly >2")
+  expect_error(FSA:::iChkGTE(y,2),"y must be >=2")
+  
+  expect_no_error(FSA:::iChkLT(y,2))
+  expect_no_error(FSA:::iChkLTE(y,2))
+  expect_no_error(FSA:::iChkLTE(y,1))
+
+  expect_no_error(FSA:::iChkGT(y,0))
+  expect_no_error(FSA:::iChkGTE(y,0))
+  expect_no_error(FSA:::iChkGTE(y,1))
+})

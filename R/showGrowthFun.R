@@ -18,6 +18,31 @@
 #' showGrowthFun(type="Richards",param=3,plot=TRUE,cex=1.5)
 #' showGrowthFun(type="Schnute",case=2,plot=TRUE,cex=1.5)
 #' 
+#' #===== Put multiple expressions in one plot
+#' op <- par(mar=c(0.1,0.1,0.1,0.1))
+#' plot(0,type="n",xlab="",ylab="",xlim=c(0,1),ylim=c(0,3),xaxt="n",yaxt="n")
+#' text(0,2.5,"Original:",pos=4)
+#' text(0.5,2.5,showGrowthFun(type="von Bertalanffy",param=2))
+#' text(0,1.5,"Typical:",pos=4)
+#' text(0.5,1.5,showGrowthFun(type="von Bertalanffy",param=1))
+#' text(0,0.5,"Francis:",pos=4)
+#' text(0.5,0.5,showGrowthFun(type="von Bertalanffy",param=8))
+#' par(op)
+#' 
+#' #===== Put expression in title or otherwise on the plot
+#' # Make a von Bertalanffy function
+#' vb1 <- makeGrowthFun()
+#' # make vector of ages over which to plot
+#' ages <- 1:20
+#' # Get and save the expression of the von Bertalanffy growth function
+#' tmp <- showGrowthFun()
+#' 
+#' # Use expression as title on plot
+#' plot(vb1(ages,Linf=20,K=0.3,t0=-0.2)~ages,type="b",pch=19,main=tmp,ylab="Length")
+#' 
+#' # Put expression in the plot body
+#' text(15,10,tmp)
+#' 
 #' @rdname showGrowthFun
 #' @export
 

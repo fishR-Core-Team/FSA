@@ -23,14 +23,14 @@ findGrowthStarts(
 
 \item{param}{A single numeric that indicates the specific parameterization of the growth function. See details.}
 
-\item{constvals}{A NAMED vector or list of constant values (either lengths or ages) to be used in some of the von Bertalanffy parameterizations. See details.}
+\item{constvals}{A NAMED numeric vector of constant values (either lengths or ages) to be used in some of the von Bertalanffy parameterizations. See details.}
 
-\item{fixed}{A NAMED vector or list that contains user-defined (i.e., fixed rather than automatically generated) starting values for one or more parameters. See details.}
+\item{fixed}{A NAMED numeric vector that contains user-defined (i.e., fixed rather than automatically generated) starting values for one or more parameters. See details.}
 
 \item{plot}{A logical that indicates whether a plot of the data with the superimposed model fit at the starting values should be created. This plot is for diagnostic purposes and, thus, cannot be modified in this function.}
 }
 \value{
-A list that contains reasonable starting values. Note that the parameters will be listed with the same names in the same order as listed in \code{\link{makeGrowthFun}}.
+A named vector that contains reasonable starting values. Note that the parameters will be listed with the same names in the same order as listed in \code{\link{makeGrowthFun}}.
 }
 \description{
 Finds reasonable starting values for the parameters in a specific parameterization of common growth functions (von Bertalanffy, Gompertz, logistic, Richards).
