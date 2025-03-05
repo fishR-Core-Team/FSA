@@ -287,7 +287,8 @@ iEstN <- function(df,type,conf.level) {
   df$N <- (df$n+1)*df$M/(df$m+1)
   # make a correction if more fish were sampled then the PE
   if (any(df$N<df$n,na.rm=TRUE)) {
-    WARN("At least one population estimate is less than the sample size at time t.\n  Population estimates were set equal to sample size for those times.\n")
+    WARN("At least one population estimate is less than the sample size at time t. ",
+         "Population estimates were set equal to sample size for those times.\n")
     df$N[which(df$N<df$n)] <- df$n[which(df$N<df$n)]
   }
   switch(type,

@@ -99,12 +99,10 @@ findGrowthStarts <- function(formula,data,
   #===== Checks
   # Handle the formula with some checks
   tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
-  if (!tmp$metExpNumR) STOP("'vbStarts2' must have only one LHS variable.")
-  if (!tmp$Rclass %in% c("numeric","integer")) 
-    STOP("LHS variable must be numeric.")
-  if (!tmp$metExpNumE) STOP("'vbStarts2' must have only one RHS variable.")
-  if (!tmp$Eclass %in% c("numeric","integer")) 
-    STOP("RHS variable must be numeric.")
+  if (!tmp$metExpNumR) STOP("'formula' must have only one LHS variable.")
+  if (!tmp$Rclass %in% c("numeric","integer"))STOP("LHS variable must be numeric.")
+  if (!tmp$metExpNumE) STOP("'formula' must have only one RHS variable.")
+  if (!tmp$Eclass %in% c("numeric","integer")) STOP("RHS variable must be numeric.")
   
   # Correct growth model type
   type <- match.arg(type)
@@ -119,8 +117,8 @@ findGrowthStarts <- function(formula,data,
   # initial checks on constvals
   if (!is.null(constvals)) {
     if (type!="von Bertalanffy")
-      STOP("'constvals' only used with the von Bertalanffy model.\n",
-           "  Either don't use 'constvals' or change 'type'")
+      STOP("'constvals' only used with the von Bertalanffy model.",
+           " Either don't use 'constvals' or change 'type'")
     if (is.list(constvals)) STOP("'constvals' should be a vector rather than a list.")
     if (!is.numeric(constvals)) STOP("'constvals' must be numeric.")
     if (is.null(names(constvals))) STOP("Values in 'constvals' must be named.")
@@ -153,10 +151,9 @@ findGrowthStarts <- function(formula,data,
   if (!is.null(fixed)) {
     if (!all(fxdnms %in% names(sv))) { # some not correctly named
       fxdnms <- fxdnms[!fxdnms %in% names(sv)]
-      tmp <- paste0("Some names in 'fixed' (",paste(fxdnms,collapse=", "),
-                    ") are not parameters (",paste(names(sv),collapse=", "),
-                    ") for ",type," parameterization #",param," and were ignored.")
-      WARN(strwrap(tmp,exdent=2,prefix="\n",initial=""))
+      WARN("Some names in 'fixed' (",paste(fxdnms,collapse=", "),
+           ") are not parameters (",paste(names(sv),collapse=", "),
+           ") for ",type," parameterization #",param," and were ignored.")
     }
   }
   
@@ -164,9 +161,8 @@ findGrowthStarts <- function(formula,data,
   if (plot) iPlotGrowStarts(sv,data,lennm,agenm,type,param,constvals)
   
   #===== Return starting value list
-  if (is.null(sv)) WARN(strwrap(paste0("Starting values not yet implemented in 'FSA'",
-                                       " for ",type," paramaterization #",param),
-                                exdent=2,prefix="\n",initial=""))
+  if (is.null(sv)) WARN("Starting values not yet implemented in 'FSA'",
+                        " for ",type," paramaterization #",param)
   else sv
 }
 
@@ -432,7 +428,7 @@ iChkLinf <- function(sLinf,len,fxdnms) {
                  "superimposed with 'plot=TRUE' to potentially diagnose any problems.")
     if (!wasFixed) tmp <- paste(tmp,"Also consider using 'fixed=c(Linf=)'",
                                 "to manually set 'Linf' to a reasonable value.\n")
-    WARN(strwrap(tmp,exdent=2,prefix="\n",initial=""))
+    WARN(tmp)
   }
   # return starting value
   sLinf
@@ -453,7 +449,7 @@ iChkL0 <- function(sL0,len,age,fxdnms) {
                  "superimposed with 'plot=TRUE' to potentially diagnose any problems.")
     if (!wasFixed) tmp <- paste(tmp,"Also consider using 'fixed=c(L0=)'",
                                 "to manually set 'L0' to a reasonable value.\n")
-    WARN(strwrap(tmp,exdent=2,prefix="\n",initial=""))
+    WARN(tmp)
   }
   # return starting value
   sL0
@@ -473,7 +469,7 @@ iChkK <- function(sK,fxdnms) {
                  "superimposed with 'plot=TRUE' to potentially diagnose any problems.")
     if (!wasFixed) tmp <- paste(tmp,"Also consider using 'fixed=c(K=)'",
                                 "to manually set 'K' to a reasonable value.\n")
-    WARN(strwrap(tmp,exdent=2,prefix="\n",initial=""))
+    WARN(tmp)
   }
   # return starting value
   sK
@@ -493,7 +489,7 @@ iChkt0 <- function(st0,fxdnms) {
                  "superimposed with 'plot=TRUE' to potentially diagnose any problems.")
     if (!wasFixed) tmp <- paste(tmp,"Also consider using 'fixed=c(t0=)'",
                                 "to manually set 't0' to a reasonable value.\n")
-    WARN(strwrap(tmp,exdent=2,prefix="\n",initial=""))
+    WARN(tmp)
   }
   # return starting value
   st0
@@ -521,7 +517,7 @@ iChkParamPos <- function(x,fxdnms) {
     # Add return to end of string
     tmp <- paste0(tmp,"\n")
     # Issue the warning
-    WARN(strwrap(tmp,exdent=2,prefix="\n",initial=""))
+    WARN(tmp)
   }
   # return x value
   x
@@ -550,7 +546,7 @@ iChkParamBtwn <- function(x,fxdnms,low=0,high=1) {
     # Add return to end of string
     tmp <- paste0(tmp,"\n")
     # Issue the warning
-    WARN(strwrap(tmp,exdent=2,prefix="\n",initial=""))
+    WARN(tmp)
   }
   # return x value
   x

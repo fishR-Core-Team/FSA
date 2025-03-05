@@ -404,10 +404,19 @@ iTypeoflm <- function(mdl) {
   tmp
 }
 
-# same as stop() and warning() but with call.=FALSE as default
-STOP <- function(...,call.=FALSE,domain=NULL) stop(...,call.=call.,domain=domain)
+# same as stop() and warning() but with call.=FALSE as default & wrapped message
+STOP <- function(...,call.=FALSE,domain=NULL) {
+  # create message, wrapped according to windows size
+  msg <- strwrap(paste(as.character(list(...)),collapse=""),
+                 width=0.9*getOption("width"),exdent=2,prefix="\n",initial="")
+  stop(msg,call.=call.,domain=domain)
+}
+
 WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
-  warning(...,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
+  # create message, wrapped according to windows size
+  msg <- strwrap(paste(as.character(list(...)),collapse=""),
+                 width=0.9*getOption("width"),exdent=2,prefix="\n",initial="")
+  warning(msg,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
 }
 
 

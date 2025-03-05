@@ -213,9 +213,9 @@ test_that("mrOpen() messages",{
   expect_error(mrOpen(capHistSum(CutthroatAL,cols2use=-1),conf.level="R"),
                "must be numeric")
   expect_warning(confint(cutt,conf.level=0.95),
-                 "It cannot be changed here")
+                 "Confidence level was set at 0.95 in mrOpen")
   confint(cutt2,conf.level=0.95) %>%
-    expect_warning("It cannot be changed here") %>%
+    expect_warning("Confidence level was set at 0.95 in mrOpen") %>%
     suppressMessages()
   expect_message(suppressWarnings(confint(cutt2,conf.level=0.95)),
                  "Manly did not provide a method for constructing")

@@ -162,7 +162,7 @@ psdAdd.formula <- function(len,data=NULL,units=c("mm","cm","in"),use.names=TRUE,
   ## Perform some checks on the formula
   tmp <- iHndlFormula(len,data,expNumR=1,expNumE=1,expNumENums=0,expNumEFacts=1)
   if (tmp$vnum!=2)
-    STOP("'len' must have one variable on the left-hand-side\n",
+    STOP("'len' must have one variable on the left-hand-side ",
          "and one variable on the right-hand-side.")
   if (!tmp$metExpNumR)
     STOP("'len' must have a left-hand-side with one and only one variable.")

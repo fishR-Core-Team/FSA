@@ -128,8 +128,8 @@ agePrecision <- function(formula,data) {
   tmp <- as.character(formula)[-1]
   formula <- stats::as.formula(paste("~",paste(tmp,collapse="+")))
   tmp <- iHndlFormula(formula,data)
-  if (tmp$vnum<2) STOP("'formula' has less than two variables.\n",
-                       "  Must compare at least two sets of ages.")
+  if (tmp$vnum<2) STOP("'formula' has less than two variables. ",
+                       "Must compare at least two sets of ages.")
   if (!tmp$Etype=="numeric") STOP("All variables must be numeric.")
   # get dataframe of just ages (for simplicity)
   d <- tmp$mf

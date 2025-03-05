@@ -50,19 +50,19 @@ wsVal <- function(species="List",units=c("metric","English"),ref=75,simplify=FAL
   else {
     if (!any(unique(WSlit$species)==species)) {
       STOP("There is no Ws equation in 'WSlit' for ",species,
-           ".\n  Type 'wsVal()' to see a list of available species.\n\n")
+           ". Type 'wsVal()' to see a list of available species.\n\n")
     } else df <- droplevels(WSlit[WSlit$species==species,])
     ## Make checks on units (if OK reduce data frame to those units)
     if (!any(unique(df$units)==units)) {
       print(df)
       STOP("There is no Ws equation in ",units," units for ",species,
-           ".\n  Please see relevant portion of `WSlit` above.\n\n")
+           ". Please see relevant portion of `WSlit` above.\n\n")
     } else df <- droplevels(df[df$units==units,])
     ## Make checks on ref (if OK reduce data frame to that ref)
     if (!any(unique(df$ref)==ref)) {
       print(df)
       STOP("There is no Ws equation with ref of ",ref," for ",species,
-           ".\n  Please see relevant portion of `WSlit` above.\n\n")
+           ". Please see relevant portion of `WSlit` above.\n\n")
     } else df <- droplevels(df[df$ref==ref,])
     ## Should be a single row data frame if it gets to this point
     ## If comments says "none" then drop the comment variable

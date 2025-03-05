@@ -118,12 +118,16 @@ wrAdd.default <- function(wt,len,spec,units=c("metric","English"),...) {
 wrAdd.formula <- function(wt,data,units=c("metric","English"),...) {
   ## Perform some checks on the formula
   tmp <- iHndlFormula(wt,data,expNumR=1,expNumE=2,expNumENums=1,expNumEFacts=1)
-  if (tmp$vnum!=3) STOP("'wt' must have one variable on the left-hand-side\n and two variables on the right-hand-side.")
+  if (tmp$vnum!=3) STOP("'wt' must have one variable on the left-hand-side ",
+                        "and two variables on the right-hand-side.")
   if (!tmp$metExpNumR) STOP("'wt' must have a left-hand-side.")
-  if (!(tmp$Rclass %in% c("numeric","integer"))) STOP("Variable on left-hand-side of 'wt' is not numeric (thus, not weights).")
+  if (!(tmp$Rclass %in% c("numeric","integer")))
+    STOP("Variable on left-hand-side of 'wt' is not numeric (thus, not weights).")
   if (!tmp$metExpNumE) STOP("'wt' must have a right-hand-side with two variables.")
-  if (!tmp$metExpNumENums) STOP("'wt' must have one and only one numeric variable (lengths) on right-hand-side.")
-  if (!tmp$metExpNumEFacts) STOP("'wt' must have one and only one factor variable (species) on right-hand-side.")
+  if (!tmp$metExpNumENums)
+    STOP("'wt' must have one and only one numeric variable (lengths) on right-hand-side.")
+  if (!tmp$metExpNumEFacts)
+    STOP("'wt' must have one and only one factor variable (species) on right-hand-side.")
   ## Call the wrAdd.default
   wrAdd.default(tmp$mf[,tmp$Rpos],tmp$mf[,tmp$ENumPos],
                 tmp$mf[,tmp$EFactPos],units,...)

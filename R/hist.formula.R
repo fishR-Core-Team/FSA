@@ -157,7 +157,7 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
     } else {
       if (length(ymax)==1) ymax <- rep(ymax,num)
       else if (length(ymax)!= num)
-        STOP("'ymax' argument must be 'NULL', a vector of length 1,\n",
+        STOP("'ymax' argument must be 'NULL', a vector of length 1, ",
              "or a vector of length equal to the number of groups.")
     }
     ## Make the histograms

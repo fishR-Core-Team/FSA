@@ -255,7 +255,7 @@ iVBStarts.Ogle <- function(age,len,type,meth0,methLinf,num4Linf,valOgle,fixed) {
     else {
       ## an age was given, fit polynomial and predict length at that age
       if (valOgle<min(age)) 
-        WARN("'tr' in 'valOgle' is less than minimum observed age.\n",
+        WARN("'tr' in 'valOgle' is less than minimum observed age. ",
              "Starting value for Lr may be suspect; consider using 'fixed'.")
       # fit polynomial regression
       respoly <- stats::lm(len~stats::poly(age,2,raw=TRUE))
@@ -269,7 +269,7 @@ iVBStarts.Ogle <- function(age,len,type,meth0,methLinf,num4Linf,valOgle,fixed) {
     else {
       ## a length was given, fit polynomial and predict age at that length
       if (valOgle<min(len))
-        WARN("'Lr' in 'valOgle' is less than minimum observed length.\n",
+        WARN("'Lr' in 'valOgle' is less than minimum observed length. ",
              "Starting value for tr may be suspect; consider using 'fixed'.")
       # fit polynomial regression
       respoly <- stats::lm(age~stats::poly(len,2,raw=TRUE))
@@ -324,8 +324,8 @@ iFitWalford <- function(age,len) {
   # compute mean lengths-at-age and numbers-at-age
   meanL <- tapply(len,age,mean)
   if (length(meanL)<3) 
-    STOP("The 'Walford' method cannot be used to find starting values\n",
-         "  for 'Linf' or 'K' with fewer than 3 observed ages.")
+    STOP("The 'Walford' method cannot be used to find starting values",
+         " for 'Linf' or 'K' with fewer than 3 observed ages.")
   # Fit Walford plot model, extract coefficients, return coefficients
   stats::coef(stats::lm(meanL[-1]~meanL[-length(meanL)]))
   
@@ -367,11 +367,11 @@ iVBStarts.Linf <- function(age,len,methLinf,num4Linf,fixed,pdegree,check=TRUE) {
 
 iChecLinfKOLD <- function(sLinf,len) {
   if ((sLinf<0.5*max(len,na.rm=TRUE)) | sLinf>1.5*max(len,na.rm=TRUE)) {
-    WARN("Starting value for 'Linf' is very different from the observed maximum\n",
-         "length, which suggests a model fitting problem. See a Walford or\n",
-         "Chapman plot to examine the problem. Consider either using the mean\n",
-         "length for several of the largest fish (i.e., use 'oldAge' in \n",
-         "'methLinf=') or fixing 'Linf' in the starting value list.\n")
+    WARN("Starting value for 'Linf' is very different from the observed maximum ",
+         "length, which suggests a model fitting problem. See a Walford or ",
+         "Chapman plot to examine the problem. Consider either using the mean ",
+         "length for several of the largest fish (i.e., use 'oldAge' in ",
+         "'methLinf=') or fixing 'Linf' in the starting value list.")
   }
 }
 
@@ -397,9 +397,9 @@ iCheckKOLD <- function(sK,type) {
     } else {
       msg <- "One suggested starting value is based on a negative K, "
     }
-    msg <- paste0(msg,"which suggests a model fitting problem.\n")
-    msg <- paste0(msg,"See a Walford or Chapman Plot to examine the problem.\n")
-    msg <- paste0(msg,"Consider fixing K=0.3 in the starting value list.\n")
+    msg <- paste0(msg,"which suggests a model fitting problem. ")
+    msg <- paste0(msg,"See a Walford or Chapman Plot to examine the problem. ")
+    msg <- paste0(msg,"Consider fixing K=0.3 in the starting value list.")
     WARN(msg)
   }
 }
@@ -514,16 +514,16 @@ iVBStarts.Ls <- function(age,len,type,methEV,ages2use,fixed) {
     if ("L2" %in% names(fixed)) vals[[2]] <- fixed[["L2"]]
     if ("L3" %in% names(fixed)) vals[[3]] <- fixed[["L3"]]
     if (any(diff(vals)<=0))
-      WARN("At least one of the starting values for an older age\n",
-           "  is smaller than the starting value for a younger age.")
+      WARN("At least one of the starting values for an older age ",
+           "is smaller than the starting value for a younger age.")
     ## Return the values
     list(L1=vals[[1]],L2=vals[[2]],L3=vals[[3]])
   } else { # Schnute
     if ("L1" %in% names(fixed)) vals[[1]] <- fixed[["L1"]]
     if ("L3" %in% names(fixed)) vals[[2]] <- fixed[["L3"]]    
     if (any(diff(vals)<=0)) 
-      WARN("At least one of the starting values for an older age\n",
-           "  is smaller than the starting value for a younger age.")
+      WARN("At least one of the starting values for an older age ",
+           "is smaller than the starting value for a younger age.")
     list(L1=vals[[1]],L3=vals[[2]])
   }
 }

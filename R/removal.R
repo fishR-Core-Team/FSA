@@ -745,9 +745,9 @@ iBurnham <- function(catch,conf.level,Tmult,CIMicroFish){
     # Check if N0=Tmult+1. If so, the Burnham approach searched from T to Tmult
     #   without finding a population estimate.
     if (N0==(Tmult*T)+1) {
-      WARN("The Burnham method failed to find estimates for population size and capture\n",
-           " probability. It may help to increase the Tmult option to a value greater\n",
-           " than the default (3), but that is unlikely to make a difference. This problem\n",
+      WARN("The Burnham method failed to find estimates for population size and capture",
+           " probability. It may help to increase the Tmult option to a value greater",
+           " than the default (3), but that is unlikely to make a difference. This problem",
            " is characteristic of a non-depleting catch pattern.")
       tmp <- rep(NA,8)   # empty the vector of estimates
     }

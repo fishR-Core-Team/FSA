@@ -106,7 +106,7 @@ iPSDLitCheck <- function(data,species) {
   else if (species=="List") iListSpecies(data)
        else if (!any(unique(data$species)==species))
          STOP("The Gabelhouse lengths do not exist for ",species,
-              ".\n  Type psdVal() for a list of available species.\n\n")
+              ". Type psdVal() for a list of available species.\n\n")
             else OK <- TRUE
   OK
 }

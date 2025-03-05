@@ -201,7 +201,8 @@ iMakeModelHeading <- function(sim,com,sim.names,com.name) {
   ## Handle the simple model names ... if none are given (i.e.,
   ## sim.names is NULL) then make from the formulae in sim
   if (!is.null(sim.names)) {
-    if (length(sim.names)!=length(sim)) STOP("Length of 'sim.names' differs from number of simple models provided.")
+    if (length(sim.names)!=length(sim))
+      STOP("Length of 'sim.names' differs from number of simple models provided.")
     sim_hdg <- paste("Model ",seq_along(sim),": ",sim.names,
                      sep="",collapse="\n")
   } else sim_hdg <- paste("Model ",seq_along(sim),": ",
@@ -227,5 +228,6 @@ iMakeModelHeading <- function(sim,com,sim.names,com.name) {
 iChkComplexModel <- function(sim,com) {
   simDF <- unlist(lapply(sim,stats::df.residual))
   comDF <- stats::df.residual(com)
-  if (!all(comDF<simDF)) WARN("'com' model does not appear to be more complex than all models in 'sim'.\n  Check results carefully.")
+  if (!all(comDF<simDF))
+    WARN("'com' model does not appear to be more complex than all models in 'sim'. Check results carefully.")
 }

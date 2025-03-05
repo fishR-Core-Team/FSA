@@ -234,7 +234,7 @@ iGetAllPSD <- function(ptbl,n,method,conf.level=0.95,digits) {
   # do this here and suppress warnings for psdCI so that there is only one warning
   ns <- n*ptbl
   if (any(ns>0 & ns<20))
-    WARN("Some category sample size <20, some CI coverage may be\n lower than ",
+    WARN("Some category sample size <20, some CI coverage may be lower than ",
          100*conf.level,"%.")
   ## Compute all PSDs
   suppressWarnings(res <- t(apply(id1,MARGIN=1,FUN=psdCI,ptbl=ptbl,n=n,
