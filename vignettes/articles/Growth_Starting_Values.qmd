@@ -223,7 +223,7 @@ Starting values for $L_\infty$, $K$, and $t_0$ are derived as if the data were r
 - $t_s$ set at 0.3, a likely fraction of the year for growth to start in the northern hemisphere.
 - $WP$ set at 0.8, because $WP=t_2+0.5$
 - $NGT$ set at 0.3, a likely fraction of the year for "no growth" in the northern hemisphere.
-- $K'$ set at $\frac{K}(1-NGT)$, assuming that $K$ was only over the "growth period" (i.e., $1-NGT$).
+- $K'$ set at $\frac{K}{(1-NGT)}$, assuming that $K$ was only over the "growth period" (i.e., $1-NGT$).
 
 ::: {.callout-warning}
 Starting values for the seasonal growth models are much less tested than those for annual growth models. Please consider them carefully.

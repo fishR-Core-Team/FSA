@@ -7,7 +7,8 @@
 findGrowthStarts(
   formula,
   data,
-  type = c("von Bertalanffy", "Gompertz", "logistic", "Richards"),
+  type = c("von Bertalanffy", "Gompertz", "logistic", "Richards", "Schnute",
+    "Schnute-Richards"),
   param = 1,
   constvals = NULL,
   fixed = NULL,
@@ -51,6 +52,7 @@ BLAH-BLAH-BLAH
 #===== Make fake data
 # Setup ages, sample sizes (general reduction in numbers with
 #   increasing age), and additive SD to model
+set.seed(234234)
 t <- 0:15
 n <- c(5,10,40,35,25,12,10,10,8,6,5,3,3,3,2,2)
 sd <- 15

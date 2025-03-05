@@ -93,7 +93,8 @@
 #' @export
 
 findGrowthStarts <- function(formula,data,
-                             type=c("von Bertalanffy","Gompertz","logistic","Richards"),
+                             type=c("von Bertalanffy","Gompertz","logistic","Richards",
+                                    "Schnute","Schnute-Richards"),
                              param=1,constvals=NULL,fixed=NULL,plot=FALSE) {
   #===== Checks
   # Handle the formula with some checks
@@ -118,16 +119,16 @@ findGrowthStarts <- function(formula,data,
   # initial checks on constvals
   if (!is.null(constvals)) {
     if (type!="von Bertalanffy")
-      STOP("'constvals' only used when 'type=",type,"'. Either\n",
-           "  don't use 'constvals' or change 'type'")
-    if (!is.vector(constvals)) STOP("'constvals' must be a vector.")
+      STOP("'constvals' only used with the von Bertalanffy model.\n",
+           "  Either don't use 'constvals' or change 'type'")
+    if (is.list(constvals)) STOP("'constvals' should be a vector rather than a list.")
     if (!is.numeric(constvals)) STOP("'constvals' must be numeric.")
     if (is.null(names(constvals))) STOP("Values in 'constvals' must be named.")
   }
   
   # Is fixed of correct type ... will check for correct names later
   if (!is.null(fixed)) {
-    if (!is.vector(fixed)) STOP("'fixed' must be a vector.")
+    if (is.list(fixed)) STOP("'fixed' should be a vector rather than a list.")
     if (!is.numeric(fixed)) STOP("'fixed' must be numeric.")
     fxdnms <- names(fixed)
     if (is.null(fxdnms)) STOP("Items in 'fixed' must be named.")
@@ -148,15 +149,14 @@ findGrowthStarts <- function(formula,data,
          "Schnute"=         { sv <- NULL },
          "Schnute-Richards"={ sv <- NULL })
   
-  # replace with values in fixed (if any & named correctly)
+  # check if any names in fixed were not in the parameterization
   if (!is.null(fixed)) {
-    if (all(fxdnms %in% names(sv))) { # all correctly named
-      sv[fxdnms] <- fixed[fxdnms]
-    } else {                          # some not correctly named
+    if (!all(fxdnms %in% names(sv))) { # some not correctly named
       fxdnms <- fxdnms[!fxdnms %in% names(sv)]
-      STOP("Some names in 'fixed' (",paste(fxdnms,collapse=", "),
-                ") are not parameters (",paste(names(sv),collapse=", "),
-                ")\n  for ",type," parameterization #",param)
+      tmp <- paste0("Some names in 'fixed' (",paste(fxdnms,collapse=", "),
+                    ") are not parameters (",paste(names(sv),collapse=", "),
+                    ") for ",type," parameterization #",param," and were ignored.")
+      WARN(strwrap(tmp,exdent=2,prefix="\n",initial=""))
     }
   }
   
@@ -164,9 +164,10 @@ findGrowthStarts <- function(formula,data,
   if (plot) iPlotGrowStarts(sv,data,lennm,agenm,type,param,constvals)
   
   #===== Return starting value list
-  if (is.null(sv)) STOP("Starting values not yet implemented in 'FSA' for",
-                        "\n  ",type," paramaterization #",param)
-  sv
+  if (is.null(sv)) WARN(strwrap(paste0("Starting values not yet implemented in 'FSA'",
+                                       " for ",type," paramaterization #",param),
+                                exdent=2,prefix="\n",initial=""))
+  else sv
 }
 
 
@@ -217,13 +218,15 @@ iVonBStarts <- function(ynm,xnm,data,param,constvals,fixed) {
   omega <- ifelse("omega" %in% fxdnms,fixed[["omega"]],omega <- K*Linf)
   t50 <- ifelse("t50" %in% fxdnms,fixed[["t50"]],t0+log(2)/K)
   if (param==6) {
-    if (cvnms=="tr") 
-      tmp <- ifelse("tr" %in% fxdnms,fixed[["tr"]],Linf*(1-exp(-K*(constvals[["tr"]]-t0))))
-    if (cvnms=="Lr")
-      tmp <- ifelse("Lr" %in% fxdnms,fixed[["Lr"]],-log((Linf-constvals[["Lr"]])/(Linf-L0))/K)
-    tmp <- iChkParamPos(tmp,fxdnms)
-    sv6 <- c(Linf,K,tmp)
-    names(sv6) <- c("Linf","K",ifelse(cvnms=="tr","Lr","tr"))
+    if (cvnms=="Lr") {
+      tr <- ifelse("tr" %in% fxdnms,fixed[["tr"]],Linf*(1-exp(-K*(constvals[["tr"]]-t0))))
+      tr <- iChkParamPos(tr,fxdnms)
+      sv6 <- c(Linf=Linf,K=K,tr=tr)
+    } else {
+      Lr <- ifelse("Lr" %in% fxdnms,fixed[["Lr"]],-log((Linf-constvals[["Lr"]])/(Linf-L0))/K)
+      Lr <- iChkParamPos(Lr,fxdnms)
+      sv6 <- c(Linf=Linf,K=K,Lr=Lr)
+    }
   }
   if (param %in% c(7,8)) {
     L1 <- ifelse("L1" %in% fxdnms,fixed[["L1"]],Linf*(1-exp(-K*(constvals[["t1"]]-t0))))
@@ -264,17 +267,17 @@ iVonBStarts <- function(ynm,xnm,data,param,constvals,fixed) {
          "10"= {  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
                           K=iChkK(K,fxdnms),
                           t0=iChkt0(t0,fxdnms),
-                          C=C,
-                          ts=ts)  },
+                          C=iChkParamBtwn(C,fxdnms),
+                          ts=iChkParamBtwn(ts,fxdnms))  },
          "11"= {  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
                           K=iChkK(K,fxdnms),
                           t0=iChkt0(t0,fxdnms),
-                          C=C,
-                          WP=WP)  },
+                          C=iChkParamBtwn(C,fxdnms),
+                          WP=iChkParamBtwn(WP,fxdnms))  },
          "12"= {  sv <- c(Kpr=iChkParamPos(Kpr,fxdnms),
                           t0=iChkt0(t0,fxdnms),
-                          ts=ts,
-                          NGT=NGT)  },
+                          ts=iChkParamBtwn(ts,fxdnms),
+                          NGT=iChkParamBtwn(NGT,fxdnms))  },
          "13"= {  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
                           K=iChkK(K,fxdnms))  },
          "14"= {  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
@@ -318,7 +321,7 @@ iGompStarts <- function(ynm,xnm,data,param,fixed) {
                               a2=a2)  },
          Gompertz5={  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
                               gi=iChkParamPos(gi,fxdnms),
-                              t0=iChkt0(t0,fxdnms))  },
+                              t0=t0)  }
   )
   
   # Return the starting value list
@@ -387,23 +390,23 @@ iRichStarts <- function(ynm,xnm,data,param,fixed) {
   sv <- NULL
   switch(param,
          Richards1={  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
-                              k=k,
+                              k=iChkParamPos(k,fxdnms),
                               ti=iChkParamPos(ti,fxdnms),
                               b1=b1)  },
          Richards2={  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
-                              k=k,
-                              t0=iChkt0(t0,fxdnms),
+                              k=iChkParamPos(k,fxdnms),
+                              t0=t0,
                               b2=b2)  },
          Richards3={  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
-                              k=k,
+                              k=iChkParamPos(k,fxdnms),
                               L0=iChkL0(L0,data[[ynm]],data[[xnm]],fxdnms),
                               b3=b3)  },
          Richards4={  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
-                              k=k,
+                              k=iChkParamPos(k,fxdnms),
                               ti=iChkParamPos(ti,fxdnms),
                               b2=b2)  },
          Richards5={  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
-                              k=k,
+                              k=iChkParamPos(k,fxdnms),
                               ti=iChkParamPos(ti,fxdnms),
                               b3=b3)  }
   )
@@ -429,7 +432,7 @@ iChkLinf <- function(sLinf,len,fxdnms) {
                  "superimposed with 'plot=TRUE' to potentially diagnose any problems.")
     if (!wasFixed) tmp <- paste(tmp,"Also consider using 'fixed=c(Linf=)'",
                                 "to manually set 'Linf' to a reasonable value.\n")
-    WARN(strwrap(tmp,exdent=2,prefix="\n"))
+    WARN(strwrap(tmp,exdent=2,prefix="\n",initial=""))
   }
   # return starting value
   sLinf
@@ -450,7 +453,7 @@ iChkL0 <- function(sL0,len,age,fxdnms) {
                  "superimposed with 'plot=TRUE' to potentially diagnose any problems.")
     if (!wasFixed) tmp <- paste(tmp,"Also consider using 'fixed=c(L0=)'",
                                 "to manually set 'L0' to a reasonable value.\n")
-    WARN(strwrap(tmp,exdent=2,prefix="\n"))
+    WARN(strwrap(tmp,exdent=2,prefix="\n",initial=""))
   }
   # return starting value
   sL0
@@ -470,7 +473,7 @@ iChkK <- function(sK,fxdnms) {
                  "superimposed with 'plot=TRUE' to potentially diagnose any problems.")
     if (!wasFixed) tmp <- paste(tmp,"Also consider using 'fixed=c(K=)'",
                                 "to manually set 'K' to a reasonable value.\n")
-    WARN(strwrap(tmp,exdent=2,prefix="\n"))
+    WARN(strwrap(tmp,exdent=2,prefix="\n",initial=""))
   }
   # return starting value
   sK
@@ -490,7 +493,7 @@ iChkt0 <- function(st0,fxdnms) {
                  "superimposed with 'plot=TRUE' to potentially diagnose any problems.")
     if (!wasFixed) tmp <- paste(tmp,"Also consider using 'fixed=c(t0=)'",
                                 "to manually set 't0' to a reasonable value.\n")
-    WARN(strwrap(tmp,exdent=2,prefix="\n"))
+    WARN(strwrap(tmp,exdent=2,prefix="\n",initial=""))
   }
   # return starting value
   st0
@@ -499,8 +502,8 @@ iChkt0 <- function(st0,fxdnms) {
 iChkParamPos <- function(x,fxdnms) {
   # Determine if x value was negative
   if (is.lt(x,0)) {
-    # Extract name of the parameter ... remove "s" at beginning
-    xnm <- sub(".","",deparse(substitute(x)))
+    # Extract name of the parameter
+    xnm <- deparse(substitute(x))
     # Determine if the starting value was fixed or not
     wasFixed <- xnm %in% fxdnms
     # start warning message
@@ -518,7 +521,36 @@ iChkParamPos <- function(x,fxdnms) {
     # Add return to end of string
     tmp <- paste0(tmp,"\n")
     # Issue the warning
-    WARN(strwrap(tmp,exdent=2,prefix="\n"))
+    WARN(strwrap(tmp,exdent=2,prefix="\n",initial=""))
+  }
+  # return x value
+  x
+}
+
+iChkParamBtwn <- function(x,fxdnms,low=0,high=1) {
+  # Determine if x value was negative
+  if (is.lt(x,low) | is.gt(x,high)) {
+    # Extract name of the parameter
+    xnm <- deparse(substitute(x))
+    # Determine if the starting value was fixed or not
+    wasFixed <- xnm %in% fxdnms
+    # start warning message
+    tmp <- paste0("Starting value for '",xnm,"' must be bewteen ",
+                  low," and ",high,". ")
+    # Warning message depends on whether parameter was fixed or not
+    if (wasFixed) tmp <- paste0(tmp,"This suggests a problem with your fixed '",
+                                xnm,"' value. ")
+    else tmp <- paste0(tmp,"This suggests a model fitting problem. ")
+    # Continue message with a suggestion
+    tmp <- paste0(tmp,"Try plotting the data with the model at the starting values ",
+                  "superimposed with 'plot=TRUE' to potentially diagnose any problems.")
+    if (!wasFixed) tmp <- paste0(tmp," Also consider using 'fixed=c(",xnm,"=)' ",
+                                 "to manually set '",xnm,"' to a reasonable value ",
+                                 "between ",low," and ",high,".")
+    # Add return to end of string
+    tmp <- paste0(tmp,"\n")
+    # Issue the warning
+    WARN(strwrap(tmp,exdent=2,prefix="\n",initial=""))
   }
   # return x value
   x
