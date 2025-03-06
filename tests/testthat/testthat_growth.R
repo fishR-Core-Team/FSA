@@ -39,7 +39,7 @@ test_that("findGrowthStarts() general messages",{
 
 test_that("findGrowthStarts() von Bertalanffy messages",{
   expect_error(findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=0),
-               "'param' must be greater than 1")
+               "'param' must be between 1 and 19")
   expect_error(findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=20),
                "'param' must be between 1 and 19")
   for (i in c(9,13:19))
@@ -168,7 +168,7 @@ test_that("findGrowthStarts() von Bertalanffy messages",{
 
 test_that("findGrowthStarts() Gompertz messages",{
   expect_error(findGrowthStarts(tlg~age,data=df,type="Gompertz",param=0),
-               "'param' must be greater than 1")
+               "'param' must be between 1 and 7")
   expect_error(findGrowthStarts(tlg~age,data=df,type="Gompertz",param=8),
                "'param' must be between 1 and 7")
   for (i in 6:7)
@@ -208,7 +208,7 @@ test_that("findGrowthStarts() Gompertz messages",{
 
 test_that("findGrowthStarts() logistic  messages",{
   expect_error(findGrowthStarts(tll~age,data=df,type="logistic",param=0),
-               "'param' must be greater than 1")
+               "'param' must be between 1 and 4")
   expect_error(findGrowthStarts(tll~age,data=df,type="logistic",param=5),
                "'param' must be between 1 and 4")
   expect_warning(findGrowthStarts(tll~age,data=df,type="logistic",param=4),
@@ -245,7 +245,7 @@ test_that("findGrowthStarts() logistic  messages",{
 
 test_that("findGrowthStarts() Richards messages",{
   expect_error(findGrowthStarts(tlr~age,data=df,type="Richards",param=0),
-               "'param' must be greater than 1")
+               "'param' must be between 1 and 5")
   expect_error(findGrowthStarts(tlr~age,data=df,type="Richards",param=6),
                "'param' must be between 1 and 5")
   
@@ -302,6 +302,49 @@ test_that("makeGrowthFun() messages",{
                "'param' can only be 1")
   expect_error(makeGrowthFun(type="Schnute-Richards",param=2),
                "'param' can only be 1")
+})
+
+test_that("showGrowthFun() messages",{
+  expect_error(showGrowthFun(type="Derek",param=1),
+               "'arg' should be one of")
+  expect_error(showGrowthFun(type="von Bertalanffy",param=0),
+               "'param' must be between 1 and 19")
+  expect_error(showGrowthFun(type="von Bertalanffy",param=20),
+               "'param' must be between 1 and 19")
+  expect_error(showGrowthFun(type="Gompertz",param=0),
+               "'param' must be between 1 and 7")
+  expect_error(showGrowthFun(type="Gompertz",param=8),
+               "'param' must be between 1 and 7")
+  expect_error(showGrowthFun(type="logistic",param=0),
+               "'param' must be between 1 and 4")
+  expect_error(showGrowthFun(type="logistic",param=5),
+               "'param' must be between 1 and 4")
+  expect_error(showGrowthFun(type="Richards",param=0),
+               "'param' must be between 1 and 5")
+  expect_error(showGrowthFun(type="Richards",param=6),
+               "'param' must be between 1 and 5")
+  expect_error(showGrowthFun(type="Schnute",case=0),
+               "'case' must be between 1 and 4")
+  expect_error(showGrowthFun(type="Schnute",case=5),
+               "'case' must be between 1 and 4")
+  expect_error(showGrowthFun(type="Schnute-Richards",param=0),
+               "'param' can only be 1")
+  expect_error(showGrowthFun(type="Schnute-Richards",param=2),
+               "'param' can only be 1")
+  expect_error(showGrowthFun(type="von Bertalanffy",case=1),
+               "'case' only used when 'type' is 'Schnute'")
+  expect_error(showGrowthFun(type="Gompertz",case=1),
+               "'case' only used when 'type' is 'Schnute'")
+  expect_error(showGrowthFun(type="logistic",case=1),
+               "'case' only used when 'type' is 'Schnute'")
+  expect_error(showGrowthFun(type="Richards",case=1),
+               "'case' only used when 'type' is 'Schnute'")
+  expect_error(showGrowthFun(type="Schnute-Richards",case=1),
+               "'case' only used when 'type' is 'Schnute'")
+  tmp <- c(9,18,19)
+  for (i in tmp) expect_error(showGrowthFun(type="von Bertalanffy",param=i),
+                              "Not yet implemented for")
+  expect_error(showGrowthFun(type="Schnute-Richards"),"Not yet implemented for")
 })
 
 
@@ -632,6 +675,20 @@ test_that("makeGrowthFun() Other Model output",{
     expect_message(makeGrowthFun(type=itmp[i],param=1,msg=TRUE),
                    paste("You have chosen the",itmp[i],"growth function"))
   }
+})
+
+test_that("showGrowthFun()outputs",{
+  tmp <- c(1:8,10:17)
+  for (i in tmp) expect_equal(class(showGrowthFun(type="von Bertalanffy",param=i)),
+                              "expression")
+  for (i in 1:7) expect_equal(class(showGrowthFun(type="Gompertz",param=i)),
+                              "expression")
+  for (i in 1:7) expect_equal(class(showGrowthFun(type="Gompertz",param=i)),
+                              "expression")
+  for (i in 1:5) expect_equal(class(showGrowthFun(type="Richards",param=i)),
+                              "expression")
+  for (i in 1:4) expect_equal(class(showGrowthFun(type="Schnute",case=i)),
+                              "expression")
 })
 
 ## Validate Results ----

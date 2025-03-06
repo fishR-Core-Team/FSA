@@ -108,11 +108,12 @@ findGrowthStarts <- function(formula,data,
   type <- match.arg(type)
   
   # Correct parameterization ... depends on growth model type
-  if (param<1) STOP("'param' must be greater than 1")
   max.param <- c("von Bertalanffy"=19,"Gompertz"=7,"logistic"=4,"Richards"=5,
                  "Schnute"=1,"Schnute-Richards"=1)
-  if (param>max.param[[type]])
-    STOP("'param' must be between 1 and ",max.param[[type]]," for ",type," model")
+  if (param<1 | param>max.param[[type]]) {
+    if (max.param[[type]]==1) STOP("'param' can only be 1 (the default) for ",type," model")
+    else STOP("'param' must be between 1 and ",max.param[[type]]," for ",type," model")
+  }
   
   # initial checks on constvals
   if (!is.null(constvals)) {

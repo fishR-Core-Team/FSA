@@ -60,12 +60,15 @@ showGrowthFun <- function(type=c("von Bertalanffy","Gompertz","Richards",
   # Correct parameterization ... depends on growth model ... note that the 4
   #   cases of the Schnute will be treated as 4 parameterizations here ... so 
   #   leave at 4 for "Schnute"
-  if (param<1) STOP("'param' must be greater than 1")
   max.param <- c("von Bertalanffy"=19,"Gompertz"=7,"logistic"=4,"Richards"=5,
                  "Schnute"=4,"Schnute-Richards"=1)
-  if (param>max.param[[type]])
-    STOP("'param' must be between 1 and ",max.param[[type]]," for ",type," model")
-
+  if (param<1 | param>max.param[[type]]) {
+    if (max.param[[type]]==1) STOP("'param' can only be 1 (the default) for ",type," model")
+    else if (type=="Schnute") STOP("'case' must be between 1 and ",max.param[[type]],
+                                   " for ",type," model")
+    else STOP("'param' must be between 1 and ",max.param[[type]]," for ",type," model")
+  }
+  
   #===== Find expression to return
   tpexpr <- iGrowthModelExpression(type,param,max.param)
   if (is.null(tpexpr)) STOP("Not yet implemented for ",type," parameterization #",param)
