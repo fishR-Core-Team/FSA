@@ -211,15 +211,15 @@ iVonBStarts <- function(ynm,xnm,data,param,constvals,fixed) {
   L0 <- ifelse("L0" %in% fxdnms,fixed[["L0"]],sstmp[["R0"]])
   K <- ifelse("K" %in% fxdnms,fixed[["K"]],exp(sstmp[["lrc"]]))
   t0 <- ifelse("t0" %in% fxdnms,fixed[["t0"]],-log(Linf/(Linf-L0))/K)
-  omega <- ifelse("omega" %in% fxdnms,fixed[["omega"]],omega <- K*Linf)
+  omega <- ifelse("omega" %in% fxdnms,fixed[["omega"]],K*Linf)
   t50 <- ifelse("t50" %in% fxdnms,fixed[["t50"]],t0+log(2)/K)
   if (param==6) {
     if (cvnms=="Lr") {
-      tr <- ifelse("tr" %in% fxdnms,fixed[["tr"]],Linf*(1-exp(-K*(constvals[["tr"]]-t0))))
+      tr <- ifelse("tr" %in% fxdnms,fixed[["tr"]],-log((Linf-constvals[["Lr"]])/(Linf-L0))/K)
       tr <- iChkParamPos(tr,fxdnms)
       sv6 <- c(Linf=Linf,K=K,tr=tr)
     } else {
-      Lr <- ifelse("Lr" %in% fxdnms,fixed[["Lr"]],-log((Linf-constvals[["Lr"]])/(Linf-L0))/K)
+      Lr <- ifelse("Lr" %in% fxdnms,fixed[["Lr"]],Linf*(1-exp(-K*(constvals[["tr"]]-t0))))
       Lr <- iChkParamPos(Lr,fxdnms)
       sv6 <- c(Linf=Linf,K=K,Lr=Lr)
     }
@@ -270,14 +270,11 @@ iVonBStarts <- function(ynm,xnm,data,param,constvals,fixed) {
                           t0=iChkt0(t0,fxdnms),
                           C=iChkParamBtwn(C,fxdnms),
                           WP=iChkParamBtwn(WP,fxdnms))  },
-         "12"= {  sv <- c(Kpr=iChkParamPos(Kpr,fxdnms),
+         "12"= {  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
+                          Kpr=iChkParamPos(Kpr,fxdnms),
                           t0=iChkt0(t0,fxdnms),
                           ts=iChkParamBtwn(ts,fxdnms),
-                          NGT=iChkParamBtwn(NGT,fxdnms))  },
-         "13"= {  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
-                          K=iChkK(K,fxdnms))  },
-         "14"= {  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
-                          K=iChkK(K,fxdnms))  }
+                          NGT=iChkParamBtwn(NGT,fxdnms))  }
   )
   sv
 }
@@ -299,6 +296,7 @@ iGompStarts <- function(ynm,xnm,data,param,fixed) {
   a2 <- ifelse("a2" %in% fxdnms,fixed[["a2"]],b2)
   ti <- ifelse("ti" %in% fxdnms,fixed[["ti"]],log(b2)/gi)
   t0 <- ifelse("t0" %in% fxdnms,fixed[["t0"]],log(b2*gi)/gi)
+  L0 <- ifelse("L0" %in% fxdnms,fixed[["L0"]],Linf/exp(b2))
   
   # Create starting value list specific to parameterization
   sv <- NULL
@@ -309,7 +307,7 @@ iGompStarts <- function(ynm,xnm,data,param,fixed) {
          Gompertz2={  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
                               gi=iChkParamPos(gi,fxdnms),
                               ti=iChkParamPos(ti,fxdnms))  },
-         Gompertz3={  sv <- c(L0=iChkL0(Linf/exp(b2),data[[ynm]],data[[xnm]],fxdnms),
+         Gompertz3={  sv <- c(L0=iChkL0(L0,data[[ynm]],data[[xnm]],fxdnms),
                               gi=iChkParamPos(gi,fxdnms),
                               a2=a2)  },
          Gompertz4={  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),

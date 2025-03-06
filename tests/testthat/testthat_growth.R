@@ -3,7 +3,7 @@
 #   increasing age), and additive SD to model
 set.seed(234234)
 t <- 0:15
-n <- c(5,10,40,35,25,12,10,10,8,6,5,3,3,3,2,2)
+n <- c(5,10,40,35,25,13,10,10,8,6,5,3,3,3,2,2)
 sd <- 15
 # Expand ages and put in a data.frame
 df <- data.frame(age=rep(t,n))
@@ -17,15 +17,32 @@ l1 <- makeGrowthFun(type="logistic")
 df$tll <- round(l1(df$age,Linf=450,gninf=0.3,ti=2)+rnorm(sum(n),0,sd),0)
 r1 <- makeGrowthFun(type="Richards")
 df$tlr <- round(r1(df$age,Linf=450,ti=2,k=0.5,b1=1.5)+rnorm(sum(n),0,sd),0)
-
+df$cat <- as.factor(rep(c("A","B","C"),each=sum(n)/3))
 
 ## Test Messages ----
+test_that("findGrowthStarts() general messages",{
+  expect_error(findGrowthStarts(tlv+tlg~age,data=df),
+               "Function does not work with more than one variable")
+  expect_error(findGrowthStarts(tlv~tlg+age,data=df),
+               "'formula' must have only one RHS variable")
+  expect_error(findGrowthStarts(tlv~cat,data=df),
+               "RHS variable must be numeric")
+  expect_error(findGrowthStarts(cat~age,data=df),
+               "LHS variable must be numeric")
+  expect_error(findGrowthStarts(tlv~age,data=df,type="Derek"),
+               "'arg' should be one of")
+  expect_warning(findGrowthStarts(tlv~age,data=df,type="Schnute"),
+                 "Starting values not yet implemented")
+  expect_warning(findGrowthStarts(tlv~age,data=df,type="Schnute-Richards"),
+                 "Starting values not yet implemented")
+})
+
 test_that("findGrowthStarts() von Bertalanffy messages",{
   expect_error(findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=0),
                "'param' must be greater than 1")
   expect_error(findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=20),
                "'param' must be between 1 and 19")
-  for (i in c(9,15:19))
+  for (i in c(9,13:19))
     expect_warning(findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=i),
                    "Starting values not yet implemented in 'FSA'")
   
@@ -260,6 +277,319 @@ test_that("findGrowthStarts() Richards messages",{
 
 
 ## Test Output Types ----
+test_that("findGrowthStarts() von Bertalanffy outputs",{
+  ## Check that vectors are named with proper model parameters
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=1)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","K","t0"))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=2)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","K","L0"))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=3)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("omega","K","t0"))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=4)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","L0","omega"))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=5)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","t0","t50"))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=6,
+                          constvals=c(tr=2))
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","K","Lr"))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=6,
+                          constvals=c(Lr=237))
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","K","tr"))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=7,
+                          constvals=c(t1=1,t3=13))
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("L1","L3","K"))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=8,
+                          constvals=c(t1=1,t3=13))
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("L1","L2","L3"))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=10)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","K","t0","C","ts"))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=11)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","K","t0","C","WP"))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=12)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","Kpr","t0","ts","NGT"))
+  
+  # Check that values are fixed as expected ... did not check all possible
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=1,
+                          fixed=c(Linf=500))
+  expect_equal(tmp[["Linf"]],500)
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=2,
+                          fixed=c(K=0.5))
+  expect_equal(tmp[["K"]],0.5)
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=3,
+                          fixed=c(omega=50))
+  expect_equal(tmp[["omega"]],50)
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=5,
+                          fixed=c(t50=5))
+  expect_equal(tmp[["t50"]],5)
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=6,
+                          constvals=c(tr=2),fixed=c(Lr=300))
+  expect_equal(tmp[["Lr"]],300)
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=6,
+                          constvals=c(Lr=237),fixed=c(tr=5))
+  expect_equal(tmp[["tr"]],5)
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=7,
+                          constvals=c(t1=1,t3=13),fixed=c(L1=100))
+  expect_equal(tmp[["L1"]],100)
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=8,
+                          constvals=c(t1=1,t3=13),fixed=c(L1=100,L2=300))
+  expect_equal(tmp[["L1"]],100)
+  expect_equal(tmp[["L2"]],300)
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=10,
+                          fixed=c(Linf=500,ts=0.5))
+  expect_equal(tmp[["Linf"]],500)
+  expect_equal(tmp[["ts"]],0.5)
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=11,
+                          fixed=c(WP=0.5))
+  expect_equal(tmp[["WP"]],0.5)
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=12,
+                          fixed=c(NGT=0.5))
+  expect_equal(tmp[["NGT"]],0.5)
+  
+})
+
+test_that("findGrowthStarts() Gompertz outputs",{
+  ## Check that vectors are named with proper model parameters
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=1)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","gi","a1"))
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=2)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","gi","ti"))
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=3)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("L0","gi","a2"))
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=4)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","gi","a2"))
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=5)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","gi","t0"))
+
+  # Check that values are fixed as expected ... did not check all possible
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=1,
+                          fixed=c(Linf=500))
+  expect_equal(tmp[["Linf"]],500)
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=1,
+                          fixed=c(Linf=500,gi=0.5))
+  expect_equal(tmp[["Linf"]],500)
+  expect_equal(tmp[["gi"]],0.5)
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=2,
+                          fixed=c(ti=5))
+  expect_equal(tmp[["ti"]],5)
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=3,
+                          fixed=c(L0=5,a2=1))
+  expect_equal(tmp[["L0"]],5)
+  expect_equal(tmp[["a2"]],1)
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=4,
+                          fixed=c(a2=1))
+  expect_equal(tmp[["a2"]],1)
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=5,
+                          fixed=c(t0=-1))
+  expect_equal(tmp[["t0"]],-1)
+})
+
+test_that("findGrowthStarts() logistic outputs",{
+  ## Check that vectors are named with proper model parameters
+  tmp <- findGrowthStarts(tll~age,data=df,type="logistic",param=1)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","gninf","ti"))
+  tmp <- findGrowthStarts(tll~age,data=df,type="logistic",param=2)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","gninf","a"))
+  tmp <- findGrowthStarts(tll~age,data=df,type="logistic",param=3)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","gninf","L0"))
+  
+  # Check that values are fixed as expected ... did not check all possible
+  tmp <- findGrowthStarts(tll~age,data=df,type="logistic",param=1,
+                          fixed=c(Linf=500))
+  expect_equal(tmp[["Linf"]],500)
+  tmp <- findGrowthStarts(tll~age,data=df,type="logistic",param=2,
+                          fixed=c(Linf=500,gninf=0.5))
+  expect_equal(tmp[["Linf"]],500)
+  expect_equal(tmp[["gninf"]],0.5)
+  tmp <- findGrowthStarts(tll~age,data=df,type="logistic",param=2,
+                          fixed=c(a=0.5))
+  expect_equal(tmp[["a"]],0.5)
+  tmp <- findGrowthStarts(tll~age,data=df,type="logistic",param=3,
+                          fixed=c(L0=5))
+  expect_equal(tmp[["L0"]],5)
+})
+
+
+test_that("findGrowthStarts() Richards outputs",{
+  ## Check that vectors are named with proper model parameters
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=1)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","k","ti","b1"))
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=2)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","k","t0","b2"))
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=3)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","k","L0","b3"))
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=4)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","k","ti","b2"))
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=5)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("Linf","k","ti","b3"))
+  
+  # Check that values are fixed as expected ... did not check all possible
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=1,
+                          fixed=c(Linf=500))
+  expect_equal(tmp[["Linf"]],500)
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=1,
+                          fixed=c(Linf=500,b1=0.5))
+  expect_equal(tmp[["Linf"]],500)
+  expect_equal(tmp[["b1"]],0.5)
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=2,
+                          fixed=c(t0=-1,b2=0.5))
+  expect_equal(tmp[["t0"]],-1)
+  expect_equal(tmp[["b2"]],0.5)
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=3,
+                          fixed=c(L0=5,b3=0.5))
+  expect_equal(tmp[["L0"]],5)
+  expect_equal(tmp[["b3"]],0.5)
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=4,
+                          fixed=c(ti=5))
+  expect_equal(tmp[["ti"]],5)
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=5,
+                          fixed=c(b3=0.5))
+  expect_equal(tmp[["b3"]],0.5)
+})
 
 
 ## Validate Results ----
+
+test_that("findGrowthStarts() von Bertalanffy results",{
+  # Get starting values from SSasymp
+  sstmp <- stats::getInitial(tlv~stats::SSasymp(age,Asym,R0,lrc),data=df)
+  # extract results according to "Growth_Starting_Values.qmd" document
+  Linf <- sstmp[["Asym"]]
+  L0 <- sstmp[["R0"]]
+  K <- exp(sstmp[["lrc"]])
+  t0 <- -log(Linf/(Linf-L0))/K
+  omega <- K*Linf
+  t50 <- t0+log(2)/K
+  tr150 <- -log((Linf-150)/(Linf-L0))/K
+  Lr5 <- Linf*(1-exp(-K*(5-t0)))
+  L1 <- Linf*(1-exp(-K*(2-t0)))
+  L3 <- Linf*(1-exp(-K*(12-t0)))
+  L2 <- Linf*(1-exp(-K*(7-t0)))
+  
+  # Test findGrowthStarts against those values for each parameterization
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=1)
+  expect_equal(tmp,c(Linf=Linf,K=K,t0=t0))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=2)
+  expect_equal(tmp,c(Linf=Linf,K=K,L0=L0))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=3)
+  expect_equal(tmp,c(omega=omega,K=K,t0=t0))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=4)
+  expect_equal(tmp,c(Linf=Linf,L0=L0,omega=omega))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=5)
+  expect_equal(tmp,c(Linf=Linf,t0=t0,t50=t50))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=6,
+                          constvals=c(tr=5))
+  expect_equal(tmp,c(Linf=Linf,K=K,Lr=Lr5))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=6,
+                          constvals=c(Lr=150))
+  expect_equal(tmp,c(Linf=Linf,K=K,tr=tr150))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=7,
+                          constvals=c(t1=2,t3=12))
+  expect_equal(tmp,c(L1=L1,L3=L3,K=K))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=8,
+                          constvals=c(t1=2,t3=12))
+  expect_equal(tmp,c(L1=L1,L2=L2,L3=L3))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=10)
+  expect_equal(tmp,c(Linf=Linf,K=K,t0=t0,C=0.5,ts=0.3))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=11)
+  expect_equal(tmp,c(Linf=Linf,K=K,t0=t0,C=0.5,WP=0.8))
+  tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=12)
+  expect_equal(tmp,c(Linf=Linf,Kpr=K/(1-0.3),t0=t0,ts=0.3,NGT=0.3))
+})
+
+test_that("findGrowthStarts() Gompertz results",{
+  # Get starting values from SSgompertz
+  sstmp <- stats::getInitial(tlg~stats::SSgompertz(age,Asym,b2,b3),data=df)
+  # extract results according to "Growth_Starting_Values.qmd" document
+  Linf <- sstmp[["Asym"]]
+  gi <- -log(sstmp[["b3"]])
+  a2 <- sstmp[["b2"]]
+  a1 <- log(a2)
+  ti <- log(a2)/gi
+  t0 <- log(a2*gi)/gi
+  L0 <- Linf/exp(a2)
+  
+  # Test findGrowthStarts against those values for each parameterization
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=1)
+  expect_equal(tmp,c(Linf=Linf,gi=gi,a1=a1))
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=2)
+  expect_equal(tmp,c(Linf=Linf,gi=gi,ti=ti))
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=3)
+  expect_equal(tmp,c(L0=L0,gi=gi,a2=a2))
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=4)
+  expect_equal(tmp,c(Linf=Linf,gi=gi,a2=a2))
+  tmp <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=5)
+  expect_equal(tmp,c(Linf=Linf,gi=gi,t0=t0))
+})
+
+test_that("findGrowthStarts() logistic results",{
+  # Get starting values from SSlogis
+  sstmp <- stats::getInitial(tll~stats::SSlogis(age,Asym,xmid,scal),data=df)
+  # extract results according to "Growth_Starting_Values.qmd" document
+  Linf <- sstmp[["Asym"]]
+  gninf <- 1/sstmp[["scal"]]
+  ti <- sstmp[["xmid"]]
+  a <- sstmp[["xmid"]]/sstmp[["scal"]]
+  L0 <- Linf/(1+exp(a))
+ 
+  # Test findGrowthStarts against those values for each parameterization
+  tmp <- findGrowthStarts(tll~age,data=df,type="logistic",param=1)
+  expect_equal(tmp,c(Linf=Linf,gninf=gninf,ti=ti))
+  tmp <- findGrowthStarts(tll~age,data=df,type="logistic",param=2)
+  expect_equal(tmp,c(Linf=Linf,gninf=gninf,a=a))
+  tmp <- findGrowthStarts(tll~age,data=df,type="logistic",param=3)
+  expect_equal(tmp,c(Linf=Linf,gninf=gninf,L0=L0))
+})
+
+test_that("findGrowthStarts() Richards results",{
+  # Get starting values from FlexParamCurve
+  sstmp <- FlexParamCurve::modpar(df$age,df$tlr,
+                                  pn.options="sstmp",width.bounds=2,force4par=TRUE,
+                                  verbose=FALSE,suppress.text=TRUE)
+  # extract results according to "Growth_Starting_Values.qmd" document
+  Linf <- sstmp[["Asym"]]
+  k <- sstmp[["K"]]
+  ti <- sstmp[["Infl"]]
+  b1 <- sstmp[["M"]]
+  t0 <- -(log(1/b1)/k)+ti
+  L0 <- Linf/((1+b1*exp(k*ti)))^(1/b1)
+  b2 <- -(1/b1)
+  b3 <- 1+b1  
+  
+  # Test findGrowthStarts against those values for each parameterization
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=1)
+  expect_equal(tmp,c(Linf=Linf,k=k,ti=ti,b1=b1))
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=2)
+  expect_equal(tmp,c(Linf=Linf,k=k,t0=t0,b2=b2))
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=3)
+  expect_equal(tmp,c(Linf=Linf,k=k,L0=L0,b3=b3))
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=4)
+  expect_equal(tmp,c(Linf=Linf,k=k,ti=ti,b2=b2))
+  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=5)
+  expect_equal(tmp,c(Linf=Linf,k=k,ti=ti,b3=b3))
+})
+
