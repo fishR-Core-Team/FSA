@@ -272,7 +272,36 @@ test_that("findGrowthStarts() Richards messages",{
   findGrowthStarts(tlr~age,data=df,type="Richards",param=3,
                    fixed=c("L0"=-1)) %>%
     expect_warning("Starting value for 'L0' is negative")
-  
+})
+
+
+test_that("makeGrowthFun() messages",{
+  expect_error(makeGrowthFun(type="Derek",param=1),
+               "'arg' should be one of")
+  expect_error(makeGrowthFun(type="von Bertalanffy",param=0),
+               "'param' must be between 1 and 19")
+  expect_error(makeGrowthFun(type="von Bertalanffy",param=20),
+               "'param' must be between 1 and 19")
+  expect_error(makeGrowthFun(type="Gompertz",param=0),
+               "'param' must be between 1 and 7")
+  expect_error(makeGrowthFun(type="Gompertz",param=8),
+               "'param' must be between 1 and 7")
+  expect_error(makeGrowthFun(type="logistic",param=0),
+               "'param' must be between 1 and 4")
+  expect_error(makeGrowthFun(type="logistic",param=5),
+               "'param' must be between 1 and 4")
+  expect_error(makeGrowthFun(type="Richards",param=0),
+               "'param' must be between 1 and 5")
+  expect_error(makeGrowthFun(type="Richards",param=6),
+               "'param' must be between 1 and 5")
+  expect_error(makeGrowthFun(type="Schnute",param=0),
+               "'param' can only be 1")
+  expect_error(makeGrowthFun(type="Schnute",param=2),
+               "'param' can only be 1")
+  expect_error(makeGrowthFun(type="Schnute-Richards",param=0),
+               "'param' can only be 1")
+  expect_error(makeGrowthFun(type="Schnute-Richards",param=2),
+               "'param' can only be 1")
 })
 
 
@@ -471,6 +500,139 @@ test_that("findGrowthStarts() Richards outputs",{
   expect_equal(tmp[["b3"]],0.5)
 })
 
+test_that("makeGrowthFun() von Bertalanffy output",{
+  ptmp <- list("1"=c("t","Linf","K","t0"),
+               "2"=c("t","Linf","K","L0"),
+               "3"=c("t","omega","K","t0"),
+               "4"=c("t","Linf","L0","omega"),
+               "5"=c("t","Linf","t0","t50"),
+               "6"=c("t","Linf","K","tr","Lr"),
+               "7"=c("t","L1","L3","K","t1","t3"),
+               "8"=c("t","L1","L2","L3","t1","t3"),
+               "9"=c("t","Linf","K1","K2","t0","a","b"),
+               "10"=c("t","Linf","K","t0","C","ts"),
+               "11"=c("t","Linf","K","t0","C","WP"),
+               "12"=c("t","Linf","Kpr","t0","ts","NGT"),
+               "13"=c("Lm","dt","Linf","K"),
+               "14"=c("Lm","dt","Linf","K"),
+               "15"=c("Lm","dt","Linf","K","b"),
+               "16"=c("Lm","dt","K","a","b"),
+               "17"=c("Lm","dt","K","a","b"),
+               "18"=c("Lm","dt","g1","g2","L1","L2"),
+               "19"=c("Lm","t1","t2","g1","g2","w","u","L1","L2"))
+  nnull <- list("1"=c(1:2),"2"=c(1:2),"3"=c(1:2),"4"=c(1:2),"5"=c(1:2),"6"=c(1:2),
+                "7"=c(1:2,5),"8"=c(1:2,5),
+                "9"=c(1:2),"10"=c(1:2),"11"=c(1:2),"12"=c(1:2),
+                "13"=c(1:3),"14"=c(1:3),"15"=c(1:3),"16"=c(1:3),"17"=c(1:3),
+                "18"=c(1:3,5),
+                "19"=c(1:4,8))
+  itmp <- names(ptmp)
+  for (i in itmp) {
+    #print(i) # uncomment if need to find where expectation is not met
+    tmp <- makeGrowthFun(type="von Bertalanffy",param=as.numeric(i))
+    expect_equal(mode(tmp),"function")
+    expect_equal(names(formals(tmp)),ptmp[[i]])
+    expect_true(all(sapply(formals(tmp),FUN=is.null)[-nnull[[i]]]))
+    tmp2 <- makeGrowthFun(type="von Bertalanffy",param=as.numeric(i),simple=TRUE)
+    expect_equal(mode(tmp2),"function")
+    expect_equal(names(formals(tmp2)),ptmp[[i]])
+    expect_true(all(!sapply(formals(tmp2),FUN=is.null)))       # none NULL
+    expect_message(makeGrowthFun(type="von Bertalanffy",param=as.numeric(i),msg=TRUE),
+                   paste("You have chosen paramaterization",i))
+  }
+})
+
+test_that("makeGrowthFun() Gompertz output",{
+  ptmp <- list("1"=c("t","Linf","gi","a1"),
+               "2"=c("t","Linf","gi","ti"),
+               "3"=c("t","L0","gi","a2"),
+               "4"=c("t","Linf","gi","a2"),
+               "5"=c("t","Linf","gi","t0"),
+               "6"=c("Lm","dt","Linf","gi"),
+               "7"=c("Lm","dt","Linf","gi"))
+  nnull <- list("1"=c(1:2),"2"=c(1:2),"3"=c(1:2),"4"=c(1:2),"5"=c(1:2),
+                "6"=c(1:3),"7"=c(1:3))
+  itmp <- names(ptmp)
+  for (i in itmp) {
+    #print(i) # uncomment if need to find where expectation is not met
+    tmp <- makeGrowthFun(type="Gompertz",param=as.numeric(i))
+    expect_equal(mode(tmp),"function")
+    expect_equal(names(formals(tmp)),ptmp[[i]])
+    expect_true(all(sapply(formals(tmp),FUN=is.null)[-nnull[[i]]]))
+    tmp2 <- makeGrowthFun(type="Gompertz",param=as.numeric(i),simple=TRUE)
+    expect_equal(mode(tmp2),"function")
+    expect_equal(names(formals(tmp2)),ptmp[[i]])
+    expect_true(all(!sapply(formals(tmp2),FUN=is.null)))       # none NULL
+    expect_message(makeGrowthFun(type="Gompertz",param=as.numeric(i),msg=TRUE),
+                   paste("You have chosen paramaterization",i))
+  }
+})
+
+test_that("makeGrowthFun() logistic output",{
+  ptmp <- list("1"=c("t","Linf","gninf","ti"),
+               "2"=c("t","Linf","gninf","a"),
+               "3"=c("t","Linf","gninf","L0"),
+               "4"=c("Lm","dLmax","L50","L95"))
+  nnull <- 1:2
+  itmp <- names(ptmp)
+  for (i in itmp) {
+    #print(i) # uncomment if need to find where expectation is not met
+    tmp <- makeGrowthFun(type="logistic",param=as.numeric(i))
+    expect_equal(mode(tmp),"function")
+    expect_equal(names(formals(tmp)),ptmp[[i]])
+    expect_true(all(sapply(formals(tmp),FUN=is.null)[-nnull]))
+    tmp2 <- makeGrowthFun(type="logistic",param=as.numeric(i),simple=TRUE)
+    expect_equal(mode(tmp2),"function")
+    expect_equal(names(formals(tmp2)),ptmp[[i]])
+    expect_true(all(!sapply(formals(tmp2),FUN=is.null)))       # none NULL
+    expect_message(makeGrowthFun(type="logistic",param=as.numeric(i),msg=TRUE),
+                   paste("You have chosen paramaterization",i))
+  }
+})
+
+test_that("makeGrowthFun() Richards output",{
+  ptmp <- list("1"=c("t","Linf","k","ti","b1"),
+               "2"=c("t","Linf","k","t0","b2"),
+               "3"=c("t","Linf","k","L0","b3"),
+               "4"=c("t","Linf","k","ti","b2"),
+               "5"=c("t","Linf","k","ti","b3"))
+  nnull <- 1:2
+  itmp <- names(ptmp)
+  for (i in itmp) {
+    #print(i) # uncomment if need to find where expectation is not met
+    tmp <- makeGrowthFun(type="Richards",param=as.numeric(i))
+    expect_equal(mode(tmp),"function")
+    expect_equal(names(formals(tmp)),ptmp[[i]])
+    expect_true(all(sapply(formals(tmp),FUN=is.null)[-nnull]))
+    tmp2 <- makeGrowthFun(type="Richards",param=as.numeric(i),simple=TRUE)
+    expect_equal(mode(tmp2),"function")
+    expect_equal(names(formals(tmp2)),ptmp[[i]])
+    expect_true(all(!sapply(formals(tmp2),FUN=is.null)))       # none NULL
+    expect_message(makeGrowthFun(type="Richards",param=as.numeric(i),msg=TRUE),
+                   paste("You have chosen paramaterization",i))
+  }
+})
+
+test_that("makeGrowthFun() Other Model output",{
+  ptmp <- list("Schnute"=c("t","L1","L3","a","b","t1","t3"),
+               "Schnute-Richards"=c("t","Linf","k","a","b","c"))
+  nnull <- list("Schnute"=c(1:2,6),
+                "Schnute-Richards"=c(1:2))
+  itmp <- names(ptmp)
+  for (i in seq_along(itmp)) {
+    #print(i) # uncomment if need to find where expectation is not met
+    tmp <- makeGrowthFun(type=itmp[i],param=1)
+    expect_equal(mode(tmp),"function")
+    expect_equal(names(formals(tmp)),ptmp[[i]])
+    expect_true(all(sapply(formals(tmp),FUN=is.null)[-nnull[[i]]]))
+    tmp2 <- makeGrowthFun(type=itmp[i],param=1,simple=TRUE)
+    expect_equal(mode(tmp2),"function")
+    expect_equal(names(formals(tmp2)),ptmp[[i]])
+    expect_true(all(!sapply(formals(tmp2),FUN=is.null)))       # none NULL
+    expect_message(makeGrowthFun(type=itmp[i],param=1,msg=TRUE),
+                   paste("You have chosen the",itmp[i],"growth function"))
+  }
+})
 
 ## Validate Results ----
 
@@ -592,4 +754,3 @@ test_that("findGrowthStarts() Richards results",{
   tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=5)
   expect_equal(tmp,c(Linf=Linf,k=k,ti=ti,b3=b3))
 })
-

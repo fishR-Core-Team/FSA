@@ -9,7 +9,7 @@
 * `GompertzFuns()`: Deprecated (replaced with `makeGrowthFun()`).
 * `growthFunShow()`: Deprecated (replaced with `showGrowthFun()`). But also fixed expression for QuinnDeriso3 parameterization of the Gompertz function (i.e., erroneous t* changed to t0 ... related to fixing [#113](https://github.com/fishR-Core-Team/FSA/issues/113)). Also changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization. Will be deleted in future versions.
 * `logisticFuns()`: Deprecated (replaced with `makeGrowthFun()`).
-* `makeGrowthFun()`: Added. This replaces `vbFuns()`, `GompertzFuns()`, `logisticFuns()`, and `RichardsFuns()`. Along the way, the following changes were made.
+* `makeGrowthFun()`: Added. This replaces `vbFuns()`, `GompertzFuns()`, `logisticFuns()`, `RichardsFuns()`, `Schnute()`, `SchnuteRichards()`. Along the way, the following changes were made.
   * Changed parameterizations from being named to being numbered. These are described in the article.
   * In Gompertz functions ... changed 1 parameter in "Original" to a1, changed a parameter to a2 in Ricker2 and QuinnDeriso1, and a to a2 in Ricker3 and QuinnDeriso2, to distinguish them when they are different.
   * In Richards functions ...

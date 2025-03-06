@@ -177,13 +177,13 @@ plot(vb1~ages,type="l",lwd=2,ylim=c(0,450),ylab="Length",xlab="Age")
 lines(gomp1~ages,lwd=2,col="red")
 lines(logi1~ages,lwd=2,col="blue")
 
-#===== Simple example with four cases of Schnute model
+#===== Simple example of four cases of Schnute model (note a,b choices)
 ages <- 0:15
 Schnute <- makeGrowthFun(type="Schnute")
-s1 <- Schnute(ages,case=1,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
-s2 <- Schnute(ages,case=2,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
-s3 <- Schnute(ages,case=3,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
-s4 <- Schnute(ages,case=4,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
+s1 <- Schnute(ages,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
+s2 <- Schnute(ages,L1=30,L3=400,a=0.3,b=0,t1=1,t3=15)
+s3 <- Schnute(ages,L1=30,L3=400,a=0,  b=1,t1=1,t3=15)
+s4 <- Schnute(ages,L1=30,L3=400,a=0,  b=0,t1=1,t3=15)
 
 plot(s1~ages,type="l",lwd=2,ylim=c(0,450),ylab="Length",xlab="Age")
 lines(s2~ages,lwd=2,col="red")
