@@ -1,9 +1,9 @@
 #' @title Creates an expression for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions, as well as the Schnute and Schnute-Richards growth functions.
 #' 
-#' @description Creates an expression for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions, as well as the Schnute and Schnute-Richards growth functions. The expression can be plotted with \code{plot=TRUE} to see the equation of the growth function.
+#' @description Creates an expression for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions, as well as the Schnute and Schnute-Richards growth functions. The expression can be plotted with \code{plot=TRUE} to see the equation of the growth function. The expressions can also be added to user plots as titles, annotations, etc.
 #'
 #' @inheritParams makeGrowthFun
-#' @param case A numeric that indicates the specific case of the Schnute function to use. See details.
+#' @param case A numeric that indicates the specific case of the Schnute function to use.
 #' @param plot A logical for whether the expression should be shown on a \dQuote{blank} plot. See examples.
 #' @param \dots Arguments for \code{plot}. In particular use \code{cex=} to make the expression larger and easier to read. See examples. 
 #'
@@ -12,7 +12,7 @@
 #' @seealso See \code{\link{makeGrowthFun}} to make functions that correspond to these expressions.
 #' 
 #' @examples
-#' #===== The expression 
+#' #===== The expression (default is type="von Bertalanffy")
 #' showGrowthFun()
 #' showGrowthFun(pname="Typical")
 #' 
@@ -24,7 +24,7 @@
 #' showGrowthFun(type="Richards",param=3,plot=TRUE,cex=1.5)
 #' showGrowthFun(type="Schnute",case=2,plot=TRUE,cex=1.5)
 #' 
-#' #===== Put multiple expressions in one plot
+#' #===== Multiple expressions in one plot
 #' op <- par(mar=c(0.1,0.1,0.1,0.1))
 #' plot(0,type="n",xlab="",ylab="",xlim=c(0,1),ylim=c(0,3),xaxt="n",yaxt="n")
 #' text(0,2.5,"Original:",pos=4)
@@ -38,15 +38,14 @@
 #' #===== Put expression in title or otherwise on the plot
 #' # Make a von Bertalanffy function
 #' vb1 <- makeGrowthFun()
-#' # make vector of ages over which to plot
-#' ages <- 1:20
-#' # Get and save the expression of the von Bertalanffy growth function
+#'  # Get and save the expression of the von Bertalanffy growth function
 #' tmp <- showGrowthFun()
 #' 
-#' # Use expression as title on plot
-#' plot(vb1(ages,Linf=20,K=0.3,t0=-0.2)~ages,type="b",pch=19,main=tmp,ylab="Length")
+#' # Make plot and put expression in plot title
+#' ages <- 1:20
+#' plot(vb1(ages,Linf=20,K=0.3,t0=-0.2)~ages,type="b",pch=19,ylab="Length",main=tmp)
 #' 
-#' # Put expression in the plot body
+#' # Put expression in plot body (as demo)
 #' text(15,10,tmp)
 #' 
 #' @rdname showGrowthFun
@@ -109,13 +108,13 @@ iGrowthModelExpression <- function(type,param) {
     "vonBertalanffy9" = { NULL },
     "vonBertalanffy10"= {
       expression(atop(E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-S(t)+S(t[0])},")"),
-                      plain("where" )~S(t)==bgroup("(",frac(C*K,2*~pi),")")*~sin(2*pi*(t-t[s])))) },
+                      plain("where" )~S(t)==frac(C*K,2*pi)*~sin(2*pi*(t-t[s])))) },
     "vonBertalanffy11"= {
       expression(atop(E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-R(t)+R(t[0])},")"),
-                      plain("where" )~R(t)==bgroup("(",frac(C*K,2*~pi),")")*~sin(2*pi*(t-WP+0.5)))) },
+                      plain("where" )~R(t)==frac(C*K,2*pi)*~sin(2*pi*(t-WP+0.5)))) },
     "vonBertalanffy12"= {
       expression(atop(E(L[t])==L[infinity]*bgroup("(",1-e^{-Kpr*(tpr~-~t[0])-V(tpr)+V(t[0])},")"),
-                      plain("where" )~V(t)==bgroup("(",frac(Kpr(1-NGT),2*~pi),")")*~sin(frac(2*pi,1-NGT)*(t-t[s])))) },
+                      plain("where" )~V(t)==frac(Kpr(1-NGT),2*pi)*~sin~bgroup("(",frac(2*pi,1-NGT*(t-t[s])),")"))) },
     "vonBertalanffy13"= {
       expression(E(L[r]-L[m])==(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")")) },
     "vonBertalanffy14"= {

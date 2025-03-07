@@ -15,13 +15,13 @@ showGrowthFun(
 )
 }
 \arguments{
-\item{type}{A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards}, \dQuote{Schnute}, \dQuote{Schnute-Richards}) that indicates the type of growth function to show.}
+\item{type}{A single string (i.e., one of \dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards}, \dQuote{Schnute}, \dQuote{Schnute-Richards}) that indicates the type of growth function to show.}
 
-\item{param}{A single numeric that indicates the specific parameterization of the growth function. See details.}
+\item{param}{A single numeric that indicates the specific parameterization of the growth function. Will be ignored if \code{pname} is non-\code{NULL}. See details.}
 
 \item{pname}{A single character that indicates the specific parameterization of the growth function. If \code{NULL} then \code{param} will be used. See details.}
 
-\item{case}{A numeric that indicates the specific case of the Schnute function to use. See details.}
+\item{case}{A numeric that indicates the specific case of the Schnute function to use.}
 
 \item{plot}{A logical for whether the expression should be shown on a \dQuote{blank} plot. See examples.}
 
@@ -31,10 +31,10 @@ showGrowthFun(
 An expression representing the equation of the growth function given in \code{type} and \code{param}.
 }
 \description{
-Creates an expression for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions, as well as the Schnute and Schnute-Richards growth functions. The expression can be plotted with \code{plot=TRUE} to see the equation of the growth function.
+Creates an expression for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions, as well as the Schnute and Schnute-Richards growth functions. The expression can be plotted with \code{plot=TRUE} to see the equation of the growth function. The expressions can also be added to user plots as titles, annotations, etc.
 }
 \examples{
-#===== The expression 
+#===== The expression (default is type="von Bertalanffy")
 showGrowthFun()
 showGrowthFun(pname="Typical")
 
@@ -46,7 +46,7 @@ showGrowthFun(plot=TRUE,cex=2)
 showGrowthFun(type="Richards",param=3,plot=TRUE,cex=1.5)
 showGrowthFun(type="Schnute",case=2,plot=TRUE,cex=1.5)
 
-#===== Put multiple expressions in one plot
+#===== Multiple expressions in one plot
 op <- par(mar=c(0.1,0.1,0.1,0.1))
 plot(0,type="n",xlab="",ylab="",xlim=c(0,1),ylim=c(0,3),xaxt="n",yaxt="n")
 text(0,2.5,"Original:",pos=4)
@@ -60,15 +60,14 @@ par(op)
 #===== Put expression in title or otherwise on the plot
 # Make a von Bertalanffy function
 vb1 <- makeGrowthFun()
-# make vector of ages over which to plot
-ages <- 1:20
-# Get and save the expression of the von Bertalanffy growth function
+ # Get and save the expression of the von Bertalanffy growth function
 tmp <- showGrowthFun()
 
-# Use expression as title on plot
-plot(vb1(ages,Linf=20,K=0.3,t0=-0.2)~ages,type="b",pch=19,main=tmp,ylab="Length")
+# Make plot and put expression in plot title
+ages <- 1:20
+plot(vb1(ages,Linf=20,K=0.3,t0=-0.2)~ages,type="b",pch=19,ylab="Length",main=tmp)
 
-# Put expression in the plot body
+# Put expression in plot body (as demo)
 text(15,10,tmp)
 
 }

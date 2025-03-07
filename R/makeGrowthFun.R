@@ -2,140 +2,141 @@
 #' 
 #' @title Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, logistic, Richards, Schnute, and Schnute-Richards growth functions.
 #'
-#' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, logistic, Richards, and Schnute-Richards growth functions. Use \code{showGrowthFun} to see the equations for each growth function.
+#' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, logistic, Richards, and Schnute-Richards growth functions. The resulting function can be used to calculate length(s) from age(s) and specific growth function parameters, which is useful for model-fitting and plotting. Equations for each parameterization are shown in the details and with \code{\link{showGrowthFun}} to see the equations for each growth function.
 #'
-#' @param type A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards}, \dQuote{Schnute}, \dQuote{Schnute-Richards}) that indicates the type of growth function to show.
-#' @param param A single numeric that indicates the specific parameterization of the growth function. See details.
+#' @param type A single string (i.e., one of \dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards}, \dQuote{Schnute}, \dQuote{Schnute-Richards}) that indicates the type of growth function to show.
+#' @param param A single numeric that indicates the specific parameterization of the growth function. Will be ignored if \code{pname} is non-\code{NULL}. See details.
 #' @param pname A single character that indicates the specific parameterization of the growth function. If \code{NULL} then \code{param} will be used. See details.
-#' @param simple A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}).
-#' @param msg A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}; DEFAULT) or not (\code{=FALSE}).
+#' @param simple A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}). See examples.
+#' @param msg A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE; DEFAULT}).
 #' 
-#' @return Returns a function that can be used to predict fish size given a vector of ages and values for the growth function parameters and, in some parameterizations, values for constants. The result should be saved to an object that is then the function name. When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}). If \code{simple=FALSE} (DEFAULT), then the values for all parameters may be included as a vector in the first parameter argument (but in the same order). Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}). If \code{simple=TRUE}, then all parameters and constants must be declared individually. The resulting function is somewhat easier to read when \code{simple=TRUE}, but is less general for some applications.
-#' 
-#' An expression of the equation for each growth function may be created with \code{showGrowthFun} using the same \code{type=} and \code{param} arguments.
-#'
 #' @details
-#' The von Bertalanffy parameterizations for simple length and annual age data are
+#' The \strong{von Bertalanffy} parameterizations for length and \strong{annual} age data are (synonyms are "Beverton-Holt" for "Traditional", "von Bertalanffy" for "Original", "Ogle" for "Ogle-Isermann", and "Laslett" or "Polacheck" for "Double"):
 #' 
 #' \tabular{ccl}{
-#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
-#' 1  \tab \eqn{E(L_t)=L_\infty\left(1-e^{-K(t-t_0)}\right)} \tab Beverton and Holt \cr
-#' 2  \tab \eqn{E(L_t)=L_\infty - (L_\infty-L_0)~e^{-Kt}} \tab von Bertalanffy \cr
-#' 3  \tab \eqn{E(L_t)=\frac{\omega}{K}\left(1-e^{-K(t-t_0)}\right)} \tab Gallucci and Quinn \cr
-#' 4  \tab \eqn{E(L_t)=L_\infty - (L_\infty-L_0)~e^{-\frac{\omega}{L_\infty}t}} \tab Mooij \cr
-#' 5  \tab \eqn{E(L_t)=L_\infty\left(1-e^{-log(2)\frac{t-t_0}{t_{50}-t_0}}\right)} \tab Weisberg \cr
-#' 6  \tab \eqn{E(L_t)=L_r + (L_\infty-L_r)~e^{-e^{-K(t-t_r)}}} \tab Ogle and Isermann \cr
-#' 7  \tab \eqn{E(L_t)=L_1+(L_3-L_1)\frac{1-e^{-K(t-t_1)}}{1-e^{-K(t_3-t_1)}}} \tab Schnute \cr
-#' 8  \tab \eqn{E(L_t)=L_1+(L_3-L_1)\frac{1-r^{2\frac{t-t_1}{t_3-t_1}}}{1-r^2}} \tab Francis \cr
-#'    \tab with \eqn{r=\frac{L_3-L_2}{L_2-L_1}} \tab \cr
-#' 9  \tab \eqn{E(L_t)=L_\infty\frac{\left(1-e^{-K_2(t-t_0)}\right)\left(1+e^{-b(t-t_0-a)}\right)}{\left(1+e^{ab}\right)^{-\frac{K_2K_1}{b}}}} \tab Laslett and Polacheck \cr
+#' \strong{param} \tab \strong{pname} \tab \strong{Equation} \cr
+#' 1  \tab Traditional \tab \eqn{E(L_t)=L_\infty\left(1-e^{-K(t-t_0)}\right)} \cr
+#' 2  \tab Original \tab \eqn{E(L_t)=L_\infty - (L_\infty-L_0)~e^{-Kt}} \cr
+#' 3  \tab Gallucci-Quinn \tab \eqn{E(L_t)=\frac{\omega}{K}\left(1-e^{-K(t-t_0)}\right)} \cr
+#' 4  \tab Mooij  \tab \eqn{E(L_t)=L_\infty - (L_\infty-L_0)~e^{-\frac{\omega}{L_\infty}t}} \cr
+#' 5  \tab Weisberg \tab \eqn{E(L_t)=L_\infty\left(1-e^{-log(2)\frac{t-t_0}{t_{50}-t_0}}\right)} \cr
+#' 6  \tab Ogle-Isermann \tab \eqn{E(L_t)=L_r + (L_\infty-L_r)~e^{-e^{-K(t-t_r)}}} \cr
+#' 7  \tab Schnute\tab \eqn{E(L_t)=L_1+(L_3-L_1)\frac{1-e^{-K(t-t_1)}}{1-e^{-K(t_3-t_1)}}}  \cr
+#' 8  \tab Francis\tab \eqn{E(L_t)=L_1+(L_3-L_1)\frac{1-r^{2\frac{t-t_1}{t_3-t_1}}}{1-r^2}}  \cr
+#'    \tab  \tab where \eqn{r=\frac{L_3-L_2}{L_2-L_1}} \cr
+#' 9  \tab Double \tab \eqn{E(L_t)=L_\infty\frac{\left(1-e^{-K_2(t-t_0)}\right)\left(1+e^{-b(t-t_0-a)}\right)}{\left(1+e^{ab}\right)^{-\frac{K_2K_1}{b}}}} \cr
 #' }
 #' 
-#' The von Bertalanffy parameterizations for simple length and seasonal age data are
+#' The \strong{von Bertalanffy} parameterizations for length and \strong{seasonal} age data are (synonyms are "Somers1" for "Somers"):
 #' 
 #' \tabular{ccl}{
-#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
-#' 10 \tab \eqn{L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi \text{sin}(2\pi(t-t_s))}+\frac{CK}{2\pi \text{sin}(2\pi(t_0-t_s))}}\right)} \tab Somers \cr
-#' 11 \tab \eqn{L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi \text{sin}(2\pi(t-WP+0.5))}+\frac{CK}{2\pi \text{sin}(2\pi(t_0-WP+0.5))}}\right)} \tab Somers (alt) \cr
-#' 12 \tab \eqn{L_\infty(1-e^{-q}} \tab Pauly \cr
-#'    \tab with \eqn{q=K'(t'-t_0) + \frac{K'(1-NGT)}{2\pi}\text{sin}(\frac{2\pi}{(1-NGT)(t'-t_s)}) - \frac{K'(1-NGT)}{2\pi}\text{sin}(\frac{2\pi}{(1-NGT)(t_0-t_s)})} \tab \cr
+#' \strong{param} \tab \strong{pname} \tab \strong{Equation} \cr
+#' 10 \tab Somers \tab \eqn{E(L_t)=L_\infty\left(1-e^{-K(t-t_0)-S(t)-S(t_0)}\right)} \cr
+#'    \tab \tab where \eqn{S(t)=\frac{CK}{2\pi \text{sin}(2\pi(t-t_s))}} \cr
+#' 11 \tab Somers2 \tab \eqn{E(L_t)=L_\infty\left(1-e^{-K(t-t_0)-R(t)+R(t_0)}\right)} \cr
+#'    \tab \tab where \eqn{R(t)=\frac{CK}{2\pi \text{sin}(2\pi(t-WP+0.5))}} \cr
+#' 12 \tab Pauly \tab \eqn{E(L_t)=L_\infty\left(1-e^{-K'(t'-t_0)-V(t')+V(t_0)}\right)} \cr
+#'    \tab \tab where \eqn{V(t)=\frac{K'(1-NGT)}{2\pi}\text{sin}\left(\frac{2\pi}{(1-NGT)(t-t_s)}\right)} \cr
 #' }
 #' 
-#' The von Bertalanffy parameterizations for tag-recapture data are
+#' The \strong{von Bertalanffy} parameterizations for \strong{tag-recapture} data are (synonyms are "Fabens1" for "Fabens" and "Wang1" for "Wang"):
 #' 
 #' \tabular{ccl}{
-#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
-#' 13 \tab \eqn{E(L_r-L_m)=(L_\infty-L_m)\left(1-e^{-K\delta t}\right)} \tab Fabens \cr
-#' 14 \tab \eqn{E(L_r)=L_m + (L_\infty-L_m)\left(1-e^{-K\delta t}\right)} \tab Fabens (alt)\cr
-#' 15 \tab \eqn{E(L_r-L_m)=(L_\infty+\beta(\bar{L}_m-L_m)-L_m)\left(1-e^{-K\delta t}\right)} \tab Wang \cr
-#' 16 \tab \eqn{E(L_r-L_m)=(\alpha+\beta L_m\left(1-e^{-K\delta t}\right)} \tab Wang 2 \cr
-#' 17 \tab \eqn{E(L_r)=L_m+(\alpha+\beta L_m\left(1-e^{-K\delta t}\right)} \tab Wang 2 (alt)\cr
-#' 18 \tab \eqn{E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1+L_2}\right)^{dt}\right]} \tab Francis \cr
+#' \strong{param} \tab \strong{pname} \tab \strong{Equation} \cr
+#' 13 \tab Fabens \tab \eqn{E(L_r-L_m)=(L_\infty-L_m)\left(1-e^{-K\delta t}\right)} \cr
+#' 14 \tab Fabens2 \tab \eqn{E(L_r)=L_m + (L_\infty-L_m)\left(1-e^{-K\delta t}\right)} \cr
+#' 15 \tab Wang \tab \eqn{E(L_r-L_m)=(L_\infty+\beta(\bar{L}_m-L_m)-L_m)\left(1-e^{-K\delta t}\right)} \cr
+#' 16 \tab Wang2 \tab \eqn{E(L_r-L_m)=(\alpha+\beta L_m\left(1-e^{-K\delta t}\right)} \cr
+#' 17 \tab Wang3 \tab \eqn{E(L_r)=L_m+(\alpha+\beta L_m\left(1-e^{-K\delta t}\right)} \cr
+#' 18 \tab Francis2 \tab \eqn{E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1+L_2}\right)^{dt}\right]} \cr
 #' }
 #' 
-#' The von Bertalanffy parameterizations for seasonal tag-recapture data are
+#' The \strong{von Bertalanffy} parameterizations for \strong{seasonal tag-recapture} data are:
 #' 
 #' \tabular{ccl}{
-#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
-#' 19 \tab \eqn{E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1+L_2}\right)^{t_2-t_1+S_2-S_1}\right]} \tab Francis \cr
-#'    \tab with \eqn{S_1=u\text{sin}\left(\frac{2\pi(t_1-w)}{2\pi}\right)} \tab \cr
-#'    \tab and \eqn{S_2=u\text{sin}\left(\frac{2\pi(t_2-w)}{2\pi}\right)} \tab \cr
+#' \strong{param} \tab \strong{pname} \tab \strong{Equation} \cr
+#' 19 \tab Francis3 \tab \eqn{E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1+L_2}\right)^{t_2-t_1+S(t_2)-S(t_1)}\right]} \cr
+#'    \tab \tab where \eqn{S(t)=u\text{sin}\left(\frac{2\pi(t-w)}{2\pi}\right)} \cr
 #' }
 #' 
-#' The Gompertz parameterizations for simple length and annual age data are
+#' The \strong{Gompertz} parameterizations for length and \strong{annual} age data are (synonums are "Gompertz" for "Original", "Quinn-Deriso1" for "Ricker2", and "Quinn-Deriso2" for "Ricker3"):
 #' 
 #' \tabular{ccl}{
-#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
-#' 1  \tab \eqn{E(L_t)=L_\infty e^{-e^{a_1-g_it}}} \tab Gompertz \cr
-#' 2  \tab \eqn{E(L_t)=L_\infty e^{-e^{-g_i(t-t_i)}}} \tab  \cr
-#' 3  \tab \eqn{E(L_t)=L_0 e^{a_2(1-e^{-g_it})}} \tab  \cr
-#' 4  \tab \eqn{E(L_t)=L_\infty e^{-a_2e^{-g_it}}} \tab  \cr
-#' 5  \tab \eqn{E(L_t)=L_\infty e^{-\frac{1}{g_i}e^{-g_i(t-t_0)}}} \tab  \cr
+#' \strong{param} \tab \strong{pname} \tab \strong{Equation} \cr
+#' 1  \tab Original \tab \eqn{E(L_t)=L_\infty e^{-e^{a_1-g_it}}} \cr
+#' 2  \tab Ricker1 \tab \eqn{E(L_t)=L_\infty e^{-e^{-g_i(t-t_i)}}} \cr
+#' 3  \tab Ricker2 \tab \eqn{E(L_t)=L_0 e^{a_2(1-e^{-g_it})}} \cr
+#' 4  \tab Ricker3 \tab \eqn{E(L_t)=L_\infty e^{-a_2e^{-g_it}}} \cr
+#' 5  \tab Quinn-Deriso3 \tab \eqn{E(L_t)=L_\infty e^{-\frac{1}{g_i}e^{-g_i(t-t_0)}}} \cr
 #' }
 #' 
-#' The parameterizations and parameters for the Gompertz function are varied and confusing in the literature. I have attempted to use a uniform set of parameters in these functions, but that makes a direct comparison to the literature difficult. Common sources for Gompertz models are listed in the references below. I make some comments here to aid comparisons to the literature.
+#' The parameterizations and parameters for the Gompertz function are varied and confusing in the literature (common sources for Gompertz parameterizations used in fisheries are listed in the references below). To address this confusion a uniform set of parameters is used here, which makes a direct comparison to the literature difficult. Some comments to aid comparisons to the literature are below.
 #' 
 #' \itemize{
-#'  \item Within FSA, \eqn{L_0} is the mean length at age 0, \eqn{L_\infty} is the mean asymptotic length, \eqn{t_i} is the age at the inflection point, \eqn{g_i} is the instantaneous growth rate at the inflection point, \eqn{t_0} is a the hypothetical age at a mean length of 0, and \eqn{a_1} and \eqn{a_2} are nuisance parameters with no real-world interpretations.
-#' The function in Ricker (1975)[p. 232] is the same as the third parameterization where \eqn{a_2} here is \eqn{G} there and \eqn{g_i} here is \eqn{g}. Also their \eqn{w} is \eqn{L} here.
+#'  \item Within FSA, \eqn{L_0} is the mean length at age 0, \eqn{L_\infty} is the mean asymptotic length, \eqn{t_i} is the age at the inflection point, \eqn{g_i} is the instantaneous growth rate at the inflection point, and \eqn{a_1} and \eqn{a_2} are nuisance parameters with no real-world interpretations. In addition, it is implied that \eqn{t_0} is the the hypothetical age at a mean length of 0 as it is in the von Bertalanffy functions, but the Gompertz function has a horizontal asymptote at length=0 such that there is no "x-intercept" which suggests that that definition of \eqn{t_0} is not correct.
 #'  \item In the Ricker (1979)[p. 705] functions (parameterizations 2-4), \eqn{a} here is \eqn{k} there and \eqn{g_i} here is \eqn{g} there. Also note that their \eqn{w} is \eqn{L} here. In the Ricker (1979) functions as presented in Campana and Jones (1992), \eqn{a} here is \eqn{k} there and \eqn{g_i} here is \eqn{G} there. Also note that their \eqn{X} is \eqn{L} here.
-#'  \item In the Quinn and Deriso (1999) functions (parameterizations 3-5), \eqn{a} here is \eqn{\frac{\lambda}{K}} there and the \eqn{g_i} here is \eqn{K} there. Also note that their \eqn{Y} is \eqn{L} here.
+#'  \item The function in Ricker (1975)[p. 232] is the same as the third parameterization where \eqn{a_2} here is \eqn{G} there and \eqn{g_i} here is \eqn{g}. Also their \eqn{w} is \eqn{L} here.
+#'  \item In the Quinn and Deriso (1999) functions (parameterizations 3-5), \eqn{a} here is \eqn{\frac{\lambda}{K}} there and \eqn{g_i} here is \eqn{K} there. Also note that their \eqn{Y} is \eqn{L} here.
 #'  \item The function in Quist \emph{et al.} (2012)[p. 714] is the same as parameterization 2 where \eqn{g_i} here is \eqn{G} there and \eqn{t_i} here is \eqn{t_0} there.
 #' \item The function in Katsanevakis and Maravelias (2008) is the same as parameterization 2 where \eqn{g_i} here is \eqn{k_2} there and \eqn{t_i} here is \eqn{t_2} there.
 #' }
 #' 
-#' The Gompertz parameterizations for tag-recapture data are
+#' The \strong{Gompertz} parameterizations for \strong{tag-recapture} data are (synonyms are "Troynikov1" for "Troynikov"):
 #' 
 #' \tabular{ccl}{
-#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
-#' 6  \tab \eqn{E(L_r-L_m)=L_{\infty}\left[\frac{L_m}{L_{\infty}}\right]^{e^{-g_i\Delta t}}-L_m} \tab Troynikov \cr
-#' 7  \tab \eqn{E(L_r)=L_{\infty}\left[\frac{L_m}{L_{\infty}}\right]^{e^{-g_i\Delta t}}} \tab Troynikov (alt) \cr
+#' \strong{param} \tab \strong{pname} \tab \strong{Equation} \cr
+#' 6  \tab Troynikov \tab \eqn{E(L_r-L_m)=L_{\infty}\left[\frac{L_m}{L_{\infty}}\right]^{e^{-g_i\Delta t}}-L_m} \cr
+#' 7  \tab Troynikov2 \tab \eqn{E(L_r)=L_{\infty}\left[\frac{L_m}{L_{\infty}}\right]^{e^{-g_i\Delta t}}} \cr
 #' }
 #' 
-#' The logistic parameterizations for simple length and annual age data are
+#' The \strong{logistic} parameterizations for length and \strong{annual} age data are:
 #' 
 #' \tabular{ccl}{
-#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
-#' 1  \tab \eqn{E(L_t)=\frac{L_\infty}{1+e^{-g_{-\infty}(t-t_i)}}} \tab Campana and Jones \cr
-#' 2  \tab \eqn{E(L_t)=\frac{L_\infty}{1+ae^{-g_{-\infty}t}}} \tab Campana and Jones \cr
-#' 3  \tab \eqn{E(L_t)=\frac{L_0L_\infty}{L_0+(L_\infty - L_0)e^{-g_{-\infty}t}}} \tab Karkach \cr
+#' \strong{param} \tab \strong{pname} \tab \strong{Equation} \cr
+#' 1  \tab Campana-Jones1 \tab \eqn{E(L_t)=\frac{L_\infty}{1+e^{-g_{-\infty}(t-t_i)}}} \cr
+#' 2  \tab Campana-Jones2 \tab \eqn{E(L_t)=\frac{L_\infty}{1+ae^{-g_{-\infty}t}}} \cr
+#' 3  \tab Karkach \tab \eqn{E(L_t)=\frac{L_0L_\infty}{L_0+(L_\infty - L_0)e^{-g_{-\infty}t}}} \cr
 #' }
 #' 
 #' The logistic parameterizations for tag-recapture data are
 #' 
 #' \tabular{ccl}{
-#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
-#' 4  \tab \eqn{E(L_r-L_m)=\frac{\Delta L_{max}}{1+e^{log(19)/frac{L_m-L_{50}}{L_{95}-L_{50}}}}} \tab Haddon \cr
+#' \strong{param} \tab \strong{pname} \tab \strong{Equation} \cr
+#' 4  \tab Haddon \tab \eqn{E(L_r-L_m)=\frac{\Delta L_{max}}{1+e^{log(19)/frac{L_m-L_{50}}{L_{95}-L_{50}}}}} \cr
 #' }
 #' 
-#' The Richards parameterizations for simple length and annual age data are
+#' The \strong{Richards} parameterizations for length and \strong{annual} age data are
 #' 
 #' \tabular{ccl}{
-#' \strong{param} \tab \strong{Equation} \tab \strong{Note} \cr
-#' 1  \tab \eqn{E(L_t)=\frac{L_\infty}{\left[1+b_1e^{-k(t-t_i)}\right]^\frac{1}{b_1}}} \tab Tjorve and Tjorve (2010) Eqn 5 \cr
-#' 2  \tab \eqn{E(L_t)=\frac{L_\infty}{\left(1+e^{-k(t-t_0)}\right)^{-b_2}}} \tab Tjorve and Tjorve (2010) Eqn 3(alt) \cr
-#' 3  \tab \eqn{E(L_t)=L_\infty\left[1+\left(\left(\frac{L_0}{L_\infty}\right)^{1-b_3}-1\right)e^{-kt}\right]^\frac{1}{1-b_3}} \tab Tjorve and Tjorve (2010) Eqn 7 \cr
-#' 4  \tab \eqn{E(L_t)=L_\infty\left[1-\frac{1}{b_2}e^{-k(t-t_i)}\right]^{b_2}} \tab Tjorve and Tjorve (2010) Eqn 4 \cr
-#' 5  \tab \eqn{E(L_t)=L_\infty\left[1+(b_3-1)e^{-k(t-t_i)}\right]^\frac{1}{1-b_3}} \tab Tjorve and Tjorve (2010) Eqn 6 \cr
+#' \strong{param} \tab \strong{pname} \tab \strong{Equation} \cr
+#' 1  \tab Tjorve5 \tab \eqn{E(L_t)=\frac{L_\infty}{\left[1+b_1e^{-k(t-t_i)}\right]^\frac{1}{b_1}}} \cr
+#' 2  \tab Tjorve3 \tab \eqn{E(L_t)=\frac{L_\infty}{\left(1+e^{-k(t-t_0)}\right)^{-b_2}}} \cr
+#' 3  \tab \tab Tjorve7 \eqn{E(L_t)=L_\infty\left[1+\left(\left(\frac{L_0}{L_\infty}\right)^{1-b_3}-1\right)e^{-kt}\right]^\frac{1}{1-b_3}} \cr
+#' 4  \tab Tjorve4 \tab \eqn{E(L_t)=L_\infty\left[1-\frac{1}{b_2}e^{-k(t-t_i)}\right]^{b_2}} \cr
+#' 5  \tab Tjorve6 \tab \eqn{E(L_t)=L_\infty\left[1+(b_3-1)e^{-k(t-t_i)}\right]^\frac{1}{1-b_3}} \cr
 #' }
 #' 
-#' Only 4-parameter parameterizations from Tjorve and Tjorve (2010) that seemed useful for modeling fish growth are provided here. In Tjorve and Tjorve (2010) their \eqn{A}, \eqn{k}, \eqn{W_0}, and \eqn{T_i} are \eqn{L_\infty}, \eqn{k}, \eqn{L_0}, and \eqn{t_i}, and their \eqn{d} is \eqn{b_1}, \eqn{b_2}, and \eqn{b_3}, respectively, here (in FSA).
+#' Only 4-parameter parameterizations from Tjorve and Tjorve (2010) that seemed useful for modeling fish growth are provided here. In Tjorve and Tjorve (2010) their \eqn{A}, \eqn{k}, \eqn{W_0}, and \eqn{T_i} are \eqn{L_\infty}, \eqn{k}, \eqn{L_0}, and \eqn{t_i}, and their \eqn{d} is \eqn{b_1}, \eqn{b_2}, and \eqn{b_3}, respectively, here (in FSA). The number at the end of respect \code{pname} corresponds to the equation number in Tjorve and Tjorve (2010).
 #'
 #' The four cases for the Schnute model for simple length and annual age data are
 #' 
-#' \tabular{cl}{
-#' \strong{Case} \tab \strong{Equation} \cr
-#' 1 \tab \eqn{E(L_t)=\left[L^b_1+(L^b_3-L^b_1)\frac{1-e^{-a(t-t_1)}}{1-e^{-a(t_3-t_1)}}\right]^{\frac{1}{b}}} \cr
-#' 2 \tab \eqn{E(L_t)=L_1e^{log\left(\frac{L_3}{L_1}\right)\frac{1-e^{-a(t-t_1)}}{1-e^{-a(t_3-t_1)}}}} \cr
-#' 3 \tab \eqn{E(L_t)=\left[L^b_1+(L^b_3-L^b_1)\frac{t-t_1}{t_3-t_1}\right]^{\frac{1}{b}}} \cr
-#' 4 \tab \eqn{E(L_t)=L_1e^{log\left(\frac{L_3}{L_1}\right)\frac{t-t_1}{t_3-t_1}}} \cr
+#' \tabular{ccl}{
+#' \strong{Case} \tab \strong{Situation} \tab \strong{Equation} \cr
+#' 1 \tab \eqn{a\neq 0}, \eqn{b\neq 0} \tab \eqn{E(L_t)=\left[L^b_1+(L^b_3-L^b_1)\frac{1-e^{-a(t-t_1)}}{1-e^{-a(t_3-t_1)}}\right]^{\frac{1}{b}}} \cr
+#' 2 \tab \eqn{a\neq 0}, \eqn{b=0} \tab \eqn{E(L_t)=L_1e^{log\left(\frac{L_3}{L_1}\right)\frac{1-e^{-a(t-t_1)}}{1-e^{-a(t_3-t_1)}}}} \cr
+#' 3 \tab \eqn{a=0}, \eqn{b\neq 0} \tab \eqn{E(L_t)=\left[L^b_1+(L^b_3-L^b_1)\frac{t-t_1}{t_3-t_1}\right]^{\frac{1}{b}}} \cr
+#' 4 \tab \eqn{a=0}, \eqn{b=0} \tab \eqn{E(L_t)=L_1e^{log\left(\frac{L_3}{L_1}\right)\frac{t-t_1}{t_3-t_1}}} \cr
 #' } 
 #' 
 #' The Schnute-Richards model for simple length and annual age data is \eqn{E(L_t)=L_\infty\left(1-ae^{-kt^c}\right)^{1/b}}. Note that this function is slightly modified (a \eqn{+} was changed to a \eqn{-} so that \eqn{a} is positive) from the original in Schnute and Richards (1990).
 #'
-#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
-#'
+#' @return Returns a function that can be used to predict fish size given a vector of ages and values for the growth function parameters and, in some parameterizations, values for constants. The result should be saved to an object that is then the function name. When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}). If \code{simple=FALSE} (DEFAULT), then the values for all parameters may be included as a vector in the first parameter argument (but in the same order). Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}). If \code{simple=TRUE}, then all parameters and constants must be declared individually. The resulting function is somewhat easier to read when \code{simple=TRUE}, but is less general for some applications.
+#' 
+#' @seealso \code{\link{showGrowthFun}} to create an expression of the equation and \code{\link{showGrowthFun}} to develop starting values for a growth function using the same \code{type} and \code{param} arguments.
+#' 
 #' @section IFAR Chapter: 12-Individual Growth.
+#'
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
 #' @references Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
@@ -1039,21 +1040,23 @@ msgsGrow <- c(msgsGrow,"SchnuteRichards"=msg_SchnuteRichards)
 iHndlGrowthModelParams <- function(type,param,pname,SGF=FALSE) {
   # Make a list of possible parameter names
   param_list <- list(
-    "von Bertalanffy"=data.frame(pnum=c(1,1,1,2,2,2,3,4,5,6,6,7,8,9,9,10,11,12,
-                                        13,14,15,16,17,18,19),
+    "von Bertalanffy"=data.frame(pnum=c(1,1,1,2,2,2,3,4,5,6,6,7,8,9,9,9,9,10,10,
+                                        11,12,13,13,14,15,15,16,17,18,19),
                                  pnms=c("typical","Typical","Beverton-Holt",
                                         "original","Original","von Bertalanffy",
                                         "Gallucci-Quinn","Mooij","Weisberg",
                                         "Ogle-Isermann","Ogle",
-                                        "Schnute","Francis","Laslett","Polacheck",
-                                        "Somers","Somers2","Pauly",
-                                        "Fabens","Fabens2","Wang","Wang2","Wang3",
+                                        "Schnute","Francis",
+                                        "double","Double","Laslett","Polacheck",
+                                        "Somers","Somers1","Somers2","Pauly",
+                                        "Fabens","Fabens1","Fabens2",
+                                        "Wang","Wang1","Wang2","Wang3",
                                         "Francis2","Francis3")),
-    "Gompertz"=data.frame(pnum=c(1,1,1,2,3,3,4,4,5,6,7),
+    "Gompertz"=data.frame(pnum=c(1,1,1,2,3,3,4,4,5,6,6,7),
                           pnms=c("original","Original","Gompertz",
                                  "Ricker1","Ricker2","Quinn-Deriso1",
                                  "Ricker3","Quinn-Deriso2","Quinn-Deriso3",
-                                 "Troynikov1","Troynikov2")),
+                                 "Troynikov","Troynikov1","Troynikov2")),
     "logistic"=data.frame(pnum=c(1,2,3,4),
                           pnms=c("Campana-Jones1","Campana-Jones2","Karkach","Haddon")),
     "Richards"=data.frame(pnum=c(1,2,3,4,5),

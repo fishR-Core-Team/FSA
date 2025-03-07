@@ -4,8 +4,11 @@
 #' 
 #' @details This function attempts to find reasonable starting values for a variety of parameterizations of common functions used to model fish growth (von Bertalanffy, Gompertz, logistic, Richards). The starting values tend to work well in \code{nls} and related non-linear modeling functions, but there is no guarantee that they are the \sQuote{best} starting values (especially if the model is not appropriate for the data). One should perform sensitivity analyses to determine the impact of different starting values on the final model results.
 #' 
-#' BLAH-BLAH-BLAH
+#' In some instances it may be beneficial to fix one or more of the starting values to a user-defined choice. This can be done with \code{fixed} as shown in the examples. Note that starting values for other parameters that depend on the value of the fixed parameter may also be affected. For example, a starting value for \eqn{t_0} in the "Typical" von Bertalanffy function depends on values of \eqn{L_\infty} and \eqn{K}. Thus, if, for example, \eqn{K} is fixed by the user then the starting value for \eqn{t_0} will also be affected as it will used the fixed rather than the automatically derived value for \eqn{K}.
 #' 
+#' It is good practice for two reasons to use \code{plot=TRUE} to superimpose the growth function evaluated at the starting values over a scatterplot of the observed lengths versus ages. First, this will give the user a feel for how well the growth function fits the data given the starting values. If the "model line" does not represent the data well then the starting values are likely poor and the non-linear model may not converge. Second, the user iteratively supply values for the parameters in \code{fixed} with \code{plot=TRUE} to "guess" at useful starting values. This is demonstrated in the examples.
+#' 
+#' @note Derivation of the starting values is detailed in the \dQuote{Growth_Starting_Values} article on the \code{FSA} webpage. Further note that starting values have not yet been coded for every parameterization of the growth functions available in \code{FSA}. In those instances, you will need to derive starting values by other means.
 #' 
 #' @inheritParams makeGrowthFun
 #' @param formula A formula of the form \code{len~age}.
@@ -15,8 +18,6 @@
 #' @param plot A logical that indicates whether a plot of the data with the superimposed model fit at the starting values should be created. This plot is for diagnostic purposes and, thus, cannot be modified in this function.
 #' 
 #' @return A named vector that contains reasonable starting values. Note that the parameters will be listed with the same names in the same order as listed in \code{\link{makeGrowthFun}}.
-#' 
-#' @note BLAH-BLAH-BLAH
 #' 
 #' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #' 
@@ -81,6 +82,12 @@
 #' 
 #' #===== Starting values with diagnostic plot
 #' ( sgomp3 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=3,plot=TRUE) )
+#' 
+#' #===== Iteratively guess at starting values (stop when the model seems to "fit")
+#' findGrowthStarts(tlv~age,data=df,plot=TRUE,fixed=c(Linf=600,K=0.5,t0=0))    #att 1
+#' findGrowthStarts(tlv~age,data=df,plot=TRUE,fixed=c(Linf=450,K=0.5,t0=0))    #att 2
+#' findGrowthStarts(tlv~age,data=df,plot=TRUE,fixed=c(Linf=450,K=0.3,t0=0))    #att 3
+#' findGrowthStarts(tlv~age,data=df,plot=TRUE,fixed=c(Linf=450,K=0.3,t0=-0.5)) #looks OK, stop
 #' 
 #' #===== Plot at starting and final values
 #' #----- creating growth function corresponding to first param of von B

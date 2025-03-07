@@ -352,22 +352,25 @@ test_that("showGrowthFun() messages",{
 test_that("param(s) equal pname(s)",{
   ## Test that pname(s) go to the right param(s) ... assume other functionality
   ##   works as tested above and below after that
+  ## This param_list comes from iHndlGrowthModelParams
   param_list <- list(
-    "von Bertalanffy"=data.frame(pnum=c(1,1,1,2,2,2,3,4,5,6,6,7,8,9,9,10,11,12,
-                                        13,14,15,16,17,18,19),
+    "von Bertalanffy"=data.frame(pnum=c(1,1,1,2,2,2,3,4,5,6,6,7,8,9,9,9,9,10,10,
+                                        11,12,13,13,14,15,15,16,17,18,19),
                                  pnms=c("typical","Typical","Beverton-Holt",
                                         "original","Original","von Bertalanffy",
                                         "Gallucci-Quinn","Mooij","Weisberg",
                                         "Ogle-Isermann","Ogle",
-                                        "Schnute","Francis","Laslett","Polacheck",
-                                        "Somers","Somers2","Pauly",
-                                        "Fabens","Fabens2","Wang","Wang2","Wang3",
+                                        "Schnute","Francis",
+                                        "double","Double","Laslett","Polacheck",
+                                        "Somers","Somers1","Somers2","Pauly",
+                                        "Fabens","Fabens1","Fabens2",
+                                        "Wang","Wang1","Wang2","Wang3",
                                         "Francis2","Francis3")),
-    "Gompertz"=data.frame(pnum=c(1,1,1,2,3,3,4,4,5,6,7),
+    "Gompertz"=data.frame(pnum=c(1,1,1,2,3,3,4,4,5,6,6,7),
                           pnms=c("original","Original","Gompertz",
                                  "Ricker1","Ricker2","Quinn-Deriso1",
                                  "Ricker3","Quinn-Deriso2","Quinn-Deriso3",
-                                 "Troynikov1","Troynikov2")),
+                                 "Troynikov","Troynikov1","Troynikov2")),
     "logistic"=data.frame(pnum=c(1,2,3,4),
                           pnms=c("Campana-Jones1","Campana-Jones2","Karkach","Haddon")),
     "Richards"=data.frame(pnum=c(1,2,3,4,5),
