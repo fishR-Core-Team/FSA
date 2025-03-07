@@ -8,6 +8,7 @@ makeGrowthFun(
   type = c("von Bertalanffy", "Gompertz", "logistic", "Richards", "Schnute",
     "Schnute-Richards"),
   param = 1,
+  pname = NULL,
   simple = FALSE,
   msg = FALSE
 )
@@ -16,6 +17,8 @@ makeGrowthFun(
 \item{type}{A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards}, \dQuote{Schnute}, \dQuote{Schnute-Richards}) that indicates the type of growth function to show.}
 
 \item{param}{A single numeric that indicates the specific parameterization of the growth function. See details.}
+
+\item{pname}{A single character that indicates the specific parameterization of the growth function. If \code{NULL} then \code{param} will be used. See details.}
 
 \item{simple}{A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}).}
 
@@ -157,6 +160,18 @@ The Schnute-Richards model for simple length and annual age data is \eqn{E(L_t)=
 vb <- makeGrowthFun()
 vb(t=1,Linf=450,K=0.3,t0=-0.5)
 vb(t=1:5,Linf=450,K=0.3,t0=-0.5)
+
+#===== All parameters can be given to first parameter (default), unless simple=TRUE
+vb(t=1,Linf=c(450,0.3,-0.5))
+vbS <- makeGrowthFun(simple=TRUE)
+\dontrun{vbS(t=1,Linf=c(450,0.3,-0.5))   # will error}
+vbS(t=1,Linf=450,K=0.3,t0=-0.5)
+
+#===== Create original von B, first using param, then using pname
+vbO <- makeGrowthFun(param=2)
+vbO2 <- makeGrowthFun(pname="Original")
+vbO(t=1:5,Linf=450,K=0.3,L0=25)
+vbO2(t=1:5,Linf=450,K=0.3,L0=25)
 
 #===== Create the third parameterization of the logistic growth function
 #         and show some details, and demo calculations

@@ -8,6 +8,7 @@ showGrowthFun(
   type = c("von Bertalanffy", "Gompertz", "Richards", "logistic", "Schnute",
     "Schnute-Richards"),
   param = 1,
+  pname = NULL,
   case = NULL,
   plot = FALSE,
   ...
@@ -17,6 +18,8 @@ showGrowthFun(
 \item{type}{A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards}, \dQuote{Schnute}, \dQuote{Schnute-Richards}) that indicates the type of growth function to show.}
 
 \item{param}{A single numeric that indicates the specific parameterization of the growth function. See details.}
+
+\item{pname}{A single character that indicates the specific parameterization of the growth function. If \code{NULL} then \code{param} will be used. See details.}
 
 \item{case}{A numeric that indicates the specific case of the Schnute function to use. See details.}
 
@@ -31,9 +34,15 @@ An expression representing the equation of the growth function given in \code{ty
 Creates an expression for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions, as well as the Schnute and Schnute-Richards growth functions. The expression can be plotted with \code{plot=TRUE} to see the equation of the growth function.
 }
 \examples{
+#===== The expression 
 showGrowthFun()
+showGrowthFun(pname="Typical")
+
+#===== Shown on the plot, and then larger
 showGrowthFun(plot=TRUE)
 showGrowthFun(plot=TRUE,cex=2)
+
+#===== Examples of other growth odels
 showGrowthFun(type="Richards",param=3,plot=TRUE,cex=1.5)
 showGrowthFun(type="Schnute",case=2,plot=TRUE,cex=1.5)
 
@@ -41,11 +50,11 @@ showGrowthFun(type="Schnute",case=2,plot=TRUE,cex=1.5)
 op <- par(mar=c(0.1,0.1,0.1,0.1))
 plot(0,type="n",xlab="",ylab="",xlim=c(0,1),ylim=c(0,3),xaxt="n",yaxt="n")
 text(0,2.5,"Original:",pos=4)
-text(0.5,2.5,showGrowthFun(type="von Bertalanffy",param=2))
+text(0.5,2.5,showGrowthFun(type="von Bertalanffy",pname="Original"))
 text(0,1.5,"Typical:",pos=4)
-text(0.5,1.5,showGrowthFun(type="von Bertalanffy",param=1))
+text(0.5,1.5,showGrowthFun(type="von Bertalanffy",pname="Typical"))
 text(0,0.5,"Francis:",pos=4)
-text(0.5,0.5,showGrowthFun(type="von Bertalanffy",param=8))
+text(0.5,0.5,showGrowthFun(type="von Bertalanffy",pname="Francis"))
 par(op)
 
 #===== Put expression in title or otherwise on the plot

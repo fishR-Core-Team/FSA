@@ -10,6 +10,7 @@ findGrowthStarts(
   type = c("von Bertalanffy", "Gompertz", "logistic", "Richards", "Schnute",
     "Schnute-Richards"),
   param = 1,
+  pname = NULL,
   constvals = NULL,
   fixed = NULL,
   plot = FALSE
@@ -23,6 +24,8 @@ findGrowthStarts(
 \item{type}{A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards}, \dQuote{Schnute}, \dQuote{Schnute-Richards}) that indicates the type of growth function to show.}
 
 \item{param}{A single numeric that indicates the specific parameterization of the growth function. See details.}
+
+\item{pname}{A single character that indicates the specific parameterization of the growth function. If \code{NULL} then \code{param} will be used. See details.}
 
 \item{constvals}{A NAMED numeric vector of constant values (either lengths or ages) to be used in some of the von Bertalanffy parameterizations. See details.}
 
@@ -83,11 +86,17 @@ head(df)
 ( slogi3 <- findGrowthStarts(tll~age,data=df,type="logistic",param=3) )
 ( srich4 <- findGrowthStarts(tlr~age,data=df,type="Richards",param=4) )
 
+#' #====== Example using pname instead of param
+( svonb4 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",pname="Mooij") )
+( sgomp2 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",pname="Ricker1") )
+( slogi3 <- findGrowthStarts(tll~age,data=df,type="logistic",pname="Campana-Jones2") )
+( srich4 <- findGrowthStarts(tlr~age,data=df,type="Richards",pname="Tjorve4") )
+
 #====== Some vonB parameterizations require constant values in constvals=
 ( svonb8 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",
-                             param=8,constvals=c(t1=2,t3=11)) )
+                             pname="Francis",constvals=c(t1=2,t3=11)) )
 
-#====== Demonstrate use of fixed= with 2nd parameterization of von B as e.g.
+#====== Demonstrate use of fixed= with 2nd (Original) param of von B as e.g.
 ( svonb2 <- findGrowthStarts(tlv~age,data=df,param=2) )
 ( svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=500)) )
 ( svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=500,K=0.25)) )

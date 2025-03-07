@@ -12,9 +12,15 @@
 #' @seealso See \code{\link{makeGrowthFun}} to make functions that correspond to these expressions.
 #' 
 #' @examples
+#' #===== The expression 
 #' showGrowthFun()
+#' showGrowthFun(pname="Typical")
+#' 
+#' #===== Shown on the plot, and then larger
 #' showGrowthFun(plot=TRUE)
 #' showGrowthFun(plot=TRUE,cex=2)
+#' 
+#' #===== Examples of other growth odels
 #' showGrowthFun(type="Richards",param=3,plot=TRUE,cex=1.5)
 #' showGrowthFun(type="Schnute",case=2,plot=TRUE,cex=1.5)
 #' 
@@ -22,11 +28,11 @@
 #' op <- par(mar=c(0.1,0.1,0.1,0.1))
 #' plot(0,type="n",xlab="",ylab="",xlim=c(0,1),ylim=c(0,3),xaxt="n",yaxt="n")
 #' text(0,2.5,"Original:",pos=4)
-#' text(0.5,2.5,showGrowthFun(type="von Bertalanffy",param=2))
+#' text(0.5,2.5,showGrowthFun(type="von Bertalanffy",pname="Original"))
 #' text(0,1.5,"Typical:",pos=4)
-#' text(0.5,1.5,showGrowthFun(type="von Bertalanffy",param=1))
+#' text(0.5,1.5,showGrowthFun(type="von Bertalanffy",pname="Typical"))
 #' text(0,0.5,"Francis:",pos=4)
-#' text(0.5,0.5,showGrowthFun(type="von Bertalanffy",param=8))
+#' text(0.5,0.5,showGrowthFun(type="von Bertalanffy",pname="Francis"))
 #' par(op)
 #' 
 #' #===== Put expression in title or otherwise on the plot
@@ -48,29 +54,20 @@
 
 showGrowthFun <- function(type=c("von Bertalanffy","Gompertz","Richards",
                                  "logistic","Schnute","Schnute-Richards"),
-                          param=1,case=NULL,plot=FALSE,...) {
+                          param=1,pname=NULL,case=NULL,plot=FALSE,...) {
   #===== Checks
-  type <- match.arg(type)
-  
   # Schnute uses "case" instead of "param" ... convert to "param"
   if (!is.null(case)) {
     if(type=="Schnute") param <- case
     else STOP("'case' only used when 'type' is 'Schnute'")
   }
-  # Correct parameterization ... depends on growth model ... note that the 4
-  #   cases of the Schnute will be treated as 4 parameterizations here ... so 
-  #   leave at 4 for "Schnute"
-  max.param <- c("von Bertalanffy"=19,"Gompertz"=7,"logistic"=4,"Richards"=5,
-                 "Schnute"=4,"Schnute-Richards"=1)
-  if (param<1 | param>max.param[[type]]) {
-    if (max.param[[type]]==1) STOP("'param' can only be 1 (the default) for ",type," model")
-    else if (type=="Schnute") STOP("'case' must be between 1 and ",max.param[[type]],
-                                   " for ",type," model")
-    else STOP("'param' must be between 1 and ",max.param[[type]]," for ",type," model")
-  }
+  
+  # Handle checks on type, param, and pname
+  type <- match.arg(type)
+  param <- iHndlGrowthModelParams(type,param,pname,SGF=TRUE)
   
   #===== Find expression to return
-  tpexpr <- iGrowthModelExpression(type,param,max.param)
+  tpexpr <- iGrowthModelExpression(type,param)
   if (is.null(tpexpr)) STOP("Not yet implemented for ",type," parameterization #",param)
   
   #===== Write expression on a plot if asked for 
@@ -85,9 +82,7 @@ showGrowthFun <- function(type=c("von Bertalanffy","Gompertz","Richards",
   tpexpr
 }
 
-iGrowthModelExpression <- function(type,param,max.param) {
-  # param is irrelevant if type only has 1 param ... so set to NULL
-  if (type %in% names(max.param)[max.param==1]) param <- NULL
+iGrowthModelExpression <- function(type,param) {
   # make a combined parameter name ... remove spaces and hyphens from type
   pnm <- paste0(gsub(" ","",type),param)
   pnm <- gsub("-","",pnm)

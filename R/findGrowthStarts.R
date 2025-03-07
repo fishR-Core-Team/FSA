@@ -61,11 +61,17 @@
 #' ( slogi3 <- findGrowthStarts(tll~age,data=df,type="logistic",param=3) )
 #' ( srich4 <- findGrowthStarts(tlr~age,data=df,type="Richards",param=4) )
 #' 
+#' #' #====== Example using pname instead of param
+#' ( svonb4 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",pname="Mooij") )
+#' ( sgomp2 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",pname="Ricker1") )
+#' ( slogi3 <- findGrowthStarts(tll~age,data=df,type="logistic",pname="Campana-Jones2") )
+#' ( srich4 <- findGrowthStarts(tlr~age,data=df,type="Richards",pname="Tjorve4") )
+#' 
 #' #====== Some vonB parameterizations require constant values in constvals=
 #' ( svonb8 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",
-#'                              param=8,constvals=c(t1=2,t3=11)) )
+#'                              pname="Francis",constvals=c(t1=2,t3=11)) )
 #' 
-#' #====== Demonstrate use of fixed= with 2nd parameterization of von B as e.g.
+#' #====== Demonstrate use of fixed= with 2nd (Original) param of von B as e.g.
 #' ( svonb2 <- findGrowthStarts(tlv~age,data=df,param=2) )
 #' ( svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=500)) )
 #' ( svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=500,K=0.25)) )
@@ -95,7 +101,8 @@
 findGrowthStarts <- function(formula,data,
                              type=c("von Bertalanffy","Gompertz","logistic","Richards",
                                     "Schnute","Schnute-Richards"),
-                             param=1,constvals=NULL,fixed=NULL,plot=FALSE) {
+                             param=1,pname=NULL,
+                             constvals=NULL,fixed=NULL,plot=FALSE) {
   #===== Checks
   # Handle the formula with some checks
   tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
@@ -104,16 +111,9 @@ findGrowthStarts <- function(formula,data,
   if (!tmp$metExpNumE) STOP("'formula' must have only one RHS variable.")
   if (!tmp$Eclass %in% c("numeric","integer")) STOP("RHS variable must be numeric.")
   
-  # Correct growth model type
+  # Handle checks on type, param, and pname
   type <- match.arg(type)
-  
-  # Correct parameterization ... depends on growth model type
-  max.param <- c("von Bertalanffy"=19,"Gompertz"=7,"logistic"=4,"Richards"=5,
-                 "Schnute"=1,"Schnute-Richards"=1)
-  if (param<1 | param>max.param[[type]]) {
-    if (max.param[[type]]==1) STOP("'param' can only be 1 (the default) for ",type," model")
-    else STOP("'param' must be between 1 and ",max.param[[type]]," for ",type," model")
-  }
+  param <- iHndlGrowthModelParams(type,param,pname)
   
   # initial checks on constvals
   if (!is.null(constvals)) {

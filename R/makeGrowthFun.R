@@ -6,6 +6,7 @@
 #'
 #' @param type A string (\dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards}, \dQuote{Schnute}, \dQuote{Schnute-Richards}) that indicates the type of growth function to show.
 #' @param param A single numeric that indicates the specific parameterization of the growth function. See details.
+#' @param pname A single character that indicates the specific parameterization of the growth function. If \code{NULL} then \code{param} will be used. See details.
 #' @param simple A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}; DEFAULT) or not (\code{=FALSE}).
 #' 
@@ -198,6 +199,18 @@
 #' vb(t=1,Linf=450,K=0.3,t0=-0.5)
 #' vb(t=1:5,Linf=450,K=0.3,t0=-0.5)
 #' 
+#' #===== All parameters can be given to first parameter (default), unless simple=TRUE
+#' vb(t=1,Linf=c(450,0.3,-0.5))
+#' vbS <- makeGrowthFun(simple=TRUE)
+#' \dontrun{vbS(t=1,Linf=c(450,0.3,-0.5))   # will error}
+#' vbS(t=1,Linf=450,K=0.3,t0=-0.5)
+#' 
+#' #===== Create original von B, first using param, then using pname
+#' vbO <- makeGrowthFun(param=2)
+#' vbO2 <- makeGrowthFun(pname="Original")
+#' vbO(t=1:5,Linf=450,K=0.3,L0=25)
+#' vbO2(t=1:5,Linf=450,K=0.3,L0=25)
+#' 
 #' #===== Create the third parameterization of the logistic growth function
 #' #         and show some details, and demo calculations
 #' logi <- makeGrowthFun(type="logistic",param=3,msg=TRUE)
@@ -247,22 +260,12 @@
 
 makeGrowthFun <- function(type=c("von Bertalanffy","Gompertz","logistic",
                                  "Richards","Schnute","Schnute-Richards"),
-                        param=1,simple=FALSE,msg=FALSE) {
+                        param=1,pname=NULL,simple=FALSE,msg=FALSE) {
   #===== Checks
-  # Correct growth model type
   type <- match.arg(type)
-  
-  # Correct parameterization ... depends on growth model type
-  max.param <- c("von Bertalanffy"=19,"Gompertz"=7,"logistic"=4,"Richards"=5,
-                 "Schnute"=1,"Schnute-Richards"=1)
-  if (param<1 | param>max.param[[type]]) {
-    if (max.param[[type]]==1) STOP("'param' can only be 1 (the default) for ",type," model")
-    else STOP("'param' must be between 1 and ",max.param[[type]]," for ",type," model")
-  }
-  
+  param <- iHndlGrowthModelParams(type,param,pname)
+
   #===== Make message (if asked to)
-  # param is irrelevant if type only has 1 param ... so set to NULL
-  if (type %in% names(max.param)[max.param==1]) param <- NULL
   # make a combined parameter name ... remove spaces and hyphens from type
   pnm <- paste0(gsub(" ","",type),param)
   pnm <- gsub("-","",pnm)
@@ -1029,3 +1032,60 @@ msg_SchnuteRichards <- paste0("You have chosen the Schnute-Richards growth funct
                         "       a,b,c = nuisance (no meaning) parameters (b!=0)\n\n")
 
 msgsGrow <- c(msgsGrow,"SchnuteRichards"=msg_SchnuteRichards)
+
+
+#===== Internal function for handling parame, and pname in makeGrowthFun(),
+#      showGrowthFun(), and findGrowthStarts()
+iHndlGrowthModelParams <- function(type,param,pname,SGF=FALSE) {
+  # Make a list of possible parameter names
+  param_list <- list(
+    "von Bertalanffy"=data.frame(pnum=c(1,1,1,2,2,2,3,4,5,6,6,7,8,9,9,10,11,12,
+                                        13,14,15,16,17,18,19),
+                                 pnms=c("typical","Typical","Beverton-Holt",
+                                        "original","Original","von Bertalanffy",
+                                        "Gallucci-Quinn","Mooij","Weisberg",
+                                        "Ogle-Isermann","Ogle",
+                                        "Schnute","Francis","Laslett","Polacheck",
+                                        "Somers","Somers2","Pauly",
+                                        "Fabens","Fabens2","Wang","Wang2","Wang3",
+                                        "Francis2","Francis3")),
+    "Gompertz"=data.frame(pnum=c(1,1,1,2,3,3,4,4,5,6,7),
+                          pnms=c("original","Original","Gompertz",
+                                 "Ricker1","Ricker2","Quinn-Deriso1",
+                                 "Ricker3","Quinn-Deriso2","Quinn-Deriso3",
+                                 "Troynikov1","Troynikov2")),
+    "logistic"=data.frame(pnum=c(1,2,3,4),
+                          pnms=c("Campana-Jones1","Campana-Jones2","Karkach","Haddon")),
+    "Richards"=data.frame(pnum=c(1,2,3,4,5),
+                          pnms=c("Tjorve5","Tjorve3","Tjorve7","Tjorve4","Tjorve6")))
+  
+  # If pname used, then convert name to param number
+  if(!is.null(pname)) {
+    if (length(pname)>1) STOP("Only one name can be given in 'pname'.")
+    if (type %in% c("Schnute","Schnute-Richards"))
+      STOP("'pname' not used with ",type," model; use 'param' instead.")
+    if (!pname %in% param_list[[type]]$pnms)
+      STOP("For ",type,"models, 'pname' must be one of: ",
+           paste(param_list[[type]]$pnms,collapse=", "))
+    param <- param_list[[type]]$pnum[param_list[[type]]$pnms==pname]
+  }
+  
+  # Check that a possible 'param' was given
+  max.param <- c("von Bertalanffy"=max(param_list$'von Bertalanffy'$pnum),
+                 "Gompertz"=max(param_list$'Gompertz'$pnum),
+                 "logistic"=max(param_list$'logistic'$pnum),
+                 "Richards"=max(param_list$'Richards'$pnum),
+                 "Schnute"=ifelse(SGF,4,1),
+                 "Schnute-Richards"=1)
+  if (param<1 | param>max.param[[type]]) {
+    if (max.param[[type]]==1) STOP("'param' can only be 1 (the default) for ",type," model")
+    else STOP(ifelse(type=="Schnute","'case'","'param'")," must be between 1 and ",
+              max.param[[type]]," for ",type," model")
+  }
+  
+  # param is irrelevant if type only has 1 param ... so set to NULL
+  if (type %in% names(max.param)[max.param==1]) param <- NULL
+  
+  # Return param number
+  param
+}
