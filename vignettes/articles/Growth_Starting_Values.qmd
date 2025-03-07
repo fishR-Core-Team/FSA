@@ -651,6 +651,14 @@ The starting values for the first parameterization of the von Bertalanffy model 
 ( sv1 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=1) )
 ```
 
+It is also possible to declare the model parameterization with a "name."^[See `?makeGrowthFun` for the list of names.]
+
+
+```{r}
+#| echo: true
+( sv1 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",pname="Typical") )
+```
+
 There may be times when the provided starting values are non-sensical (you may get a warning message) or they do not lead to model convergence when fitting the non-linear regression to data. In these instances it may be useful to view a quick diagnostic plot of how the model evaluated at the starting values "fits" the data. Such a plot can be made by including `plot=TRUE` in `findGrowthStarts()`.
 
 ```{r}

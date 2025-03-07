@@ -349,6 +349,44 @@ test_that("showGrowthFun() messages",{
 
 
 ## Test Output Types ----
+test_that("param(s) equal pname(s)",{
+  ## Test that pname(s) go to the right param(s) ... assume other functionality
+  ##   works as tested above and below after that
+  param_list <- list(
+    "von Bertalanffy"=data.frame(pnum=c(1,1,1,2,2,2,3,4,5,6,6,7,8,9,9,10,11,12,
+                                        13,14,15,16,17,18,19),
+                                 pnms=c("typical","Typical","Beverton-Holt",
+                                        "original","Original","von Bertalanffy",
+                                        "Gallucci-Quinn","Mooij","Weisberg",
+                                        "Ogle-Isermann","Ogle",
+                                        "Schnute","Francis","Laslett","Polacheck",
+                                        "Somers","Somers2","Pauly",
+                                        "Fabens","Fabens2","Wang","Wang2","Wang3",
+                                        "Francis2","Francis3")),
+    "Gompertz"=data.frame(pnum=c(1,1,1,2,3,3,4,4,5,6,7),
+                          pnms=c("original","Original","Gompertz",
+                                 "Ricker1","Ricker2","Quinn-Deriso1",
+                                 "Ricker3","Quinn-Deriso2","Quinn-Deriso3",
+                                 "Troynikov1","Troynikov2")),
+    "logistic"=data.frame(pnum=c(1,2,3,4),
+                          pnms=c("Campana-Jones1","Campana-Jones2","Karkach","Haddon")),
+    "Richards"=data.frame(pnum=c(1,2,3,4,5),
+                          pnms=c("Tjorve5","Tjorve3","Tjorve7","Tjorve4","Tjorve6")))
+  
+  for (i in c("von Bertalanffy","Gompertz","logistic","Richards")) {
+    for (j in 1:nrow(param_list[[i]])) {
+      expect_equal(makeGrowthFun(type=i,param=param_list[[i]]$pnum[j]),
+                   makeGrowthFun(type=i,pname=param_list[[i]]$pnms[j]))
+      ## skip over those where it is not implemented
+      if (!(i=="von Bertalanffy" & param_list[[i]]$pnum[j] %in% c(9,18,19))) {
+        expect_equal(showGrowthFun(type=i,param=param_list[[i]]$pnum[j]),
+                     showGrowthFun(type=i,pname=param_list[[i]]$pnms[j]))
+      }
+    }
+  }
+})
+
+
 test_that("findGrowthStarts() von Bertalanffy outputs",{
   ## Check that vectors are named with proper model parameters
   tmp <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=1)

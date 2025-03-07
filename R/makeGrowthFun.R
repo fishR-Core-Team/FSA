@@ -712,7 +712,7 @@ Gompertz2 <- function(t,Linf,gi=NULL,ti=NULL) {
   Linf*exp(-exp(-gi*(t-ti)))
 }
 SGompertz2 <- function(t,Linf,gi,ti) { Linf*exp(-exp(-gi*(t-ti))) }
-msg_Gompertz2 <- paste0("You have chosen paramaterization 2 of ",
+msg_Gompertz2 <- paste0("You have chosen paramaterization 2 (Ricker1) of ",
                         "the Gompertz growth function.\n\n",
                         "  E[L|t] = Linf*exp(-exp(-gi*(t-ti)))\n\n",
                         "  where Linf = asymptotic mean length\n",
@@ -728,7 +728,7 @@ Gompertz3 <- function(t,L0,gi=NULL,a2=NULL) {
   L0*exp(a2*(1-exp(-gi*t)))
 }
 SGompertz3 <- function(t,L0,gi,a2) { L0*exp(a2*(1-exp(-gi*t))) }
-msg_Gompertz3 <- paste0("You have chosen paramaterization 3 of ",
+msg_Gompertz3 <- paste0("You have chosen paramaterization 3 (Ricker2) of ",
                         "the Gompertz growth function.\n\n",
                         "  E[L|t] = L0*exp(b*(1-exp(-gi*t)))\n\n",
                         "  where L0 = the mean length at age-0 (i.e., hatching or birth)\n",
@@ -744,7 +744,7 @@ Gompertz4 <-  function(t,Linf,gi=NULL,a2=NULL) {
   Linf*exp(-a2*exp(-gi*t))
 }
 SGompertz4 <- function(t,Linf,gi,a2) { Linf*exp(-a2*exp(-gi*t)) }
-msg_Gompertz4 <- paste0("You have chosen paramaterization 4 of ",
+msg_Gompertz4 <- paste0("You have chosen paramaterization 4 (Ricker 3) of ",
                         "the Gompertz growth function.\n\n",
                         "  E[L|t] = Linf*exp(-(a2/gi)*exp(-gi*t))\n\n",
                         "  where Linf = asymptotic mean length\n",
@@ -760,7 +760,7 @@ Gompertz5 <- function(t,Linf,gi=NULL,t0=NULL) {
   Linf*exp(-(1/gi)*exp(-gi*(t-t0)))
 }
 SGompertz5 <- function(t,Linf,gi,t0) { Linf*exp(-(1/gi)*exp(-gi*(t-t0))) }
-msg_Gompertz5 <- paste0("You have chosen paramaterization 5 of ",
+msg_Gompertz5 <- paste0("You have chosen paramaterization 5 (Quinn-Deriso3) of ",
                         "the Gompertz growth function.\n\n",
                         "  E[L|t] = Linf*exp(-(1/gi)*exp(-gi*(t-t0)))\n\n",
                         "  where Linf = asymptotic mean length\n",
@@ -775,7 +775,7 @@ Gompertz6 <- function(Lm,dt,Linf,gi=NULL) {
   Linf*((Lm/Linf)^exp(-gi*dt))-Lm
 }
 SGompertz6 <- function(Lm,dt,Linf,gi) { Linf*((Lm/Linf)^exp(-gi*dt))-Lm }
-msg_Gompertz6 <- paste0("You have chosen paramaterization 6 (Troynikov Tag-Return) of ",
+msg_Gompertz6 <- paste0("You have chosen paramaterization 6 (Troynikov Tag-Return 1) of ",
                         "the Gompertz growth function.\n\n",
                         "  E[Lr-Lm|dt] = Linf*((Lm/Linf)^exp(-gi*dt))-Lm\n\n",
                         "  where Linf = asymptotic mean length\n",
@@ -792,7 +792,7 @@ Gompertz7 <- function(Lm,dt,Linf,gi=NULL) {
   Linf*((Lm/Linf)^exp(-gi*dt))
 }
 SGompertz7 <- function(Lm,dt,Linf,gi) { Linf*((Lm/Linf)^exp(-gi*dt)) }
-msg_Gompertz7 <- paste0("You have chosen paramaterization 7 (alt Troynikov Tag-Return) of ",
+msg_Gompertz7 <- paste0("You have chosen paramaterization 7 (alt Troynikov Tag-Return 2) of ",
                         "the Gompertz growth function.\n\n",
                         "  E[Lr|dt] = Linf*((Lm/Linf)^exp(-gi*dt))\n\n",
                         "  where Linf = asymptotic mean length\n",
@@ -823,7 +823,7 @@ logistic1 <- function(t,Linf,gninf=NULL,ti=NULL) {
   Linf/(1+exp(-gninf*(t-ti)))
 }
 Slogistic1 <- function(t,Linf,gninf,ti) { Linf/(1+exp(-gninf*(t-ti))) }
-msg_logistic1 <- paste0("You have chosen paramaterization 1 of ",
+msg_logistic1 <- paste0("You have chosen paramaterization 1 (Campana-Jones1) of ",
                         "the logistic growth function.\n\n",
                         "  E[L|t] = Linf/(1+exp(-gninf*(t-ti)))\n\n",
                         "  where Linf = asymptotic mean length\n",
@@ -838,7 +838,7 @@ logistic2 <- function(t,Linf,gninf=NULL,a=NULL) {
   Linf/(1+a*exp(-gninf*t))
 }
 Slogistic2 <- function(t,Linf,gninf,a) { Linf/(1+a*exp(-gninf*t)) }
-msg_logistic2 <- paste0("You have chosen paramaterization 2 of ",
+msg_logistic2 <- paste0("You have chosen paramaterization 2 (Campana-Jones2) of ",
                         "the logistic growth function.\n\n",
                         "  E[L|t] = Linf/(1+a*exp(-gninf*t))\n\n",
                         "  where Linf = asymptotic mean length\n",
@@ -854,7 +854,7 @@ logistic3 <- function(t,Linf,gninf=NULL,L0=NULL) {
   L0*Linf/(L0+(Linf-L0)*exp(-gninf*t))
 }
 Slogistic3 <- function(t,Linf,gninf,L0) { L0*Linf/(L0+(Linf-L0)*exp(-gninf*t)) }
-msg_logistic3 <- paste0("You have chosen paramaterization 3 of ",
+msg_logistic3 <- paste0("You have chosen paramaterization 3 (Karkach) of ",
                         "the logistic growth function.\n\n",
                         "  E[L|t] = L0*Linf/(L0+(Linf-L0)*exp(-gninf*t))\n\n",
                         "  where Linf = asymptotic mean length\n",
@@ -899,7 +899,7 @@ Richards1 <- function(t,Linf,k=NULL,ti=NULL,b1=NULL) {
   Linf/((1+b1*exp(-k*(t-ti)))^(1/b1))
 }
 SRichards1 <- function(t,Linf,k,ti,b1) { Linf/((1+b1*exp(-k*(t-ti)))^(1/b1)) }
-msg_Richards1 <- paste0("You have chosen paramaterization 1 of ",
+msg_Richards1 <- paste0("You have chosen paramaterization 1 (Tjorve5) of ",
                         "the Richards growth function.\n\n",
                         "  Linf/((1+b1*exp(-k*(t-ti)))^(1/b1))\n\n",
                         "  where Linf = asymptotic mean length\n",
@@ -917,7 +917,7 @@ Richards2 <- function(t,Linf,k=NULL,t0=NULL,b2=NULL) {
   Linf/((1+exp(-k*(t-t0)))^(-b2))
 }
 SRichards2 <- function(t,Linf,k,t0,b2) { Linf/((1+exp(-k*(t-t0)))^(-b2)) }
-msg_Richards2 <- paste0("You have chosen paramaterization 2 of ",
+msg_Richards2 <- paste0("You have chosen paramaterization 2 (Tjorve3) of ",
                         "the Richards growth function.\n\n",
                         "  Linf/((1-*exp(-k*(t-t0)))^(-b2))\n\n",
                         "  where Linf = asymptotic mean length\n",
@@ -935,7 +935,7 @@ Richards3 <- function(t,Linf,k=NULL,L0=NULL,b3=NULL) {
   Linf*(1+(((L0/Linf)^(1-b3))-1)*exp(-k*t))^(1/(1-b3))
 }
 SRichards3 <- function(t,Linf,k,L0,b3) { Linf*(1+(((L0/Linf)^(1-b3))-1)*exp(-k*t))^(1/(1-b3)) }
-msg_Richards3 <- paste0("You have chosen paramaterization 3 of ",
+msg_Richards3 <- paste0("You have chosen paramaterization 3 (Tjorve7) of ",
                         "the Richards growth function.\n\n",
                         "  Linf*(1+(((L0/Linf)^(1-b3))-1)*exp(-k*t))^(1/(1-b3))\n\n",
                         "  where Linf = asymptotic mean length\n",
@@ -953,7 +953,7 @@ Richards4 <- function(t,Linf,k=NULL,ti=NULL,b2=NULL) {
   Linf*(1-(1/b2)*exp(-k*(t-ti)))^b2
 }
 SRichards4 <- function(t,Linf,k,ti,b2) { Linf*(1-(1/b2)*exp(-k*(t-ti)))^b2 }
-msg_Richards4 <- paste0("You have chosen paramaterization 4 of ",
+msg_Richards4 <- paste0("You have chosen paramaterization 4 (Tjorve4) of ",
                         "the Richards growth function.\n\n",
                         "  Linf*(1-(1/b2)*exp(-k*(t-ti)))^b2\n\n",
                         "  where Linf = asymptotic mean length\n",
@@ -971,7 +971,7 @@ Richards5 <- function(t,Linf,k=NULL,ti=NULL,b3=NULL) {
   Linf*(1+(b3-1)*exp(-k*(t-ti)))^(1/(1-b3))
 }
 SRichards5 <- function(t,Linf,k,ti,b3) { Linf*(1+(b3-1)*exp(-k*(t-ti)))^(1/(1-b3)) }
-msg_Richards5 <- paste0("You have chosen paramaterization 5 of ",
+msg_Richards5 <- paste0("You have chosen paramaterization 5 (Tjorve6) of ",
                         "the Richards growth function.\n\n",
                         "  Linf*(1+(b3-1)*exp(-k*(t-ti)))^(1/(1-b3))\n\n",
                         "  where Linf = asymptotic mean length\n",
