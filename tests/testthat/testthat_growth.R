@@ -16,7 +16,7 @@ df$tlg <- round(g1(df$age,Linf=450,a=1,g=0.3)+rnorm(sum(n),0,sd),0)
 l1 <- makeGrowthFun(type="logistic")
 df$tll <- round(l1(df$age,Linf=450,gninf=0.3,ti=2)+rnorm(sum(n),0,sd),0)
 r1 <- makeGrowthFun(type="Richards")
-df$tlr <- round(r1(df$age,Linf=450,ti=2,k=0.5,b1=1.5)+rnorm(sum(n),0,sd),0)
+df$tlr <- round(r1(df$age,Linf=450,ti=2,k=0.5,b=-0.7)+rnorm(sum(n),0,sd),0)
 df$cat <- as.factor(rep(c("A","B","C"),each=sum(n)/3))
 
 ## Test Messages ----
@@ -245,9 +245,9 @@ test_that("findGrowthStarts() logistic  messages",{
 
 test_that("findGrowthStarts() Richards messages",{
   expect_error(findGrowthStarts(tlr~age,data=df,type="Richards",param=0),
-               "'param' must be between 1 and 5")
+               "'param' must be between 1 and 3")
   expect_error(findGrowthStarts(tlr~age,data=df,type="Richards",param=6),
-               "'param' must be between 1 and 5")
+               "'param' must be between 1 and 3")
   
   expect_error(findGrowthStarts(tlv~age,data=df,type="Richards",param=1,
                                 constvals=c("t1"=1)),
@@ -291,9 +291,9 @@ test_that("makeGrowthFun() messages",{
   expect_error(makeGrowthFun(type="logistic",param=5),
                "'param' must be between 1 and 4")
   expect_error(makeGrowthFun(type="Richards",param=0),
-               "'param' must be between 1 and 5")
+               "'param' must be between 1 and 3")
   expect_error(makeGrowthFun(type="Richards",param=6),
-               "'param' must be between 1 and 5")
+               "'param' must be between 1 and 3")
   expect_error(makeGrowthFun(type="Schnute",param=0),
                "'param' can only be 1")
   expect_error(makeGrowthFun(type="Schnute",param=2),
@@ -320,9 +320,9 @@ test_that("showGrowthFun() messages",{
   expect_error(showGrowthFun(type="logistic",param=5),
                "'param' must be between 1 and 4")
   expect_error(showGrowthFun(type="Richards",param=0),
-               "'param' must be between 1 and 5")
+               "'param' must be between 1 and 3")
   expect_error(showGrowthFun(type="Richards",param=6),
-               "'param' must be between 1 and 5")
+               "'param' must be between 1 and 3")
   expect_error(showGrowthFun(type="Schnute",case=0),
                "'case' must be between 1 and 4")
   expect_error(showGrowthFun(type="Schnute",case=5),
@@ -373,8 +373,8 @@ test_that("param(s) equal pname(s)",{
                                  "Troynikov","Troynikov1","Troynikov2")),
     "logistic"=data.frame(pnum=c(1,2,3,4),
                           pnms=c("Campana-Jones1","Campana-Jones2","Karkach","Haddon")),
-    "Richards"=data.frame(pnum=c(1,2,3,4,5),
-                          pnms=c("Tjorve5","Tjorve3","Tjorve7","Tjorve4","Tjorve6")))
+    "Richards"=data.frame(pnum=c(1,2,3),
+                          pnms=c("Tjorve4","Tjorve3","Tjorve7")))
   
   for (i in c("von Bertalanffy","Gompertz","logistic","Richards")) {
     for (j in 1:nrow(param_list[[i]])) {
@@ -546,42 +546,30 @@ test_that("findGrowthStarts() Richards outputs",{
   ## Check that vectors are named with proper model parameters
   tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=1)
   expect_equal(class(tmp),"numeric")
-  expect_named(tmp,c("Linf","k","ti","b1"))
+  expect_named(tmp,c("Linf","k","ti","b"))
   tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=2)
   expect_equal(class(tmp),"numeric")
-  expect_named(tmp,c("Linf","k","t0","b2"))
+  expect_named(tmp,c("Linf","k","t0","b"))
   tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=3)
   expect_equal(class(tmp),"numeric")
-  expect_named(tmp,c("Linf","k","L0","b3"))
-  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=4)
-  expect_equal(class(tmp),"numeric")
-  expect_named(tmp,c("Linf","k","ti","b2"))
-  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=5)
-  expect_equal(class(tmp),"numeric")
-  expect_named(tmp,c("Linf","k","ti","b3"))
+  expect_named(tmp,c("Linf","k","L0","b"))
   
   # Check that values are fixed as expected ... did not check all possible
   tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=1,
                           fixed=c(Linf=500))
   expect_equal(tmp[["Linf"]],500)
   tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=1,
-                          fixed=c(Linf=500,b1=0.5))
+                          fixed=c(Linf=500,b=0.5))
   expect_equal(tmp[["Linf"]],500)
-  expect_equal(tmp[["b1"]],0.5)
+  expect_equal(tmp[["b"]],0.5)
   tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=2,
-                          fixed=c(t0=-1,b2=0.5))
+                          fixed=c(t0=-1,b=0.5))
   expect_equal(tmp[["t0"]],-1)
-  expect_equal(tmp[["b2"]],0.5)
+  expect_equal(tmp[["b"]],0.5)
   tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=3,
-                          fixed=c(L0=5,b3=0.5))
+                          fixed=c(L0=5,b=0.5))
   expect_equal(tmp[["L0"]],5)
-  expect_equal(tmp[["b3"]],0.5)
-  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=4,
-                          fixed=c(ti=5))
-  expect_equal(tmp[["ti"]],5)
-  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=5,
-                          fixed=c(b3=0.5))
-  expect_equal(tmp[["b3"]],0.5)
+  expect_equal(tmp[["b"]],0.5)
 })
 
 test_that("makeGrowthFun() von Bertalanffy output",{
@@ -675,11 +663,9 @@ test_that("makeGrowthFun() logistic output",{
 })
 
 test_that("makeGrowthFun() Richards output",{
-  ptmp <- list("1"=c("t","Linf","k","ti","b1"),
-               "2"=c("t","Linf","k","t0","b2"),
-               "3"=c("t","Linf","k","L0","b3"),
-               "4"=c("t","Linf","k","ti","b2"),
-               "5"=c("t","Linf","k","ti","b3"))
+  ptmp <- list("1"=c("t","Linf","k","ti","b"),
+               "2"=c("t","Linf","k","t0","b"),
+               "3"=c("t","Linf","k","L0","b"))
   nnull <- 1:2
   itmp <- names(ptmp)
   for (i in itmp) {
@@ -720,15 +706,15 @@ test_that("makeGrowthFun() Other Model output",{
 
 test_that("showGrowthFun()outputs",{
   tmp <- c(1:8,10:17)
-  for (i in tmp) expect_equal(class(showGrowthFun(type="von Bertalanffy",param=i)),
+  for (i in tmp) expect_equal(class(showGrowthFun(type="von Bertalanffy",param=i,parse=TRUE)),
                               "expression")
-  for (i in 1:7) expect_equal(class(showGrowthFun(type="Gompertz",param=i)),
+  for (i in 1:7) expect_equal(class(showGrowthFun(type="Gompertz",param=i,parse=TRUE)),
                               "expression")
-  for (i in 1:7) expect_equal(class(showGrowthFun(type="Gompertz",param=i)),
+  for (i in 1:7) expect_equal(class(showGrowthFun(type="Gompertz",param=i,parse=TRUE)),
                               "expression")
-  for (i in 1:5) expect_equal(class(showGrowthFun(type="Richards",param=i)),
+  for (i in 1:3) expect_equal(class(showGrowthFun(type="Richards",param=i,parse=TRUE)),
                               "expression")
-  for (i in 1:4) expect_equal(class(showGrowthFun(type="Schnute",case=i)),
+  for (i in 1:4) expect_equal(class(showGrowthFun(type="Schnute",case=i,parse=TRUE)),
                               "expression")
 })
 
@@ -834,21 +820,15 @@ test_that("findGrowthStarts() Richards results",{
   Linf <- sstmp[["Asym"]]
   k <- sstmp[["K"]]
   ti <- sstmp[["Infl"]]
-  b1 <- sstmp[["M"]]
-  t0 <- -(log(1/b1)/k)+ti
-  L0 <- Linf/((1+b1*exp(k*ti)))^(1/b1)
-  b2 <- -(1/b1)
-  b3 <- 1+b1  
+  b <- -1/sstmp[["M"]]
+  t0 <- -(log(-b)/k)+ti
+  L0 <- Linf*((1-(1/b)*exp(k*ti))^(b))
   
   # Test findGrowthStarts against those values for each parameterization
   tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=1)
-  expect_equal(tmp,c(Linf=Linf,k=k,ti=ti,b1=b1))
+  expect_equal(tmp,c(Linf=Linf,k=k,ti=ti,b=b))
   tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=2)
-  expect_equal(tmp,c(Linf=Linf,k=k,t0=t0,b2=b2))
+  expect_equal(tmp,c(Linf=Linf,k=k,t0=t0,b=b))
   tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=3)
-  expect_equal(tmp,c(Linf=Linf,k=k,L0=L0,b3=b3))
-  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=4)
-  expect_equal(tmp,c(Linf=Linf,k=k,ti=ti,b2=b2))
-  tmp <- findGrowthStarts(tlr~age,data=df,type="Richards",param=5)
-  expect_equal(tmp,c(Linf=Linf,k=k,ti=ti,b3=b3))
+  expect_equal(tmp,c(Linf=Linf,k=k,L0=L0,b=b))
 })

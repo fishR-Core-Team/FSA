@@ -129,14 +129,12 @@ The \strong{Richards} parameterizations for length and \strong{annual} age data 
 
 \tabular{ccl}{
 \strong{param} \tab \strong{pname} \tab \strong{Equation} \cr
-1  \tab Tjorve5 \tab \eqn{E(L_t)=\frac{L_\infty}{\left[1+b_1e^{-k(t-t_i)}\right]^\frac{1}{b_1}}} \cr
-2  \tab Tjorve3 \tab \eqn{E(L_t)=\frac{L_\infty}{\left(1+e^{-k(t-t_0)}\right)^{-b_2}}} \cr
-3  \tab \tab Tjorve7 \eqn{E(L_t)=L_\infty\left[1+\left(\left(\frac{L_0}{L_\infty}\right)^{1-b_3}-1\right)e^{-kt}\right]^\frac{1}{1-b_3}} \cr
-4  \tab Tjorve4 \tab \eqn{E(L_t)=L_\infty\left[1-\frac{1}{b_2}e^{-k(t-t_i)}\right]^{b_2}} \cr
-5  \tab Tjorve6 \tab \eqn{E(L_t)=L_\infty\left[1+(b_3-1)e^{-k(t-t_i)}\right]^\frac{1}{1-b_3}} \cr
+1  \tab Tjorve4 \tab \eqn{E(L_t)=L_\infty\left[1-\frac{1}{b}e^{-k(t-t_i)}\right]^b} \cr
+2  \tab Tjorve3 \tab \eqn{E(L_t)=L_\infty\left(1+e^{-k(t-t_0)}\right)^b} \cr
+3  \tab Tjorve7 \tab \eqn{E(L_t)=L_\infty\left[1+\left(\left(\frac{L_0}{L_\infty}\right)^{\frac{1}{b}}-1\right)e^{-kt}\right]^b} \cr
 }
 
-Only 4-parameter parameterizations from Tjorve and Tjorve (2010) that seemed useful for modeling fish growth are provided here. In Tjorve and Tjorve (2010) their \eqn{A}, \eqn{k}, \eqn{W_0}, and \eqn{T_i} are \eqn{L_\infty}, \eqn{k}, \eqn{L_0}, and \eqn{t_i}, and their \eqn{d} is \eqn{b_1}, \eqn{b_2}, and \eqn{b_3}, respectively, here (in FSA). The number at the end of respect \code{pname} corresponds to the equation number in Tjorve and Tjorve (2010).
+Only 4-parameter parameterizations from Tjorve and Tjorve (2010) that seemed useful for modeling fish growth are provided here. In Tjorve and Tjorve (2010) their \eqn{A}, \eqn{k}, \eqn{W_0}, \eqn{T_i},and \eqn{d} are \eqn{L_\infty}, \eqn{k}, \eqn{L_0}, \eqn{t_i}, and \eqn{b}, respectively, here (in \code{FSA}). The number at the end of respect \code{pname} corresponds to the equation number in Tjorve and Tjorve (2010). However, note that I modified \eqn{b} in parameterizations 2 and 3 so that each equation appeared as \eqn{L_\infty} times a quantity raised to a simple (i.e., non-negative and not a fraction) power. Further note that previous versions of \code{FSA} had two other parameterizations of the Richards function that differed only from parameterization 1 by simple additions or multiplications of \eqn{b}. As \eqn{b} has no biological meaning, these parameterizations were removed.
 
 The four cases for the Schnute model for simple length and annual age data are
 

@@ -535,11 +535,9 @@ curve(l3(x,Linf=Asym,gninf=1/scal,L0=Asym/(1+exp(xmid/scal))),from=0,to=15,col="
 
 | param | Equation |
 |:-----:|:----------------------------------------------------|
-|   1   | $E(L_t) = \frac{L_\infty}{\left[1+b_1e^{-k(t-t_i)}\right]^\frac{1}{b_1}}$ |
-|   2   | $E(L_t) = \frac{L_\infty}{\left(1+e^{-k(t-t_0)}\right)^{-b_2}}$ |
-|   3   | $E(L_t) = L_\infty\left[1+\left(\left(\frac{L_0}{L_\infty}\right)^{1-b_3}-1\right)e^{-kt}\right]^\frac{1}{1-b_3}$ |
-|   4   | $E(L_t) = L_\infty\left[1-\frac{1}{b_2}e^{-k(t-t_i)}\right]^{b_2}$ |
-|   5   | $E(L_t) = L_\infty\left[1+(b_3-1)e^{-k(t-t_i)}\right]^\frac{1}{1-b_3}$ |
+|   1   | $E(L_t) = L_\infty\left[1-\frac{1}{b_1}e^{-k(t-t_i)}\right]^{b}$ |
+|   2   | $E(L_t) = L_\infty\left(1+e^{-k(t-t_0)}\right)^{b}$ |
+|   3   | $E(L_t) = L_\infty\left[1+\left(\left(\frac{L_0}{L_\infty}\right)^{\frac{1}{b}}-1\right)e^{-kt}\right]^{b}$ |
 
 : Parameterizations of the Richards growth equation for length-at-age data available in `FSA`. {#tbl-Richparams1}
 
@@ -548,7 +546,7 @@ curve(l3(x,Linf=Asym,gninf=1/scal,L0=Asym/(1+exp(xmid/scal))),from=0,to=15,col="
 The response variable, $L$, is the mean length and the explanatory variable, $t$ is age. New parameters in these growth functions are:^[$L_\infty$, $L_0$, and $t_0$ are as defined for the von Bertalanffy model and $t_i$ is as defined for the Gompertz model.]
 
 - $k$ = growth rate parameter
-- $b_1$, $b_2$, $b_3$ = nuisance parameters with no biological meaning
+- $b$ = nuisance parameters with no biological meaning
 
 <br>
 
@@ -557,31 +555,29 @@ The `FlexParamCurve` package contains `SSposnegRichards()` which is a self-start
 $$ Y = \frac{\text{Asym}}{\left[1+Me^{-K(X-\text{Infl})}\right]^{\frac{1}{M}}} $$
 where $Y$ and $X$ are the response and explanatory variables, respectively, $\text{Asym}$ is a parameter for the horizontal (i.e., $Y$) asymptote, $K$ is a "rate parameter", $\text{Infl}$ is the "inflection point" (i.e., the x-axis position of the inflection point), and $M$ is a "shape parameter".
 
-In growth (in length) modeling, $Y$ is $L$ (for length), $X$ is $t$ (for time as measured by age), and $\text{Asym}$ is clearly $L_{\infty}$. Thus, at this point, their function can be re-written for the purposes of growth modeling as 
+To better match the parameterizations in `FSA`, the `FlexParamCurve` function can be re-written as,
 
-$$ L = \frac{L_\infty}{\left[1+Me^{-K(t-\text{Infl})}\right]^{\frac{1}{M}}} $$ {#eq-rSSRichards}
+$$ Y = \text{Asym}\left[1+Me^{-K(X-\text{Infl})}\right]^{-\frac{1}{M}} $$
+
+In growth (in length) modeling, $Y$ is $L$ (for length), $X$ is $t$ (for time as measured by age), and $\text{Asym}$ is clearly $L_{\infty}$. Thus, at this point, their (modified) function can be re-written for the purposes of growth modeling as 
+
+$$ L = L_\infty\left[1+Me^{-K(t-\text{Infl})}\right]^{-\frac{1}{M}} $$ {#eq-rSSRichards}
 
 It is also likely that $\text{Infl}$ is equal to $t_i$, but this is explored more below.
 
-The first parameterization of the Richards growth function implemented in `FSA` is exactly the same as @eq-rSSRichards when $b_1=M$, $k=K$, and $t_i=\text{Infl}$ (and, of course, $L_\infty=\text{Asym}$).
+The first parameterization of the Richards growth function implemented in `FSA` is exactly the same as @eq-rSSRichards when $b=-\frac{1}{M}$, $k=K$, and $t_i=\text{Infl}$ (and, of course, $L_\infty=\text{Asym}$).
 
-The second parameterization of the Richards growth function **NEED TO COME BACK TO THIS, BUT SOMEHOW I FOUND THAT** $t_0 = -\frac{log\left(\frac{1}{M}\right)}{K}+\text{Infl}$ and $b_2 = -\frac{1}{M}$
+The second parameterization of the Richards growth function **NEED TO COME BACK TO THIS, BUT SOMEHOW I FOUND THAT** $t_0 = -\frac{log\left(\frac{1}{M}\right)}{K}+\text{Infl}$ and $b = -\frac{1}{M}$
 
-Tjorve and Tjorve (2010) derived the third parameterization of the Richards growth function by setting $b_3=1+b_1$, so $b_3=1+M$. If $t$ is then set to $0$ in the equation for the first parameterization and solved for $L$, then $L_0=\frac{L_\infty}{\left[1+b_1e^{kt_i}\right]^\frac{1}{b_1}}$. Thus, starting values for $L_0$ can be estimated from the starting values of $L_\infty$, $k$, $t_i$, and $b_1$ from the first parameterization.
-
-The fourth parameterization of the Richards growth function is exactly the first parameterizations with $b_2=-\frac{1}{b_1}$ (as shown in Tjorve and Tjorve (2010)). Thus, from the work done for the first parameterization, $b_2=-\frac{1}{M}$, $k=K$, and $t_i=\text{Infl}$.
-
-The fifth parameterization of the Richards growth function is exactly the first paramaterization with $b_3=1+b_1$ (as shown in Tjorve and Tjorve (2010)). Thus, from the work done for the first parameterization, $b_3=1+M$, $k=K$, and $t_i=\text{Infl}$.
+Tjorve and Tjorve (2010) derived the third parameterization of the Richards growth function by **NEED TO COME BACK TO THIS, BUT SOMEHOW I FOUND THAT** $b=-\frac{1}{M}$. If $t$ is then set to $0$ in the equation for the first parameterization and solved for $L$, then $L_0=L_\infty\left[1-\frac{1}{b}e^{kt_i}\right]^{b}$. Thus, starting values for $L_0$ can be estimated from the starting values of $L_\infty$, $k$, $t_i$, and $b$ from the first parameterization.
 
 These findings are summarized in @tbl-richardsstarts
 
-| param | $L_\infty$ | $L_0$ | $k$ | $t_i$ |  $t_0$  | $b_{\text{\#}}$
+| param | $L_\infty$ | $L_0$ | $k$ | $t_i$ |  $t_0$  | $b$
 |:-----:|-------|-------|-------|-------|-------|-------|
-| 1 | $\text{Asym}$ |  | $K$ | $\text{Infl}$ |  | $M$ |
+| 1 | $\text{Asym}$ |  | $K$ | $\text{Infl}$ |  | $-\frac{1}{M}$ |
 | 2 | $\text{Asym}$ |  | $K$ |  | $-\frac{log\left(\frac{1}{M}\right)}{K}+\text{Infl}$ | $-\frac{1}{M}$ |
-| 3 | $\text{Asym}$ | $\frac{L_\infty}{\left[1+Me^{k\text{Infl}}\right]^\frac{1}{M}}$ | $K$ |  |  | $1+M$ |
-| 4 | $\text{Asym}$ |  | $K$ | $\text{Infl}$ |  | $-\frac{1}{M}$ |
-| 5 | $\text{Asym}$ |  | $K$ | $\text{Infl}$ |  | $1+M$ |
+| 3 | $\text{Asym}$ | $\text{Asym}\left[1+Me^{K\times\text{Infl}}\right]^{-\frac{1}{M}}$ | $K$ |  |  | $-\frac{1}{M}$ |
 
 : Conversion from `SSposnegRichards()` parameters ($\text{Asym}$, $\text{Infl}$, $K$, and $M$) to parameters for the common Richards parameterizations used to model fish growth in `FSA`. {#tbl-richardsstarts}
 
@@ -597,8 +593,6 @@ The equivalency of the parameterizations and the starting values across paramete
 r1 <- makeGrowthFun(type="Richards",param=1)
 r2 <- makeGrowthFun(type="Richards",param=2)
 r3 <- makeGrowthFun(type="Richards",param=3)
-r4 <- makeGrowthFun(type="Richards",param=4)
-r5 <- makeGrowthFun(type="Richards",param=5)
 
 Asym <- 450
 Infl <- 2.5
@@ -606,11 +600,9 @@ K <- 0.5
 M <- 0.1
 
 plot(0,col="white",xlim=c(0,15),ylim=c(0,450),xlab="Age",ylab="Length")
-curve(r1(x,Linf=Asym,k=K,ti=Infl,b1=M),from=0,to=15,col="red",lwd=9,add=TRUE)
-curve(r2(x,Linf=Asym,k=K,t0=-log(1/M)/K+Infl,b2=-1/M),from=0,to=15,col="blue",lwd=7,add=TRUE)
-curve(r3(x,Linf=Asym,k=K,L0=Asym/((1+M*exp(K*Infl)))^(1/M),b3=1+M),from=0,to=15,col="green",lwd=5,add=TRUE)
-curve(r4(x,Linf=Asym,k=K,ti=Infl,b2=-1/M),from=0,to=15,col="orange",lwd=3,add=TRUE)
-curve(r5(x,Linf=Asym,k=K,ti=Infl,b3=1+M),from=0,to=15,col="black",lwd=1,add=TRUE)
+curve(r1(x,Linf=Asym,k=K,ti=Infl,b1=-1/M),from=0,to=15,col="red",lwd=9,add=TRUE)
+curve(r2(x,Linf=Asym,k=K,t0=-log(1/M)/K+Infl,b2=-1/M),from=0,to=15,col="blue",lwd=6,add=TRUE)
+curve(r3(x,Linf=Asym,k=K,L0=Asym*((1+M*exp(K*Infl)))^(-1/M),b3=-1/M),from=0,to=15,col="green",lwd=3,add=TRUE)
 ```
 
 <br>

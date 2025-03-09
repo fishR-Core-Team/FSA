@@ -72,7 +72,7 @@ df$tlg <- round(g1(df$age,Linf=450,a=1,g=0.3)+rnorm(sum(n),0,sd),0)
 l1 <- makeGrowthFun(type="logistic")
 df$tll <- round(l1(df$age,Linf=450,gninf=0.3,ti=2)+rnorm(sum(n),0,sd),0)
 r1 <- makeGrowthFun(type="Richards")
-df$tlr <- round(r1(df$age,Linf=450,ti=2,k=0.5,b1=1.5)+rnorm(sum(n),0,sd),0)
+df$tlr <- round(r1(df$age,Linf=450,ti=2,k=0.5,b=-0.7)+rnorm(sum(n),0,sd),0)
 # brief view of data
 head(df)
 
@@ -86,13 +86,13 @@ head(df)
 ( svonb4 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=4) )
 ( sgomp2 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=2) )
 ( slogi3 <- findGrowthStarts(tll~age,data=df,type="logistic",param=3) )
-( srich4 <- findGrowthStarts(tlr~age,data=df,type="Richards",param=4) )
+( srich3 <- findGrowthStarts(tlr~age,data=df,type="Richards",param=3) )
 
 #' #====== Example using pname instead of param
 ( svonb4 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",pname="Mooij") )
 ( sgomp2 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",pname="Ricker1") )
 ( slogi3 <- findGrowthStarts(tll~age,data=df,type="logistic",pname="Campana-Jones2") )
-( srich4 <- findGrowthStarts(tlr~age,data=df,type="Richards",pname="Tjorve4") )
+( srich3 <- findGrowthStarts(tlr~age,data=df,type="Richards",pname="Tjorve7") )
 
 #====== Some vonB parameterizations require constant values in constvals=
 ( svonb8 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",

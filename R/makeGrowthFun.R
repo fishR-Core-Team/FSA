@@ -109,14 +109,12 @@
 #' 
 #' \tabular{ccl}{
 #' \strong{param} \tab \strong{pname} \tab \strong{Equation} \cr
-#' 1  \tab Tjorve5 \tab \eqn{E(L_t)=\frac{L_\infty}{\left[1+b_1e^{-k(t-t_i)}\right]^\frac{1}{b_1}}} \cr
-#' 2  \tab Tjorve3 \tab \eqn{E(L_t)=\frac{L_\infty}{\left(1+e^{-k(t-t_0)}\right)^{-b_2}}} \cr
-#' 3  \tab \tab Tjorve7 \eqn{E(L_t)=L_\infty\left[1+\left(\left(\frac{L_0}{L_\infty}\right)^{1-b_3}-1\right)e^{-kt}\right]^\frac{1}{1-b_3}} \cr
-#' 4  \tab Tjorve4 \tab \eqn{E(L_t)=L_\infty\left[1-\frac{1}{b_2}e^{-k(t-t_i)}\right]^{b_2}} \cr
-#' 5  \tab Tjorve6 \tab \eqn{E(L_t)=L_\infty\left[1+(b_3-1)e^{-k(t-t_i)}\right]^\frac{1}{1-b_3}} \cr
+#' 1  \tab Tjorve4 \tab \eqn{E(L_t)=L_\infty\left[1-\frac{1}{b}e^{-k(t-t_i)}\right]^b} \cr
+#' 2  \tab Tjorve3 \tab \eqn{E(L_t)=L_\infty\left(1+e^{-k(t-t_0)}\right)^b} \cr
+#' 3  \tab Tjorve7 \tab \eqn{E(L_t)=L_\infty\left[1+\left(\left(\frac{L_0}{L_\infty}\right)^{\frac{1}{b}}-1\right)e^{-kt}\right]^b} \cr
 #' }
 #' 
-#' Only 4-parameter parameterizations from Tjorve and Tjorve (2010) that seemed useful for modeling fish growth are provided here. In Tjorve and Tjorve (2010) their \eqn{A}, \eqn{k}, \eqn{W_0}, and \eqn{T_i} are \eqn{L_\infty}, \eqn{k}, \eqn{L_0}, and \eqn{t_i}, and their \eqn{d} is \eqn{b_1}, \eqn{b_2}, and \eqn{b_3}, respectively, here (in FSA). The number at the end of respect \code{pname} corresponds to the equation number in Tjorve and Tjorve (2010).
+#' Only 4-parameter parameterizations from Tjorve and Tjorve (2010) that seemed useful for modeling fish growth are provided here. In Tjorve and Tjorve (2010) their \eqn{A}, \eqn{k}, \eqn{W_0}, \eqn{T_i},and \eqn{d} are \eqn{L_\infty}, \eqn{k}, \eqn{L_0}, \eqn{t_i}, and \eqn{b}, respectively, here (in \code{FSA}). The number at the end of respect \code{pname} corresponds to the equation number in Tjorve and Tjorve (2010). However, note that I modified \eqn{b} in parameterizations 2 and 3 so that each equation appeared as \eqn{L_\infty} times a quantity raised to a simple (i.e., non-negative and not a fraction) power. Further note that previous versions of \code{FSA} had two other parameterizations of the Richards function that differed only from parameterization 1 by simple additions or multiplications of \eqn{b}. As \eqn{b} has no biological meaning, these parameterizations were removed.
 #'
 #' The four cases for the Schnute model for simple length and annual age data are
 #' 
@@ -890,102 +888,64 @@ msgsGrow <- c(msgsGrow,
 #-------------------------------------------------------------------------------
 #-- Richards parameterizations
 #-------------------------------------------------------------------------------
-# eqn 5 from Tjorve & Tjorve (2010)
-Richards1 <- function(t,Linf,k=NULL,ti=NULL,b1=NULL) {
+# eqn 4 from Tjorve & Tjorve (2010)
+Richards1 <- function(t,Linf,k=NULL,ti=NULL,b=NULL) {
   if (length(Linf)==4) {
-    b1 <- Linf[[4]]
+    b <- Linf[[4]]
     ti <- Linf[[3]]
     k <- Linf[[2]]
     Linf <- Linf[[1]] }
-  Linf/((1+b1*exp(-k*(t-ti)))^(1/b1))
+  Linf*(1-(1/b)*exp(-k*(t-ti)))^b
 }
-SRichards1 <- function(t,Linf,k,ti,b1) { Linf/((1+b1*exp(-k*(t-ti)))^(1/b1)) }
-msg_Richards1 <- paste0("You have chosen paramaterization 1 (Tjorve5) of ",
+SRichards1 <- function(t,Linf,k,ti,b) { Linf*(1-(1/b)*exp(-k*(t-ti)))^b }
+msg_Richards1 <- paste0("You have chosen paramaterization 1 (Tjorve4) of ",
                         "the Richards growth function.\n\n",
-                        "  Linf/((1+b1*exp(-k*(t-ti)))^(1/b1))\n\n",
+                        "  Linf*(1-(1/b)*exp(-k*(t-ti)))^b\n\n",
                         "  where Linf = asymptotic mean length\n",
                         "           k = controls the slope at inflection point\n",
                         "          ti = time/age at inflection point\n",
-                        "          b1 = controls y- value of inflection point\n\n")
+                        "           b = (nuisance) shape parameter\n\n")
 
 # eqn 3(alt) from Tjorve & Tjorve (2010)
-Richards2 <- function(t,Linf,k=NULL,t0=NULL,b2=NULL) { 
+Richards2 <- function(t,Linf,k=NULL,t0=NULL,b=NULL) { 
   if (length(Linf)==4) {
-    b2 <- Linf[[4]]
+    b <- Linf[[4]]
     t0 <- Linf[[3]]
     k <- Linf[[2]]
     Linf <- Linf[[1]] }
-  Linf/((1+exp(-k*(t-t0)))^(-b2))
+  Linf*(1+exp(-k*(t-t0)))^b
 }
-SRichards2 <- function(t,Linf,k,t0,b2) { Linf/((1+exp(-k*(t-t0)))^(-b2)) }
+SRichards2 <- function(t,Linf,k,t0,b) { Linf*(1+exp(-k*(t-t0)))^b }
 msg_Richards2 <- paste0("You have chosen paramaterization 2 (Tjorve3) of ",
                         "the Richards growth function.\n\n",
-                        "  Linf/((1-*exp(-k*(t-t0)))^(-b2))\n\n",
+                        "  Linf*(1-*exp(-k*(t-t0)))^b\n\n",
                         "  where Linf = asymptotic mean length\n",
                         "           k = controls the slope at inflection point\n",
                         "          t0 = hypothetical time/age when mean length is 0\n",
-                        "          b2 = controls y- value of inflection point\n\n")
+                        "           b = (nuisance) shape parameter\n\n")
 
 # eqn 7 from Tjorve & Tjorve (2010)
-Richards3 <- function(t,Linf,k=NULL,L0=NULL,b3=NULL) { 
+Richards3 <- function(t,Linf,k=NULL,L0=NULL,b=NULL) { 
   if (length(Linf)==4) {
-    b3 <- Linf[[4]]
+    b <- Linf[[4]]
     L0 <- Linf[[3]]
     k <- Linf[[2]]
     Linf <- Linf[[1]] }
-  Linf*(1+(((L0/Linf)^(1-b3))-1)*exp(-k*t))^(1/(1-b3))
+  Linf*(1+(((L0/Linf)^(1/b))-1)*exp(-k*t))^b
 }
-SRichards3 <- function(t,Linf,k,L0,b3) { Linf*(1+(((L0/Linf)^(1-b3))-1)*exp(-k*t))^(1/(1-b3)) }
+SRichards3 <- function(t,Linf,k,L0,b) { Linf*(1+(((L0/Linf)^(1/b))-1)*exp(-k*t))^b }
 msg_Richards3 <- paste0("You have chosen paramaterization 3 (Tjorve7) of ",
                         "the Richards growth function.\n\n",
-                        "  Linf*(1+(((L0/Linf)^(1-b3))-1)*exp(-k*t))^(1/(1-b3))\n\n",
+                        "  Linf*(1+(((L0/Linf)^(1/b))-1)*exp(-k*t))^b\n\n",
                         "  where Linf = asymptotic mean length\n",
                         "           k = controls the slope at inflection point\n",
                         "          L0 = mean length at t=0\n",
-                        "          b3 = controls y- value of inflection point\n\n")
-
-# eqn 4 from Tjorve & Tjorve (2010)
-Richards4 <- function(t,Linf,k=NULL,ti=NULL,b2=NULL) { 
-  if (length(Linf)==4) { 
-    b2 <- Linf[[4]]
-    ti <- Linf[[3]]
-    k <- Linf[[2]]
-    Linf <- Linf[[1]] }
-  Linf*(1-(1/b2)*exp(-k*(t-ti)))^b2
-}
-SRichards4 <- function(t,Linf,k,ti,b2) { Linf*(1-(1/b2)*exp(-k*(t-ti)))^b2 }
-msg_Richards4 <- paste0("You have chosen paramaterization 4 (Tjorve4) of ",
-                        "the Richards growth function.\n\n",
-                        "  Linf*(1-(1/b2)*exp(-k*(t-ti)))^b2\n\n",
-                        "  where Linf = asymptotic mean length\n",
-                        "           k = controls slope at inflection point\n",
-                        "          ti = time/age at inflection point\n",
-                        "          b2 = controls y- value of inflection point\n\n")
-
-#eqn 6 from Tjorve & Tjorve (2010)
-Richards5 <- function(t,Linf,k=NULL,ti=NULL,b3=NULL) { 
-  if (length(Linf)==4) {
-    b3 <- Linf[[4]]
-    ti <- Linf[[3]]
-    k <- Linf[[2]]
-    Linf <- Linf[[1]] }
-  Linf*(1+(b3-1)*exp(-k*(t-ti)))^(1/(1-b3))
-}
-SRichards5 <- function(t,Linf,k,ti,b3) { Linf*(1+(b3-1)*exp(-k*(t-ti)))^(1/(1-b3)) }
-msg_Richards5 <- paste0("You have chosen paramaterization 5 (Tjorve6) of ",
-                        "the Richards growth function.\n\n",
-                        "  Linf*(1+(b3-1)*exp(-k*(t-ti)))^(1/(1-b3))\n\n",
-                        "  where Linf = asymptotic mean length\n",
-                        "           k = controls slope at inflection point\n",
-                        "          ti = time/age at inflection point\n",
-                        "          b3 = controls y- value of inflection point\n\n")
+                        "           b = (nuisance) shape parameter\n\n")
 
 msgsGrow <- c(msgsGrow,
               "Richards1"=msg_Richards1,
               "Richards2"=msg_Richards2,
-              "Richards3"=msg_Richards3,
-              "Richards4"=msg_Richards4,
-              "Richards5"=msg_Richards5)
+              "Richards3"=msg_Richards3)
 
 #-------------------------------------------------------------------------------
 #-- Schnute function
@@ -1059,8 +1019,8 @@ iHndlGrowthModelParams <- function(type,param,pname,SGF=FALSE) {
                                  "Troynikov","Troynikov1","Troynikov2")),
     "logistic"=data.frame(pnum=c(1,2,3,4),
                           pnms=c("Campana-Jones1","Campana-Jones2","Karkach","Haddon")),
-    "Richards"=data.frame(pnum=c(1,2,3,4,5),
-                          pnms=c("Tjorve5","Tjorve3","Tjorve7","Tjorve4","Tjorve6")))
+    "Richards"=data.frame(pnum=c(1,2,3),
+                          pnms=c("Tjorve4","Tjorve3","Tjorve7")))
   
   # If pname used, then convert name to param number
   if(!is.null(pname)) {

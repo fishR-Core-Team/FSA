@@ -46,7 +46,7 @@
 #' l1 <- makeGrowthFun(type="logistic")
 #' df$tll <- round(l1(df$age,Linf=450,gninf=0.3,ti=2)+rnorm(sum(n),0,sd),0)
 #' r1 <- makeGrowthFun(type="Richards")
-#' df$tlr <- round(r1(df$age,Linf=450,ti=2,k=0.5,b1=1.5)+rnorm(sum(n),0,sd),0)
+#' df$tlr <- round(r1(df$age,Linf=450,ti=2,k=0.5,b=-0.7)+rnorm(sum(n),0,sd),0)
 #' # brief view of data
 #' head(df)
 #' 
@@ -60,13 +60,13 @@
 #' ( svonb4 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=4) )
 #' ( sgomp2 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=2) )
 #' ( slogi3 <- findGrowthStarts(tll~age,data=df,type="logistic",param=3) )
-#' ( srich4 <- findGrowthStarts(tlr~age,data=df,type="Richards",param=4) )
+#' ( srich3 <- findGrowthStarts(tlr~age,data=df,type="Richards",param=3) )
 #' 
 #' #' #====== Example using pname instead of param
 #' ( svonb4 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",pname="Mooij") )
 #' ( sgomp2 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",pname="Ricker1") )
 #' ( slogi3 <- findGrowthStarts(tll~age,data=df,type="logistic",pname="Campana-Jones2") )
-#' ( srich4 <- findGrowthStarts(tlr~age,data=df,type="Richards",pname="Tjorve4") )
+#' ( srich3 <- findGrowthStarts(tlr~age,data=df,type="Richards",pname="Tjorve7") )
 #' 
 #' #====== Some vonB parameterizations require constant values in constvals=
 #' ( svonb8 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",
@@ -382,11 +382,9 @@ iRichStarts <- function(ynm,xnm,data,param,fixed) {
   ti <- ifelse("ti" %in% fxdnms,fixed[["ti"]],sstmp[["Infl"]])
   M <- sstmp[["M"]]
   t0 <- ifelse("t0" %in% fxdnms,fixed[["t0"]],-(log(1/M)/k)+ti)
-  L0 <- ifelse("L0" %in% fxdnms,fixed[["L0"]],Linf/((1+M*exp(k*ti)))^(1/M))
-  b1 <- ifelse("b1" %in% fxdnms,fixed[["b1"]],M)
-  b2 <- ifelse("b2" %in% fxdnms,fixed[["b2"]],-(1/M))
-  b3 <- ifelse("b3" %in% fxdnms,fixed[["b3"]],1+M)
-  
+  L0 <- ifelse("L0" %in% fxdnms,fixed[["L0"]],Linf*((1+M*exp(k*ti))^(-1/M)))
+  b <- ifelse("b" %in% fxdnms,fixed[["b"]],-(1/M))
+
   
   # Create starting value list specific to parameterization
   sv <- NULL
@@ -394,23 +392,15 @@ iRichStarts <- function(ynm,xnm,data,param,fixed) {
          Richards1={  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
                               k=iChkParamPos(k,fxdnms),
                               ti=iChkParamPos(ti,fxdnms),
-                              b1=b1)  },
+                              b=b)  },
          Richards2={  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
                               k=iChkParamPos(k,fxdnms),
                               t0=t0,
-                              b2=b2)  },
+                              b=b)  },
          Richards3={  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
                               k=iChkParamPos(k,fxdnms),
                               L0=iChkL0(L0,data[[ynm]],data[[xnm]],fxdnms),
-                              b3=b3)  },
-         Richards4={  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
-                              k=iChkParamPos(k,fxdnms),
-                              ti=iChkParamPos(ti,fxdnms),
-                              b2=b2)  },
-         Richards5={  sv <- c(Linf=iChkLinf(Linf,data[[ynm]],fxdnms),
-                              k=iChkParamPos(k,fxdnms),
-                              ti=iChkParamPos(ti,fxdnms),
-                              b3=b3)  }
+                              b=b)  }
   )
   
   # Return the starting value list
