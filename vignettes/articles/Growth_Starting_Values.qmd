@@ -43,7 +43,7 @@ Several "self-starting" non-linear models are provided in R, with three of these
 |   5   | $E(L_t) = L_\infty\left(1-e^{-log(2)\frac{t-t_0}{t_{50}-t_0}}\right)$ |
 |   6   | $E(L_t) = L_r + (L_\infty-L_r)~e^{-e^{-K(t-t_r)}}$ |
 |   7   | $E(L_t) = L_1+(L_3-L_1)\frac{1-e^{-K(t-t_1)}}{1-e^{-K(t_3-t_1)}}$ |
-|   8   | $E(L_t) = L_1+(L_3-L_1)\frac{1-r^{2\frac{t-t_1}{t_3-t_1}}}{1-r^2}$ with $r=\frac{L_3-L_2}{L_2-L_1}$|
+|   8   | $E(L_t) = L_1+(L_3-L_1)\frac{1-r^{2\frac{t-t_1}{t_3-t_1}}}{1-r^2}$ where $r=\frac{L_3-L_2}{L_2-L_1}$|
 
 : Parameterizations of the von Bertalanffy growth equation for length-at-age data available in `FSA`. {#tbl-VBparams1}
 
@@ -199,9 +199,9 @@ There are also several parameterizations of the von Bertalanffy model that inclu
 
 | param | Equation |
 |:-----:|:----------------------------------------------------|
-|  10   | $E(L_t) = L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi sin(2\pi(t-t_s))}+\frac{CK}{2\pi sin(2\pi(t_0-t_s))}}\right)$ |
-|  11   | $E(L_t) = L_\infty\left(1-e^{-K(t-t_0)-\frac{CK}{2\pi sin(2\pi(t-WP+0.5))}+\frac{CK}{2\pi sin(2\pi(t_0-WP+0.5))}}\right)$ |
-|  12   | $E(L_t) = L_\infty(1-e^{-q})$ with $q=K'(t'-t_0) + \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)(t'-t_s)}) - \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)(t_0-t_s)})$ |
+|  10   | $E(L_t) = L_\infty\left[1-e^{-K(t-t_0)-S(t)+S(t_0)}\right]$ where $S(t)=\frac{CK}{2\pi} sin(2\pi(t-t_s))$ |
+|  11   | $E(L_t) = L_\infty\left[1-e^{-K(t-t_0)-R(t)+R(t_0)}\right]$  where $R(t)=\frac{CK}{2\pi} sin(2\pi(t-WP+0.5))$ |
+|  12   | $E(L_t) = L_\infty(1-e^{-K'(t'-t_0)-V(t')+V(t_0)})$ where $V(t)= \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)}(t-t_s))$ |
 
 : Parameterizations of the von Bertalanffy growth equation for length-at-age data with a seasonal component available in `FSA`. {#tbl-VBparams3}
 
@@ -239,7 +239,7 @@ Still other parameterizations of the von Bertalanffy model are used with tag-rec
 |  15   | $E(L_r-L_m)=(L_\infty+\beta(\bar{L}_m-L_m)-L_m)\left(1-e^{-K\delta t}\right)$ |
 |  16   | $E(L_r-L_m)=(\alpha+\beta L_m\left(1-e^{-K\delta t}\right)$ |
 |  17   | $E(L_r)=L_m+(\alpha+\beta L_m\left(1-e^{-K\delta t}\right)$ |
-|  18   | $E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1+L_2}\right)^{dt}\right]$ |
+|  18   | $E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1-L_2}\right)^{\delta t}\right]$ |
 |  19   | $E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1+L_2}\right)^{t_2-t_1+S_2-S_1}\right]$ with $S_1=u\text{sin}\left(\frac{2\pi(t_1-w)}{2\pi}\right)$ and $S_2=u\text{sin}\left(\frac{2\pi(t_2-w)}{2\pi}\right)$ |
 
 : Parameterizations of the von Bertalanffy growth equation for length at tag and recapture data available in `FSA`. {#tbl-VBparams4}
@@ -397,8 +397,8 @@ Still other parameterizations of the Gompertz model are used with tag-recapture 
 
 | param | Equation |
 |:-----:|:----------------------------------------------------|
-|   6   | $E(L_r-L_m)=L_{\infty}\left[\frac{L_m}{L_{\infty}}\right]^{e^{-g_i\Delta t}}-L_m$ |
-|   7   | $E(L_r)=L_{\infty}\left[\frac{L_m}{L_{\infty}}\right]^{e^{-g_i\Delta t}$ |
+|   6   | $E(L_r-L_m)=L_{\infty}\left[\frac{L_m}{L_{\infty}}\right]^{e^{-g_i\delta t}}-L_m$ |
+|   7   | $E(L_r)=L_{\infty}\left[\frac{L_m}{L_{\infty}}\right]^{e^{-g_i\delta t}}$ |
 
 : Parameterizations of the Gompertz growth equation for length at tag and recapture data available in `FSA`. {#tbl-Gompparams2}
 
