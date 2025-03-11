@@ -15,6 +15,7 @@
 #' @param data A data frame that contains the variables in \code{formula}.
 #' @param constvals A NAMED numeric vector of constant values (either lengths or ages) to be used in some of the von Bertalanffy parameterizations. See details.
 #' @param fixed A NAMED numeric vector that contains user-defined (i.e., fixed rather than automatically generated) starting values for one or more parameters. See details.
+#' @param Lmnm A single string that indicates the name of the variables in \code{data} that has the measured length-at-marking (or tagging). Only used when one of the tag-recapture parameterizations is used.
 #' @param plot A logical that indicates whether a plot of the data with the superimposed model fit at the starting values should be created. This plot is for diagnostic purposes and, thus, cannot be modified in this function.
 #' 
 #' @return A named vector that contains reasonable starting values. Note that the parameters will be listed with the same names in the same order as listed in \code{\link{makeGrowthFun}}.
@@ -79,6 +80,13 @@
 #' #----- plot growth function at final values ... starting values were very good!
 #' curve(vonb1(x,Linf=cvonb1),col="red",lwd=2,add=TRUE)
 #' 
+#' #===== Example for tag-recapture data (in GrowthData3)
+#' #----- Fabens model
+#' findGrowthStarts(deltaL~deltat,data=GrowthData3,pname="Fabens",Lmnm="tlM")
+#' #----- Francis model
+#' findGrowthStarts(deltaL~deltat,data=GrowthData3,pname="Francis2",Lmnm="tlM",
+#'                  constvals=c(L1=150,L2=400))
+#' 
 #' @rdname findGrowthStarts
 #' @export
 
@@ -86,7 +94,7 @@ findGrowthStarts <- function(formula,data,
                              type=c("von Bertalanffy","Gompertz","logistic","Richards",
                                     "Schnute","Schnute-Richards"),
                              param=1,pname=NULL,
-                             constvals=NULL,fixed=NULL,plot=FALSE) {
+                             constvals=NULL,fixed=NULL,Lmnm=NULL,plot=FALSE) {
   #===== Checks
   # Handle the formula with some checks
   tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
@@ -125,7 +133,7 @@ findGrowthStarts <- function(formula,data,
   
   # call specific internal function to create starting value list
   switch(type,
-         "von Bertalanffy"= { sv <- iVonBStarts(lennm,agenm,data,param,constvals,fixed) },
+         "von Bertalanffy"= { sv <- iVonBStarts(lennm,agenm,data,param,constvals,fixed,Lmnm) },
          "Gompertz"=        { sv <- iGompStarts(lennm,agenm,data,param,fixed) },
          "logistic"=        { sv <- iLogiStarts(lennm,agenm,data,param,fixed) },
          "Richards"=        { sv <- iRichStarts(lennm,agenm,data,param,fixed) },
@@ -143,21 +151,26 @@ findGrowthStarts <- function(formula,data,
   }
   
   #===== Plot starting values (if asked to)
-  if (plot) iPlotGrowStarts(sv,data,lennm,agenm,type,param,constvals)
-  
-  #===== Return starting value list
   if (is.null(sv)) WARN("Starting values not yet implemented in 'FSA'",
                         " for ",type," paramaterization #",param)
-  else sv
+  else if (plot) {
+    if (type=="von Bertalanffy" & param %in% 13:19)
+      WARN("'plot' does not work for ",type," parameterization #",param,
+           ", or for any other tag-recapture parameterization")
+    else iPlotGrowStarts(sv,data,lennm,agenm,type,param,constvals)
+  } 
+  
+  #===== Return starting value list (may be NULL, but warned above)
+  sv
 }
 
 
 #===============================================================================
 #== Internal Functions -- Compute starting values for each type of model
 #===============================================================================
-iVonBStarts <- function(ynm,xnm,data,param,constvals,fixed) {
+iVonBStarts <- function(ynm,xnm,data,param,constvals,fixed,Lmnm) {
   # Perform checks on constvals (some checks already in main function)
-  if (is.null(constvals) & param %in% c(6,7,8))
+  if (is.null(constvals) & param %in% c(6,7,8,18))
     STOP("You must use 'constvals' with von Bertalanffy paramaterization #",param)
   if (!is.null(constvals)) {
     cvnms <- names(constvals)
@@ -174,7 +187,15 @@ iVonBStarts <- function(ynm,xnm,data,param,constvals,fixed) {
       if (!all(cvnms %in% c("t1","t3")))
         STOP("Value names in 'constvals' must be 't1' and 't3' when 'param=",param,"'")
     }
-    if (param %in% c(18,19)) { # Schnute and Francis parameterizations
+    if (param %in% 13:17) { # tag-recapture but not the next two
+      if (length(cvnms)!=2) 
+        STOP("'constvals' not required when 'param=",param,
+             "', but if used then there must be exactly two values ('L1' and 'L2')")
+      if (!all(cvnms %in% c("L1","L2")))
+        STOP("'constvals' not required when 'param=",param,
+             "', but if used then names in 'constvals' must be 'L1' and 'L2'")
+    }
+    if (param %in% c(18,19)) { # Francis parameterizations
       if (length(cvnms)!=2) 
         STOP("'constvals' must have exactly two values ('L1' and 'L2') when 'param=",
              param,"'" )
@@ -186,39 +207,68 @@ iVonBStarts <- function(ynm,xnm,data,param,constvals,fixed) {
   # Get names of fixed params, if they exist
   fxdnms <- names(fixed)
   
-  # Get starting values for SSasymp parameters
-  ssform <- stats::as.formula(paste0(ynm,"~stats::SSasymp(",
-                                     xnm,",Asym,R0,lrc)"))
-  sstmp <- stats::getInitial(ssform,data=data)
-  
-  # Convert SSasymp parameter starting values to VB parameters
-  Linf <- ifelse("Linf" %in% fxdnms,fixed[["Linf"]],sstmp[["Asym"]])
-  L0 <- ifelse("L0" %in% fxdnms,fixed[["L0"]],sstmp[["R0"]])
-  K <- ifelse("K" %in% fxdnms,fixed[["K"]],exp(sstmp[["lrc"]]))
-  t0 <- ifelse("t0" %in% fxdnms,fixed[["t0"]],-log(Linf/(Linf-L0))/K)
-  omega <- ifelse("omega" %in% fxdnms,fixed[["omega"]],K*Linf)
-  t50 <- ifelse("t50" %in% fxdnms,fixed[["t50"]],t0+log(2)/K)
-  if (param==6) {
-    if (cvnms=="Lr") {
-      tr <- ifelse("tr" %in% fxdnms,fixed[["tr"]],-log((Linf-constvals[["Lr"]])/(Linf-L0))/K)
-      tr <- iChkParamPos(tr,fxdnms)
-      sv6 <- c(Linf=Linf,K=K,tr=tr)
-    } else {
-      Lr <- ifelse("Lr" %in% fxdnms,fixed[["Lr"]],Linf*(1-exp(-K*(constvals[["tr"]]-t0))))
-      Lr <- iChkParamPos(Lr,fxdnms)
-      sv6 <- c(Linf=Linf,K=K,Lr=Lr)
+  if (param %in% 1:8) {          # Length at annual age models
+    # Get starting values for SSasymp parameters
+    ssform <- stats::as.formula(paste0(ynm,"~stats::SSasymp(",xnm,",Asym,R0,lrc)"))
+    sstmp <- stats::getInitial(ssform,data=data)
+    # Convert SSasymp parameter starting values to VB parameters
+    Linf <- ifelse("Linf" %in% fxdnms,fixed[["Linf"]],sstmp[["Asym"]])
+    K <- ifelse("K" %in% fxdnms,fixed[["K"]],exp(sstmp[["lrc"]]))
+    L0 <- ifelse("L0" %in% fxdnms,fixed[["L0"]],sstmp[["R0"]])
+    t0 <- ifelse("t0" %in% fxdnms,fixed[["t0"]],-log(Linf/(Linf-L0))/K)
+    L0 <- ifelse("L0" %in% fxdnms,fixed[["L0"]],sstmp[["R0"]])
+    omega <- ifelse("omega" %in% fxdnms,fixed[["omega"]],K*Linf)
+    t50 <- ifelse("t50" %in% fxdnms,fixed[["t50"]],t0+log(2)/K)
+    if (param==6) {
+      if (cvnms=="Lr") {
+        tr <- ifelse("tr" %in% fxdnms,fixed[["tr"]],-log((Linf-constvals[["Lr"]])/(Linf-L0))/K)
+        tr <- iChkParamPos(tr,fxdnms)
+        sv6 <- c(Linf=Linf,K=K,tr=tr)
+      } else {
+        Lr <- ifelse("Lr" %in% fxdnms,fixed[["Lr"]],Linf*(1-exp(-K*(constvals[["tr"]]-t0))))
+        Lr <- iChkParamPos(Lr,fxdnms)
+        sv6 <- c(Linf=Linf,K=K,Lr=Lr)
+      }
     }
+    if (param %in% c(7,8)) {
+      L1 <- ifelse("L1" %in% fxdnms,fixed[["L1"]],Linf*(1-exp(-K*(constvals[["t1"]]-t0))))
+      L3 <- ifelse("L3" %in% fxdnms,fixed[["L3"]],Linf*(1-exp(-K*(constvals[["t3"]]-t0))))
+      L2 <- ifelse("L2" %in% fxdnms,fixed[["L2"]],Linf*(1-exp(-K*(mean(constvals)-t0))))
+    }
+  } else if (param %in% 10:12) { # Length at seasonal age models
+    # Get starting values for SSasymp parameters
+    ssform <- stats::as.formula(paste0(ynm,"~stats::SSasymp(",xnm,",Asym,R0,lrc)"))
+    sstmp <- stats::getInitial(ssform,data=data)
+    # Convert SSasymp parameter starting values to VB parameters
+    Linf <- ifelse("Linf" %in% fxdnms,fixed[["Linf"]],sstmp[["Asym"]])
+    K <- ifelse("K" %in% fxdnms,fixed[["K"]],exp(sstmp[["lrc"]]))
+    L0 <- ifelse("L0" %in% fxdnms,fixed[["L0"]],sstmp[["R0"]])
+    t0 <- ifelse("t0" %in% fxdnms,fixed[["t0"]],-log(Linf/(Linf-L0))/K)
+    C <- ifelse("C" %in% fxdnms, fixed[["C"]],0.5)
+    ts <- ifelse("ts" %in% fxdnms, fixed[["ts"]],0.3)
+    WP <- ifelse("WP" %in% fxdnms, fixed[["WP"]],ts+0.5)
+    NGT <- ifelse("NGT" %in% fxdnms, fixed[["NGT"]],0.3)
+    Kpr <- ifelse("Kpr" %in% fxdnms, fixed[["Kpr"]],K/(1-NGT))
+  } else if (param %in% 13:18) { # Tag-Recapture models
+    # if param does not use constvals then used observe Lm at 10, 90%iles
+    if (is.null(constvals)) {
+      L1 <- stats::quantile(data[,Lmnm],probs=0.10)[[1]]
+      L2 <- stats::quantile(data[,Lmnm],probs=0.90)[[1]]
+    } else {
+      L1 <- constvals[["L1"]]
+      L2 <- constvals[["L2"]]
+    }
+    tmp <- stats::lm(stats::as.formula(paste0("I(",ynm,"/",xnm,")~",Lmnm)),data=data)
+    pdf <- data.frame(c(L1,L2))
+    names(pdf) <- Lmnm
+    pdf <- stats::predict(tmp,data.frame(pdf))
+    g1 <- ifelse("g1" %in% fxdnms, fixed[["g1"]],pdf[[1]])
+    g2 <- ifelse("g2" %in% fxdnms, fixed[["g2"]],pdf[[2]])
+    Linf <- ifelse("Linf" %in% fxdnms, fixed[["Linf"]],(L2*g1-L1*g2)/(g1-g2))
+    K <- ifelse("K" %in% fxdnms, fixed[["K"]],-log(1+(g1-g2)/(L1-L2)))
+    beta <- ifelse("beta" %in% fxdnms, fixed[["beta"]],0.1)
+    alpha <- ifelse("alpha" %in% fxdnms, fixed[["alpha"]],Linf-mean(data[,Lmnm],na.rm=TRUE))
   }
-  if (param %in% c(7,8)) {
-    L1 <- ifelse("L1" %in% fxdnms,fixed[["L1"]],Linf*(1-exp(-K*(constvals[["t1"]]-t0))))
-    L3 <- ifelse("L3" %in% fxdnms,fixed[["L3"]],Linf*(1-exp(-K*(constvals[["t3"]]-t0))))
-    L2 <- ifelse("L2" %in% fxdnms,fixed[["L2"]],Linf*(1-exp(-K*(mean(constvals)-t0))))
-  }
-  C <- ifelse("C" %in% fxdnms, fixed[["C"]],0.5)
-  ts <- ifelse("ts" %in% fxdnms, fixed[["ts"]],0.3)
-  WP <- ifelse("WP" %in% fxdnms, fixed[["WP"]],ts+0.5)
-  NGT <- ifelse("NGT" %in% fxdnms, fixed[["NGT"]],0.3)
-  Kpr <- ifelse("Kpr" %in% fxdnms, fixed[["Kpr"]],K/(1-NGT))
 
   # Create starting value list specific to parameterization
   sv <- NULL
@@ -259,7 +309,24 @@ iVonBStarts <- function(ynm,xnm,data,param,constvals,fixed) {
                           Kpr=iChkParamPos(Kpr,fxdnms),
                           t0=iChkt0(t0,fxdnms),
                           ts=iChkParamBtwn(ts,fxdnms),
-                          NGT=iChkParamBtwn(NGT,fxdnms))  }
+                          NGT=iChkParamBtwn(NGT,fxdnms))  },
+         "13"= {  sv <- c(Linf=iChkParamPos(Linf,fxdnms),
+                          K=iChkParamPos(K,fxdnms))  },
+         "14"= {  sv <- c(Linf=iChkParamPos(Linf,fxdnms),
+                          K=iChkParamPos(K,fxdnms))  },
+         "15"= {  sv <- c(Linf=iChkParamPos(Linf,fxdnms),
+                          K=iChkParamPos(K,fxdnms),
+                          beta=beta)  },
+         "16"= {  sv <- c(Linf=iChkParamPos(Linf,fxdnms),
+                          K=iChkParamPos(K,fxdnms),
+                          alpha=alpha,
+                          beta=beta)  },
+         "17"= {  sv <- c(Linf=iChkParamPos(Linf,fxdnms),
+                          K=iChkParamPos(K,fxdnms),
+                          alpha=alpha,
+                          beta=beta)  },
+         "18"= {  sv <- c(g1=iChkParamPos(g1,fxdnms),
+                          g2=iChkParamPos(g2,fxdnms))  }
   )
   sv
 }

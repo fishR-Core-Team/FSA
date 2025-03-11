@@ -248,17 +248,25 @@ The response variable is generally the change in length (i.e., growth increment)
 
 New parameters in these growth functions are:
 
-- $\beta$ = a measure of individual fish variability
-- $\alpha$ = a nuisance parameter related to $L_\infty$ and an individual's $L_m$
-- $g_1$ = mean annual growth rate at the (relatively small) reference length $L_1$
-- $g_2$ = mean annual growth rate at the (relatively large) reference length $L_2$
+- $\beta$ = a measure of individual fish variability.
+- $\alpha$ = a nuisance parameter related to $L_\infty$ and an individual's $L_m$.
+- $g_1$ = mean annual growth rate at the (relatively small) reference length $L_1$.
+- $g_2$ = mean annual growth rate at the (relatively large) reference length $L_2$.
 - $u$ = describes "the extent of seasonality" ($u$=0 is no seasonality).
 - $w$ = is the time of year when growth rates are maximum.
 
 <br>
 
+Starting values for (most of) these parameters were developed with the following *ad hoc* procedure. 
+
+* Regress (linear) observed annual growth rate (i.e., $\frac{\delta L}{\delta t}$ or $\frac{L_r-L_m}{t_r-t_m}$) on observed length-at-marking (i.e., $L_m$).
+* Use this model to predict annual growth rates ($g_1$ and $g_2$) at $L_1$ and $L_2$. [$L_1$ and $L_2$ are chosen by the user in parameterization 18, but are set in `FSA` at the 10th and 90th percentiles of observed $L_m$ for the other parameterizations.]
+* Use these results in $L_\infty=\frac{L_2g_1-L_1g_2}{L1-L2}$ and $K=-log\left[1+\frac{g_1-g_2}{L_1-L_2}\right]$ from Francis (1988).
+
+In the Wang models $\beta$ is 0 if there is no individual variation in growth. In my experience a starting value for $\beta$ near 0, but no 0, is usually sufficient. `FSA` defaults to use $\beta=0.1$ as a starting value. A starting value for $\alpha$ of $L+\infty-\bar{L}_m$ is used by noting that if $\beta=0$ then parameterizations 15 and 16 are equal when $\alpha=L\infy-L_m$. An average $\alpha$ can be estimated by using $\bar{L}_m$ for $L_m$. These starting values for $\alpha$ and $\beta$ have not been rigorously tested.
+
 ::: {.callout-warning}
-Starting values for the tag-recapture growth models have not been developed for `FSA`. Starting values for these parameterizations will have to be developed by other means.
+Starting values for parameterization 19 have not been developed for `FSA`. Starting values for this parameterization will have to be developed by other means.
 :::
 
 <br>

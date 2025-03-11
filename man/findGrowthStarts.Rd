@@ -13,6 +13,7 @@ findGrowthStarts(
   pname = NULL,
   constvals = NULL,
   fixed = NULL,
+  Lmnm = NULL,
   plot = FALSE
 )
 }
@@ -30,6 +31,8 @@ findGrowthStarts(
 \item{constvals}{A NAMED numeric vector of constant values (either lengths or ages) to be used in some of the von Bertalanffy parameterizations. See details.}
 
 \item{fixed}{A NAMED numeric vector that contains user-defined (i.e., fixed rather than automatically generated) starting values for one or more parameters. See details.}
+
+\item{Lmnm}{A single string that indicates the name of the variables in \code{data} that has the measured length-at-marking (or tagging). Only used when one of the tag-recapture parameterizations is used.}
 
 \item{plot}{A logical that indicates whether a plot of the data with the superimposed model fit at the starting values should be created. This plot is for diagnostic purposes and, thus, cannot be modified in this function.}
 }
@@ -104,6 +107,13 @@ rvonb1 <- nls(tlV~vonb1(age,Linf,K,t0),data=GrowthData1,start=svonb1)
 cvonb1 <- coef(rvonb1)
 #----- plot growth function at final values ... starting values were very good!
 curve(vonb1(x,Linf=cvonb1),col="red",lwd=2,add=TRUE)
+
+#===== Example for tag-recapture data (in GrowthData3)
+#----- Fabens model
+findGrowthStarts(deltaL~deltat,data=GrowthData3,pname="Fabens",Lmnm="tlM")
+#----- Francis model
+findGrowthStarts(deltaL~deltat,data=GrowthData3,pname="Francis2",Lmnm="tlM",
+                 constvals=c(L1=150,L2=400))
 
 }
 \seealso{
