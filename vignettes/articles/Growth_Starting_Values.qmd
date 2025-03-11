@@ -236,9 +236,9 @@ Still other parameterizations of the von Bertalanffy model are used with tag-rec
 |:-----:|:----------------------------------------------------|
 |  13   | $E(L_r-L_m)=(L_\infty-L_m)\left(1-e^{-K\delta t}\right)$ |
 |  14   | $E(L_r)=L_m + (L_\infty-L_m)\left(1-e^{-K\delta t}\right)$ |
-|  15   | $E(L_r-L_m)=(L_\infty+\beta(\bar{L}_m-L_m)-L_m)\left(1-e^{-K\delta t}\right)$ |
-|  16   | $E(L_r-L_m)=(\alpha+\beta L_m\left(1-e^{-K\delta t}\right)$ |
-|  17   | $E(L_r)=L_m+(\alpha+\beta L_m\left(1-e^{-K\delta t}\right)$ |
+|  15   | $E(L_r-L_m)=(L_\infty+\beta(L_m-\bar{L}_m)-L_m)\left(1-e^{-K\delta t}\right)$ |
+|  16   | $E(L_r-L_m)=(\alpha+\beta L_m)\left(1-e^{-K\delta t}\right)$ |
+|  17   | $E(L_r)=L_m+(\alpha+\beta L_m)\left(1-e^{-K\delta t}\right)$ |
 |  18   | $E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1-L_2}\right)^{\delta t}\right]$ |
 |  19   | $E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1+L_2}\right)^{t_2-t_1+S_2-S_1}\right]$ with $S_1=u\text{sin}\left(\frac{2\pi(t_1-w)}{2\pi}\right)$ and $S_2=u\text{sin}\left(\frac{2\pi(t_2-w)}{2\pi}\right)$ |
 
@@ -248,14 +248,12 @@ The response variable is generally the change in length (i.e., growth increment)
 
 New parameters in these growth functions are:
 
-- $\alpha$ =
-- $\beta$ =
-- $L_1$ =
-- $L_2$ =
-- $g_1$ =
-- $g_2$ =
-- $u$ =
-- $w$ = 
+- $\beta$ = a measure of individual fish variability
+- $\alpha$ = a nuisance parameter related to $L_\infty$ and an individual's $L_m$
+- $g_1$ = mean annual growth rate at the (relatively small) reference length $L_1$
+- $g_2$ = mean annual growth rate at the (relatively large) reference length $L_2$
+- $u$ = describes "the extent of seasonality" ($u$=0 is no seasonality).
+- $w$ = is the time of year when growth rates are maximum.
 
 <br>
 
@@ -535,7 +533,7 @@ curve(l3(x,Linf=Asym,gninf=1/scal,L0=Asym/(1+exp(xmid/scal))),from=0,to=15,col="
 
 | param | Equation |
 |:-----:|:----------------------------------------------------|
-|   1   | $E(L_t) = L_\infty\left[1-\frac{1}{b_1}e^{-k(t-t_i)}\right]^{b}$ |
+|   1   | $E(L_t) = L_\infty\left[1-\frac{1}{b}e^{-k(t-t_i)}\right]^{b}$ |
 |   2   | $E(L_t) = L_\infty\left(1+e^{-k(t-t_0)}\right)^{b}$ |
 |   3   | $E(L_t) = L_\infty\left[1+\left(\left(\frac{L_0}{L_\infty}\right)^{\frac{1}{b}}-1\right)e^{-kt}\right]^{b}$ |
 
@@ -546,7 +544,7 @@ curve(l3(x,Linf=Asym,gninf=1/scal,L0=Asym/(1+exp(xmid/scal))),from=0,to=15,col="
 The response variable, $L$, is the mean length and the explanatory variable, $t$ is age. New parameters in these growth functions are:^[$L_\infty$, $L_0$, and $t_0$ are as defined for the von Bertalanffy model and $t_i$ is as defined for the Gompertz model.]
 
 - $k$ = growth rate parameter
-- $b$ = nuisance parameters with no biological meaning
+- $b$ = nuisance parameter with no biological meaning
 
 <br>
 
@@ -559,24 +557,38 @@ To better match the parameterizations in `FSA`, the `FlexParamCurve` function ca
 
 $$ Y = \text{Asym}\left[1+Me^{-K(X-\text{Infl})}\right]^{-\frac{1}{M}} $$
 
-In growth (in length) modeling, $Y$ is $L$ (for length), $X$ is $t$ (for time as measured by age), and $\text{Asym}$ is clearly $L_{\infty}$. Thus, at this point, their (modified) function can be re-written for the purposes of growth modeling as 
+In growth (in length) modeling, $Y$ is $L$ (for length), $X$ is $t$ (for time as measured by age). With these substitutions the (modified) function from `FlexParamCurve` can be re-written for the purposes of growth modeling as 
 
 $$ L = L_\infty\left[1+Me^{-K(t-\text{Infl})}\right]^{-\frac{1}{M}} $$ {#eq-rSSRichards}
 
-It is also likely that $\text{Infl}$ is equal to $t_i$, but this is explored more below.
+A comparison of @eq-rSSRichards to the three parameterizations of the Richards function in `FSA` clearly shows that $L_\infty=\text{Asym}$ and $b=-\frac{1}{M}$ for each. Substituting these values, and noting that $M=-\frac{1}{b}$, @eq-rSSRichards can be written as
 
-The first parameterization of the Richards growth function implemented in `FSA` is exactly the same as @eq-rSSRichards when $b=-\frac{1}{M}$, $k=K$, and $t_i=\text{Infl}$ (and, of course, $L_\infty=\text{Asym}$).
+$$ L = L_\infty\left[1-\frac{1}{b}Me^{-K(t-\text{Infl})}\right]^{b} $$
 
-The second parameterization of the Richards growth function **NEED TO COME BACK TO THIS, BUT SOMEHOW I FOUND THAT** $t_0 = -\frac{log\left(\frac{1}{M}\right)}{K}+\text{Infl}$ and $b = -\frac{1}{M}$
+This is exactly the first parameterization in `FSA` if $k=K$ and $t_i=\text{Infl}$. In fact, $k=K$ and $t_i=\text{Infl}$ in the other parameterizations.
 
-Tjorve and Tjorve (2010) derived the third parameterization of the Richards growth function by **NEED TO COME BACK TO THIS, BUT SOMEHOW I FOUND THAT** $b=-\frac{1}{M}$. If $t$ is then set to $0$ in the equation for the first parameterization and solved for $L$, then $L_0=L_\infty\left[1-\frac{1}{b}e^{kt_i}\right]^{b}$. Thus, starting values for $L_0$ can be estimated from the starting values of $L_\infty$, $k$, $t_i$, and $b$ from the first parameterization.
+If $t_0$ is the value of $t$ when $L=0$ then plug 0 into @eq-rSSRichards and solve for $t$ as follows^[Assuming that both $L_\infty\neq0$ and $M\neq0$.]
 
-These findings are summarized in @tbl-richardsstarts
+$$
+\begin{align}
+0 &= L_\infty\left[1+Me^{-K(t-\text{Infl})}\right]^{-\frac{1}{M}} \\
+0 &= 1+Me^{-K(t-\text{Infl})} \\
+-\frac{1}{M} &= e^{-K(t-\text{Infl})} \\
+log\left(-\frac{1}{M}\right) &= -K(t-\text{Infl}) \\
+-\frac{log\left(-\frac{1}{M}\right)}{K} &= t-\text{Infl} \\
+\text{Infl}-\frac{log\left(-\frac{1}{M}\right)}{K} &= t
+\end{align}
+$$
+or, alternatively, $t_0=t_i-\frac{log(b)}{k}$.
+
+In the third parameterization $L_0$ is defined as the mean length when $t=0$. Thus, plug $t=0$ into @eq-rSSRichards and solve for $L$ to see that  $L_0=L_\infty\left[1-\frac{1}{b}e^{kt_i}\right]^{b}$.
+
+These findings are summarized in @tbl-richardsstarts.
 
 | param | $L_\infty$ | $L_0$ | $k$ | $t_i$ |  $t_0$  | $b$
 |:-----:|-------|-------|-------|-------|-------|-------|
 | 1 | $\text{Asym}$ |  | $K$ | $\text{Infl}$ |  | $-\frac{1}{M}$ |
-| 2 | $\text{Asym}$ |  | $K$ |  | $-\frac{log\left(\frac{1}{M}\right)}{K}+\text{Infl}$ | $-\frac{1}{M}$ |
+| 2 | $\text{Asym}$ |  | $K$ |  | $\text{Infl}-\frac{log\left(\frac{1}{M}\right)}{K}$ | $-\frac{1}{M}$ |
 | 3 | $\text{Asym}$ | $\text{Asym}\left[1+Me^{K\times\text{Infl}}\right]^{-\frac{1}{M}}$ | $K$ |  |  | $-\frac{1}{M}$ |
 
 : Conversion from `SSposnegRichards()` parameters ($\text{Asym}$, $\text{Infl}$, $K$, and $M$) to parameters for the common Richards parameterizations used to model fish growth in `FSA`. {#tbl-richardsstarts}
