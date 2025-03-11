@@ -28,76 +28,53 @@
 #' @keywords manip
 #'
 #' @examples
-#' #===== Make fake data
-#' # Setup ages, sample sizes (general reduction in numbers with
-#' #   increasing age), and additive SD to model
-#' set.seed(234234)
-#' t <- 0:15
-#' n <- c(5,10,40,35,25,12,10,10,8,6,5,3,3,3,2,2)
-#' sd <- 15
-#' # Expand ages and put in a data.frame
-#' df <- data.frame(age=rep(t,n))
-#' # Add lengths from 1st parameterization of each model type with
-#' #   random error for individuals
-#' vb1 <- makeGrowthFun(type="von Bertalanffy")
-#' df$tlv <- round(vb1(df$age,Linf=450,K=0.3,t0=-0.5)+rnorm(sum(n),0,sd),0)
-#' g1 <- makeGrowthFun(type="Gompertz")
-#' df$tlg <- round(g1(df$age,Linf=450,a=1,g=0.3)+rnorm(sum(n),0,sd),0)
-#' l1 <- makeGrowthFun(type="logistic")
-#' df$tll <- round(l1(df$age,Linf=450,gninf=0.3,ti=2)+rnorm(sum(n),0,sd),0)
-#' r1 <- makeGrowthFun(type="Richards")
-#' df$tlr <- round(r1(df$age,Linf=450,ti=2,k=0.5,b=-0.7)+rnorm(sum(n),0,sd),0)
-#' # brief view of data
-#' head(df)
+#' # These examples use the hypothetical length-at-age (annual) data in GrowthData1
 #' 
 #' #===== Example starting values for 1st parameterization of each type
-#' ( svonb1 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy") )
-#' ( sgomp1 <- findGrowthStarts(tlg~age,data=df,type="Gompertz") )
-#' ( slogi1 <- findGrowthStarts(tll~age,data=df,type="logistic") )
-#' ( srich1 <- findGrowthStarts(tlr~age,data=df,type="Richards") )
+#' ( svonb1 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy") )
+#' ( sgomp1 <- findGrowthStarts(tlG~age,data=GrowthData1,type="Gompertz") )
+#' ( slogi1 <- findGrowthStarts(tlL~age,data=GrowthData1,type="logistic") )
+#' ( srich1 <- findGrowthStarts(tlR~age,data=GrowthData1,type="Richards") )
 #' 
 #' #====== Example starting values at other parameterizations
-#' ( svonb4 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=4) )
-#' ( sgomp2 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=2) )
-#' ( slogi3 <- findGrowthStarts(tll~age,data=df,type="logistic",param=3) )
-#' ( srich3 <- findGrowthStarts(tlr~age,data=df,type="Richards",param=3) )
+#' ( svonb4 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=4) )
+#' ( sgomp2 <- findGrowthStarts(tlG~age,data=GrowthData1,type="Gompertz",param=2) )
+#' ( slogi3 <- findGrowthStarts(tlL~age,data=GrowthData1,type="logistic",param=3) )
+#' ( srich3 <- findGrowthStarts(tlR~age,data=GrowthData1,type="Richards",param=3) )
 #' 
 #' #' #====== Example using pname instead of param
-#' ( svonb4 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",pname="Mooij") )
-#' ( sgomp2 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",pname="Ricker1") )
-#' ( slogi3 <- findGrowthStarts(tll~age,data=df,type="logistic",pname="Campana-Jones2") )
-#' ( srich3 <- findGrowthStarts(tlr~age,data=df,type="Richards",pname="Tjorve7") )
+#' ( svonb4 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",pname="Mooij") )
+#' ( sgomp2 <- findGrowthStarts(tlG~age,data=GrowthData1,type="Gompertz",pname="Ricker1") )
+#' ( slogi3 <- findGrowthStarts(tlL~age,data=GrowthData1,type="logistic",pname="Campana-Jones2") )
+#' ( srich3 <- findGrowthStarts(tlR~age,data=GrowthData1,type="Richards",pname="Tjorve7") )
 #' 
 #' #====== Some vonB parameterizations require constant values in constvals=
-#' ( svonb8 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",
+#' ( svonb8 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",
 #'                              pname="Francis",constvals=c(t1=2,t3=11)) )
 #' 
 #' #====== Demonstrate use of fixed= with 2nd (Original) param of von B as e.g.
-#' ( svonb2 <- findGrowthStarts(tlv~age,data=df,param=2) )
-#' ( svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=500)) )
-#' ( svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=500,K=0.25)) )
-#' #----- useful with plot=TRUE to iteratively guess "close" starting values
-#' svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=600,K=0.25),plot=TRUE)
-#' svonb2 <- findGrowthStarts(tlv~age,data=df,param=2,fixed=c(Linf=450,K=0.25),plot=TRUE)
+#' ( svonb2 <- findGrowthStarts(tlV~age,data=GrowthData1,param=2) )
+#' ( svonb2 <- findGrowthStarts(tlV~age,data=GrowthData1,param=2,fixed=c(Linf=500)) )
+#' ( svonb2 <- findGrowthStarts(tlV~age,data=GrowthData1,param=2,fixed=c(Linf=500,K=0.25)) )
 #' 
 #' #===== Starting values with diagnostic plot
-#' ( sgomp3 <- findGrowthStarts(tlg~age,data=df,type="Gompertz",param=3,plot=TRUE) )
+#' ( sgomp3 <- findGrowthStarts(tlG~age,data=GrowthData1,type="Gompertz",param=3,plot=TRUE) )
 #' 
 #' #===== Iteratively guess at starting values (stop when the model seems to "fit")
-#' findGrowthStarts(tlv~age,data=df,plot=TRUE,fixed=c(Linf=600,K=0.5,t0=0))    #att 1
-#' findGrowthStarts(tlv~age,data=df,plot=TRUE,fixed=c(Linf=450,K=0.5,t0=0))    #att 2
-#' findGrowthStarts(tlv~age,data=df,plot=TRUE,fixed=c(Linf=450,K=0.3,t0=0))    #att 3
-#' findGrowthStarts(tlv~age,data=df,plot=TRUE,fixed=c(Linf=450,K=0.3,t0=-0.5)) #looks OK, stop
+#' findGrowthStarts(tlV~age,data=GrowthData1,plot=TRUE,fixed=c(Linf=600,K=0.5,t0=0))    #att 1
+#' findGrowthStarts(tlV~age,data=GrowthData1,plot=TRUE,fixed=c(Linf=450,K=0.5,t0=0))    #att 2
+#' findGrowthStarts(tlV~age,data=GrowthData1,plot=TRUE,fixed=c(Linf=450,K=0.3,t0=0))    #att 3
+#' findGrowthStarts(tlV~age,data=GrowthData1,plot=TRUE,fixed=c(Linf=450,K=0.3,t0=-0.5)) #looks OK, stop
 #' 
 #' #===== Plot at starting and final values
 #' #----- creating growth function corresponding to first param of von B
 #' vonb1 <- makeGrowthFun(type="von Bertalanffy")
 #' #----- plot data
-#' plot(tlv~age,data=df,pch=19,col=col2rgbt("black",0.2))
+#' plot(tlV~age,data=GrowthData1,pch=19,col=col2rgbt("black",0.2))
 #' #----- plot von b growth function at starting values (svonb1 from above)
 #' curve(vonb1(x,Linf=svonb1),col="blue",lwd=5,add=TRUE)
 #' #----- fit growth function to data
-#' rvonb1 <- nls(tlv~vonb1(age,Linf,K,t0),data=df,start=svonb1)
+#' rvonb1 <- nls(tlV~vonb1(age,Linf,K,t0),data=GrowthData1,start=svonb1)
 #' cvonb1 <- coef(rvonb1)
 #' #----- plot growth function at final values ... starting values were very good!
 #' curve(vonb1(x,Linf=cvonb1),col="red",lwd=2,add=TRUE)

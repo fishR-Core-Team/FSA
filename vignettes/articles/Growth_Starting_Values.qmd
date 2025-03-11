@@ -600,9 +600,9 @@ K <- 0.5
 M <- 0.1
 
 plot(0,col="white",xlim=c(0,15),ylim=c(0,450),xlab="Age",ylab="Length")
-curve(r1(x,Linf=Asym,k=K,ti=Infl,b1=-1/M),from=0,to=15,col="red",lwd=9,add=TRUE)
-curve(r2(x,Linf=Asym,k=K,t0=-log(1/M)/K+Infl,b2=-1/M),from=0,to=15,col="blue",lwd=6,add=TRUE)
-curve(r3(x,Linf=Asym,k=K,L0=Asym*((1+M*exp(K*Infl)))^(-1/M),b3=-1/M),from=0,to=15,col="green",lwd=3,add=TRUE)
+curve(r1(x,Linf=Asym,k=K,ti=Infl,b=-1/M),from=0,to=15,col="red",lwd=9,add=TRUE)
+curve(r2(x,Linf=Asym,k=K,t0=-log(1/M)/K+Infl,b=-1/M),from=0,to=15,col="blue",lwd=6,add=TRUE)
+curve(r3(x,Linf=Asym,k=K,L0=Asym*((1+M*exp(K*Infl)))^(-1/M),b=-1/M),from=0,to=15,col="green",lwd=3,add=TRUE)
 ```
 
 <br>
@@ -613,34 +613,15 @@ In `FSA` versions >0.9.6, `findGrowthStarts()` can be used to find the starting 
 For example, suppose that length-at-age data similar to that shown below is available in a data.frame named `df`.
 
 ```{r}
-#===== Make fake data
-# Setup ages, sample sizes (general reduction in numbers with
-#   increasing age), and additive SD to model
-set.seed(234234)
-t <- 0:15
-n <- c(5,10,40,35,25,12,10,10,8,6,5,3,3,3,2,2)
-sd <- 15
-# Expand ages and put in a data.frame
-df <- data.frame(age=rep(t,n))
-# Add lengths from 1st parameterization of each model type with
-#   random error for individuals
-vb1 <- makeGrowthFun(type="von Bertalanffy")
-df$tlv <- round(vb1(df$age,Linf=450,K=0.3,t0=-0.5)+rnorm(sum(n),0,sd),0)
-g1 <- makeGrowthFun(type="Gompertz")
-df$tlg <- round(g1(df$age,Linf=450,a=1,g=0.3)+rnorm(sum(n),0,sd),0)
-l1 <- makeGrowthFun(type="logistic")
-df$tll <- round(l1(df$age,Linf=450,gninf=0.3,ti=2)+rnorm(sum(n),0,sd),0)
-r1 <- makeGrowthFun(type="Richards")
-df$tlr <- round(r1(df$age,Linf=450,ti=2,k=0.5,b1=1.5)+rnorm(sum(n),0,sd),0)
 # brief view of data
-print(peek(df[,c("age","tlv")],n=6),row.names=FALSE)
+print(peek(GrowthData1[,c("age","tlV")],n=6),row.names=FALSE)
 ```
 
 The starting values for the first parameterization of the von Bertalanffy model could be obtained as below.
 
 ```{r}
 #| echo: true
-( sv1 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=1) )
+( sv1 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=1) )
 ```
 
 It is also possible to declare the model parameterization with a "name."^[See `?makeGrowthFun` for the list of names.]
@@ -648,7 +629,7 @@ It is also possible to declare the model parameterization with a "name."^[See `?
 
 ```{r}
 #| echo: true
-( sv1 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",pname="Typical") )
+( sv1 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",pname="Typical") )
 ```
 
 There may be times when the provided starting values are non-sensical (you may get a warning message) or they do not lead to model convergence when fitting the non-linear regression to data. In these instances it may be useful to view a quick diagnostic plot of how the model evaluated at the starting values "fits" the data. Such a plot can be made by including `plot=TRUE` in `findGrowthStarts()`.
@@ -658,7 +639,7 @@ There may be times when the provided starting values are non-sensical (you may g
 #| label: fig-ex-vb1
 #| fig-width: 4.5
 #| fig-height: 4.5
-sv1 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=1,
+sv1 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=1,
                         plot=TRUE)
 ```
 
@@ -666,7 +647,7 @@ Additionally, it may be useful to "fix" some starting values at values of your c
 
 ```{r}
 #| echo: true
-( sv2 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=1,
+( sv2 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=1,
                           fixed=c("K"=0.5)) )
 ```
 
@@ -674,7 +655,7 @@ Some parameterizations of the von Bertalanffy require the user to choose values 
 
 ```{r}
 #| echo: true
-( sv3 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=7,
+( sv3 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=7,
                           constvals=c("t1"=1,"t3"=13)) )
 ```
 
@@ -685,16 +666,15 @@ Of course, all of these optional arguments may be used together.^[Though fixing 
 #| label: fig-ex-vb2
 #| fig-width: 4.5
 #| fig-height: 4.5
-sv4 <- findGrowthStarts(tlv~age,data=df,type="von Bertalanffy",param=7,
+sv4 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=7,
                         constvals=c("t1"=1,"t3"=13),fixed=c("K"=0.5),plot=TRUE)
 ```
 
 Of course, similar code is used for the other growth models (and parameterizations).
 
-
 ```{r}
 #| echo: true
-( sv5 <- findGrowthStarts(tlv~age,data=df,type="Gompertz",param=2) )
+( sv5 <- findGrowthStarts(tlV~age,data=GrowthData1,type="Gompertz",param=2) )
 ```
 
 It is important to note that these are examples of find the starting values only. These starting values would then be provided to a nonlinear model fitting algorithm (e.g., `nls()`) to find the best-fit parameter estimates. This is demonstrated more thoroughly elsewhere, but below is a quick example using the starting values for first parameterization of von Bertalanffy derived above.
@@ -702,7 +682,7 @@ It is important to note that these are examples of find the starting values only
 ```{r}
 #| echo: true
 vonb1 <- makeGrowthFun(type="von Bertalanffy")
-rvb1 <- nls(tlv~vonb1(age,Linf,K,t0),data=df,start=sv1)
+rvb1 <- nls(tlV~vonb1(age,Linf,K,t0),data=GrowthData1,start=sv1)
 coef(rvb1)
 ```
 
