@@ -7,15 +7,15 @@ format:
     toc: true
     toc-depth: 2
     reference-location: margin
-    echo: true
-    fig-width: 4.5
-    fig-height: 4.5
-    fig-align: center
 
 knitr:
   opts_chunk:
     collapse: true
     comment: '#>'
+    echo: true
+    fig-width: 4.5
+    fig-height: 4.5
+    fig-align: center
 ---
 
 ```{r}
@@ -46,26 +46,26 @@ An R function to return a predicted length from this equation when given an age 
 vb1 <- makeGrowthFun(type="von Bertalanffy",pname="Typical")
 ```
 
-For example, `vb()` can now be used to predict the mean length for age-2 fish assuming $L_\infty=450$, $K=0.3$, and $t_0=-0.5$.
+For example, `vb1()` can now be used to predict the mean length for age-2 fish assuming $L_\infty=450$, $K=0.3$, and $t_0=-0.5$.
 
 ```{r}
 vb1(2,Linf=450,K=0.3,t0=-0.5)
 ```
 
-The default result from `makeGrowthFun()` creates a function where the three parameters can be given to the first parameter name as a numeric vector with values for all three parameters. For example, the mean length at age-2 can be predicted with the following.
+The default result from `makeGrowthFun()` creates a function where the three parameters can be given to the first parameter name as a numeric vector with values for all three parameters. For example, the mean length at age-2 can also be predicted with the following.
 
 
 ```{r}
 vb1(2,Linf=c(450,0.3,-0.5))
 ```
 
-Note, however, that using the vector of parameter values in this way requires that the values are provided in the order that the function expects them. This order can be seen by displaying the function code and noting the order of the arguments in the function declaration.
+Note that using the vector of parameter values in this way is useful (as will be demonstrated below) but also requires that the values are provided in the order that the function expects them. This order can be seen by displaying the function code and noting the order of the arguments in the function declaration.
 
 ```{r}
 vb1
 ```
 
-The same function can be used to predict mean lengths for a number of ages.
+The same `vb1()` function can be used to predict mean lengths for a number of ages (e.g., ages 2 to 12 below).
 
 ```{r}
 vb1(2:12,Linf=450,K=0.3,t0=-0.5)
@@ -73,19 +73,19 @@ vb1(2:12,Linf=450,K=0.3,t0=-0.5)
 
 These examples of predicted mean lengths at age given the growth function equation and parameter values are fairly trivial. The most useful aspect of the saved function will be its use in fitting data to the growth function.
 
-Non-linear model fitting algorithms require starting values for the function parameters. Starting values for the parameters of most common fisheries growth functions can be obtained using `findGrowthStarts()`. To demonstrate `findGrowthStarts()` supposed that length-at-age (recorded as an annual age) are available in the `tlV` and `age` variables of the `GrowthData1` data.frame,^[This data.frame is available in `FSA`.], a snapshot of which is shown below.
+Non-linear model fitting algorithms require starting values for the function parameters. Starting values for the parameters of most common fisheries growth functions can be obtained using `findGrowthStarts()`. To demonstrate `findGrowthStarts()` suppose that length-at-age (recorded as an annual age) are available in `tlV` and `age` of the `GrowthData1` data.frame,^[This data.frame is available in `FSA`.], a snapshot of which is shown below.
 
 ```{r}
 peek(GrowthData1,n=10,which=c("tlV","age"))
 ```
 
-`findGrowthStarts()` requires a formula of the form `length~age`,^[This is true for length-at-age models, but will differ for tag-recapture data, which will be shown later.] a corresponding data.frame in `data=`, and the same `type=` and `pname=`^[Or `param=`] as in `showGrowthFun()` and `makeGrowthFun()`. For example, staring values for the `GrowthData1` data and the typical parameterization of the von Bertalanffy growth function are obtained below. The results of `findGrowthStarts()` should be assigned to an object for later use.
+`findGrowthStarts()` requires a formula of the form `length~age`,^[This is true for length-at-age models, but will differ for tag-recapture data, which will be shown later.] a corresponding data.frame in `data=`, and the same `type=` and `pname=`^[Or `param=`] as in `showGrowthFun()` and `makeGrowthFun()`. For example, starting values for the `GrowthData1` data and the typical parameterization of the von Bertalanffy growth function are obtained below. The results of `findGrowthStarts()` should be assigned to an object for later use.^[The leading and trailing parentheses below force the result to also be shown when it is assigned to an object.]
 
 ```{r}
 ( vsv1 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",pname="Typical") )
 ```
 
-There may be times when the provided starting values are non-sensical (you may get a warning message) or they do not lead to model convergence when fitting the non-linear regression to data. In these instances it may be useful to view a quick diagnostic plot of how the model evaluated at the starting values "fits" the data. Such a plot can be made by including `plot=TRUE` in `findGrowthStarts()`.
+There may be times when the provided starting values are non-sensical (you may get a warning message) or they do not lead to model convergence when fitting the non-linear regression to data. In these instances it may be useful to view a quick diagnostic plot of how the model evaluated at the starting values "fits" the data. Such a plot can be made by including `plot=TRUE` in `findGrowthStarts()`.^[As a general rule use `plot=TRUE` to immediately examine the relative "fit" of the starting values, rather than waiting for an "issue" to appear.]
 
 ```{r}
 vsv1 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",pname="Typical",
@@ -122,7 +122,7 @@ ggplot(data=GrowthData1,aes(y=tlV,x=age)) +
   theme_bw()
 ```
 
-An equation of the growth equation with the parameter estimates can be created with `showGrowthFun()` using the same `type=` and `pname=` as before, but also including the saved `nls()` object in `fit=`. The object returned from `showGrowthFun()` and be used in `annotate()` from `ggplot2` to add the equation to the plot. Note that `parse=TRUE` is required to convert the text returned from `showGrowthFun()` into an expression, `size=` controls the size of the text, and `x=` and `y=` are used to place the equation (with trial-and-error usually).
+An equation of the growth function with the parameter estimates can be created with `showGrowthFun()` using the same `type=` and `pname=` as before, but also including the saved `nls()` object in `fit=`. The object returned from `showGrowthFun()` can be used in `annotate()` from `ggplot2` to add the equation to the plot. Note that `parse=TRUE` is required in `annotate()` to convert the text returned from `showGrowthFun()` into an expression, `size=` controls the size of the text, and `x=` and `y=` are used to place (usually with trial-and-error) the equation.
 
 ```{r}
 ggplot(data=GrowthData1,aes(y=tlV,x=age)) +
@@ -132,17 +132,18 @@ ggplot(data=GrowthData1,aes(y=tlV,x=age)) +
   stat_function(fun=vb1,args=list(Linf=coef(resv1)),linewidth=1.5,color="blue") +
   annotate(geom="text",
            label=showGrowthFun(type="von Bertalanffy",pame="Typical",fit=resv1),
-           parse=TRUE,size=4,x=10,y=50) +
+           parse=TRUE,size=5,x=9,y=50) +
   theme_bw()
 ```
 
 # Second Example -- Richards
-
-The same general process works for other growth models. For example, suppose that your data suggests an inflection point in the growth trajectory so you want to fit the second parameterization of the Richards function, which has four parameters of $L_\infty$, $k$, $t_0$, and $b$. The same general workflow is illustrated below noting that `type="Richards"` and `param=2` is used.^[Also note that the response variable was changed to `tlR` as these are lengths in `GrowthData1` that exhibited an inflection point.]
+The same general process works for other growth models. For example, suppose that your data suggests an inflection point in the growth trajectory so you want to fit the second parameterization of the Richards function, which has four parameters of $L_\infty$, $k$, $t_0$, and $b$. The same general workflow is illustrated below noting that `type="Richards"` and `param=2` is used, but those are assigned to objects outside the function to save some repetitive typing.^[Also note that the response variable was changed to `tlR` as these are lengths in `GrowthData1` that exhibited an inflection point.]
 
 ```{r}
-rich1 <- makeGrowthFun(type="Richards",param=2)
-rsv1 <- findGrowthStarts(tlR~age,data=GrowthData1,type="Richards",param=2,plot=TRUE)
+typ <- "Richards"
+prm <- 2
+rich1 <- makeGrowthFun(type=typ,param=prm)
+rsv1 <- findGrowthStarts(tlR~age,data=GrowthData1,type=typ,param=prm,plot=TRUE)
 resr1 <- nls(tlR~rich1(age,Linf,k,t0,b),data=GrowthData1,start=rsv1)
 cbind(Est=coef(resr1),confint(resr1))
 ```
@@ -153,20 +154,20 @@ ggplot(data=GrowthData1,aes(y=tlR,x=age)) +
   scale_y_continuous(name="Total Length (mm)",limits=c(0,NA)) +
   scale_x_continuous(name="Age (years)") +
   stat_function(fun=rich1,args=list(Linf=coef(resr1)),linewidth=1.5,color="blue") +
-  annotate(geom="text",
-           label=showGrowthFun(type="Richards",param=2,fit=resr1),
-           parse=TRUE,size=4,x=10,y=50) +
+  annotate(geom="text",label=showGrowthFun(type=typ,param=prm,fit=resr1),
+           parse=TRUE,size=5,x=9,y=50) +
   theme_bw()
 ```
 
 # Third Example -- Francis von Bertalanffy
-
-Some growth models require certain values to be set at constant values. For example, the Francis parameterization estimates three parameters ($L_1$, $L_2$, and $L_3$), which are mean lengths at three specified ages. Two of those ages -- $t_1$ and $t_3$ -- are set by the user for defining $L_1$ and $L_3$. The third parameter ($L_2$) is defined at a time that is the average of $t_1$ and $t_3$. Ages for $t_1$ and $t_3$ must be set in a named vector that is then given to `constvals=` in `findGrowthStarts()`, the function created by `makeGrowthFun()`, and `showGrowthFun()`. The rest of the workflow is the same as above (noting that `type=` and `pname=` are adjusted).^[The result from `showGrowthFun()` was saved to an object here just to reduce clutter in the plotting code.]
+Some growth models require certain values to be set at constant values. For example, the Francis parameterization of the von Bertalanffy function has three parameters ($L_1$, $L_2$, and $L_3$) that are estimated mean lengths at three specified ages. Two of those ages -- $t_1$ and $t_3$ -- are set by the user for defining $L_1$ and $L_3$. The third parameter ($L_2$) is defined at the time that is the average of $t_1$ and $t_3$. Ages for $t_1$ and $t_3$ must be set in a **NAMED** vector (`cv2` below) given to `constvals=` in `findGrowthStarts()`, the function created by `makeGrowthFun()`, and `showGrowthFun()`. The rest of the workflow is the same as above (noting that `type=` and `pname=` are adjusted).^[The result from `showGrowthFun()` was saved to an object here just to reduce clutter in the plotting code.]
 
 ```{r}
-vb2 <- makeGrowthFun(type="von Bertalanffy",pname="Francis")
+typ <- "von Bertalanffy"
+prm <- "Francis"
+vb2 <- makeGrowthFun(type=typ,pname=prm)
 cv2 <- c(t1=0,t3=12)
-rsv2 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",pname="Francis",
+rsv2 <- findGrowthStarts(tlV~age,data=GrowthData1,type=typ,pname=prm,
                          constvals=cv2,plot=TRUE)
 resv2 <- nls(tlV~vb2(age,L1,L2,L3,t1=cv2),data=GrowthData1,start=rsv2)
 cbind(Est=coef(resv2),confint(resv2))
@@ -174,7 +175,7 @@ cbind(Est=coef(resv2),confint(resv2))
 
 ```{r}
 #| results: hide
-eqn <- showGrowthFun(type="von Bertalanffy",pname="Francis",fit=resv2,constvals=cv2)
+eqn <- showGrowthFun(type=typ,pname=prm,fit=resv2,constvals=cv2)
 
 ggplot(data=GrowthData1,aes(y=tlV,x=age)) +
   geom_point(size=2.5,alpha=0.2) +
@@ -190,16 +191,17 @@ ggplot(data=GrowthData1,aes(y=tlV,x=age)) +
 The Somer's parameterization of the von Bertalanffy can be used to model data where ages are fractional parts of the year, often referred to as seasonal length-at-age data. The process for fitting this model is very similar to above as illustrated below.^[Noting that the `tlS` from `GrowthData2` is used here as is contains a seasonal length-at-age example.]
 
 ```{r}
-vb3 <- makeGrowthFun(type="von Bertalanffy",pname="Somers")
-rsv3 <- findGrowthStarts(tlS~age,data=GrowthData2,type="von Bertalanffy",pname="Somers",
-                         plot=TRUE)
+type <- "von Bertalanffy"
+prm <- "Somers"
+vb3 <- makeGrowthFun(type=typ,pname=prm)
+rsv3 <- findGrowthStarts(tlS~age,data=GrowthData2,type=typ,pname=prm,plot=TRUE)
 resv3 <- nls(tlS~vb3(age,Linf,K,t0,C,ts),data=GrowthData2,start=rsv3)
 cbind(Est=coef(resv3),confint(resv3))
 ```
 
 ```{r}
 #| results: hide
-eqn <- showGrowthFun(type="von Bertalanffy",pname="Somers",fit=resv3)
+eqn <- showGrowthFun(type=typ,pname=prm,fit=resv3)
 
 ggplot(data=GrowthData2,aes(y=tlS,x=age)) +
   geom_point(size=2.5,alpha=0.4) +
@@ -212,13 +214,13 @@ ggplot(data=GrowthData2,aes(y=tlS,x=age)) +
 
 
 # Fifth Example -- Fabens (Tag-Recapture) von Bertalanffy
-
 Using parameterizations of the von Bertalanffy for tag-recapture data^[Generally, require observed lengths at marking, observed lengths at recapture or the change in observed length from marking, and the time-at-large (time difference between marking and recapture).] follows a similar workflow, but with a few different details. First, some of the parameterizations use the change in length as the response variable, whereas others use the length at recapture. Second, the primary explanatory variable in `FSA` is the time-at-large (time between marking and recapture) but the length at marking is also required. Thus, time-at-large will appear on the right-hand-side of the formulae used and the second argument in the function created by `makeGrowthFun()`. In addition, in 
 
 ```{r}
-vb4 <- makeGrowthFun(type="von Bertalanffy",pname="Fabens")
-rsv4 <- findGrowthStarts(deltaL~deltat,data=GrowthData3,
-                         type="von Bertalanffy",pname="Fabens",Lmnm="tlM")
+typ <- "von Bertalanffy"
+prm <- "Fabens"
+vb4 <- makeGrowthFun(type=typ,pname=prm)
+rsv4 <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type=typ,pname=prm)
 resv4 <- nls(deltaL~vb4(deltat,tlM,Linf,K),data=GrowthData3,start=rsv4)
 cbind(Est=coef(resv4),confint(resv4))
 ```
@@ -228,6 +230,6 @@ cbind(Est=coef(resv4),confint(resv4))
 #| results: hide
 #| fig-width: 3
 #| fig-height: 1
-eqn <- showGrowthFun(type="von Bertalanffy",pname="Fabens",fit=resv4,plot=TRUE)
+eqn <- showGrowthFun(type=typ,pname=prm,fit=resv4,plot=TRUE)
 ```
 

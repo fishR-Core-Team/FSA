@@ -10,6 +10,7 @@
 #' @param fit An optional \code{nls} (or related) object from fitting data to the growth function. If \code{NULL} then a string/expression with symbols for parameters will be returned. If an \code{nls} object then values for the parameters will be extracted from \code{fit} and put in place of the parameters symbols.
 #' @param constvals A NAMED numeric vector of constant values (either lengths or ages) to be used in some of the von Bertalanffy parameterizations. See details.
 #' @param digits An optional numerical vector for which to round the parameter values. Only used if \code{fit} is not \code{NULL}. Digits must be in the same order as the order of parameters for the growth model as in \code{\link{makeGrowthFun}} and should include values for the model constants given in \code{constvals} (if so used).
+#' @param stackWhere A logical that indicates whether strings/expressions that use \dQuote{where} to explain a constant or function that simplifies the expression of the equation should be shown in \dQuote{inline} (\code{FALSE}; default) or \dQuote{stacked} (\code{TRUE}). See examples.
 #' @param plot A logical for whether the expression should be shown on a \dQuote{blank} plot. See examples.
 #' @param \dots Arguments for \code{plot}. In particular use \code{cex=} to make the expression larger and easier to read. See examples. 
 #'
@@ -27,9 +28,13 @@
 #' showGrowthFun(plot=TRUE)
 #' showGrowthFun(plot=TRUE,cex=2)
 #' 
-#' #===== Examples of other growth functions
+#' #===== Other growth functions
 #' showGrowthFun(type="Richards",param=3,plot=TRUE,cex=1.5)
 #' showGrowthFun(type="Schnute",case=2,plot=TRUE,cex=1.5)
+#' 
+#' #===== Growth functions which use "where" to define simplifying constants/functions
+#' showGrowthFun(pname="Somers",plot=TRUE)
+#' showGrowthFun(pname="Somers",stackWhere=TRUE,plot=TRUE,cex=1.25)
 #' 
 #' #===== Multiple expressions in one plot (need to use parse=TRUE here)
 #' op <- par(mar=c(0.1,0.1,0.1,0.1))
@@ -90,7 +95,7 @@ showGrowthFun <- function(type=c("von Bertalanffy","Gompertz","Richards",
                                  "logistic","Schnute","Schnute-Richards"),
                           param=1,pname=NULL,case=NULL,constvals=NULL,
                           parse=FALSE,yvar=NULL,xvar=NULL,
-                          fit=NULL,digits=NULL,plot=FALSE,...) {
+                          fit=NULL,digits=NULL,stackWhere=FALSE,plot=FALSE,...) {
   #===== Checks
   # Schnute uses "case" instead of "param" ... convert to "param"
   if (!is.null(case)) {
@@ -115,11 +120,11 @@ showGrowthFun <- function(type=c("von Bertalanffy","Gompertz","Richards",
          "vonBertalanffy5"  = {res <- iMakeEqnVB5(yvar,xvar,fit,constvals,digits)},
          "vonBertalanffy6"  = {res <- iMakeEqnVB6(yvar,xvar,fit,constvals,digits)},
          "vonBertalanffy7"  = {res <- iMakeEqnVB7(yvar,xvar,fit,constvals,digits)},
-         "vonBertalanffy8"  = {res <- iMakeEqnVB8(yvar,xvar,fit,constvals,digits)},
+         "vonBertalanffy8"  = {res <- iMakeEqnVB8(yvar,xvar,fit,constvals,digits,stackWhere)},
          "vonBertalanffy9"  = {res <- NULL},
-         "vonBertalanffy10" = {res <- iMakeEqnVB10(yvar,xvar,fit,constvals,digits)},
-         "vonBertalanffy11" = {res <- iMakeEqnVB11(yvar,xvar,fit,constvals,digits)},
-         "vonBertalanffy12" = {res <- iMakeEqnVB12(yvar,xvar,fit,constvals,digits)},
+         "vonBertalanffy10" = {res <- iMakeEqnVB10(yvar,xvar,fit,constvals,digits,stackWhere)},
+         "vonBertalanffy11" = {res <- iMakeEqnVB11(yvar,xvar,fit,constvals,digits,stackWhere)},
+         "vonBertalanffy12" = {res <- iMakeEqnVB12(yvar,xvar,fit,constvals,digits,stackWhere)},
          "vonBertalanffy13" = {res <- iMakeEqnVB13(yvar,xvar,fit,constvals,digits)},
          "vonBertalanffy14" = {res <- iMakeEqnVB14(yvar,xvar,fit,constvals,digits)},
          "vonBertalanffy15" = {res <- iMakeEqnVB15(yvar,xvar,fit,constvals,digits)},
@@ -326,11 +331,13 @@ iMakeEqnVB7 <- function(yvar,xvar,fit,constvals,digits) {
   }
 }
 
-iMakeEqnVB8 <- function(yvar,xvar,fit,constvals,digits) {
+iMakeEqnVB8 <- function(yvar,xvar,fit,constvals,digits,stackWhere) {
   if (is.null(yvar)) yvar <- "E(L[t])"
   if (is.null(xvar)) xvar <- "t"
   if (is.null(fit)) { # Make generic equation and return
-    paste0(yvar,"==L[1]+(L[3]-L[1])*~frac(1-r^{~2~frac(",xvar,"-t[1],t[3]-t[1])},1-r^{~2})~plain(',  where ')~r==frac(L[3]-L[2],L[2]-L[1])")
+    pt1 <- paste0(yvar,"==L[1]+(L[3]-L[1])*~frac(1-r^{~2~frac(",xvar,
+                  "-t[1],t[3]-t[1])},1-r^{~2})~plain(',')")
+    pt2 <- paste0("plain('   where ')~r==frac(L[3]-L[2],L[2]-L[1])")
   } else { # Substitute in coefficient values
     # Get rounded coefficients
     cfs <- iRoundCoefs(fit,constvals,digits,def_digits=c(0,0,0,0,0))
@@ -341,15 +348,21 @@ iMakeEqnVB8 <- function(yvar,xvar,fit,constvals,digits) {
     t1 <- cfs[["t1"]]
     t3 <- cfs[["t3"]]
     # Put together and return
-    paste0(yvar,"=='",L1,"'+('",L3,"'-'",L1,"')*~frac(1-r^{~2~frac(",xvar,"-'",t1,"','",t3,"'-'",t1,"')},1-r^{~2})~plain(',  where ')~r==frac('",L3,"'-'",L2,"','",L2,"'-'",L1,"')")
+    pt1 <- paste0(yvar,"=='",L1,"'+('",L3,"'-'",L1,"')*~frac(1-r^{~2~frac(",xvar,
+                  "-'",t1,"','",t3,"'-'",t1,"')},1-r^{~2})~plain(',')")
+    pt2 <- paste0("plain('   where ')~r==frac('",L3,"'-'",L2,"','",L2,"'-'",L1,"')")
   }
+  if (!stackWhere) paste(pt1,pt2,sep="~")
+    else paste("atop(",pt1,",",pt2,")")
 }
 
-iMakeEqnVB10 <- function(yvar,xvar,fit,constvals,digits) {
+iMakeEqnVB10 <- function(yvar,xvar,fit,constvals,digits,stackWhere) {
   if (is.null(yvar)) yvar <- "E(L[t])"
   if (is.null(xvar)) xvar <- "t"
   if (is.null(fit)) { # Make generic equation and return
-    paste0(yvar,"==L[infinity]*~bgroup('[',1-e^{-K*(",xvar,"~-~t[0])-S(",xvar,")+S(t[0])},']')~plain(', where  ')~S(t)==frac(C*K,2*pi)*~sin*bgroup('(',2*pi*(t-t[s]),')')")
+    pt1 <- paste0(yvar,"==L[infinity]*~bgroup('[',1-e^{-K*(",xvar,
+                  "~-~t[0])-S(",xvar,")+S(t[0])},']')~plain(',')")
+    pt2 <- paste0("plain(' where  ')~S(t)==frac(C*K,2*pi)*~sin*bgroup('(',2*pi*(t-t[s]),')')")
   } else { # Substitute in coefficient values
     # Get rounded coefficients
     cfs <- iRoundCoefs(fit,constvals,digits,def_digits=c(0,3,2,2,2))
@@ -361,15 +374,22 @@ iMakeEqnVB10 <- function(yvar,xvar,fit,constvals,digits) {
     C <- cfs[["C"]]
     ts <- cfs[["ts"]]
     # Put together and return
-    paste0(yvar,"=='",Linf,"'*~bgroup('[',1-e^{-'",K,"'*(",xvar,t0$sgn,"'",t0$val,"')-S(",xvar,")+S('",t02,"')},']')~plain(', where  ')~S(t)==frac('",C,"'%*%'",K,"',2*pi)*~sin*bgroup('(',2*pi*(t-'",ts,"'),')')")
+    pt1 <- paste0(yvar,"=='",Linf,"'*~bgroup('[',1-e^{-'",K,"'*(",xvar,t0$sgn,"'",
+                  t0$val,"')-S(",xvar,")+S('",t02,"')},']')~plain(',')")
+    pt2 <- paste0("plain(' where  ')~S(t)==frac('",C,"'%*%'",K,
+                  "',2*pi)*~sin*bgroup('(',2*pi*(t-'",ts,"'),')')")
   }
+  if (!stackWhere) paste(pt1,pt2,sep="~")
+    else paste("atop(",pt1,",",pt2,")")
 }
 
-iMakeEqnVB11 <- function(yvar,xvar,fit,constvals,digits) {
+iMakeEqnVB11 <- function(yvar,xvar,fit,constvals,digits,stackWhere) {
   if (is.null(yvar)) yvar <- "E(L[t])"
   if (is.null(xvar)) xvar <- "t"
   if (is.null(fit)) { # Make generic equation and return
-    paste0(yvar,"==L[infinity]*~bgroup('[',1-e^{-K*(",xvar,"~-~t[0])-R(",xvar,")+R(t[0])},']')~plain(', where  ')~R(t)==frac(C*K,2*pi)*~sin*bgroup('(',2*pi*(t-WP+0.5),')')")
+    pt1 <- paste0(yvar,"==L[infinity]*~bgroup('[',1-e^{-K*(",xvar,
+                  "~-~t[0])-R(",xvar,")+R(t[0])},']')~plain(',')")
+    pt2 <- paste0("plain(' where  ')~R(t)==frac(C*K,2*pi)*~sin*bgroup('(',2*pi*(t-WP+0.5),')')")
   } else { # Substitute in coefficient values
     # Get rounded coefficients
     cfs <- iRoundCoefs(fit,constvals,digits,def_digits=c(0,3,2,2,2))
@@ -381,15 +401,22 @@ iMakeEqnVB11 <- function(yvar,xvar,fit,constvals,digits) {
     C <- cfs[["C"]]
     WP <- cfs[["WP"]]
     # Put together and return
-    paste0(yvar,"=='",Linf,"'*~bgroup('[',1-e^{-'",K,"'*(",xvar,t0$sgn,"'",t0$val,"')-R(",xvar,")+R('",t02,"')},']')~plain(', where  ')~R(t)==frac('",C,"'%*%'",K,"',2*pi)*~sin*bgroup('(',2*pi*(t-'",WP,"'+0.5),')')")
+    pt1 <- paste0(yvar,"=='",Linf,"'*~bgroup('[',1-e^{-'",K,"'*(",xvar,t0$sgn,"'",
+                  t0$val,"')-R(",xvar,")+R('",t02,"')},']')~plain(',')")
+    pt2 <- paste0("plain(' where  ')~R(t)==frac('",C,"'%*%'",K,
+                  "',2*pi)*~sin*bgroup('(',2*pi*(t-'",WP,"'+0.5),')')")
   }
+  if (!stackWhere) paste(pt1,pt2,sep="~")
+  else paste("atop(",pt1,",",pt2,")")
 }
 
-iMakeEqnVB12 <- function(yvar,xvar,fit,constvals,digits) {
+iMakeEqnVB12 <- function(yvar,xvar,fit,constvals,digits,stackWhere) {
   if (is.null(yvar)) yvar <- "E(L[t])"
   if (is.null(xvar)) xvar <- "tpr"
   if (is.null(fit)) { # Make generic equation and return
-    paste0(yvar,"==L[infinity]*~bgroup('[',1-e^{-Kpr*(",xvar,"~-~t[0])-V(",xvar,")+V(t[0])},']')~plain(', where  ')~V(t)==frac(Kpr(1-NGT),2*pi)*~sin~bgroup('(',frac(2*pi*(t-t[s]),1-NGT),')')")
+    pt1 <- paste0(yvar,"==L[infinity]*~bgroup('[',1-e^{-Kpr*(",xvar,
+                  "~-~t[0])-V(",xvar,")+V(t[0])},']')~plain(',')")
+    pt2 <- paste0("plain(' where  ')~V(t)==frac(Kpr(1-NGT),2*pi)*~sin~bgroup('(',frac(2*pi*(t-t[s]),1-NGT),')')")
   } else { # Substitute in coefficient values
     # Get rounded coefficients
     cfs <- iRoundCoefs(fit,constvals,digits,def_digits=c(0,3,1,2,2))
@@ -401,8 +428,13 @@ iMakeEqnVB12 <- function(yvar,xvar,fit,constvals,digits) {
     ts <- cfs[["ts"]]
     NGT <- cfs[["NGT"]]
     # Put together and return
-    paste0(yvar,"=='",Linf,"'*~bgroup('[',1-e^{-'",Kpr,"'*(",xvar,t0$sgn,"'",t0$val,"')-V(",xvar,")+V('",t02,"')},']')~plain(', where  ')~V(t)==frac('",Kpr,"'(1-'",NGT,"'),2*pi)*~sin~bgroup('(',frac(2*pi*(t-'",ts,"'),1-'",NGT,"'),')')")
+    pt1 <- paste0(yvar,"=='",Linf,"'*~bgroup('[',1-e^{-'",Kpr,"'*(",xvar,t0$sgn,
+                  "'",t0$val,"')-V(",xvar,")+V('",t02,"')},']')~plain(',')")
+    pt2 <- paste0("plain(' where  ')~V(t)==frac('",Kpr,"'(1-'",NGT,
+                  "'),2*pi)*~sin~bgroup('(',frac(2*pi*(t-'",ts,"'),1-'",NGT,"'),')')")
   }
+  if (!stackWhere) paste(pt1,pt2,sep="~")
+  else paste("atop(",pt1,",",pt2,")")
 }
 
 iMakeEqnVB13 <- function(yvar,xvar,fit,constvals,digits) {

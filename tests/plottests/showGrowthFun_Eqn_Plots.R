@@ -2,17 +2,17 @@
 # Output is to a plot so not used in testthat format
 
 
-tstrShowGrowthFun <- function(formula,data,type,param,prms,constvals=NULL,cex=1) {
+tstrShowGrowthFun <- function(formula,data,type,param,prms,cv=NULL,SW=FALSE,cex=1) {
   f <- makeGrowthFun(type,param)
-  sv <- findGrowthStarts(formula,data,type,param,constvals=constvals)
+  sv <- findGrowthStarts(formula,data,type,param,constvals=cv)
   mf <- stats::model.frame(formula,data=data,na.action=NULL)
   mfn <- names(mf)
   if (length(mfn)==2) form <- paste0(mfn[1],"~f(",mfn[2],",",paste(prms,collapse=","),")")
   else form <- paste0(mfn[1],"~f(",mfn[2],",",mfn[3],",",paste(prms,collapse=","),")")
   rv <- nls(as.formula(form),data=data,start=sv)
   
-  tmp1 <- showGrowthFun(type,param,parse=TRUE)
-  tmp2 <- showGrowthFun(type,param,fit=rv,constvals=constvals,parse=TRUE)
+  tmp1 <- showGrowthFun(type,param,parse=TRUE,stackWhere=SW)
+  tmp2 <- showGrowthFun(type,param,fit=rv,constvals=cv,parse=TRUE,stackWhere=SW)
   plot(0,type="n",ylim=c(0,1),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n")
   text(0.5,0.8,tmp1,cex=cex)
   text(0.5,0.3,tmp2,cex=cex)
@@ -28,9 +28,13 @@ tstrShowGrowthFun(tlV~age,GrowthData1,typ,6,c("Linf","K","Lr","tr=3"),c(tr=3),ce
 tstrShowGrowthFun(tlV~age,GrowthData1,typ,6,c("Linf","K","Lr=200","tr"),c(Lr=200),cex=1.25)
 tstrShowGrowthFun(tlV~age,GrowthData1,typ,7,c("L1","L3","K","t1=1","t3=13"),c(t1=1,t3=13))
 tstrShowGrowthFun(tlV~age,GrowthData1,typ,8,c("L1","L2","L3","t1=1","t3=13"),c(t1=1,t3=13))
+tstrShowGrowthFun(tlV~age,GrowthData1,typ,8,c("L1","L2","L3","t1=1","t3=13"),c(t1=1,t3=13),SW=TRUE)
 tstrShowGrowthFun(tlS~age,GrowthData2,typ,10,c("Linf","K","t0","C","ts"),cex=0.75)
+tstrShowGrowthFun(tlS~age,GrowthData2,typ,10,c("Linf","K","t0","C","ts"),cex=1.25,SW=TRUE)
 tstrShowGrowthFun(tlS~age,GrowthData2,typ,11,c("Linf","K","t0","C","WP"),cex=0.75)
+tstrShowGrowthFun(tlS~age,GrowthData2,typ,11,c("Linf","K","t0","C","WP"),cex=1.25,SW=TRUE)
 tstrShowGrowthFun(tlS~age,GrowthData2,typ,12,c("Linf","Kpr","t0","ts","NGT"),cex=0.75)
+tstrShowGrowthFun(tlS~age,GrowthData2,typ,12,c("Linf","Kpr","t0","ts","NGT"),cex=1.25,SW=TRUE)
 tstrShowGrowthFun(deltaL~deltat+tlM,GrowthData3,typ,13,c("Linf","K"))
 tstrShowGrowthFun(deltaL~deltat+tlM,GrowthData3,typ,15,c("Linf","K","b"))
 tstrShowGrowthFun(deltaL~deltat+tlM,GrowthData3,typ,16,c("K","a","b"))

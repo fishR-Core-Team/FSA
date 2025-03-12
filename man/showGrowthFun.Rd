@@ -16,6 +16,7 @@ showGrowthFun(
   xvar = NULL,
   fit = NULL,
   digits = NULL,
+  stackWhere = FALSE,
   plot = FALSE,
   ...
 )
@@ -41,6 +42,8 @@ showGrowthFun(
 
 \item{digits}{An optional numerical vector for which to round the parameter values. Only used if \code{fit} is not \code{NULL}. Digits must be in the same order as the order of parameters for the growth model as in \code{\link{makeGrowthFun}} and should include values for the model constants given in \code{constvals} (if so used).}
 
+\item{stackWhere}{A logical that indicates whether strings/expressions that use \dQuote{where} to explain a constant or function that simplifies the expression of the equation should be shown in \dQuote{inline} (\code{FALSE}; default) or \dQuote{stacked} (\code{TRUE}). See examples.}
+
 \item{plot}{A logical for whether the expression should be shown on a \dQuote{blank} plot. See examples.}
 
 \item{\dots}{Arguments for \code{plot}. In particular use \code{cex=} to make the expression larger and easier to read. See examples.}
@@ -61,9 +64,13 @@ showGrowthFun(pname="Typical")
 showGrowthFun(plot=TRUE)
 showGrowthFun(plot=TRUE,cex=2)
 
-#===== Examples of other growth functions
+#===== Other growth functions
 showGrowthFun(type="Richards",param=3,plot=TRUE,cex=1.5)
 showGrowthFun(type="Schnute",case=2,plot=TRUE,cex=1.5)
+
+#===== Growth functions which use "where" to define simplifying constants/functions
+showGrowthFun(pname="Somers",plot=TRUE)
+showGrowthFun(pname="Somers",stackWhere=TRUE,plot=TRUE,cex=1.25)
 
 #===== Multiple expressions in one plot (need to use parse=TRUE here)
 op <- par(mar=c(0.1,0.1,0.1,0.1))
