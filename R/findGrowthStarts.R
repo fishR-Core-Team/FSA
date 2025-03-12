@@ -11,11 +11,10 @@
 #' @note Derivation of the starting values is detailed in the \dQuote{Growth_Starting_Values} article on the \code{FSA} webpage. Further note that starting values have not yet been coded for every parameterization of the growth functions available in \code{FSA}. In those instances, you will need to derive starting values by other means.
 #' 
 #' @inheritParams makeGrowthFun
-#' @param formula A formula of the form \code{len~age}.
+#' @param formula A formula of the form \code{length~age} for length-at-age models or \code{deltaL~deltat+lengthM} for tag-recapture models. \code{length} and \code{age} generically represent the observed length and annual age, and \code{deltaL}, \code{deltat}, and \code{lengthM} generically represent the observed change in length, observed change in time, and observed length at marking.
 #' @param data A data frame that contains the variables in \code{formula}.
 #' @param constvals A NAMED numeric vector of constant values (either lengths or ages) to be used in some of the von Bertalanffy parameterizations. See details.
 #' @param fixed A NAMED numeric vector that contains user-defined (i.e., fixed rather than automatically generated) starting values for one or more parameters. See details.
-#' @param Lmnm A single string that indicates the name of the variables in \code{data} that has the measured length-at-marking (or tagging). Only used when one of the tag-recapture parameterizations is used.
 #' @param plot A logical that indicates whether a plot of the data with the superimposed model fit at the starting values should be created. This plot is for diagnostic purposes and, thus, cannot be modified in this function.
 #' 
 #' @return A named vector that contains reasonable starting values. Note that the parameters will be listed with the same names in the same order as listed in \code{\link{makeGrowthFun}}.
@@ -82,9 +81,9 @@
 #' 
 #' #===== Example for tag-recapture data (in GrowthData3)
 #' #----- Fabens model
-#' findGrowthStarts(deltaL~deltat,data=GrowthData3,pname="Fabens",Lmnm="tlM")
+#' findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,pname="Fabens")
 #' #----- Francis model
-#' findGrowthStarts(deltaL~deltat,data=GrowthData3,pname="Francis2",Lmnm="tlM",
+#' findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,pname="Francis2",
 #'                  constvals=c(L1=150,L2=400))
 #' 
 #' @rdname findGrowthStarts
@@ -94,27 +93,34 @@ findGrowthStarts <- function(formula,data,
                              type=c("von Bertalanffy","Gompertz","logistic","Richards",
                                     "Schnute","Schnute-Richards"),
                              param=1,pname=NULL,
-                             constvals=NULL,fixed=NULL,Lmnm=NULL,plot=FALSE) {
+                             constvals=NULL,fixed=NULL,plot=FALSE) {
   #===== Checks
-  # Handle the formula with some checks
-  tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
-  if (!tmp$metExpNumR) STOP("'formula' must have only one LHS variable.")
-  if (!tmp$Rclass %in% c("numeric","integer"))STOP("LHS variable must be numeric.")
-  if (!tmp$metExpNumE) STOP("'formula' must have only one RHS variable.")
-  if (!tmp$Eclass %in% c("numeric","integer")) STOP("RHS variable must be numeric.")
-  
   # Handle checks on type, param, and pname
   type <- match.arg(type)
   param <- iHndlGrowthModelParams(type,param,pname)
+  
+  # Handle the formula with some checks ... need to condition for tag-return params
+  expNumE <- 1
+  if (!is.null(param)) {
+    if (type=="von Bertalanffy" & param %in% 13:19) expNumE <- 2
+    if (type=="Gompertz" & param %in% 6:7) expNumE <- 2
+    if (type=="logistic" & param==4) expNumE <- 2
+  }
+  
+  tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=expNumE)
+  if (!tmp$metExpNumR) STOP("'formula' must have only one LHS variable.")
+  if (!tmp$Rclass %in% c("numeric","integer"))STOP("LHS variable must be numeric.")
+  if (!tmp$metExpNumE)
+    STOP("'formula' must have ",ifelse(expNumE==1,'only ',''),kCounts(expNumE),
+         " RHS ",ifelse(expNumE==1,'variable','variables'),".")
+  if (!all(tmp$Eclass %in% c("numeric","integer")))
+    STOP("RHS ",ifelse(expNumE==1,'variable','variables')," must be numeric.")
   
   # initial checks on constvals
   if (!is.null(constvals)) {
     if (type!="von Bertalanffy")
       STOP("'constvals' only used with the von Bertalanffy model.",
            " Either don't use 'constvals' or change 'type'")
-    if (is.list(constvals)) STOP("'constvals' should be a vector rather than a list.")
-    if (!is.numeric(constvals)) STOP("'constvals' must be numeric.")
-    if (is.null(names(constvals))) STOP("Values in 'constvals' must be named.")
   }
   
   # Is fixed of correct type ... will check for correct names later
@@ -130,10 +136,11 @@ findGrowthStarts <- function(formula,data,
   # get variable names
   lennm <- tmp$Rname[1]
   agenm <- tmp$Enames[1]
+  Lmnm <- ifelse(expNumE==2,tmp$Enames[2],"")
   
   # call specific internal function to create starting value list
   switch(type,
-         "von Bertalanffy"= { sv <- iVonBStarts(lennm,agenm,data,param,constvals,fixed,Lmnm) },
+         "von Bertalanffy"= { sv <- iVonBStarts(lennm,agenm,Lmnm,data,param,constvals,fixed) },
          "Gompertz"=        { sv <- iGompStarts(lennm,agenm,data,param,fixed) },
          "logistic"=        { sv <- iLogiStarts(lennm,agenm,data,param,fixed) },
          "Richards"=        { sv <- iRichStarts(lennm,agenm,data,param,fixed) },
@@ -168,42 +175,9 @@ findGrowthStarts <- function(formula,data,
 #===============================================================================
 #== Internal Functions -- Compute starting values for each type of model
 #===============================================================================
-iVonBStarts <- function(ynm,xnm,data,param,constvals,fixed,Lmnm) {
+iVonBStarts <- function(ynm,xnm,Lmnm,data,param,constvals,fixed) {
   # Perform checks on constvals (some checks already in main function)
-  if (is.null(constvals) & param %in% c(6,7,8,18))
-    STOP("You must use 'constvals' with von Bertalanffy paramaterization #",param)
-  if (!is.null(constvals)) {
-    cvnms <- names(constvals)
-    if (param==6) { # Ogle-Isermann parameterization
-      if (length(cvnms)!=1) 
-        STOP("'constvals' must have only one value when 'param=",param,"'" )
-      if (!cvnms %in% c("Lr","tr"))
-        STOP("Value names in 'constvals' must be 'Lr' or 'tr' when 'param=",param,"'")
-    }
-    if (param %in% c(7,8)) { # Schnute and Francis parameterizations
-      if (length(cvnms)!=2)
-        STOP("'constvals' must have exactly two values ('t1' and 't3') when 'param=",
-             param,"'" )
-      if (!all(cvnms %in% c("t1","t3")))
-        STOP("Value names in 'constvals' must be 't1' and 't3' when 'param=",param,"'")
-    }
-    if (param %in% 13:17) { # tag-recapture but not the next two
-      if (length(cvnms)!=2) 
-        STOP("'constvals' not required when 'param=",param,
-             "', but if used then there must be exactly two values ('L1' and 'L2')")
-      if (!all(cvnms %in% c("L1","L2")))
-        STOP("'constvals' not required when 'param=",param,
-             "', but if used then names in 'constvals' must be 'L1' and 'L2'")
-    }
-    if (param %in% c(18,19)) { # Francis parameterizations
-      if (length(cvnms)!=2) 
-        STOP("'constvals' must have exactly two values ('L1' and 'L2') when 'param=",
-             param,"'" )
-      if (!all(cvnms %in% c("L1","L2")))
-        STOP("Value names in 'constvals' must be 'L1' and 'L2' when 'param=",param,"'")
-    }
-  }
-  
+  iChkConstvals(param,constvals)
   # Get names of fixed params, if they exist
   fxdnms <- names(fixed)
   
@@ -220,7 +194,7 @@ iVonBStarts <- function(ynm,xnm,data,param,constvals,fixed,Lmnm) {
     omega <- ifelse("omega" %in% fxdnms,fixed[["omega"]],K*Linf)
     t50 <- ifelse("t50" %in% fxdnms,fixed[["t50"]],t0+log(2)/K)
     if (param==6) {
-      if (cvnms=="Lr") {
+      if (names(constvals)=="Lr") {
         tr <- ifelse("tr" %in% fxdnms,fixed[["tr"]],-log((Linf-constvals[["Lr"]])/(Linf-L0))/K)
         tr <- iChkParamPos(tr,fxdnms)
         sv6 <- c(Linf=Linf,K=K,tr=tr)
@@ -266,8 +240,8 @@ iVonBStarts <- function(ynm,xnm,data,param,constvals,fixed,Lmnm) {
     g2 <- ifelse("g2" %in% fxdnms, fixed[["g2"]],pdf[[2]])
     Linf <- ifelse("Linf" %in% fxdnms, fixed[["Linf"]],(L2*g1-L1*g2)/(g1-g2))
     K <- ifelse("K" %in% fxdnms, fixed[["K"]],-log(1+(g1-g2)/(L1-L2)))
-    beta <- ifelse("beta" %in% fxdnms, fixed[["beta"]],0.1)
-    alpha <- ifelse("alpha" %in% fxdnms, fixed[["alpha"]],Linf-mean(data[,Lmnm],na.rm=TRUE))
+    b <- ifelse("b" %in% fxdnms, fixed[["b"]],0.1)
+    a <- ifelse("a" %in% fxdnms, fixed[["a"]],Linf-mean(data[,Lmnm],na.rm=TRUE))
   }
 
   # Create starting value list specific to parameterization
@@ -316,15 +290,13 @@ iVonBStarts <- function(ynm,xnm,data,param,constvals,fixed,Lmnm) {
                           K=iChkParamPos(K,fxdnms))  },
          "15"= {  sv <- c(Linf=iChkParamPos(Linf,fxdnms),
                           K=iChkParamPos(K,fxdnms),
-                          beta=beta)  },
-         "16"= {  sv <- c(Linf=iChkParamPos(Linf,fxdnms),
-                          K=iChkParamPos(K,fxdnms),
-                          alpha=alpha,
-                          beta=beta)  },
-         "17"= {  sv <- c(Linf=iChkParamPos(Linf,fxdnms),
-                          K=iChkParamPos(K,fxdnms),
-                          alpha=alpha,
-                          beta=beta)  },
+                          b=b)  },
+         "16"= {  sv <- c(K=iChkParamPos(K,fxdnms),
+                          a=a,
+                          b=b)  },
+         "17"= {  sv <- c(K=iChkParamPos(K,fxdnms),
+                          a=a,
+                          b=b)  },
          "18"= {  sv <- c(g1=iChkParamPos(g1,fxdnms),
                           g2=iChkParamPos(g2,fxdnms))  }
   )
@@ -454,6 +426,48 @@ iRichStarts <- function(ynm,xnm,data,param,fixed) {
 #===============================================================================
 #== Internal Functions -- Parameter sanity checks
 #===============================================================================
+iChkConstvals <- function(param,constvals) {
+  if (is.null(constvals) & param %in% c(6,7,8,18))
+    STOP("You must use 'constvals' with von Bertalanffy paramaterization #",param)
+  if (!is.null(constvals)) {
+    # check type and whether named first
+    if (is.list(constvals)) STOP("'constvals' should be a vector rather than a list.")
+    if (!is.numeric(constvals)) STOP("'constvals' must be numeric.")
+    if (is.null(names(constvals))) STOP("Values in 'constvals' must be named.")
+    
+    # Ok type and named, now check if used properly
+    cvnms <- names(constvals)
+    if (param==6) { # Ogle-Isermann parameterization
+      if (length(cvnms)!=1) 
+        STOP("'constvals' must have only one value when 'param=",param,"'" )
+      if (!cvnms %in% c("Lr","tr"))
+        STOP("Value names in 'constvals' must be 'Lr' or 'tr' when 'param=",param,"'")
+    }
+    if (param %in% c(7,8)) { # Schnute and Francis parameterizations
+      if (length(cvnms)!=2)
+        STOP("'constvals' must have exactly two values ('t1' and 't3') when 'param=",
+             param,"'" )
+      if (!all(cvnms %in% c("t1","t3")))
+        STOP("Value names in 'constvals' must be 't1' and 't3' when 'param=",param,"'")
+    }
+    if (param %in% 13:17) { # tag-recapture but not the next two
+      if (length(cvnms)!=2) 
+        STOP("'constvals' not required when 'param=",param,
+             "', but if used then there must be exactly two values ('L1' and 'L2')")
+      if (!all(cvnms %in% c("L1","L2")))
+        STOP("'constvals' not required when 'param=",param,
+             "', but if used then names in 'constvals' must be 'L1' and 'L2'")
+    }
+    if (param %in% c(18,19)) { # Francis parameterizations
+      if (length(cvnms)!=2) 
+        STOP("'constvals' must have exactly two values ('L1' and 'L2') when 'param=",
+             param,"'" )
+      if (!all(cvnms %in% c("L1","L2")))
+        STOP("Value names in 'constvals' must be 'L1' and 'L2' when 'param=",param,"'")
+    }
+  }
+}
+
 iChkLinf <- function(sLinf,len,fxdnms) {
   tmp <- NULL
   if (is.lte(sLinf,0))

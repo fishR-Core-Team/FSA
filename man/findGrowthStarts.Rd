@@ -13,12 +13,11 @@ findGrowthStarts(
   pname = NULL,
   constvals = NULL,
   fixed = NULL,
-  Lmnm = NULL,
   plot = FALSE
 )
 }
 \arguments{
-\item{formula}{A formula of the form \code{len~age}.}
+\item{formula}{A formula of the form \code{length~age} for length-at-age models or \code{deltaL~deltat+lengthM} for tag-recapture models. \code{length} and \code{age} generically represent the observed length and annual age, and \code{deltaL}, \code{deltat}, and \code{lengthM} generically represent the observed change in length, observed change in time, and observed length at marking.}
 
 \item{data}{A data frame that contains the variables in \code{formula}.}
 
@@ -31,8 +30,6 @@ findGrowthStarts(
 \item{constvals}{A NAMED numeric vector of constant values (either lengths or ages) to be used in some of the von Bertalanffy parameterizations. See details.}
 
 \item{fixed}{A NAMED numeric vector that contains user-defined (i.e., fixed rather than automatically generated) starting values for one or more parameters. See details.}
-
-\item{Lmnm}{A single string that indicates the name of the variables in \code{data} that has the measured length-at-marking (or tagging). Only used when one of the tag-recapture parameterizations is used.}
 
 \item{plot}{A logical that indicates whether a plot of the data with the superimposed model fit at the starting values should be created. This plot is for diagnostic purposes and, thus, cannot be modified in this function.}
 }
@@ -110,9 +107,9 @@ curve(vonb1(x,Linf=cvonb1),col="red",lwd=2,add=TRUE)
 
 #===== Example for tag-recapture data (in GrowthData3)
 #----- Fabens model
-findGrowthStarts(deltaL~deltat,data=GrowthData3,pname="Fabens",Lmnm="tlM")
+findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,pname="Fabens")
 #----- Francis model
-findGrowthStarts(deltaL~deltat,data=GrowthData3,pname="Francis2",Lmnm="tlM",
+findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,pname="Francis2",
                  constvals=c(L1=150,L2=400))
 
 }

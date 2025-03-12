@@ -1,6 +1,7 @@
 #===== Prep
-## Adding a categorical variable to GrowthData1 to check errors below
+## Adding a categorical variable to GrowthData1 and GrowthData3 to check errors below
 GrowthData1$cat <- sample(c("A","B","C"),nrow(GrowthData1),replace=TRUE)
+GrowthData3$cat <- sample(c("A","B","C"),nrow(GrowthData3),replace=TRUE)
 
 ## This param_list comes from iHndlGrowthModelParams
 param_list <- list(
@@ -295,6 +296,10 @@ test_that("findGrowthStarts() general messages",{
                "RHS variable must be numeric")
   expect_error(findGrowthStarts(cat~age,data=GrowthData1),
                "LHS variable must be numeric")
+  expect_error(findGrowthStarts(deltaL~deltat,data=GrowthData3,param=13),
+               "'formula' must have two RHS variables")
+  expect_error(findGrowthStarts(deltaL~deltat+cat,data=GrowthData3,param=13),
+               "RHS variables must be numeric")
   expect_error(findGrowthStarts(tlV~age,data=GrowthData1,type="Derek"),
                "'arg' should be one of")
   expect_warning(findGrowthStarts(tlV~age,data=GrowthData1,type="Schnute"),
@@ -346,35 +351,45 @@ test_that("findGrowthStarts() von Bertalanffy messages",{
   expect_error(findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=8,
                                 constvals=c("t1"=1,"t2"=12)),
                "Value names in 'constvals' must be 't1' and 't3'")
-  expect_error(findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=13,
-                                Lmnm="tlM",constvals=c("L1"=150,"L3"=400)),
+  expect_error(findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                                type="von Bertalanffy",param=13,
+                                constvals=c("L1"=150,"L3"=400)),
                "'constvals' not required when")
-  expect_error(findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=14,
-                                Lmnm="tlM",constvals=c("L1"=150,"L3"=400)),
+  expect_error(findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                                type="von Bertalanffy",param=14,
+                                constvals=c("L1"=150,"L3"=400)),
                "'constvals' not required when")
-  expect_error(findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=15,
-                                Lmnm="tlM",constvals=c("L0"=150,"L2"=400)),
+  expect_error(findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                                type="von Bertalanffy",param=15,
+                                constvals=c("L0"=150,"L2"=400)),
                "'constvals' not required when")
-  expect_error(findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=16,
-                                Lmnm="tlM",constvals=c("L0"=150,"L2"=400)),
+  expect_error(findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                                type="von Bertalanffy",param=16,
+                                constvals=c("L0"=150,"L2"=400)),
                "'constvals' not required when")
-  expect_error(findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=17,
-                                Lmnm="tlM",constvals=c("L0"=150,"L3"=400)),
+  expect_error(findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                                type="von Bertalanffy",param=17,
+                                constvals=c("L0"=150,"L3"=400)),
                "'constvals' not required when")
-  expect_error(findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=13,
-                                Lmnm="tlM",constvals=c("L1"=150)),
+  expect_error(findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                                type="von Bertalanffy",param=13,
+                                constvals=c("L1"=150)),
                "'constvals' not required when")
-  expect_error(findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=17,
-                                Lmnm="tlM",constvals=c("L1"=150,"L2"=300,"L3"=450)),
+  expect_error(findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                                type="von Bertalanffy",param=17,
+                                constvals=c("L1"=150,"L2"=300,"L3"=450)),
                "'constvals' not required when")
-  expect_error(findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=18,
-                                Lmnm="tlM",constvals=c("L1"=150,"L3"=450)),
+  expect_error(findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                                type="von Bertalanffy",param=18,
+                                constvals=c("L1"=150,"L3"=450)),
                "Value names in 'constvals' must be 'L1' and 'L2'")
-  expect_error(findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=18,
-                                Lmnm="tlM",constvals=c("L1"=150)),
+  expect_error(findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                                type="von Bertalanffy",param=18,
+                                constvals=c("L1"=150)),
                "'constvals' must have exactly two values")
-  expect_error(findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=18,
-                                Lmnm="tlM",constvals=c("L1"=150,"L2"=300,"L3"=450)),
+  expect_error(findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                                type="von Bertalanffy",param=18,
+                                constvals=c("L1"=150,"L2"=300,"L3"=450)),
                "'constvals' must have exactly two values")
   
   
@@ -461,20 +476,20 @@ test_that("findGrowthStarts() von Bertalanffy messages",{
   findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=12,
                    fixed=c("Kpr"=-1)) %>%
     expect_warning("Starting value for 'Kpr' is negative")
-  findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=13,
-                   Lmnm="tlM",fixed=c("Linf"=-1)) %>%
+  findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type="von Bertalanffy",param=13,
+                   fixed=c("Linf"=-1)) %>%
     expect_warning("Starting value for 'Linf' is negative")
-  findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=14,
-                   Lmnm="tlM",fixed=c("K"=-1)) %>%
+  findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type="von Bertalanffy",param=14,
+                   fixed=c("K"=-1)) %>%
     expect_warning("Starting value for 'K' is negative")
-  findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=15,
-                   Lmnm="tlM",fixed=c("Linf"=-1)) %>%
+  findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type="von Bertalanffy",param=15,
+                   fixed=c("Linf"=-1)) %>%
     expect_warning("Starting value for 'Linf' is negative")
-  findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=18,
-                   Lmnm="tlM",constvals=c(L1=150,L2=400),fixed=c("g1"=-1)) %>%
+  findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type="von Bertalanffy",param=18,
+                   constvals=c(L1=150,L2=400),fixed=c("g1"=-1)) %>%
     expect_warning("Starting value for 'g1' is negative")
-  findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=18,
-                   Lmnm="tlM",constvals=c(L1=150,L2=400),fixed=c("g2"=-1)) %>%
+  findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type="von Bertalanffy",param=18,
+                   constvals=c(L1=150,L2=400),fixed=c("g2"=-1)) %>%
     expect_warning("Starting value for 'g2' is negative")
 })
 
@@ -484,7 +499,7 @@ test_that("findGrowthStarts() Gompertz messages",{
   expect_error(findGrowthStarts(tlG~age,data=GrowthData1,type="Gompertz",param=8),
                "'param' must be between 1 and 7")
   for (i in 6:7)
-    expect_warning(findGrowthStarts(tlG~age,data=GrowthData1,type="Gompertz",param=i),
+    expect_warning(findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type="Gompertz",param=i),
                    "Starting values not yet implemented in 'FSA'")
   
   expect_error(findGrowthStarts(tlG~age,data=GrowthData1,type="Gompertz",param=1,
@@ -523,7 +538,7 @@ test_that("findGrowthStarts() logistic  messages",{
                "'param' must be between 1 and 4")
   expect_error(findGrowthStarts(tlL~age,data=GrowthData1,type="logistic",param=5),
                "'param' must be between 1 and 4")
-  expect_warning(findGrowthStarts(tlL~age,data=GrowthData1,type="logistic",param=4),
+  expect_warning(findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type="logistic",param=4),
                  "Starting values not yet implemented in 'FSA'")
   
   expect_error(findGrowthStarts(tlV~age,data=GrowthData1,type="logistic",param=1,
@@ -629,28 +644,28 @@ test_that("findGrowthStarts() von Bertalanffy outputs",{
   tmp <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=12)
   expect_equal(class(tmp),"numeric")
   expect_named(tmp,c("Linf","Kpr","t0","ts","NGT"))
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,
-                          type="von Bertalanffy",param=13,Lmnm="tlM")
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                          type="von Bertalanffy",param=13)
   expect_equal(class(tmp),"numeric")
   expect_named(tmp,c("Linf","K"))
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,
-                          type="von Bertalanffy",param=14,Lmnm="tlM")
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                          type="von Bertalanffy",param=14)
   expect_equal(class(tmp),"numeric")
   expect_named(tmp,c("Linf","K"))
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,
-                          type="von Bertalanffy",param=15,Lmnm="tlM")
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                          type="von Bertalanffy",param=15)
   expect_equal(class(tmp),"numeric")
-  expect_named(tmp,c("Linf","K","beta"))
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,
-                          type="von Bertalanffy",param=16,Lmnm="tlM")
+  expect_named(tmp,c("Linf","K","b"))
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                          type="von Bertalanffy",param=16)
   expect_equal(class(tmp),"numeric")
-  expect_named(tmp,c("Linf","K","alpha","beta"))
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,
-                          type="von Bertalanffy",param=17,Lmnm="tlM")
+  expect_named(tmp,c("K","a","b"))
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                          type="von Bertalanffy",param=17)
   expect_equal(class(tmp),"numeric")
-  expect_named(tmp,c("Linf","K","alpha","beta"))
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",
-                          param=18,Lmnm="tlM",constvals=c(L1=150,L2=400))
+  expect_named(tmp,c("K","a","b"))
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type="von Bertalanffy",
+                          param=18,constvals=c(L1=150,L2=400))
   expect_equal(class(tmp),"numeric")
   expect_named(tmp,c("g1","g2"))
   
@@ -690,23 +705,23 @@ test_that("findGrowthStarts() von Bertalanffy outputs",{
   tmp <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=12,
                           fixed=c(NGT=0.5))
   expect_equal(tmp[["NGT"]],0.5)
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=13,
-                          Lmnm="tlM",fixed=c(Linf=500))
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type="von Bertalanffy",param=13,
+                          fixed=c(Linf=500))
   expect_equal(tmp[["Linf"]],500)
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=14,
-                          Lmnm="tlM",fixed=c(K=0.3))
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type="von Bertalanffy",param=14,
+                          fixed=c(K=0.3))
   expect_equal(tmp[["K"]],0.3)
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=15,
-                          Lmnm="tlM",fixed=c(Linf=500))
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type="von Bertalanffy",param=15,
+                          fixed=c(Linf=500))
   expect_equal(tmp[["Linf"]],500)
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=16,
-                          Lmnm="tlM",fixed=c(beta=0.3))
-  expect_equal(tmp[["beta"]],0.3)
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=17,
-                          Lmnm="tlM",fixed=c(alpha=300))
-  expect_equal(tmp[["alpha"]],300)
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,type="von Bertalanffy",param=18,
-                          Lmnm="tlM",constvals=c(L1=150,L2=400),fixed=c(g1=30))
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type="von Bertalanffy",param=16,
+                          fixed=c(b=0.3))
+  expect_equal(tmp[["b"]],0.3)
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type="von Bertalanffy",param=17,
+                          fixed=c(a=300))
+  expect_equal(tmp[["a"]],300)
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type="von Bertalanffy",param=18,
+                          constvals=c(L1=150,L2=400),fixed=c(g1=30))
   expect_equal(tmp[["g1"]],30)
 })
 
@@ -865,26 +880,26 @@ test_that("findGrowthStarts() von Bertalanffy results",{
   g2 <- pdf[[2]]
   Linf <- (L2*g1-L1*g2)/(g1-g2)
   K <- -log(1+(g1-g2)/(L1-L2))
-  beta <- 0.1
-  alpha <- Linf-mean(GrowthData3$tlM,na.rm=TRUE)
+  b <- 0.1
+  a <- Linf-mean(GrowthData3$tlM,na.rm=TRUE)
 
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,
-                          type="von Bertalanffy",param=13,Lmnm="tlM")
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                          type="von Bertalanffy",param=13)
   expect_equal(tmp,c(Linf=Linf,K=K))
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,
-                          type="von Bertalanffy",param=14,Lmnm="tlM")
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                          type="von Bertalanffy",param=14)
   expect_equal(tmp,c(Linf=Linf,K=K))
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,
-                          type="von Bertalanffy",param=15,Lmnm="tlM")
-  expect_equal(tmp,c(Linf=Linf,K=K,beta=beta))
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,
-                          type="von Bertalanffy",param=16,Lmnm="tlM")
-  expect_equal(tmp,c(Linf=Linf,K=K,alpha=alpha,beta=beta))
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,
-                          type="von Bertalanffy",param=17,Lmnm="tlM")
-  expect_equal(tmp,c(Linf=Linf,K=K,alpha=alpha,beta=beta))
-  tmp <- findGrowthStarts(deltaL~deltat,data=GrowthData3,
-                          type="von Bertalanffy",param=18,Lmnm="tlM",constvals=c(L1=L1,L2=L2))
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                          type="von Bertalanffy",param=15)
+  expect_equal(tmp,c(Linf=Linf,K=K,b=b))
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                          type="von Bertalanffy",param=16)
+  expect_equal(tmp,c(K=K,a=a,b=b))
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                          type="von Bertalanffy",param=17)
+  expect_equal(tmp,c(K=K,a=a,b=b))
+  tmp <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,
+                          type="von Bertalanffy",param=18,constvals=c(L1=L1,L2=L2))
   expect_equal(tmp,c(g1=g1,g2=g2))
 })
 

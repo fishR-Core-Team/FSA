@@ -35,7 +35,7 @@ showGrowthFun(
 
 \item{yvar}{A string that represents the right-hand-side (or y-variable) of the equation. Defaults to \code{NULL} such that a reasonable default for the model type will be chosen.}
 
-\item{xvar}{A string that represents the left-hand-side (or x) variable) of the equation. Defaults to \code{NULL} such that \eqn{t} will be used for models with ages and \dQuote{delta*t} will be used for models with tag-recapture data.}
+\item{xvar}{A string that represents the left-hand-side (or x) variable) of the equation. Defaults to \code{NULL} such that \eqn{t} will be used for models with ages and \eqn{Delta*t} will be used for models with tag-recapture data.}
 
 \item{fit}{An optional \code{nls} (or related) object from fitting data to the growth function. If \code{NULL} then a string/expression with symbols for parameters will be returned. If an \code{nls} object then values for the parameters will be extracted from \code{fit} and put in place of the parameters symbols.}
 
