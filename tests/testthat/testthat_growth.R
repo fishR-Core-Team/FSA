@@ -86,12 +86,12 @@ test_that("makeGrowthFun() von Bertalanffy output",{
                "10"=c("t","Linf","K","t0","C","ts"),
                "11"=c("t","Linf","K","t0","C","WP"),
                "12"=c("t","Linf","Kpr","t0","ts","NGT"),
-               "13"=c("Lm","dt","Linf","K"),
-               "14"=c("Lm","dt","Linf","K"),
-               "15"=c("Lm","dt","Linf","K","b"),
-               "16"=c("Lm","dt","K","a","b"),
-               "17"=c("Lm","dt","K","a","b"),
-               "18"=c("Lm","dt","g1","g2","L1","L2"),
+               "13"=c("dt","Lm","Linf","K"),
+               "14"=c("dt","Lm","Linf","K"),
+               "15"=c("dt","Lm","Linf","K","b"),
+               "16"=c("dt","Lm","K","a","b"),
+               "17"=c("dt","Lm","K","a","b"),
+               "18"=c("dt","Lm","g1","g2","L1","L2"),
                "19"=c("Lm","t1","t2","g1","g2","w","u","L1","L2"))
   nnull <- list("1"=c(1:2),"2"=c(1:2),"3"=c(1:2),"4"=c(1:2),"5"=c(1:2),"6"=c(1:2),
                 "7"=c(1:2,5),"8"=c(1:2,5),
@@ -121,8 +121,8 @@ test_that("makeGrowthFun() Gompertz output",{
                "3"=c("t","L0","gi","a2"),
                "4"=c("t","Linf","gi","a2"),
                "5"=c("t","Linf","gi","t0"),
-               "6"=c("Lm","dt","Linf","gi"),
-               "7"=c("Lm","dt","Linf","gi"))
+               "6"=c("dt","Lm","Linf","gi"),
+               "7"=c("dt","Lm","Linf","gi"))
   nnull <- list("1"=c(1:2),"2"=c(1:2),"3"=c(1:2),"4"=c(1:2),"5"=c(1:2),
                 "6"=c(1:3),"7"=c(1:3))
   itmp <- names(ptmp)

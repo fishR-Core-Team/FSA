@@ -523,16 +523,16 @@ msg_vonBertalanffy12 <- paste0("You have chosen paramaterization 12 (Paul's Seas
                                "       NGT = length of no-growth period.\n\n")
 
 # was Fabens
-vonBertalanffy13 <- function(Lm,dt,Linf,K=NULL) {
+vonBertalanffy13 <- function(dt,Lm,Linf,K=NULL) {
   if (length(Linf)==2) {
     K <- Linf[[2]]
     Linf <- Linf[[1]] }
   (Linf-Lm)*(1-exp(-K*dt))
 }
-SvonBertalanffy13 <- function(Lm,dt,Linf,K) { (Linf-Lm)*(1-exp(-K*dt)) }
+SvonBertalanffy13 <- function(dt,Lm,Linf,K) { (Linf-Lm)*(1-exp(-K*dt)) }
 msg_vonBertalanffy13 <- paste0("You have chosen paramaterization 13 (Faben's Tag-Return) of ",
                                "the von Bertalanffy growth function.\n\n",
-                               "  E[dL|Lm,dt] = (Linf-Lm)*(1-exp(-K*dt))\n\n",
+                               "  E[dL|dt,Lm] = (Linf-Lm)*(1-exp(-K*dt))\n\n",
                                "  where Linf = asymptotic mean length\n",
                                "           K = exponential rate of approach to Linf\n\n",
                                "  and the data are dL = change in length (from tagging to recapture)\n",
@@ -540,16 +540,16 @@ msg_vonBertalanffy13 <- paste0("You have chosen paramaterization 13 (Faben's Tag
                                "                   dt = time between tagging and recapture.\n\n")
 
 # was Fabens2
-vonBertalanffy14 <- function(Lm,dt,Linf,K=NULL) {
+vonBertalanffy14 <- function(dt,Lm,Linf,K=NULL) {
   if (length(Linf)==2) {
     K <- Linf[[2]]
     Linf <- Linf[[1]] }
   Lm+(Linf-Lm)*(1-exp(-K*dt))
 }
-SvonBertalanffy14 <- function(Lm,dt,Linf,K) { Lm+(Linf-Lm)*(1-exp(-K*dt)) }
+SvonBertalanffy14 <- function(dt,Lm,Linf,K) { Lm+(Linf-Lm)*(1-exp(-K*dt)) }
 msg_vonBertalanffy14 <- paste0("You have chosen paramaterization 14 (alt Faben's Tag-Return) of ",
                                "the von Bertalanffy growth function.\n\n",
-                               "  E[Lr|Lm,dt] = Lm + (Linf-Lm)*(1-exp(-K*dt))\n\n",
+                               "  E[Lr|dt,Lm] = Lm + (Linf-Lm)*(1-exp(-K*dt))\n\n",
                                "  where Linf = asymptotic mean length\n",
                                "           K = exponential rate of approach to Linf\n\n",
                                "  and the data are Lr = length at time of recapture\n",
@@ -557,17 +557,17 @@ msg_vonBertalanffy14 <- paste0("You have chosen paramaterization 14 (alt Faben's
                                "                   dt = time between tagging and recapture.\n\n")
 
 # was Wang
-vonBertalanffy15 <- function(Lm,dt,Linf,K=NULL,b=NULL) {
+vonBertalanffy15 <- function(dt,Lm,Linf,K=NULL,b=NULL) {
   if (length(Linf)==3) {
     b <- Linf[[3]]
     K <- Linf[[2]]
     Linf <- Linf[[1]] }
   (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt))
 }
-SvonBertalanffy15 <- function(Lm,dt,Linf,K,b) { (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt)) }
+SvonBertalanffy15 <- function(dt,Lm,Linf,K,b) { (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt)) }
 msg_vonBertalanffy15 <- paste0("You have chosen paramaterization 15 (Wang's Tag-Return) of ",
                                "the von Bertalanffy growth function.\n\n",
-                               "  E[dL|Lm,dt] = (Linf+b(Lm-E(Lm))-Lm)*(1-exp(-K*dt))\n\n",
+                               "  E[dL|dt,Lm] = (Linf+b(Lm-E(Lm))-Lm)*(1-exp(-K*dt))\n\n",
                                "  where Linf = asymptotic mean length\n",
                                "           K = exponential rate of approach to Linf\n",
                                "           b = parameter\n\n",
@@ -577,17 +577,17 @@ msg_vonBertalanffy15 <- paste0("You have chosen paramaterization 15 (Wang's Tag-
                                "  and with E(Lm) = expectation (i.e., mean) of Lm.\n\n")
 
 # was Wang2
-vonBertalanffy16 <- function(Lm,dt,K,a=NULL,b=NULL) {
+vonBertalanffy16 <- function(dt,Lm,K,a=NULL,b=NULL) {
   if (length(K)==3) {
     b <- K[[3]]
     a <- K[[2]]
     K <- K[[1]] }
   (a+b*Lm)*(1-exp(-K*dt))
 }
-SvonBertalanffy16 <- function(Lm,dt,K,a,b) { (a+b*Lm)*(1-exp(-K*dt)) }
+SvonBertalanffy16 <- function(dt,Lm,K,a,b) { (a+b*Lm)*(1-exp(-K*dt)) }
 msg_vonBertalanffy16 <- paste0("You have chosen paramaterization 16 (alt Wang's Tag-Return) of ",
                                "the von Bertalanffy growth function.\n\n",
-                               "  E[dL|Lm,dt] = (a+bLm)*(1-exp(-K*dt))\n\n",
+                               "  E[dL|dt,Lm] = (a+bLm)*(1-exp(-K*dt))\n\n",
                                "  where K = exponential rate of approach to Linf\n",
                                "     a, b = nuiscance parameters (no meaning)\n\n",
                                "  and the data are dL = change in length (from tagging to recapture)\n",
@@ -595,17 +595,17 @@ msg_vonBertalanffy16 <- paste0("You have chosen paramaterization 16 (alt Wang's 
                                "                   dt = time between tagging and recapture.\n\n")
 
 # was Wang3
-vonBertalanffy17 <- function(Lm,dt,K,a=NULL,b=NULL) {
+vonBertalanffy17 <- function(dt,Lm,K,a=NULL,b=NULL) {
   if (length(K)==3) {
     b <- K[[3]]
     a <- K[[2]]
     K <- K[[1]] }
   Lm+(a+b*Lm)*(1-exp(-K*dt))
 }
-SvonBertalanffy17 <- function(Lm,dt,K,a,b) { Lm+(a+b*Lm)*(1-exp(-K*dt)) }
+SvonBertalanffy17 <- function(dt,Lm,K,a,b) { Lm+(a+b*Lm)*(1-exp(-K*dt)) }
 msg_vonBertalanffy17 <- paste0("You have chosen paramaterization 17 (alt2 Wang's Tag-Return) of ",
                                "the von Bertalanffy growth function.\n\n",
-                               "  E[Lr|Lm,dt] = Lm+(a+bLm)*(1-exp(-K*dt))\n\n",
+                               "  E[Lr|dt,Lm] = Lm+(a+bLm)*(1-exp(-K*dt))\n\n",
                                "  where K = exponential rate of approach to Linf\n",
                                "     a, b = nuiscance parameters (no meaning)\n\n",
                                "  and the data are Lr = length at time of recapture\n",
@@ -613,17 +613,17 @@ msg_vonBertalanffy17 <- paste0("You have chosen paramaterization 17 (alt2 Wang's
                                "                   dt = time between tagging and recapture.\n\n")
 
 # was Francis2
-vonBertalanffy18 <- function(Lm,dt,g1,g2=NULL,L1,L2=NULL) {
+vonBertalanffy18 <- function(dt,Lm,g1,g2=NULL,L1,L2=NULL) {
   if (length(g1)==2) { g2 <- g1[[2]]; g1 <- g1[[1]] }
   if (length(L1)==2) { L2 <- L1[[2]]; L1 <- L1[[1]] }
   ((L2*g1-L1*g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^dt)
 }
-SvonBertalanffy18 <- function(Lm,dt,g1,g2,L1,L2) { 
+SvonBertalanffy18 <- function(dt,Lm,g1,g2,L1,L2) { 
   ((L2*g1-L1*g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^dt)
 }
 msg_vonBertalanffy18 <- paste0("You have chosen paramaterization 18 (Francis' Tag-Return) of ",
                                "the von Bertalanffy growth function.\n\n",
-                               "  E[dL|Lm,dt] = ((L2g1-L1g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^dt)\n\n",
+                               "  E[dL|dt,Lm] = ((L2g1-L1g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^dt)\n\n",
                                "  where g1 = mean growth rate at first (small) reference length L1\n",
                                "        g2 = mean growth rate at second (large) reference length L2\n\n",
                                "You must also give values (i.e., they are NOT model parameters) for\n",
@@ -767,13 +767,13 @@ msg_Gompertz5 <- paste0("You have chosen paramaterization 5 (Quinn-Deriso3) of "
                         "          t0 = hypothetical time/age when mean length is 0\n\n")
 
 # was Troynikov1
-Gompertz6 <- function(Lm,dt,Linf,gi=NULL) {
+Gompertz6 <- function(dt,Lm,Linf,gi=NULL) {
   if (length(Linf)==2) {
     gi <- Linf[2]
     Linf <- Linf[1] }
   Linf*((Lm/Linf)^exp(-gi*dt))-Lm
 }
-SGompertz6 <- function(Lm,dt,Linf,gi) { Linf*((Lm/Linf)^exp(-gi*dt))-Lm }
+SGompertz6 <- function(dt,Lm,Linf,gi) { Linf*((Lm/Linf)^exp(-gi*dt))-Lm }
 msg_Gompertz6 <- paste0("You have chosen paramaterization 6 (Troynikov Tag-Return 1) of ",
                         "the Gompertz growth function.\n\n",
                         "  E[Lr-Lm|dt] = Linf*((Lm/Linf)^exp(-gi*dt))-Lm\n\n",
@@ -784,18 +784,18 @@ msg_Gompertz6 <- paste0("You have chosen paramaterization 6 (Troynikov Tag-Retur
                         "                   dt = time between tagging and recapture.\n\n")
 
 # was Troynikov2
-Gompertz7 <- function(Lm,dt,Linf,gi=NULL) {
+Gompertz7 <- function(dt,Lm,Linf,gi=NULL) {
   if (length(Linf)==2) {
     gi <- Linf[2]
     Linf <- Linf[1] }
   Linf*((Lm/Linf)^exp(-gi*dt))
 }
-SGompertz7 <- function(Lm,dt,Linf,gi) { Linf*((Lm/Linf)^exp(-gi*dt)) }
+SGompertz7 <- function(dt,Lm,Linf,gi) { Linf*((Lm/Linf)^exp(-gi*dt)) }
 msg_Gompertz7 <- paste0("You have chosen paramaterization 7 (alt Troynikov Tag-Return 2) of ",
                         "the Gompertz growth function.\n\n",
-                        "  E[Lr|dt] = Linf*((Lm/Linf)^exp(-gi*dt))\n\n",
-                        "  where Linf = asymptotic mean length\n",
-                        "          gi = instantaneous growth rate at inflection point\n\n",
+                        "  E[Lr|dt,Lm] = Linf*((Lm/Linf)^exp(-gi*dt))\n\n",
+                        "  where Linf  = asymptotic mean length\n",
+                        "          gi  = instantaneous growth rate at inflection point\n\n",
                         "  and the data are Lr = length at time of recapture\n",
                         "                   Lm = length at time of tagging\n",
                         "                   dt = time between tagging and recapture.\n\n")

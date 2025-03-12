@@ -1,5 +1,5 @@
 ---
-title: "Growth_Starting_Values"
+title: "Deriving Startig Values for Growth Functions in FSA"
 author: "Derek H. Ogle"
 date: "`r Sys.Date()`"
 format: 
