@@ -214,15 +214,69 @@ ggplot(data=GrowthData2,aes(y=tlS,x=age)) +
 
 
 # Fifth Example -- Fabens (Tag-Recapture) von Bertalanffy
-Using parameterizations of the von Bertalanffy for tag-recapture data^[Generally, require observed lengths at marking, observed lengths at recapture or the change in observed length from marking, and the time-at-large (time difference between marking and recapture).] follows a similar workflow, but with a few different details. First, some of the parameterizations use the change in length as the response variable, whereas others use the length at recapture. Second, the primary explanatory variable in `FSA` is the time-at-large (time between marking and recapture) but the length at marking is also required. Thus, time-at-large will appear on the right-hand-side of the formulae used and the second argument in the function created by `makeGrowthFun()`. In addition, in 
+Using parameterizations of the von Bertalanffy for tag-recapture data^[Generally, require observed lengths at marking, observed lengths at recapture or the change in observed length from marking, and the time-at-large (time difference between marking and recapture).] follows a similar workflow, but with a few different details. First, some of the parameterizations use the change in length as the response variable, whereas others use the length at recapture. The first example here will use Fabens parameterization which uses the change-in-length as the response variable.
+
+Before continuing, this example will use the data in `GrowthData3`, which is shown below and has variables that are the unique tag number of the fish (`tag`), the total length at marking/tagging (`tlM`) and subsequent recapture (`tlR`), time-at-large (time between marking and recapture; `deltat`), and change in length (`deltaL`).
+
+```{r}
+peek(GrowthData3,n=10)
+```
+
+The primary explanatory variable in tag-recaptures models in `FSA` is the time-at-large but the length at marking is also required in many models. Thus, both time-at-large and length at marking will appear in the function created by `makeGrowthFun()`. For example, a function to predict the change in length from the time-at-large and length at marking for the Fabens parameterization is created below.
 
 ```{r}
 typ <- "von Bertalanffy"
 prm <- "Fabens"
-vb4 <- makeGrowthFun(type=typ,pname=prm)
+( vb4 <- makeGrowthFun(type=typ,pname=prm) )
+```
+
+For example, the predicted change in length for times-at-large of 1, 2, and 3 years and a length-at-marking of 300 mm (and assuming $L_\infty$=450 and $K$=0.3) is obtained with the following.
+
+```{r}
+vb4(1:3,300,Linf=450,K=0.3)
+```
+
+Or the predicted change in length of a 1 year time-at-large for fish with lengths-at-marking of 100, 200, and 300 mm is obtained with the following.
+
+```{r}
+vb4(1,c(100,200,300),Linf=450,K=0.3)
+```
+
+With this understanding the rest of workflow is similar to above with the excecption that the formula in `findGrowthStarts()` will be of the form `deltaL~deltat+Lm`.
+
+```{r}
 rsv4 <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type=typ,pname=prm)
 resv4 <- nls(deltaL~vb4(deltat,tlM,Linf,K),data=GrowthData3,start=rsv4)
 cbind(Est=coef(resv4),confint(resv4))
+```
+
+Unfortunately, there is not one single graphic that can be used to summarize the results from fitting the growth model to tag-recapture data. The code below won't be discussed in detail, though a few important details will be highlighted. First, this plot leverages the fact that the marking and tagging sampling events were generally conducted annually so that the times-at-large were very nearly exactly 1, 2, or 3 years. Second, a data.frame is created that uses the fitted model to predict the change-in-length for those three times-at-large at the minimum observed length-at-marking and the estimated $L_\infty$. These predictions will be used to place three fitted lines, one for each rough time-at-large, on the scatterplot of change-in-length versus length-at-marking. Only two points are needed for the lines here because Fabens model assumes a linear decline in change-in-length with increase length-at-marking for each time-at-large.
+
+```{r}
+pdf <- data.frame(tlM=rep(c(min(GrowthData3$tlM),coef(resv4)[["Linf"]]),each=3),
+                  deltat=rep(c(1,2,3),times=2))
+pdf$deltaL <- vb4(pdf$deltat,pdf$tlM,Linf=coef(resv4)[["Linf"]],K=coef(resv4)[["K"]])
+pdf
+```
+
+The plotting routine looks more complicated here because the original data.frame is used to place the observed points on the graph, but the predicted data.frame is used to place the lines. In addition, the `deltat` variable is converted to a factor so that a discrete number of colors would be used. Finally note the use of `showGrowthFun()` and `annotate()` to add the equation to the plot.
+
+```{r}
+eqn <- showGrowthFun(type=typ,pname=prm,fit=resv4)
+
+ggplot() +
+  geom_point(data=GrowthData3,mapping=aes(x=tlM,y=deltaL,col=as.factor(round(deltat,0))),
+             size=2.5,alpha=0.4) +
+  geom_line(data=pdf,mapping=aes(x=tlM,y=deltaL,col=as.factor(deltat)),
+            linewidth=1) +
+  scale_y_continuous(name="Change in Length from Marking (mm)",limits=c(0,NA)) +
+  scale_x_continuous(name="Total Length-at-Marking (mm)") +
+  labs(color="Years-at-Large") +
+  annotate(geom="text",label=eqn,parse=TRUE,size=4.2,x=350,y=165) +
+  theme_bw() +
+  theme(legend.position="inside",
+        legend.position.inside=c(0.85,0.5))
+
 ```
 
 
@@ -230,6 +284,6 @@ cbind(Est=coef(resv4),confint(resv4))
 #| results: hide
 #| fig-width: 3
 #| fig-height: 1
-eqn <- showGrowthFun(type=typ,pname=prm,fit=resv4,plot=TRUE)
+
 ```
 
