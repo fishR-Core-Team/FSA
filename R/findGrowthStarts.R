@@ -13,6 +13,7 @@
 #' @inheritParams makeGrowthFun
 #' @param formula A formula of the form \code{length~age} for length-at-age models or \code{deltaL~deltat+lengthM} for tag-recapture models. \code{length} and \code{age} generically represent the observed length and annual age, and \code{deltaL}, \code{deltat}, and \code{lengthM} generically represent the observed change in length, observed change in time, and observed length at marking.
 #' @param data A data frame that contains the variables in \code{formula}.
+#' @param case A numeric that indicates the specific case of the Schnute function to use.
 #' @param constvals A NAMED numeric vector of constant values (either lengths or ages) to be used in some of the von Bertalanffy parameterizations. See details.
 #' @param fixed A NAMED numeric vector that contains user-defined (i.e., fixed rather than automatically generated) starting values for one or more parameters. See details.
 #' @param plot A logical that indicates whether a plot of the data with the superimposed model fit at the starting values should be created. This plot is for diagnostic purposes and, thus, cannot be modified in this function.
@@ -92,12 +93,18 @@
 findGrowthStarts <- function(formula,data,
                              type=c("von Bertalanffy","Gompertz","logistic","Richards",
                                     "Schnute","Schnute-Richards"),
-                             param=1,pname=NULL,
+                             param=1,pname=NULL,case=NULL,
                              constvals=NULL,fixed=NULL,plot=FALSE) {
   #===== Checks
+  # Schnute uses "case" instead of "param" ... convert to "param"
+  if (!is.null(case)) {
+    if(type=="Schnute") param <- case
+    else STOP("'case' only used when 'type' is 'Schnute'")
+  }
+
   # Handle checks on type, param, and pname
   type <- match.arg(type)
-  param <- iHndlGrowthModelParams(type,param,pname)
+  param <- iHndlGrowthModelParams(type,param,pname,SGF=TRUE)
   
   # Handle the formula with some checks ... need to condition for tag-return params
   expNumE <- 1
@@ -118,8 +125,8 @@ findGrowthStarts <- function(formula,data,
   
   # initial checks on constvals
   if (!is.null(constvals)) {
-    if (type!="von Bertalanffy")
-      STOP("'constvals' only used with the von Bertalanffy model.",
+    if (!type %in% c("von Bertalanffy","Schnute"))
+      STOP("'constvals' not used with the ",type," model.",
            " Either don't use 'constvals' or change 'type'")
   }
   
@@ -144,7 +151,7 @@ findGrowthStarts <- function(formula,data,
          "Gompertz"=        { sv <- iGompStarts(lennm,agenm,data,param,fixed) },
          "logistic"=        { sv <- iLogiStarts(lennm,agenm,data,param,fixed) },
          "Richards"=        { sv <- iRichStarts(lennm,agenm,data,param,fixed) },
-         "Schnute"=         { sv <- NULL },
+         "Schnute"=         { sv <- iSchnStarts(lennm,agenm,data,param,constvals,fixed) },
          "Schnute-Richards"={ sv <- NULL })
   
   # check if any names in fixed were not in the parameterization
@@ -177,7 +184,7 @@ findGrowthStarts <- function(formula,data,
 #===============================================================================
 iVonBStarts <- function(ynm,xnm,Lmnm,data,param,constvals,fixed) {
   # Perform checks on constvals (some checks already in main function)
-  iChkConstvals(param,constvals)
+  iChkConstvals("von Bertalanffy",param,constvals)
   # Get names of fixed params, if they exist
   fxdnms <- names(fixed)
   
@@ -423,47 +430,113 @@ iRichStarts <- function(ynm,xnm,data,param,fixed) {
   sv
 }
 
+iSchnStarts <- function(ynm,xnm,data,param,constvals,fixed) {
+  # Perform checks on constvals (some checks already in main function)
+  iChkConstvals("Schnute",param,constvals)
+  # Get names of fixed params, if they exist
+  fxdnms <- names(fixed)
+  
+  # Get mean lengths-at-ages in constvals from a loess smoother
+  tmp <- stats::loess(stats::as.formula(paste0(ynm,"~",xnm)),data=data)
+  pdf <- data.frame(x=constvals)
+  names(pdf) <- xnm
+  pdf <- stats::predict(tmp,pdf)
+  L1 <- ifelse("L1" %in% fxdnms,fixed[["L1"]],pdf[[1]])
+  L3 <- ifelse("L3" %in% fxdnms,fixed[["L3"]],pdf[[2]])
+  
+  # Set a and b as noted in Starting Values article
+  a <- ifelse("a" %in% fxdnms,fixed[["a"]],0.3)
+  b <- ifelse("b" %in% fxdnms,fixed[["b"]],ifelse(param==3,3,0.5))
+  
+  if ((!"a" %in% fxdnms) & (param %in% c(1,2)))
+    WARN("Automated starting values for 'a' are ad hoc and may not work well. ",
+         "If 'nls' model does not converge consider other values for 'a' by ",
+         "using 'fixed='.")
+  if ((!"b" %in% fxdnms) & (param %in% c(1,3)))
+    WARN("Automated starting values for 'b' are ad hoc and may not work well ",
+         ", especially when 'case=3' (or 'param=3'). ",
+         "If 'nls' model does not converge consider other values for 'a' by ",
+         "using 'fixed='.")
+  
+  # Create starting value list specific to case/parameterization
+  sv <- NULL
+  switch(as.character(param),
+         "1"={  sv <- c(L1=iChkParamPos(L1,fxdnms),
+                        L3=iChkParamPos(L3,fxdnms),
+                        a=a,
+                        b=b)  },
+         "2"={  sv <- c(L1=iChkParamPos(L1,fxdnms),
+                        L3=iChkParamPos(L3,fxdnms),
+                        a=a)  },
+         "3"={  sv <- c(L1=iChkParamPos(L1,fxdnms),
+                        L3=iChkParamPos(L3,fxdnms),
+                        b=b)  },
+         "4"={  sv <- c(L1=iChkParamPos(L1,fxdnms),
+                        L3=iChkParamPos(L3,fxdnms))  }
+  )
+  
+  # Return the starting value list
+  sv
+}
+
+
 #===============================================================================
 #== Internal Functions -- Parameter sanity checks
 #===============================================================================
-iChkConstvals <- function(param,constvals) {
-  if (is.null(constvals) & param %in% c(6,7,8,18))
-    STOP("You must use 'constvals' with von Bertalanffy paramaterization #",param)
-  if (!is.null(constvals)) {
-    # check type and whether named first
-    if (is.list(constvals)) STOP("'constvals' should be a vector rather than a list.")
-    if (!is.numeric(constvals)) STOP("'constvals' must be numeric.")
-    if (is.null(names(constvals))) STOP("Values in 'constvals' must be named.")
-    
-    # Ok type and named, now check if used properly
-    cvnms <- names(constvals)
-    if (param==6) { # Ogle-Isermann parameterization
-      if (length(cvnms)!=1) 
-        STOP("'constvals' must have only one value when 'param=",param,"'" )
-      if (!cvnms %in% c("Lr","tr"))
-        STOP("Value names in 'constvals' must be 'Lr' or 'tr' when 'param=",param,"'")
-    }
-    if (param %in% c(7,8)) { # Schnute and Francis parameterizations
+iChkConstvals <- function(type,param,constvals) {
+  if (type=="Schnute") {
+    if (is.null(constvals))
+      STOP("You must use 'constvals' with Schnute model")
+    if (!is.null(constvals)) {
+      # check type and whether named first
+      if (is.list(constvals)) STOP("'constvals' should be a vector rather than a list.")
+      if (!is.numeric(constvals)) STOP("'constvals' must be numeric.")
+      if (is.null(names(constvals))) STOP("Values in 'constvals' must be named.")
+      cvnms <- names(constvals)
       if (length(cvnms)!=2)
-        STOP("'constvals' must have exactly two values ('t1' and 't3') when 'param=",
-             param,"'" )
+        STOP("'constvals' must have exactly two values ('t1' and 't3') for 'Schnute' model." )
       if (!all(cvnms %in% c("t1","t3")))
-        STOP("Value names in 'constvals' must be 't1' and 't3' when 'param=",param,"'")
+        STOP("Value names in 'constvals' must be 't1' and 't3' for 'Schnute' model.")
     }
-    if (param %in% 13:17) { # tag-recapture but not the next two
-      if (length(cvnms)!=2) 
-        STOP("'constvals' not required when 'param=",param,
-             "', but if used then there must be exactly two values ('L1' and 'L2')")
-      if (!all(cvnms %in% c("L1","L2")))
-        STOP("'constvals' not required when 'param=",param,
-             "', but if used then names in 'constvals' must be 'L1' and 'L2'")
-    }
-    if (param %in% c(18,19)) { # Francis parameterizations
-      if (length(cvnms)!=2) 
-        STOP("'constvals' must have exactly two values ('L1' and 'L2') when 'param=",
-             param,"'" )
-      if (!all(cvnms %in% c("L1","L2")))
-        STOP("Value names in 'constvals' must be 'L1' and 'L2' when 'param=",param,"'")
+  } else {
+    if (is.null(constvals) & param %in% c(6,7,8,18))
+      STOP("You must use 'constvals' with von Bertalanffy paramaterization #",param)
+    if (!is.null(constvals)) {
+      # check type and whether named first
+      if (is.list(constvals)) STOP("'constvals' should be a vector rather than a list.")
+      if (!is.numeric(constvals)) STOP("'constvals' must be numeric.")
+      if (is.null(names(constvals))) STOP("Values in 'constvals' must be named.")
+      
+      # Ok type and named, now check if used properly
+      cvnms <- names(constvals)
+      if (param==6) { # Ogle-Isermann parameterization
+        if (length(cvnms)!=1) 
+          STOP("'constvals' must have only one value when 'param=",param,"'" )
+        if (!cvnms %in% c("Lr","tr"))
+          STOP("Value names in 'constvals' must be 'Lr' or 'tr' when 'param=",param,"'")
+      }
+      if (param %in% c(7,8)) { # Schnute and Francis parameterizations
+        if (length(cvnms)!=2)
+          STOP("'constvals' must have exactly two values ('t1' and 't3') when 'param=",
+               param,"'" )
+        if (!all(cvnms %in% c("t1","t3")))
+          STOP("Value names in 'constvals' must be 't1' and 't3' when 'param=",param,"'")
+      }
+      if (param %in% 13:17) { # tag-recapture but not the next two
+        if (length(cvnms)!=2) 
+          STOP("'constvals' not required when 'param=",param,
+               "', but if used then there must be exactly two values ('L1' and 'L2')")
+        if (!all(cvnms %in% c("L1","L2")))
+          STOP("'constvals' not required when 'param=",param,
+               "', but if used then names in 'constvals' must be 'L1' and 'L2'")
+      }
+      if (param %in% c(18,19)) { # Francis parameterizations
+        if (length(cvnms)!=2) 
+          STOP("'constvals' must have exactly two values ('L1' and 'L2') when 'param=",
+               param,"'" )
+        if (!all(cvnms %in% c("L1","L2")))
+          STOP("Value names in 'constvals' must be 'L1' and 'L2' when 'param=",param,"'")
+      }
     }
   }
 }

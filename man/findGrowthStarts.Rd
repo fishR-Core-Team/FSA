@@ -11,6 +11,7 @@ findGrowthStarts(
     "Schnute-Richards"),
   param = 1,
   pname = NULL,
+  case = NULL,
   constvals = NULL,
   fixed = NULL,
   plot = FALSE
@@ -26,6 +27,8 @@ findGrowthStarts(
 \item{param}{A single numeric that indicates the specific parameterization of the growth function. Will be ignored if \code{pname} is non-\code{NULL}. See details.}
 
 \item{pname}{A single character that indicates the specific parameterization of the growth function. If \code{NULL} then \code{param} will be used. See details.}
+
+\item{case}{A numeric that indicates the specific case of the Schnute function to use.}
 
 \item{constvals}{A NAMED numeric vector of constant values (either lengths or ages) to be used in some of the von Bertalanffy parameterizations. See details.}
 

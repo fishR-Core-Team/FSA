@@ -302,8 +302,6 @@ test_that("findGrowthStarts() general messages",{
                "RHS variables must be numeric")
   expect_error(findGrowthStarts(tlV~age,data=GrowthData1,type="Derek"),
                "'arg' should be one of")
-  expect_warning(findGrowthStarts(tlV~age,data=GrowthData1,type="Schnute"),
-                 "Starting values not yet implemented")
   expect_warning(findGrowthStarts(tlV~age,data=GrowthData1,type="Schnute-Richards"),
                  "Starting values not yet implemented")
 })
@@ -504,7 +502,7 @@ test_that("findGrowthStarts() Gompertz messages",{
   
   expect_error(findGrowthStarts(tlG~age,data=GrowthData1,type="Gompertz",param=1,
                                 constvals=c("t1"=1)),
-               "'constvals' only used with the von Bertalanffy model")
+               "'constvals' not used with the Gompertz model")
   
   findGrowthStarts(tlG~age,data=GrowthData1,type="Gompertz",param=1,
                    fixed=c("ti"=0.1)) %>%
@@ -543,7 +541,7 @@ test_that("findGrowthStarts() logistic  messages",{
   
   expect_error(findGrowthStarts(tlV~age,data=GrowthData1,type="logistic",param=1,
                                 constvals=c("t1"=1)),
-               "'constvals' only used with the von Bertalanffy model")
+               "'constvals' not used with the logistic model")
   
   findGrowthStarts(tlL~age,data=GrowthData1,type="logistic",param=1,
                    fixed=c("gi"=0.1)) %>%
@@ -578,7 +576,7 @@ test_that("findGrowthStarts() Richards messages",{
   
   expect_error(findGrowthStarts(tlV~age,data=GrowthData1,type="Richards",param=1,
                                 constvals=c("t1"=1)),
-               "'constvals' only used with the von Bertalanffy model")
+               "'constvals' not used with the Richards model")
   
   findGrowthStarts(tlR~age,data=GrowthData1,type="Richards",param=1,
                    fixed=c("K"=0.1)) %>%

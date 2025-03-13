@@ -627,6 +627,22 @@ curve(r3(x,Linf=Asym,k=K,L0=Asym*((1+M*exp(K*Infl)))^(-1/M),b=-1/M),from=0,to=15
 
 <br>
 
+## Schnute Length-at-Age
+Schnute (1981) proposed a model for fish growth that can represent the von Bertalanffy, Gompertz, logistic, and Richards functions, along with others. The model has the following four parameters
+
+- $L_1$ = expected length at (a relatively young) age $t_1$
+- $L_3$ = expected length at (a relatively old) age $t_3$
+- $a$ = a shape parameter that is inversely related to width of the "arc" before an inflection point
+- $b$ = a shape parameter this is related to the ratio of the height of the "arcs" before and afer the inflection point
+
+Starting values for $L_1$ and $L_3$ are easily obtained as the mean observed lengths at ages $t_1$ and $t_3$. However, I am unaware of any robust methodological method for developing starting values for $a$ and $b$. Descriptions in Schnute (1981) suggest that $a$ is equal to $K$ from the von Bertalanffy or $k$ from the Richards, if growth is shaped like those functions. A good "wild guess" at $K$ and $k$ is 0.3, so `FSA` used 0.3 as an *ad hoc* "wild guess" starting value for $a$. Further discussion in Schnute (1981) of the shape of growth trajectories relative to $a$ suggests that $a$ is likely not negative for most fisheries length-at-age data.
+
+No similar observations were made with respect to $b$ from reading Schnute (1981). Limited personal experience suggests that using a starting value for $b$ are fickle. For cases 1 and 2, a "small" $b$ tends to work, so a starting value of 0.5 is used for $b$ in `FSA`. For case 3, a "larger" $b$ is needed, so a staring of 3.0 is used for $b$ in `FSA`. These starting values are "wild guess" at best and are unlikely to work in all (or even nost) situations. See the examples at the end of this article for how to manually choose starting values with `FSA`.
+
+Finally, it seems that the automatic generation of stating values algorithm tends to work better if $t_1$ is very near, if not the actual, youngest observed age. In contrast, $t_3$ seems to work better if it is near the start (i.e., younger age) rather than the end of the asymptote.
+
+<br>
+
 # Finding Starting Values in FSA
 In `FSA` versions >0.9.6, `findGrowthStarts()` can be used to find the starting values described here. This function has four main parameters. The first two are a formula of the form `length~age` and `data=` which contain the length and age data from which the starting values will be derived. Additionally, use `type=` to choose the type of growth function to be used (i.e., `"von Bertalanffy"`, `"Gompertz"`, `"logistic"`, or `"Richards"`) and `param=` to choose the particularly parameterization for the model by the number shown in @tbl-VBparams1, @tbl-VBparams3, @tbl-Gompparams1, @tbl-Logisparams1, and @tbl-Richparams1.
 
