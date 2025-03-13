@@ -1,7 +1,7 @@
 # FSA 0.9.6.9000
 * Updated `test-coverage.yaml` and moved a `# nocov start` and `# nocov end` in `bootstrap.r` to address the errors with `test-coverage.yaml`. Addresses [#118](https://github.com/fishR-Core-Team/FSA/issues/118).
 * Added `FlexParamCurve` to Imports for use of `modpar()` in `RichardsStarts()` and `purrr` for use of `map2_chr()` in `showGrowthFun()`.
-* Added an "article" (for the package webpage) that describes how the starting values for the growth equations are derived.
+* Added "articles" (for the package webpage) that describe how the starting values for the growth equations are derived and a simple introduction to growth model fitting with `FSA`.
 
 * internals: Added functions to return a logical about whether a value is less than, less than or equal, greater than, or greater than or equal (i.e., `is.lte()`, `is.lt()`, `is.gte()`, and `is.gt()`). Added functions that use those logical and return an informative error if the logical is FALSE (i.e., `iChkLTE()`, `iChkLT()`, `iChkGTE()`, and `iChkGT()`). The errors can "grab" the name of the object so that the error can be specific though the function is general.
 * internals: Modified `STOP()` and `WARN()` to use `strwrap()` rather than hard-coded line breaks. Will need to monitor to see how messages are displayed.

@@ -118,7 +118,7 @@ ggplot(data=GrowthData1,aes(y=tlV,x=age)) +
   geom_point(size=2.5,alpha=0.2) +
   scale_y_continuous(name="Total Length (mm)",limits=c(0,NA)) +
   scale_x_continuous(name="Age (years)") +
-  stat_function(fun=vb1,args=list(Linf=coef(resv1)),linewidth=1.5,color="blue") +
+  stat_function(fun=vb1,args=list(Linf=coef(resv1)),linewidth=1,color="blue") +
   theme_bw()
 ```
 
@@ -129,7 +129,7 @@ ggplot(data=GrowthData1,aes(y=tlV,x=age)) +
   geom_point(size=2.5,alpha=0.2) +
   scale_y_continuous(name="Total Length (mm)",limits=c(0,NA)) +
   scale_x_continuous(name="Age (years)") +
-  stat_function(fun=vb1,args=list(Linf=coef(resv1)),linewidth=1.5,color="blue") +
+  stat_function(fun=vb1,args=list(Linf=coef(resv1)),linewidth=1,color="blue") +
   annotate(geom="text",
            label=showGrowthFun(type="von Bertalanffy",pame="Typical",fit=resv1),
            parse=TRUE,size=5,x=9,y=50) +
@@ -153,14 +153,14 @@ ggplot(data=GrowthData1,aes(y=tlR,x=age)) +
   geom_point(size=2.5,alpha=0.2) +
   scale_y_continuous(name="Total Length (mm)",limits=c(0,NA)) +
   scale_x_continuous(name="Age (years)") +
-  stat_function(fun=rich1,args=list(Linf=coef(resr1)),linewidth=1.5,color="blue") +
+  stat_function(fun=rich1,args=list(Linf=coef(resr1)),linewidth=1,color="blue") +
   annotate(geom="text",label=showGrowthFun(type=typ,param=prm,fit=resr1),
            parse=TRUE,size=5,x=9,y=50) +
   theme_bw()
 ```
 
 # Third Example -- Francis von Bertalanffy
-Some growth models require certain values to be set at constant values. For example, the Francis parameterization of the von Bertalanffy function has three parameters ($L_1$, $L_2$, and $L_3$) that are estimated mean lengths at three specified ages. Two of those ages -- $t_1$ and $t_3$ -- are set by the user for defining $L_1$ and $L_3$. The third parameter ($L_2$) is defined at the time that is the average of $t_1$ and $t_3$. Ages for $t_1$ and $t_3$ must be set in a **NAMED** vector (`cv2` below) given to `constvals=` in `findGrowthStarts()`, the function created by `makeGrowthFun()`, and `showGrowthFun()`. The rest of the workflow is the same as above (noting that `type=` and `pname=` are adjusted).^[The result from `showGrowthFun()` was saved to an object here just to reduce clutter in the plotting code.]
+Some growth models require certain values to be set at constant values. For example, the Francis parameterization of the von Bertalanffy function has three parameters ($L_1$, $L_2$, and $L_3$) that are estimated mean lengths at three specified ages. Two of those ages -- $t_1$ and $t_3$ -- are set by the user for defining $L_1$ and $L_3$. The third parameter ($L_2$) is defined at the time that is the average of $t_1$ and $t_3$. Ages for $t_1$ and $t_3$ must be set in a **NAMED** vector (`cv2` below) given to `constvals=` in `findGrowthStarts()`, the function created by `makeGrowthFun()`, and `showGrowthFun()`. The rest of the workflow is the similar to above (noting that `type=` and `pname=` are adjusted). However note that the Francis model uses a "where" clause to simplify the look of the equation, which can result in a long (i.e., wide) equation. The use of `stackWhere=TRUE` in `showGrowthFun()` will "stack" the "where" clause underneath the main equation to narrow (but make taller) the equation. Further note that the result from `showGrowthFun()` was saved to an object here just to reduce clutter in the plotting code.
 
 ```{r}
 typ <- "von Bertalanffy"
@@ -175,14 +175,14 @@ cbind(Est=coef(resv2),confint(resv2))
 
 ```{r}
 #| results: hide
-eqn <- showGrowthFun(type=typ,pname=prm,fit=resv2,constvals=cv2)
+eqn <- showGrowthFun(type=typ,pname=prm,fit=resv2,constvals=cv2,stackWhere=TRUE)
 
 ggplot(data=GrowthData1,aes(y=tlV,x=age)) +
   geom_point(size=2.5,alpha=0.2) +
   scale_y_continuous(name="Total Length (mm)",limits=c(0,NA)) +
   scale_x_continuous(name="Age (years)") +
-  stat_function(fun=vb2,args=list(L1=coef(resv2),t1=cv2),linewidth=1.5,color="blue") +
-  annotate(geom="text",label=eqn,parse=TRUE,size=3.5,x=8,y=50) +
+  stat_function(fun=vb2,args=list(L1=coef(resv2),t1=cv2),linewidth=1,color="blue") +
+  annotate(geom="text",label=eqn,parse=TRUE,size=4.5,x=10,y=50) +
   theme_bw()
 ```
 
@@ -201,14 +201,14 @@ cbind(Est=coef(resv3),confint(resv3))
 
 ```{r}
 #| results: hide
-eqn <- showGrowthFun(type=typ,pname=prm,fit=resv3)
+eqn <- showGrowthFun(type=typ,pname=prm,fit=resv3,stackWhere=TRUE)
 
 ggplot(data=GrowthData2,aes(y=tlS,x=age)) +
   geom_point(size=2.5,alpha=0.4) +
   scale_y_continuous(name="Total Length (mm)",limits=c(0,NA)) +
   scale_x_continuous(name="Age (years)") +
-  stat_function(fun=vb3,args=list(Linf=coef(resv3)),linewidth=1.5,color="blue") +
-  annotate(geom="text",label=eqn,parse=TRUE,size=2.5,x=3.5,y=50) +
+  stat_function(fun=vb3,args=list(Linf=coef(resv3)),linewidth=1,color="blue") +
+  annotate(geom="text",label=eqn,parse=TRUE,size=4,x=4,y=50) +
   theme_bw()
 ```
 
@@ -267,8 +267,7 @@ eqn <- showGrowthFun(type=typ,pname=prm,fit=resv4)
 ggplot() +
   geom_point(data=GrowthData3,mapping=aes(x=tlM,y=deltaL,col=as.factor(round(deltat,0))),
              size=2.5,alpha=0.4) +
-  geom_line(data=pdf,mapping=aes(x=tlM,y=deltaL,col=as.factor(deltat)),
-            linewidth=1) +
+  geom_line(data=pdf,mapping=aes(x=tlM,y=deltaL,col=as.factor(deltat)),linewidth=1) +
   scale_y_continuous(name="Change in Length from Marking (mm)",limits=c(0,NA)) +
   scale_x_continuous(name="Total Length-at-Marking (mm)") +
   labs(color="Years-at-Large") +
@@ -279,11 +278,99 @@ ggplot() +
 
 ```
 
+# Exploring Model Parameters
+Understanding the meaning of parameters in the growth functions is important for properly modeling fish growth. One way to learn about the meaning of a parameter is to plot the growth function while varying one parameter and holding the other parameters constant. The growth functions created by `makeGrowthFun()` will aid in this process.
+
+For simplicity, a `ggplot2` theme was created that modified `theme_bw()` to remove the grid lines and move the legend inside of the plot panel.
 
 ```{r}
-#| results: hide
-#| fig-width: 3
-#| fig-height: 1
+theme_grow <- function() {
+  theme_bw() +
+    theme(panel.grid=element_blank(),
+          legend.position="inside",
+          legend.position.inside=c(1,0),
+          legend.justification.inside=c(1.1,0))
+}
+```
 
+In this example, the parameter for the instantaneous growth ($g_i$) at the inflection point ($t_i) in the second parameterization of the Gompertz growth function will be explored. An R function for this parameterization is created below with `makeGrowthFun()` and the corresponding generic equation is created with `showGrowthFun()`. Note that `parse=TRUE` is used in `showGrowthFun()` here because the equation is going to form the title in the ggplot which requires an expression (returned when `parse=TRUE`) rather than a string that it will parse.
+
+```{r}
+f <- makeGrowthFun(type="Gompertz",param=2)
+feqn <- showGrowthFun(type="Gompertz",param=2,parse=TRUE)
+```
+
+A data.frame is then created that has all combinations of a sequence of ages over which to show the growth function and values for both the parameter that varies and those that are held constant. In the example below, age will be a sequence from -0.5 to 15 in steps of 0.5^[Smaller steps will make the growth function look smoother.], $L_\infty$ will be held constant at 450, $t_i$ (age at the inflection point) will be held constant at 3, and $g_i$ will vary from 0.1 to 0.6 in steps of 0.1. Length is then computed from these ages and parameter values using the growth function created above (i.e., `f()`). Finally, the variable with the parameter that varied is converted to a factor so that the plot created next will use a discrete rather than continuous number of colors. 
+
+```{r}
+tmp <- expand.grid(Age=seq(-0.5,15,0.5),
+                   Linf=450,gi=seq(0.1,0.6,0.1),ti=3) |>
+  dplyr::mutate(Length=f(Age,Linf,gi,ti),
+                gi=as.factor(gi)) 
+peek(tmp,n=6)
+```
+
+These simulated data are then plotted using the parameter that varied to denote `color`.
+
+```{r}
+ggplot(data=tmp,mapping=aes(y=Length,x=Age,color=gi)) +
+  geom_line(linewidth=1)+
+  labs(title=feqn) +
+  theme_grow()
+```
+
+From here one can observe that each instance of this Gompertz function has an infection point at age-3 and that the "rate of growth" at that inflection point is greater as $g_i$ increases, making the growth function look more "S-shaped."
+
+Of course, the method can be easily modified for another parameter.
+
+```{r}
+tmp <- expand.grid(Age=seq(-0.5,15,0.5),
+                   Linf=450,gi=0.5,ti=seq(1,6,1)) |>
+  dplyr::mutate(Length=f(Age,Linf,gi,ti),
+                ti=as.factor(ti)) 
+
+ggplot(data=tmp,mapping=aes(y=Length,x=Age,color=ti)) +
+  geom_line(linewidth=1)+
+  labs(title=feqn) +
+  theme_grow()
+```
+
+It is possible to change two parameters at once, though this can become messy so it is best to vary the parameters at fewer values.
+
+```{r}
+tmp <- expand.grid(Age=seq(-0.5,15,0.5),
+                   Linf=450,gi=seq(0.3,0.6,0.1),ti=c(2,4)) |>
+  dplyr::mutate(Length=f(Age,Linf,gi,ti),
+                gi=as.factor(gi),
+                ti=as.factor(ti)) 
+
+ggplot(data=tmp,mapping=aes(y=Length,x=Age,color=gi,linetype=ti)) +
+  geom_line(linewidth=1) +
+  labs(title=feqn) +
+  theme_grow()
+```
+
+Finally, you can be more creative/instructive. For example, the instantaneous growth rate can be estimated by dividing the difference in successive log lengths by the difference in successive ages.
+
+```{r}
+tmp <- expand.grid(Age=seq(0,6,0.01),
+                   Linf=450,gi=seq(0.3,0.6,0.1),ti=3) |>
+  dplyr::mutate(Length=f(Age,Linf,gi,ti),
+                gi=as.factor(gi)) |>
+  dplyr::mutate(est_g=c(diff(log(Length))/diff(Age),NA))
+peek(tmp,n=6)
+```
+
+The plot of the estimated instantaneous growth rates against age, zoomed in to focus on the inflection points, with reference lines at $t_i$ and the $g_i$ illustrates that $g_i$ is indeed the instantaneous growth rate at the inflection point.
+
+```{r}
+ggplot(data=tmp,mapping=aes(y=est_g,x=Age,color=gi)) +
+  geom_line(linewidth=1) +
+  labs(title=feqn) +
+  theme_grow() + theme(legend.position.inside=c(1,0.5)) +
+  scale_y_continuous(limits=c(0,1)) +
+  scale_x_continuous(limits=c(1,5)) +
+  geom_hline(yintercept=c(0.3,0.4,0.5,0.6),linetype="dashed") +
+  geom_vline(xintercept=3,linetype="dashed")
 ```
 
