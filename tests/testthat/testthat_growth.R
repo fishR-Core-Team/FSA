@@ -50,9 +50,9 @@ test_that("makeGrowthFun() messages",{
   expect_error(makeGrowthFun(type="Richards",param=6),
                "'param' must be between 1 and 3")
   expect_error(makeGrowthFun(type="Schnute",param=0),
-               "'param' can only be 1")
-  expect_error(makeGrowthFun(type="Schnute",param=2),
-               "'param' can only be 1")
+               "'case' or 'param' must be between 1 and 4")
+  expect_error(makeGrowthFun(type="Schnute",param=5),
+               "'case' or 'param' must be between 1 and 4")
   expect_error(makeGrowthFun(type="Schnute-Richards",param=0),
                "'param' can only be 1")
   expect_error(makeGrowthFun(type="Schnute-Richards",param=2),
@@ -185,14 +185,38 @@ test_that("makeGrowthFun() Richards output",{
   }
 })
 
+
+test_that("makeGrowthFun() Schnute Model output",{
+  ptmp <- list("1"=c("t","L1","L3","a","b","t1","t3"),
+               "2"=c("t","L1","L3","a",    "t1","t3"),
+               "3"=c("t","L1","L3",    "b","t1","t3"),
+               "4"=c("t","L1","L3",        "t1","t3"))
+  nnull <- list("1"=c(1:2,6),
+                "2"=c(1:2,5),
+                "3"=c(1:2,5),
+                "4"=c(1:2,4))
+  for (i in seq_along(names(ptmp))) {
+    #print(i) # uncomment if need to find where expectation is not met
+    tmp <- makeGrowthFun(type="Schnute",param=i)
+    expect_equal(mode(tmp),"function")
+    expect_equal(names(formals(tmp)),ptmp[[i]])
+    expect_true(all(sapply(formals(tmp),FUN=is.null)[-nnull[[i]]]))
+    tmp2 <- makeGrowthFun(type="Schnute",param=i,simple=TRUE)
+    expect_equal(mode(tmp2),"function")
+    expect_equal(names(formals(tmp2)),ptmp[[i]])
+    expect_true(all(!sapply(formals(tmp2),FUN=is.null)))       # none NULL
+    expect_message(makeGrowthFun(type="Schnute",param=i,msg=TRUE),
+                   paste("You have chosen case",i))
+  }
+})
+
+
 test_that("makeGrowthFun() Other Model output",{
-  ptmp <- list("Schnute"=c("t","L1","L3","a","b","t1","t3"),
-               "Schnute-Richards"=c("t","Linf","k","a","b","c"))
-  nnull <- list("Schnute"=c(1:2,6),
-                "Schnute-Richards"=c(1:2))
+  ptmp <- list("Schnute-Richards"=c("t","Linf","k","a","b","c"))
+  nnull <- list("Schnute-Richards"=c(1:2))
   itmp <- names(ptmp)
   for (i in seq_along(itmp)) {
-    #print(i) # uncomment if need to find where expectation is not met
+    print(i) # uncomment if need to find where expectation is not met
     tmp <- makeGrowthFun(type=itmp[i],param=1)
     expect_equal(mode(tmp),"function")
     expect_equal(names(formals(tmp)),ptmp[[i]])
@@ -230,9 +254,9 @@ test_that("showGrowthFun() messages",{
   expect_error(showGrowthFun(type="Richards",param=6),
                "'param' must be between 1 and 3")
   expect_error(showGrowthFun(type="Schnute",case=0),
-               "'case' must be between 1 and 4")
+               "'case' or 'param' must be between 1 and 4")
   expect_error(showGrowthFun(type="Schnute",case=5),
-               "'case' must be between 1 and 4")
+               "'case' or 'param' must be between 1 and 4")
   expect_error(showGrowthFun(type="Schnute-Richards",param=0),
                "'param' can only be 1")
   expect_error(showGrowthFun(type="Schnute-Richards",param=2),
@@ -599,6 +623,40 @@ test_that("findGrowthStarts() Richards messages",{
     expect_warning("Starting value for 'L0' is negative")
 })
 
+test_that("findGrowthStarts() Schnute messages",{
+  expect_error(findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=0),
+               "'case' or 'param' must be between 1 and 4")
+  expect_error(findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=6),
+               "'case' or 'param' must be between 1 and 4")
+  
+  expect_error(findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=1,
+                                constvals=c("t1"=1)),
+               "'constvals' must have exactly two values")
+  expect_error(findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=1,
+                                constvals=c("t1"=1,"t2"=13)),
+               "Value names in 'constvals' must be 't1' and 't3'")
+  
+  cvs <- c("t1"=1,"t3"=13)
+  findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=4,constvals=cvs,
+                   fixed=c("K"=0.1)) %>%
+    expect_warning("Some names in 'fixed'")
+  findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=4,constvals=cvs,
+                   fixed=c("b1"=0.1)) %>%
+    expect_warning("Some names in 'fixed'")
+  
+  findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=4,constvals=cvs,
+                   fixed=c("L1"=-1)) %>%
+    expect_warning("Starting value for 'L1' is negative")
+  findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=4,constvals=cvs,
+                   fixed=c("L3"=-1)) %>%
+    expect_warning("Starting value for 'L3' is negative")
+  findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=2,constvals=cvs) %>%
+    expect_warning("Automated starting values for 'a' are ad hoc")
+  findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=3,constvals=cvs) %>%
+    expect_warning("Automated starting values for 'b' are ad hoc")
+})
+
+
 #----- Output types
 test_that("findGrowthStarts() von Bertalanffy outputs",{
   ## Check that vectors are named with proper model parameters
@@ -823,6 +881,40 @@ test_that("findGrowthStarts() Richards outputs",{
   expect_equal(tmp[["b"]],0.5)
 })
 
+test_that("findGrowthStarts() Schnute outputs",{
+  cvs <- c(t1=0,t3=13)
+  ## Check that vectors are named with proper model parameters
+  suppressWarnings(tmp <- findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=1,constvals=cvs))
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("L1","L3","a","b"))
+  suppressWarnings(tmp <- findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=2,constvals=cvs))
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("L1","L3","a"))
+  suppressWarnings(tmp <- findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=3,constvals=cvs))
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("L1","L3","b"))
+  tmp <- findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=4,constvals=cvs)
+  expect_equal(class(tmp),"numeric")
+  expect_named(tmp,c("L1","L3"))
+  
+  # Check that values are fixed as expected ... did not check all possible
+  suppressWarnings(tmp <- findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=1,
+                                           constvals=cvs,fixed=c(L1=50)))
+  expect_equal(tmp[["L1"]],50)
+  suppressWarnings(tmp <- findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=1,
+                                           constvals=cvs,fixed=c(L1=50,b=3)))
+  expect_equal(tmp[["L1"]],50)
+  expect_equal(tmp[["b"]],3)
+  suppressWarnings(tmp <- findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=2,
+                          constvals=cvs,fixed=c(L3=500,a=0.5)))
+  expect_equal(tmp[["L3"]],500)
+  expect_equal(tmp[["a"]],0.5)
+  suppressWarnings(tmp <- findGrowthStarts(tlR~age,data=GrowthData1,type="Schnute",param=3,
+                                           constvals=cvs,fixed=c(L3=500,b=3)))
+  expect_equal(tmp[["L3"]],500)
+  expect_equal(tmp[["b"]],3)
+})
+
 #----- Validate Results
 test_that("findGrowthStarts() von Bertalanffy results",{
   # Get starting values from SSasymp for length-at-age models
@@ -966,4 +1058,3 @@ test_that("findGrowthStarts() Richards results",{
   tmp <- findGrowthStarts(tlR~age,data=GrowthData1,type="Richards",param=3)
   expect_equal(tmp,c(Linf=Linf,k=k,L0=L0,b=b))
 })
-

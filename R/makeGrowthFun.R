@@ -7,6 +7,7 @@
 #' @param type A single string (i.e., one of \dQuote{von Bertalanffy}, \dQuote{Gompertz}, \dQuote{logistic}, \dQuote{Richards}, \dQuote{Schnute}, \dQuote{Schnute-Richards}) that indicates the type of growth function to show.
 #' @param param A single numeric that indicates the specific parameterization of the growth function. Will be ignored if \code{pname} is non-\code{NULL}. See details.
 #' @param pname A single character that indicates the specific parameterization of the growth function. If \code{NULL} then \code{param} will be used. See details.
+#' @param case A numeric that indicates the specific case of the Schnute function to use.
 #' @param simple A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}). See examples.
 #' @param msg A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE; DEFAULT}).
 #' 
@@ -230,12 +231,15 @@
 #' lines(logi1~ages,lwd=2,col="blue")
 #' 
 #' #===== Simple example of four cases of Schnute model (note a,b choices)
-#' ages <- 0:15
-#' Schnute <- makeGrowthFun(type="Schnute")
-#' s1 <- Schnute(ages,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
-#' s2 <- Schnute(ages,L1=30,L3=400,a=0.3,b=0,t1=1,t3=15)
-#' s3 <- Schnute(ages,L1=30,L3=400,a=0,  b=1,t1=1,t3=15)
-#' s4 <- Schnute(ages,L1=30,L3=400,a=0,  b=0,t1=1,t3=15)
+#' Schnute1 <- makeGrowthFun(type="Schnute",case=1)
+#' Schnute2 <- makeGrowthFun(type="Schnute",case=2)
+#' Schnute3 <- makeGrowthFun(type="Schnute",case=3)
+#' Schnute4 <- makeGrowthFun(type="Schnute",case=4)
+#' ages <- seq(0,15,0.1)
+#' s1 <- Schnute1(ages,L1=30,L3=400,a=0.3,b=2,t1=1,t3=15)
+#' s2 <- Schnute2(ages,L1=30,L3=400,a=0.3,    t1=1,t3=15)
+#' s3 <- Schnute3(ages,L1=30,L3=400,      b=2,t1=1,t3=15)
+#' s4 <- Schnute4(ages,L1=30,L3=400,          t1=1,t3=15)
 #' 
 #' plot(s1~ages,type="l",lwd=2,ylim=c(0,450),ylab="Length",xlab="Age")
 #' lines(s2~ages,lwd=2,col="red")
@@ -259,8 +263,15 @@
 
 makeGrowthFun <- function(type=c("von Bertalanffy","Gompertz","logistic",
                                  "Richards","Schnute","Schnute-Richards"),
-                        param=1,pname=NULL,simple=FALSE,msg=FALSE) {
+                          param=1,pname=NULL,case=NULL,simple=FALSE,msg=FALSE) {
   #===== Checks
+  # Schnute uses "case" instead of "param" ... convert to "param"
+  if (!is.null(case)) {
+    if(type=="Schnute") param <- case
+    else STOP("'case' only used when 'type' is 'Schnute'")
+  }
+  
+  # Handle checks on type, param, and pname
   type <- match.arg(type)
   param <- iHndlGrowthModelParams(type,param,pname)
 
@@ -950,7 +961,77 @@ msgsGrow <- c(msgsGrow,
 #-------------------------------------------------------------------------------
 #-- Schnute function
 #-------------------------------------------------------------------------------
-Schnute <- function(t,L1,L3=NULL,a=NULL,b=NULL,t1,t3=NULL) {
+Schnute1 <- function(t,L1,L3=NULL,a=NULL,b=NULL,t1,t3=NULL) {
+  if (length(L1)==4) {
+    b <- L1[[4]];  a <- L1[[3]]
+    L3 <- L1[[2]]; L1 <- L1[[1]]
+  }  
+  if (length(t1)==2) { t3 <- t1[[2]]; t1 <- t1[[1]] }
+  ((L1^b)+((L3^b)-(L1^b))*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))^(1/b)
+}
+SSchnute1 <- function(t,L1,L3,a,b,t1,t3) {
+  ((L1^b)+((L3^b)-(L1^b))*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))^(1/b)
+}
+msg_Schnute1 <- paste0("You have chosen case 1 (a!=0, b!=0) of the ",
+                       "Schnute growth function.\n\n",
+                        "    ((L1^b)+((L3^b)-(L1^b))*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))^(1/b)\n\n",
+                        "  where L1 = mean length at t1\n",
+                        "        L2 = mean length at t2\n",
+                        "         a = (nuisance) shape parameter\n",
+                        "         b = (nuisance) shape parameter\n\n")
+
+Schnute2 <- function(t,L1,L3=NULL,a=NULL,t1,t3=NULL) {
+  if (length(L1)==3) { a <- L1[[3]]; L3 <- L1[[2]]; L1 <- L1[[1]] }  
+  if (length(t1)==2) { t3 <- t1[[2]]; t1 <- t1[[1]] }
+  L1*exp(log(L3/L1)*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))
+}
+SSchnute2 <- function(t,L1,L3,a,t1,t3) {
+  L1*exp(log(L3/L1)*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))
+}
+msg_Schnute2 <- paste0("You have chosen case 2 (a!=0, b==0) of the ",
+                       "Schnute growth function.\n\n",
+                       "    L1*exp(log(L3/L1)*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))\n\n",
+                       "  where L1 = mean length at t1\n",
+                       "        L2 = mean length at t2\n",
+                       "         a = (nuisance) shape parameter\n\n")
+
+Schnute3 <- function(t,L1,L3=NULL,b=NULL,t1,t3=NULL) {
+  if (length(L1)==3) { b <- L1[[3]]; L3 <- L1[[2]]; L1 <- L1[[1]] }  
+  if (length(t1)==2) { t3 <- t1[[2]]; t1 <- t1[[1]] }
+  ((L1^b)+((L3^b)-(L1^b))*((t-t1)/(t3-t1)))^(1/b)
+}
+SSchnute3 <- function(t,L1,L3,b,t1,t3) {
+  ((L1^b)+((L3^b)-(L1^b))*((t-t1)/(t3-t1)))^(1/b)
+}
+msg_Schnute3 <- paste0("You have chosen case 3 (a==0, b!=0) of the ",
+                       "Schnute growth function.\n\n",
+                       "    ((L1^b)+((L3^b)-(L1^b))*((t-t1)/(t3-t1)))^(1/b)\n\n",
+                       "  where L1 = mean length at t1\n",
+                       "        L2 = mean length at t2\n",
+                       "         b = (nuisance) shape parameter\n\n")
+
+Schnute4 <- function(t,L1,L3=NULL,t1,t3=NULL) {
+  if (length(L1)==2) { L3 <- L1[[2]]; L1 <- L1[[1]] }  
+  if (length(t1)==2) { t3 <- t1[[2]]; t1 <- t1[[1]] }
+  L1*exp(log(L3/L1)*((t-t1)/(t3-t1)))
+}
+SSchnute4 <- function(t,L1,L3,t1,t3) {
+  L1*exp(log(L3/L1)*((t-t1)/(t3-t1)))
+}
+msg_Schnute4 <- paste0("You have chosen case 4 (a==0, b==0) of the ",
+                       "Schnute growth function.\n\n",
+                       "    L1*exp(log(L3/L1)*((t-t1)/(t3-t1)))\n\n",
+                       "  where L1 = mean length at t1\n",
+                       "        L2 = mean length at t2\n\n")
+
+msgsGrow <- c(msgsGrow,
+              "Schnute1"=msg_Schnute1,
+              "Schnute2"=msg_Schnute2,
+              "Schnute3"=msg_Schnute3,
+              "Schnute4"=msg_Schnute4)
+
+## May delete the following, but keeping for now (March 2025)
+SchnuteAll <- function(t,L1,L3=NULL,a=NULL,b=NULL,t1,t3=NULL) {
   if (length(L1)==4) {
     b <- L1[[4]];  a <- L1[[3]]
     L3 <- L1[[2]]; L1 <- L1[[1]]
@@ -962,7 +1043,7 @@ Schnute <- function(t,L1,L3=NULL,a=NULL,b=NULL,t1,t3=NULL) {
   else if (a==0 & b!=0) ((L1^b)+((L3^b)-(L1^b))*((t-t1)/(t3-t1)))^(1/b)
   else if (a==0 & b==0) L1*exp(log(L3/L1)*((t-t1)/(t3-t1)))
 }
-SSchnute <- function(t,L1,L3,a,b,t1,t3) {
+SSchnuteAll <- function(t,L1,L3,a,b,t1,t3) {
   # Cases 1-4 in order by if
   if (a!=0 & b!=0) ((L1^b)+((L3^b)-(L1^b))*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))^(1/b)
   else if (a!=0 & b==0) L1*exp(log(L3/L1)*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))
@@ -997,7 +1078,7 @@ msgsGrow <- c(msgsGrow,"SchnuteRichards"=msg_SchnuteRichards)
 
 #===== Internal function for handling parame, and pname in makeGrowthFun(),
 #      showGrowthFun(), and findGrowthStarts()
-iHndlGrowthModelParams <- function(type,param,pname,SGF=FALSE) {
+iHndlGrowthModelParams <- function(type,param,pname) {
   # Make a list of possible parameter names
   param_list <- list(
     "von Bertalanffy"=data.frame(pnum=c(1,1,1,2,2,2,3,4,5,6,6,7,8,9,9,9,9,10,10,
@@ -1038,11 +1119,11 @@ iHndlGrowthModelParams <- function(type,param,pname,SGF=FALSE) {
                  "Gompertz"=max(param_list$'Gompertz'$pnum),
                  "logistic"=max(param_list$'logistic'$pnum),
                  "Richards"=max(param_list$'Richards'$pnum),
-                 "Schnute"=ifelse(SGF,4,1),
+                 "Schnute"=4,
                  "Schnute-Richards"=1)
   if (param<1 | param>max.param[[type]]) {
     if (max.param[[type]]==1) STOP("'param' can only be 1 (the default) for ",type," model")
-    else STOP(ifelse(type=="Schnute","'case'","'param'")," must be between 1 and ",
+    else STOP(ifelse(type=="Schnute","'case' or ",""),"'param' must be between 1 and ",
               max.param[[type]]," for ",type," model")
   }
   

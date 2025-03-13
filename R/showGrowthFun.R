@@ -105,7 +105,7 @@ showGrowthFun <- function(type=c("von Bertalanffy","Gompertz","Richards",
   
   # Handle checks on type, param, and pname
   type <- match.arg(type)
-  param <- iHndlGrowthModelParams(type,param,pname,SGF=TRUE)
+  param <- iHndlGrowthModelParams(type,param,pname)
   
   #===== Send to proper internal function to make the string
   # make a combined parameter name ... remove spaces and hyphens from type

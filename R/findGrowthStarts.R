@@ -13,7 +13,6 @@
 #' @inheritParams makeGrowthFun
 #' @param formula A formula of the form \code{length~age} for length-at-age models or \code{deltaL~deltat+lengthM} for tag-recapture models. \code{length} and \code{age} generically represent the observed length and annual age, and \code{deltaL}, \code{deltat}, and \code{lengthM} generically represent the observed change in length, observed change in time, and observed length at marking.
 #' @param data A data frame that contains the variables in \code{formula}.
-#' @param case A numeric that indicates the specific case of the Schnute function to use.
 #' @param constvals A NAMED numeric vector of constant values (either lengths or ages) to be used in some of the von Bertalanffy parameterizations. See details.
 #' @param fixed A NAMED numeric vector that contains user-defined (i.e., fixed rather than automatically generated) starting values for one or more parameters. See details.
 #' @param plot A logical that indicates whether a plot of the data with the superimposed model fit at the starting values should be created. This plot is for diagnostic purposes and, thus, cannot be modified in this function.
@@ -104,7 +103,7 @@ findGrowthStarts <- function(formula,data,
 
   # Handle checks on type, param, and pname
   type <- match.arg(type)
-  param <- iHndlGrowthModelParams(type,param,pname,SGF=TRUE)
+  param <- iHndlGrowthModelParams(type,param,pname)
   
   # Handle the formula with some checks ... need to condition for tag-return params
   expNumE <- 1
@@ -455,7 +454,7 @@ iSchnStarts <- function(ynm,xnm,data,param,constvals,fixed) {
   if ((!"b" %in% fxdnms) & (param %in% c(1,3)))
     WARN("Automated starting values for 'b' are ad hoc and may not work well ",
          ", especially when 'case=3' (or 'param=3'). ",
-         "If 'nls' model does not converge consider other values for 'a' by ",
+         "If 'nls' model does not converge consider other values for 'b' by ",
          "using 'fixed='.")
   
   # Create starting value list specific to case/parameterization
@@ -701,9 +700,9 @@ iPlotGrowStarts <- function(sv,data,ynm,xnm,type,param,constvals) { # nocov star
   # get the appropriate growth function
   mdl <- makeGrowthFun(type=type,param=param)
   
-  # plotting must be handled slightly differently for Francis/Schnute VBs
-  #   note that age2use will be in consts
-  if (type=="von Bertalanffy" & param %in% c(7,8)) {
+  # Plotting must be handled slightly differently for paramaterizations that
+  #   have constvals to be given to mdl arguments
+  if ((type=="von Bertalanffy" & param %in% c(7,8)) | (type=="Schnute")) {
     graphics::curve(mdl(x,sv,t1=constvals),col="red",lwd=3,add=TRUE)
   } else {
     # get the argument values (those from sv and from constvals)

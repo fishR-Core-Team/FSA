@@ -9,6 +9,7 @@ makeGrowthFun(
     "Schnute-Richards"),
   param = 1,
   pname = NULL,
+  case = NULL,
   simple = FALSE,
   msg = FALSE
 )
@@ -19,6 +20,8 @@ makeGrowthFun(
 \item{param}{A single numeric that indicates the specific parameterization of the growth function. Will be ignored if \code{pname} is non-\code{NULL}. See details.}
 
 \item{pname}{A single character that indicates the specific parameterization of the growth function. If \code{NULL} then \code{param} will be used. See details.}
+
+\item{case}{A numeric that indicates the specific case of the Schnute function to use.}
 
 \item{simple}{A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}). See examples.}
 
@@ -190,12 +193,15 @@ lines(gomp1~ages,lwd=2,col="red")
 lines(logi1~ages,lwd=2,col="blue")
 
 #===== Simple example of four cases of Schnute model (note a,b choices)
-ages <- 0:15
-Schnute <- makeGrowthFun(type="Schnute")
-s1 <- Schnute(ages,L1=30,L3=400,a=0.3,b=1,t1=1,t3=15)
-s2 <- Schnute(ages,L1=30,L3=400,a=0.3,b=0,t1=1,t3=15)
-s3 <- Schnute(ages,L1=30,L3=400,a=0,  b=1,t1=1,t3=15)
-s4 <- Schnute(ages,L1=30,L3=400,a=0,  b=0,t1=1,t3=15)
+Schnute1 <- makeGrowthFun(type="Schnute",case=1)
+Schnute2 <- makeGrowthFun(type="Schnute",case=2)
+Schnute3 <- makeGrowthFun(type="Schnute",case=3)
+Schnute4 <- makeGrowthFun(type="Schnute",case=4)
+ages <- seq(0,15,0.1)
+s1 <- Schnute1(ages,L1=30,L3=400,a=0.3,b=2,t1=1,t3=15)
+s2 <- Schnute2(ages,L1=30,L3=400,a=0.3,    t1=1,t3=15)
+s3 <- Schnute3(ages,L1=30,L3=400,      b=2,t1=1,t3=15)
+s4 <- Schnute4(ages,L1=30,L3=400,          t1=1,t3=15)
 
 plot(s1~ages,type="l",lwd=2,ylim=c(0,450),ylab="Length",xlab="Age")
 lines(s2~ages,lwd=2,col="red")

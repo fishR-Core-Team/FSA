@@ -3,7 +3,7 @@
 
 
 tstrShowGrowthFun <- function(formula,data,type,param,prms,cv=NULL,SW=FALSE,cex=1) {
-  f <- makeGrowthFun(type,ifelse(type=="Schnute",1,param))
+  f <- makeGrowthFun(type,param)
   sv <- findGrowthStarts(formula,data,type,param,constvals=cv)
   mf <- stats::model.frame(formula,data=data,na.action=NULL)
   mfn <- names(mf)
@@ -86,18 +86,18 @@ typ <- "Schnute"
 cv <- c(t1=0,t3=12)
 tstrShowGrowthFun(tlR~age,GrowthData1,typ,1,c("L1","L3","a","b","t1"=0,"t3"=12),
                   cv=cv,cex=1.25)
-tstrShowGrowthFun(tlR~age,GrowthData1,typ,2,c("L1","L3","a","b"=0,"t1"=0,"t3"=12),
+tstrShowGrowthFun(tlR~age,GrowthData1,typ,2,c("L1","L3","a","t1"=0,"t3"=12),
                   cv=cv,cex=1.25)
-tstrShowGrowthFun(tlR~age,GrowthData1,typ,3,c("L1","L3","a"=0,"b","t1"=0,"t3"=12),
+tstrShowGrowthFun(tlR~age,GrowthData1,typ,3,c("L1","L3","b","t1"=0,"t3"=12),
                   cv=cv,cex=1.25)
-tstrShowGrowthFun(tlR~age,GrowthData1,typ,4,c("L1","L3","a"=0,"b"=0,"t1"=0,"t3"=12),
+tstrShowGrowthFun(tlR~age,GrowthData1,typ,4,c("L1","L3","t1"=0,"t3"=12),
                   cv=cv,cex=1.25)
 
 tstrShowGrowthFun(tlV~age,GrowthData1,typ,1,c("L1","L3","a","b","t1"=0,"t3"=12),
                   cv=cv,cex=1.25)
-tstrShowGrowthFun(tlV~age,GrowthData1,typ,2,c("L1","L3","a","b"=0,"t1"=0,"t3"=12),
+tstrShowGrowthFun(tlV~age,GrowthData1,typ,2,c("L1","L3","a","t1"=0,"t3"=12),
                   cv=cv,cex=1.25)
-tstrShowGrowthFun(tlV~age,GrowthData1,typ,3,c("L1","L3","a"=0,"b","t1"=0,"t3"=12),
+tstrShowGrowthFun(tlV~age,GrowthData1,typ,3,c("L1","L3","b","t1"=0,"t3"=12),
                   cv=cv,cex=1.25)
-tstrShowGrowthFun(tlV~age,GrowthData1,typ,4,c("L1","L3","a"=0,"b"=0,"t1"=0,"t3"=12),
+tstrShowGrowthFun(tlV~age,GrowthData1,typ,4,c("L1","L3","t1"=0,"t3"=12),
                   cv=cv,cex=1.25)
