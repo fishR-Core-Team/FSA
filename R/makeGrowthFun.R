@@ -1103,13 +1103,18 @@ iHndlGrowthModelParams <- function(type,param,pname) {
     "Richards"=data.frame(pnum=c(1,2,3),
                           pnms=c("Tjorve4","Tjorve3","Tjorve7")))
   
+  # Check if param is a character, if so it is probably confused with pname
+  if (is.character(param)) STOP("'param' must be numeric, did you mean to use 'pname'?")
+  
   # If pname used, then convert name to param number
   if(!is.null(pname)) {
+    if (is.numeric(pname)) STOP("'pname' must be a string, not a number; ",
+                                "did you mean to use 'param'?")
     if (length(pname)>1) STOP("Only one name can be given in 'pname'.")
     if (type %in% c("Schnute","Schnute-Richards"))
       STOP("'pname' not used with ",type," model; use 'param' instead.")
     if (!pname %in% param_list[[type]]$pnms)
-      STOP("For ",type,"models, 'pname' must be one of: ",
+      STOP("For ",type," models, 'pname' must be one of: ",
            paste(param_list[[type]]$pnms,collapse=", "))
     param <- param_list[[type]]$pnum[param_list[[type]]$pnms==pname]
   }

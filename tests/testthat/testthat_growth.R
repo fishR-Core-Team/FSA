@@ -57,6 +57,18 @@ test_that("makeGrowthFun() messages",{
                "'param' can only be 1")
   expect_error(makeGrowthFun(type="Schnute-Richards",param=2),
                "'param' can only be 1")
+  expect_error(makeGrowthFun(param="Derek"),
+               "'param' must be numeric, did you mean to use")
+  expect_error(makeGrowthFun(pname=1),
+               "'pname' must be a string, not a number")
+  expect_error(makeGrowthFun(pname="Derek"),
+               "For von Bertalanffy models, 'pname' must be one of")
+  expect_error(makeGrowthFun(type="Gompertz",pname="Derek"),
+               "For Gompertz models, 'pname' must be one of")
+  expect_error(makeGrowthFun(type="logistic",pname="Derek"),
+               "For logistic models, 'pname' must be one of")
+  expect_error(makeGrowthFun(type="Richards",pname="Derek"),
+               "For Richards models, 'pname' must be one of")
 })
 
 #----- Output types
@@ -216,7 +228,7 @@ test_that("makeGrowthFun() Other Model output",{
   nnull <- list("Schnute-Richards"=c(1:2))
   itmp <- names(ptmp)
   for (i in seq_along(itmp)) {
-    print(i) # uncomment if need to find where expectation is not met
+    #print(i) # uncomment if need to find where expectation is not met
     tmp <- makeGrowthFun(type=itmp[i],param=1)
     expect_equal(mode(tmp),"function")
     expect_equal(names(formals(tmp)),ptmp[[i]])
