@@ -100,7 +100,7 @@ psdCI <- function(indvec,ptbl,n,method=c("binomial","multinomial"),
 iCheckPtbl <- function(ptbl) {
   ## make sure table is proportions
   if (any(ptbl>1)) {
-    WARN("'ptbl' not a table of proportions; attempted to convert\n to proportions to continue.")
+    WARN("'ptbl' not a table of proportions; attempted to convert to proportions to continue.")
     ptbl <- ptbl/sum(ptbl)
   }
   ## make sure table sums to one (within rounding)

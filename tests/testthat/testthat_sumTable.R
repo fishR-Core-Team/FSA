@@ -8,11 +8,11 @@ d <- data.frame(g1=factor(c("A","A","A","B","B","B","C","C","C")),
 ## Test Messages ----
 test_that("sumTable() messages",{
   expect_error(sumTable(dat+junk~g1+g2,data=d),
-               "more than one variable on the LHS")
+               "Function does not work with more than one variable on")
   expect_error(sumTable(dat~g1+g2+g3,data=d),
-               "one or two factor variables on RHS of formula")
+               "'sumTable' requires one quantitative variable on")
   expect_error(sumTable(~g1,data=d),
-               "one or two factor variables on RHS of formula")
+               "'sumTable' requires one quantitative variable on")
   expect_warning(sumTable(dat~junk,data=d),
                  "RHS variable was converted to a factor")
   expect_warning(sumTable(dat~g1+junk,data=d),

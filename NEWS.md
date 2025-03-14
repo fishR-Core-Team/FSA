@@ -1,7 +1,29 @@
 # FSA 0.9.6.9000
 * Updated `test-coverage.yaml` and moved a `# nocov start` and `# nocov end` in `bootstrap.r` to address the errors with `test-coverage.yaml`. Addresses [#118](https://github.com/fishR-Core-Team/FSA/issues/118).
+* Added `FlexParamCurve` to Imports for use of `modpar()` in `RichardsStarts()` and `purrr` for use of `map2_chr()` in `showGrowthFun()`.
+* Added "articles" (for the package webpage) that describe how the starting values for the growth equations are derived and a simple introduction to growth model fitting with `FSA`.
 
-* `growthFunShow()`: Modified. Fixed expression for QuinnDeriso3 parametrization of the Gompertz function (i.e., erroneous t* changed to t0 ... related to fixing [#113](https://github.com/fishR-Core-Team/FSA/issues/113)).
+* internals: Added functions to return a logical about whether a value is less than, less than or equal, greater than, or greater than or equal (i.e., `is.lte()`, `is.lt()`, `is.gte()`, and `is.gt()`). Added functions that use those logical and return an informative error if the logical is FALSE (i.e., `iChkLTE()`, `iChkLT()`, `iChkGTE()`, and `iChkGT()`). The errors can "grab" the name of the object so that the error can be specific though the function is general.
+* internals: Modified `STOP()` and `WARN()` to use `strwrap()` rather than hard-coded line breaks. Will need to monitor to see how messages are displayed.
+* `findGrowthStarts()`: Added. This replaces `vbStarts()` and includes starting values for Gompertz, logistic, and Richards functions, and seasonal and tag-recapture von Bertalanffy parameterizations. Note that `constvals=` and `fixed=` must now be numeric vectors (and not lists) and that the returned starting values are in a numeric vector.
+* `GompertzFuns()`: Deprecated (replaced with `makeGrowthFun()`).
+* `GrowthData1`, `GrowthData2`, `GrowthData3`: Added for testing growth functions.
+* `growthFunShow()`: Deprecated (replaced with `showGrowthFun()`). But also fixed expression for QuinnDeriso3 parameterization of the Gompertz function (i.e., erroneous t* changed to t0 ... related to fixing [#113](https://github.com/fishR-Core-Team/FSA/issues/113)). Also changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization. Will be deleted in future versions.
+* `logisticFuns()`: Deprecated (replaced with `makeGrowthFun()`).
+* `makeGrowthFun()`: Added. This replaces `vbFuns()`, `GompertzFuns()`, `logisticFuns()`, `RichardsFuns()`, `Schnute()`, `SchnuteRichards()`. Along the way, the following changes were made.
+  * Included numbers for parameterizations in `param=` and moved names to `pname=`. Some names were changed.
+  * In Gompertz functions ... changed 1 parameter in "Original" to a1, changed a parameter to a2 in Ricker2 and QuinnDeriso1, and a to a2 in Ricker3 and QuinnDeriso2, to distinguish them when they are different.
+  * In Richards functions ...
+    * Restricted to only 4-parameter functions; thus, removed sixth parameterization
+    * Removed first parameterization as it had limited placement for the inflection point.
+    * Moved the old parameterization to new places as follows: third to first, and fifth to second. Thus, the first parameterization will be the one that most closely follows the parameterization of the self-starting function to be used in `findGrowthStarts()`. Removed the other two parameterizations as they were essentially the same as the first except for how the exponent was defined, which has no biological meaning.
+    * Modified parameterizations to have the same general look (i.e., Linf times something raised to a power). After this, the powers were all the same, so there is just a "b" parameter now.
+* `RichardsFuns()`: Deprecated (replaced with `makeGrowthFun()`).
+* `Schnute()`: Deleted (made defunct) as it was added to `makeGrowthFun()` (use `Schnute <- makeGrowthFun("Schnute")` instead). Note that order of arguments was changed so that the parameters appear before the constants to be consistent with other growth functions.
+* `SchnuteRichards()`: Deleted (made defunct) as it was added to `makeGrowthFun()` (use `SchnuteRichards <- makeGrowthFun("Schnute-Richards")` instead) and was likely little used.
+* `showGrowthFun()`: Added. Replaces `GrowthFunShow()`. Updated to allow user to send an object from `nls()` and have the coefficient values extracted and put in the expression. Also, can either return a string or an expression to allow more flexibility in use (especially with `ggplot2`).
+* `vbFuns()`: Deprecated (replaced with `makeGrowthFun()`).
+* `vbStarts()`: Deprecated (replaced with `makeGrowthStarts()`. But also streamlined some of the internal functions, fixed some typos, and replaced `iVBStartsPlot()` with `iPlotGrowthStarts()` to be more general.
 
 
 # FSA 0.9.6

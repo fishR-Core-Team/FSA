@@ -42,9 +42,9 @@ test_that("removal() messages",{
                "with two samples")
   ## Schnute warns if last of three passes is 0
   expect_warning(removal(c(4,2,0),method="Schnute"),
-                 "last of three samples is 0")
+                 "The Schnute method will fail when the catch in")
   expect_warning(removal(c(400,200,0),method="Schnute"),
-                 "last of three samples is 0")
+                 "The Schnute method will fail when the catch in")
   ## Burnham warns if only one fish caught, all fish caught on first pass, can't estimate
   expect_warning(removal(c(1,0,0),method="Burnham"),
                  "Total catch of one fish")

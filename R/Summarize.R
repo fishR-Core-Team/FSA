@@ -183,7 +183,7 @@ iSummarizeQf <- function(tmp,digits,na.rm,exclude,nvalid,percZero) {
   ## Get the response variable
   nv <- tmp$mf[,tmp$Rpos]
   ## Make sure LHS is simple enough
-  if (tmp$Enum>2) STOP("With a quantitative response (LHS), the RHS\n may contain only one or two factors.")
+  if (tmp$Enum>2) STOP("With a quantitative response (LHS), the RHS may contain only one or two factors.")
   ## Get results for quant variable by each level of interaction variable.
   if (tmp$Enum==1) { ## Only one explanatory variable
     rv <- tmp$mf[,tmp$Enames]

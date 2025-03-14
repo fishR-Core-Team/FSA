@@ -393,7 +393,8 @@ iEvent2Indiv <- function(df,id,event.ord) {
 iFrequency2Indiv <- function(df,freq) {
   if (is.null(freq)) {
     tmp <- "No 'freq' given; assumed frequencies were 1 for each capture history."
-    if (any(c("freq","Freq","FREQ") %in% names(df))) tmp <- paste0(tmp,"\nHowever, one variable appears to contain frequencies.")
+    if (any(c("freq","Freq","FREQ") %in% names(df)))
+      tmp <- paste0(tmp," However, one variable appears to contain frequencies.")
     WARN(tmp)
     nfreq <- rep(1,nrow(df))
   } else {
@@ -431,7 +432,8 @@ iMark2Indiv <- function(df,freq) {
   # isolate frequencies and capture histories
   if (is.null(freq)) {
     tmp <- "No 'freq' given; assumed frequencies were 1 for each capture history."
-    if (any(c("freq","Freq","FREQ") %in% names(df))) tmp <- paste0(tmp,"\nHowever, one variable appears to contain frequencies.")
+    if (any(c("freq","Freq","FREQ") %in% names(df)))
+      tmp <- paste0(tmp," However, one variable appears to contain frequencies.")
     WARN(tmp)
     nfreq <- rep(1,nrow(df))
   } else {
@@ -451,11 +453,13 @@ iRMark2Indiv <- function(df,id,freq) {
   # force to be a data.frame (likely comes as a vector)
   df <- as.data.frame(df)
   # can't supply both id and freq
-  if (!is.null(id) & !is.null(freq)) STOP("Only one of 'id' or 'freq' can be used with the RMark format.")
+  if (!is.null(id) & !is.null(freq))
+    STOP("Only one of 'id' or 'freq' can be used with the RMark format.")
   # if neither id nor freq then create a freq=1 column and use it
   if (is.null(id) & is.null(freq)) {
     tmp <- "No 'freq' or 'id' given; assumed frequencies were 1 for each capture history."
-    if (any(c("freq","Freq","FREQ") %in% names(df))) tmp <- paste0(tmp,"\nHowever, one variable appears to contain frequencies.")
+    if (any(c("freq","Freq","FREQ") %in% names(df)))
+      tmp <- paste0(tmp," However, one variable appears to contain frequencies.")
     WARN(tmp)
     df$freq <- rep(1,nrow(df))
     freq <- "freq"

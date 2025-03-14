@@ -57,7 +57,8 @@ sumTable.formula <- function(formula,data=NULL,FUN=mean,
   tmp <- iHndlFormula(formula,data,expNumR=1)
   ## Make sure that this function can handle the request
   if (tmp$vnum<2 | tmp$vnum>3)
-    STOP("'sumTable' requires one quantitative variable on LHS and\n one or two factor variables on RHS of formula.")
+    STOP("'sumTable' requires one quantitative variable on LHS and ",
+         "one or two factor variables on RHS of formula.")
   ## Handle the response variable
   if (!tmp$metExpNumR)
     STOP("'sumTable' only works with quantitative variable on LHS of formula")

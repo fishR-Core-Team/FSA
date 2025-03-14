@@ -404,10 +404,19 @@ iTypeoflm <- function(mdl) {
   tmp
 }
 
-# same as stop() and warning() but with call.=FALSE as default
-STOP <- function(...,call.=FALSE,domain=NULL) stop(...,call.=call.,domain=domain)
+# same as stop() and warning() but with call.=FALSE as default & wrapped message
+STOP <- function(...,call.=FALSE,domain=NULL) {
+  # create message, wrapped according to windows size
+  msg <- strwrap(paste(as.character(list(...)),collapse=""),
+                 width=0.9*getOption("width"),exdent=2,prefix="\n",initial="")
+  stop(msg,call.=call.,domain=domain)
+}
+
 WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
-  warning(...,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
+  # create message, wrapped according to windows size
+  msg <- strwrap(paste(as.character(list(...)),collapse=""),
+                 width=0.9*getOption("width"),exdent=2,prefix="\n",initial="")
+  warning(msg,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
 }
 
 
@@ -417,3 +426,27 @@ iCheckConfLevel <- function(conf.level) {
   if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
 }
   
+
+# Logicals for less than (equal) or greater than (equal) to value
+is.lte <- function(x,value) ifelse(x<=value,TRUE,FALSE)
+
+is.lt <- function(x,value) ifelse(x<value,TRUE,FALSE)
+
+is.gte <- function(x,value) ifelse(x>=value,TRUE,FALSE)
+
+is.gt <- function(x,value) ifelse(x>value,TRUE,FALSE)
+
+
+# Error if less than (equal) or greater than (equal) to value
+iChkLTE <- function(x,value) if (is.gt(x,value))
+  STOP(deparse(substitute(x))," must be <=",value,".")
+
+iChkLT <- function(x,value) if (is.gte(x,value))
+  STOP(deparse(substitute(x))," must be strictly <",value,".")
+
+iChkGTE <- function(x,value) if (is.lt(x,value))
+  STOP(deparse(substitute(x))," must be >=",value,".")
+
+iChkGT <- function(x,value) if (is.lte(x,value))
+  STOP(deparse(substitute(x))," must be strictly >",value,".")
+
