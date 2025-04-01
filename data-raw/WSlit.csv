@@ -78,6 +78,8 @@ Humpback Chub,English,linear,75,TL,RLP,4.75,NA,-3.586,3.096,NA,Didenko et al. (2
 Humpback Chub,metric,linear,75,TL,RLP,120,NA,-5.278,3.096,NA,Didenko et al. (2004),none
 Kokanee,English,linear,75,TL,RLP,4.75,NA,-3.458,3.033,NA,Hyatt and Hubert (2000),none
 Kokanee,metric,linear,75,TL,RLP,120,NA,-5.062,3.033,NA,Hyatt and Hubert (2000),none
+Lake Chubsucker,metric,quadratic,75,TL,EmP,80,NA,-5.9735,3.8828,-0.1701,Bonvechio and Bonvechio (2021),"Recommended to use this, not RLP"
+Lake Chubsucker,English,quadratic,75,TL,EmP,80,NA,-3.5134,3.4077,-0.1713,Bonvechio and Bonvechio (2021),"Recommended to use this, not RLP"
 Lake Herring,English,linear,75,TL,RLP,4,NA,-3.644,3.224,NA,Fisher and Fielder (1998),same as for Cisco
 Lake Herring,metric,linear,75,TL,RLP,100,NA,-5.517,3.224,NA,Fisher and Fielder (1998),same as for Cisco
 Lake Trout,English,linear,75,TL,RLP,11,NA,-3.778,3.246,NA,Piccolo et al. (1993),none
@@ -161,7 +163,7 @@ Smallmouth Bass,English,linear,75,TL,RLP,6,NA,-3.491,3.2,NA,Kolander et al. (199
 Smallmouth Bass,metric,linear,75,TL,RLP,150,NA,-5.329,3.2,NA,Kolander et al. (1993),none
 Smallmouth Buffalo,English,linear,75,TL,RLP,8,NA,-3.448,3.208,NA,Bister et al. (2000),none
 Smallmouth Buffalo,metric,linear,75,TL,RLP,200,NA,-5.298,3.208,NA,Bister et al. (2000),none
-South European Roach,metric,quadratic,75,TL,EmP,60,200,-4.043,1.919,0.315,Giannetto et al. (2016),
+South European Roach,metric,quadratic,75,TL,EmP,60,200,-4.043,1.919,0.315,Giannetto et al. (2016),none
 Spotted Bass,English,linear,75,TL,RLP,4,NA,-3.533,3.215,NA,Wiens et al. (1996),none
 Spotted Bass,metric,linear,75,TL,RLP,100,NA,-5.392,3.215,NA,Wiens et al. (1996),none
 Spotted Bass (alabama subspecies),metric,linear,75,TL,RLP,100,NA,-5.598,3.2904,NA,Dicenzo et al. (1995),min.len not made clear (assumed same as Spotted Bass); same as Alabama Bass
