@@ -131,9 +131,9 @@ iAdjKey4xlim <- function(key,xlim) {
     xlim <- xlim[order(xlim)]
     # reduce rows of keys down to values that are between xlim values
     tmp <- as.numeric(row.names(key))
-    key <- key[which(tmp>=xlim[1] & tmp<=xlim[2]),]
+    key <- key[tmp>=xlim[1] & tmp<=xlim[2],]
     # remove columns (ages) that don't have any values
-    key <- key[,which(colSums(key)!=0)]
+    key <- key[,colSums(key)!=0]
     if (!is.matrix(key)) STOP("'xlim' is too restrictive (only one age).")
   }
   key
@@ -168,7 +168,7 @@ iALKPlotArea <- function(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,col) { # noc
 iBarplotAddLabelsToBars <- function(key,alsum,lbl.cex,col,...) { # nocov start
   # Make colors for the age labels inside the bars (dark on light, light on dark)
   age.clr <- rep("black",alsum$num.ages)
-  age.clr[which(colMeans(grDevices::col2rgb(col))<120)] <- "white"
+  age.clr[colMeans(grDevices::col2rgb(col))<120] <- "white"
   # Add the age labels inside the bars    
   for (i in 1:alsum$num.lens) {
     if (!all(is.na(key[i,]))) { # don't put labels if length is all NA

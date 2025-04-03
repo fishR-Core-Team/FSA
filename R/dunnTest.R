@@ -91,7 +91,7 @@ dunnTest.default <- function(x,g,
   method <- match.arg(method)
   adjNAMES <- c("Holm","Bonferroni","Sidak","Holm-Sidak","Hochberg",
                 "Benjamini-Hochberg","Benjamini-Yekuteili","No Adjustment")
-  Name <- adjNAMES[which(dunn.test::p.adjustment.methods[c(4,2:3,5:8,1)]==method)]
+  Name <- adjNAMES[dunn.test::p.adjustment.methods[c(4,2:3,5:8,1)]==method]
   
   ## check variable types
   if (!is.numeric(x)) STOP("'x' must be numeric.")
@@ -119,7 +119,7 @@ dunnTest.default <- function(x,g,
                                                                altp=altp,...))
     # convert returned list to data.frame (without chi-square value)
     # and reorder and rename the columns
-    res <- data.frame(res[-which(names(res)=="chi2")])[,c(4,1,2,3)]
+    res <- data.frame(res[names(res)!="chi2"])[,c(4,1,2,3)]
     names(res) <- c("Comparison","Z","P.unadj","P.adj")
     # return a list
     tmp <- list(method=Name,res=res,dtres=dtres)

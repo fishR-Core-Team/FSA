@@ -370,7 +370,7 @@ iEvent2Indiv <- function(df,id,event.ord) {
   # See if there is an id variable
   if (is.null(id)) STOP("No variable with unique fish identification information given in 'id'.")
   # All other variables are "events"
-  event <- names(df)[which(names(df)!=id)]
+  event <- names(df)[names(df)!=id]
   # Control the event order if told to do so by the user
   if (!is.null(event.ord)) df[,event] <- ordered(df[,event],levels=event.ord)
   # Make a table of ids by events
@@ -400,7 +400,7 @@ iFrequency2Indiv <- function(df,freq) {
   } else {
     # isolate frequencies and create a df without them
     nfreq <- df[,freq]
-    df <- df[,-which(names(df)==freq)]
+    df <- df[,!names(df)==freq]
   }
   tmp <- matrix(NA,ncol=ncol(df),nrow=sum(nfreq))
   for (i in seq_len(ncol(df))) tmp[,i] <- rep(df[,i],nfreq)
@@ -440,7 +440,7 @@ iMark2Indiv <- function(df,freq) {
     # isolate frequencies and create a df without them
     # make sure frequencies are numeric and capture history is character
     nfreq <- as.numeric(df[,freq])
-    df <- df[,-which(names(df)==freq)]
+    df <- df[,!names(df)==freq]
   }
   # expand the string 
   tmp <- iExpandCHString(df,nfreq)
@@ -468,11 +468,11 @@ iRMark2Indiv <- function(df,id,freq) {
   if (!is.null(id)) {
     # expland the string by first isolating the capture histories
     #   and id variables (first two arguments)
-    tmp <- iExpandCHString(df[,which(names(df)!=id)],ids=df[,id],idname=id)
+    tmp <- iExpandCHString(df[,names(df)!=id],ids=df[,id],idname=id)
   } else {
     # expand the string by first isolating the capture histories
     #   and freq variables (first two arguments)
-    tmp <- iExpandCHString(df[,which(names(df)!=freq)],df[,freq])
+    tmp <- iExpandCHString(df[,names(df)!=freq],df[,freq])
   }
   tmp
 }

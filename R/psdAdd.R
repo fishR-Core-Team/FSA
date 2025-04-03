@@ -131,7 +131,7 @@ psdAdd.default <- function(len,species,units=c("mm","cm","in"),use.names=TRUE,
     tmpdf <- data[data$species==GLHSspecs[i],]
     # add Gabelhouse lengths ... put in additional lengths if they are provided
     if (GLHSspecs[i] %in% addSpec)
-      tmpAddLens <- addLens[which(addSpec==GLHSspecs[i])]
+      tmpAddLens <- addLens[addSpec==GLHSspecs[i]]
     else tmpAddLens <- NULL
     # get the Gabelhouse length categories
     glhse <- psdVal(GLHSspecs[i],units=units,addLens=tmpAddLens)

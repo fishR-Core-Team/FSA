@@ -138,7 +138,7 @@ expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,
   newdf <- rbind(data[zerocounts,],data[onecounts,],data[morecounts,])
   # Fifth, clean-up the new data.frame as requested or needed
   #   remove the counts variable if asked for
-  if (removeCount) newdf <- newdf[,-which(names(data) == cform$vname)]
+  if (removeCount) newdf <- newdf[,names(data)!=cform$vname]
   #   get integer rownames
   row.names(newdf) <- NULL
 

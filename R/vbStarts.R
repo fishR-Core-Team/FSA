@@ -423,7 +423,7 @@ iVBStarts.t0 <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
       # get real component of roots to polynomial equation
       resroots <- Re(polyroot(stats::coef(respoly)))
       # find starting value for t0 as polynomial root closest to zero
-      st0 <- resroots[which(abs(resroots)==min(abs(resroots)))]
+      st0 <- resroots[abs(resroots)==min(abs(resroots))]
       # removes the attributes and will return only the first
       #  root if a "double root" was found
       st0 <- st0[[1]]
@@ -433,7 +433,7 @@ iVBStarts.t0 <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
       K <- iVBStarts.K(age,len,type,fixed,check=FALSE)
       # find the youngest age with a n>=1
       if (all(ns==1)) yngAge <- min(ages)
-      else yngAge <- min(ages[which(ns>=1)])
+      else yngAge <- min(ages[ns>=1])
       # find starting values for t0 from re-arrangement of typical VonB and yngAge
       st0 <- yngAge+(1/K)*log((Linf-meanL[[which(ages==yngAge)]])/Linf)
     }
@@ -468,7 +468,7 @@ iVBStarts.L0 <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
       K <- iVBStarts.K(age,len,type,fixed)
       # find the youngest age with a n>=1
       if (all(ns==1)) yngAge <- min(ages)
-      else yngAge <- min(ages[which(ns>=1)])
+      else yngAge <- min(ages[ns>=1])
       # find starting values for L0 from re-arrangement of original VonB model and yngAge
       sL0 <- Linf+(meanL[[which(ages==yngAge)]]-Linf)/exp(-K*yngAge)
     }

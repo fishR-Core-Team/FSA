@@ -143,7 +143,7 @@ test_that("Does age variable get added with alkIndivAge()",{
   WR1.age <- subset(WR1, !is.na(age))
   WR1.len <- subset(WR1, is.na(age))
   # remove age variable
-  WR1.len <- WR1.len[,-which(names(WR1.len)=="age")]
+  WR1.len <- WR1.len[,names(WR1.len)!="age"]
   WR1.key <- prop.table(xtabs(~LCat+age,data=WR1.age),margin=1)
   tmp <- alkIndivAge(WR1.key,~len,data=WR1.len)
   expect_true(any(names(tmp)=="age"))

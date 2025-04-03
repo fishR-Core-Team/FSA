@@ -309,7 +309,7 @@ confint.catchCurve <- function(object,parm=c("all","both","Z","A","lm"),
                      "age.e","age.e_LCI","age.e_UCI")
     ## remove estimates if not asked for
     if (!incl.est) {
-      resm <- resm[,-which(colnames(resm)=="Est"),drop=FALSE]
+      resm <- resm[,colnames(resm)!="Est",drop=FALSE]
       resd <- resd[!names(resd) %in% c("(Intercept)","age.e")]
     }
     ## Return the appropriate matrix or data.frame
@@ -325,7 +325,7 @@ confint.catchCurve <- function(object,parm=c("all","both","Z","A","lm"),
     names(resd) <- c("Z","Z_LCI","Z_UCI","A","A_LCI","A_UCI")
     ## remove estimates if not asked for
     if (!incl.est) {
-      resm <- resm[,-which(colnames(resm)=="Est"),drop=FALSE]
+      resm <- resm[,colnames(resm)!="Est",drop=FALSE]
       resd <- resd[!names(resd) %in% c("Z","A")]
     }
     ## remove unasked for parameters

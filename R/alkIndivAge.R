@@ -171,7 +171,7 @@ alkIndivAge <- function(key,formula,data,type=c("SR","CR"),
     CR=,Cr=,cr=,C=,c= {data <- iAgeKey.CR(key,age.cats,data,ca)}
   )
   # Remove length category column that was added
-  data[,-which(names(data)=="TMPLCAT")]
+  data[,names(data)!="TMPLCAT"]
 }
 
 
@@ -183,7 +183,7 @@ iAgeKey.SR <- function(key,age.cats,data,data.len.cats,ca) {
     # Number in len interval from L sample
     len.n <- nrow(data[data$TMPLCAT==i,])
     # Conditional probability of age for len interval
-    age.prob <- key[which(as.numeric(rownames(key))==i),]
+    age.prob <- key[as.numeric(rownames(key))==i,]
     # Integer number of fish for each age
     age.freq <- floor(len.n*age.prob)
     # Vector of ages for integer counts
@@ -211,7 +211,7 @@ iAgeKey.SR <- function(key,age.cats,data,data.len.cats,ca) {
 iAgeKey.CR <- function(key,age.cats,data,ca) {
   for (i in 1:dim(data)[1]) { #### Cycle through the fish
     # Conditional probability of age for length interval
-    age.prob <- key[which(as.numeric(rownames(key))==data$TMPLCAT[i]),]
+    age.prob <- key[as.numeric(rownames(key))==data$TMPLCAT[i],]
     data[i,ca] <- sample(age.cats,1,prob=age.prob)                              
   }
   data

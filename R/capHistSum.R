@@ -296,10 +296,10 @@ plot.CapHist <- function(x,what=c("u","f"),pch=19,cex.pch=0.7,lwd=1,...) { # noc
   tmp$i <- seq_len(t)
   # scale the f variable
   tmp$sf <- log(tmp$f/choose(t,tmp$i))
-  tmp$sf[which(tmp$f==0)] <- NA
+  tmp$sf[tmp$f==0] <- NA
   # log of the U variable
   tmp$su <- log(tmp$u)
-  tmp$su[which(tmp$u==0)] <- NA
+  tmp$su[tmp$u==0] <- NA
   # catch if two plots are being made
   if (length(what)==2) withr::local_par(list(mfrow=c(1,2)))
   # make the fi plot

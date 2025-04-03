@@ -203,7 +203,7 @@ iSRStartsS <- function(S,R,fixed) {
   if ("c" %in% names(fixed)) {
     c <- fixed[["c"]]
     # must remove fixed 'c' to send to startsBH
-    fixed <- fixed[-which(names(fixed)=="c")]
+    fixed <- fixed[names(fixed)!="c"]
     if (length(fixed)==0) fixed <- NULL
   } else c <- 1
   if (c<=0) WARN("'c' parameter not positive; likely a poor starting value.")
@@ -220,7 +220,7 @@ iSRStartsSL <- function(S,R,fixed) {
    if ("c" %in% names(fixed)) {
     c <- fixed[["c"]]
     # must remove fixed 'c' to send to startsBH
-    fixed <- fixed[-which(names(fixed)=="c")]
+    fixed <- fixed[names(fixed)!="c"]
     if (length(fixed)==0) fixed <- NULL
   }
   else c <- 1

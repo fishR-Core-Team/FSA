@@ -224,11 +224,11 @@ iSummarizeQf <- function(tmp,digits,na.rm,exclude,nvalid,percZero) {
   rownames(res) <- NULL
   ## Remove validn column if asked to ("never") or not interesting (all = n)
   if (nvalid=="never" | (nvalid=="different" & all(res$n==res$nvalid))) {
-    res <- res[,-which(names(res)=="nvalid")]
+    res <- res[,names(res)!="nvalid"]
   }
   ## Remove percZero column if asked to ("never") or not interesting (none >0)
   if (percZero=="never" | (percZero=="different" & !any(res$percZero>0,na.rm=TRUE))) {
-    res <- res[,-which(names(res)=="percZero")]
+    res <- res[,names(res)!="percZero"]
   }
   ## Return the result
   res
