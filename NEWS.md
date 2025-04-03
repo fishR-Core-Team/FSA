@@ -18,14 +18,15 @@
     * Removed first parameterization as it had limited placement for the inflection point.
     * Moved the old parameterization to new places as follows: third to first, and fifth to second. Thus, the first parameterization will be the one that most closely follows the parameterization of the self-starting function to be used in `findGrowthStarts()`. Removed the other two parameterizations as they were essentially the same as the first except for how the exponent was defined, which has no biological meaning.
     * Modified parameterizations to have the same general look (i.e., Linf times something raised to a power). After this, the powers were all the same, so there is just a "b" parameter now.
-* `PSDLit`: Added length categories for Goldeye and Lake Chubsucker.
+* `PSDLit`: Added length categories for Goldeye, Lake Chubsucker, and Northern Snakehead.
 * `RichardsFuns()`: Deprecated (replaced with `makeGrowthFun()`).
 * `Schnute()`: Deleted (made defunct) as it was added to `makeGrowthFun()` (use `Schnute <- makeGrowthFun("Schnute")` instead). Note that order of arguments was changed so that the parameters appear before the constants to be consistent with other growth functions.
 * `SchnuteRichards()`: Deleted (made defunct) as it was added to `makeGrowthFun()` (use `SchnuteRichards <- makeGrowthFun("Schnute-Richards")` instead) and was likely little used.
 * `showGrowthFun()`: Added. Replaces `GrowthFunShow()`. Updated to allow user to send an object from `nls()` and have the coefficient values extracted and put in the expression. Also, can either return a string or an expression to allow more flexibility in use (especially with `ggplot2`).
 * `vbFuns()`: Deprecated (replaced with `makeGrowthFun()`).
 * `vbStarts()`: Deprecated (replaced with `makeGrowthStarts()`. But also streamlined some of the internal functions, fixed some typos, and replaced `iVBStartsPlot()` with `iPlotGrowthStarts()` to be more general.
-* `WSLit`: Added results for Lake Chubsucker.
+* `WSLit`: Added results for Goldey, Lake Chubsucker, and Northern Snakehead. Removed `type` variable (will depend on whether `quad` is `NA` or not).
+* `wsVal()`: Modified. Added `method=` to handle species for which equations derived from more than one method are available (e.g., "Arctic Grayling"). Added a few more checks for `ref=`, `units=`, etc. and provided more descriptive error messages.
 
 
 # FSA 0.9.6

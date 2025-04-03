@@ -1,21 +1,37 @@
 ## Test Messages ----
 test_that("wsVal() messages",{
-  ## bad species name
+  #===== bad species name
   expect_error(wsVal("Derek"),
-               "There is no Ws equation in 'WSlit' for Derek")
-  ## too many species name
+               "There is no Ws equation in 'WSlit' for \"Derek\"")
+  expect_error(wsVal("Largemouth bass"),
+               "There is no Ws equation in 'WSlit' for \"Largemouth bass\"")
+  expect_error(wsVal("bluegill"),
+               "There is no Ws equation in 'WSlit' for \"bluegill\"")
+  #===== too many species name
   expect_error(wsVal(c("Bluegill","Yellow Perch")),
                "must contain only one name")
-  ## bad units
-  # typed wrong
-  expect_error(wsVal("Bluegill",units="inches"),
-               "should be one of")
-  # don't exist for the species
+  #===== bad units
+  #----- typed wrong
+  expect_error(wsVal("Bluegill",units="inches"),"should be one of")
+  #----- don't exist for the species
   expect_error(wsVal("Ruffe",units="English"),
-               "There is no Ws equation in English units")
-  ## reference value does not exist
+               "There is no Ws equation in 'English' units for \"Ruffe\"")
+  #===== reference value does not exist
+  expect_error(wsVal("Bluegill",ref=30),
+               "A 'ref' of 30 is non-standard and does not exist")
   expect_error(wsVal("Bluegill",ref=50),
-               "There is no Ws equation with ref of 50 for Bluegill")
+               "There is no Ws equation for 'ref=50' for \"Bluegill\"")
+  #===== bad choices for method
+  expect_error(wsVal("Bluegill",method="Derek"),
+               "There is no Ws equation for \"Bluegill\" derived from")
+  expect_error(wsVal("Brook Trout",method="EmP"),
+               "There is no Ws equation for \"Brook Trout\" derived from")
+  expect_error(wsVal("Blue Sucker",method="RLP"),
+               "There is no Ws equation for \"Blue Sucker\" derived from")
+  expect_error(wsVal("Arctic Grayling"),
+               "Ws equations exist for both the RLP and EmP")
+  expect_error(wsVal("Arctic Grayling",method="Derek"),
+               "There is no Ws equation for \"Arctic Grayling\" derived")
 })
 
 test_that("wrAdd() messages",{
@@ -62,25 +78,24 @@ test_that("wsVal() results",{
   ## Do Bluegill results match
   bg1 <- wsVal("Bluegill")
   bg2 <- WSlit[WSlit$species=="Bluegill" & WSlit$units=="metric",]
-  bg2 <- bg2[,-which(names(bg2) %in% c("max.len","quad","comment"))]
+  bg2 <- bg2[,!names(bg2) %in% c("max.len","quad","comment")]
   expect_equal(bg1,bg2,ignore_attr=TRUE)
   bg1 <- wsVal("Bluegill",units="English")
   bg2 <- WSlit[WSlit$species=="Bluegill" & WSlit$units=="English",]
-  bg2 <- bg2[,-which(names(bg2) %in% c("max.len","quad","comment"))]
+  bg2 <- bg2[,!names(bg2) %in% c("max.len","quad","comment")]
   expect_equal(bg1,bg2,ignore_attr=TRUE)
   bg1 <- wsVal("Bluegill",units="English",simplify=TRUE)
   bg2 <- WSlit[WSlit$species=="Bluegill" & WSlit$units=="English",]
-  bg2 <- bg2[,which(names(bg2) %in% c("species","min.len","int","slope"))]
+  bg2 <- bg2[,names(bg2) %in% c("species","min.len","int","slope")]
   expect_equal(bg1,bg2,ignore_attr=TRUE)
   ## Do Ruffe results match
   ruf1 <- wsVal("Ruffe")
   ruf2 <- WSlit[WSlit$species=="Ruffe" & WSlit$units=="metric" & WSlit$ref=="75",]
-  ruf2 <- ruf2[-which(names(ruf2) %in% c("comment"))]
+  ruf2 <- ruf2[!names(ruf2) %in% c("comment")]
   expect_equal(ruf1,ruf2,ignore_attr=TRUE)
   ruf1 <- wsVal("Ruffe",simplify=TRUE)
   ruf2 <- WSlit[WSlit$species=="Ruffe" & WSlit$units=="metric" & WSlit$ref=="75",]
-  ruf2 <- ruf2[,which(names(ruf2) %in% c("species","min.len","max.len",
-                                         "int","slope","quad"))]
+  ruf2 <- ruf2[,names(ruf2) %in% c("species","min.len","max.len","int","slope","quad")]
   expect_equal(ruf1,ruf2,ignore_attr=TRUE)
   ##
   expect_message(capture.output(wsVal("List")),"must be one of following")

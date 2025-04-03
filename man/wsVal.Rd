@@ -8,6 +8,7 @@ wsVal(
   species = "List",
   units = c("metric", "English"),
   ref = 75,
+  method = NULL,
   simplify = FALSE
 )
 }
@@ -17,6 +18,8 @@ wsVal(
 \item{units}{A string that indicates whether the coefficients for the standard weight equation to be returned are in (\code{"metric"} (DEFAULT; mm and g) or \code{"English"} (in and lbs) units.}
 
 \item{ref}{A numeric that indicates which percentile the equation should be returned for. Note that the vast majority of equations only exist for the \code{75}th percentile (DEFAULT).}
+
+\item{method}{A string that indicates which equation-derivation method should be used (one of `RLP`, `EmP`, or `Other`). Defaults to `NULL` which will result in the only method available being returned or an error asking the user to choose a method equations from more than one method are available (which is the case for very few species).}
 
 \item{simplify}{A logical that indicates whether the \sQuote{units}, \sQuote{ref}, \sQuote{measure}, \sQuote{method}, \sQuote{comments}, and \sQuote{source} fields should be included (\code{=FALSE}) or not (\code{=TRUE}; DEFAULT). See details.}
 }

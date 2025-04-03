@@ -40,7 +40,8 @@ capFirst <- function(x,which=c("all","first")) {
   ## Get the class of the object
   cls <- class(x)
   ## Perform a check
-  if (!inherits(cls,c("character","factor"))) STOP("'capFirst' only works with 'character' or 'factor' objects.")
+  if (!inherits(cls,c("character","factor")))
+    STOP("'capFirst' only works with 'character' or 'factor' objects.")
   ## Capitalize the one word or the words in the vector
   if (length(x)==1) x <- iCapFirst(x,which)
   else x <- apply(matrix(x),MARGIN=1,FUN=iCapFirst,which=which)
