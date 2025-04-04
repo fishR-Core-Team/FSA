@@ -24,8 +24,8 @@
 #' @keywords manip
 #'
 #' @examples
-#' ## Create random data for three species
-#' # just to control the randomization
+#' #===== Create random data for three species
+#' #----- just to control the randomization
 #' set.seed(345234534)
 #' dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),
 #'                   tl=round(rnorm(30,1900,300),0))
@@ -39,22 +39,24 @@
 #' df <- rbind(dbt,dbg,dlb)
 #' str(df)
 #'
+#' #===== Add Wr variable
+#' #----- using formula interface
 #' df$Wr1 <- wrAdd(wt~tl+species,data=df)
-#' ## same but with non-formula interface
+#' #----- same but with non-formula interface
 #' df$Wr2 <- wrAdd(df$wt,df$tl,df$species)
-#' 
-#' ## Same as above but using dplyr
+#' #----- same but using dplyr
 #' if (require(dplyr)) {
-#'   df <- mutate(df,Wr3a=wrAdd(wt,tl,species))
+#'   df <- df |>
+#'     mutate(Wr3=wrAdd(wt,tl,species))
 #' }
-#'
-#' df
+#' #----- examine results
+#' peek(df)
 #'  
-#' ## Example with only one species in the data.frame
+#' #===== Example with only one species in the data.frame
 #' bg <- droplevels(subset(df,species=="Bluegill"))
 #' bg$Wr4 <- wrAdd(wt~tl+species,data=bg)
+#' bg
 #' 
-#' @export
 #' @rdname wrAdd
 #' @export
 wrAdd <- function (wt,...) {

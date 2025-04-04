@@ -31,13 +31,44 @@
 #' @keywords manip
 #'
 #' @examples
+#' #===== List all available Ws equations
 #' wsVal()
+#' 
+#' #===== Find equations for Bluegill, in different formats
 #' wsVal("Bluegill")
 #' wsVal("Bluegill",units="metric")
 #' wsVal("Bluegill",units="English")
 #' wsVal("Bluegill",units="English",simplify=TRUE)
+#' 
+#' #===== Find equation for Ruffe, demonstration quadratic formula
 #' wsVal("Ruffe",units="metric",simplify=TRUE)
 #' wsVal("Ruffe",units="metric",ref=50,simplify=TRUE)
+#'
+#' #===== Add Ws & Wr values to a data frame (for one species) ... also see wrAdd()
+#' #----- Get Ws equation info
+#' wsBG <- wsVal("Bluegill",units="metric")
+#' wsBG
+#' #----- Get example data
+#' data(BluegillLM,package="FSAdata")
+#' str(BluegillLM)
+#' #----- Add Ws (eqn is on log10-log10 scale ... so log10 len, 10^ result)
+#' BluegillLM$ws <- 10^(wsBG[["int"]]+wsBG[["slope"]]*log10(BluegillLM$tl))
+#' #----- Change Ws for fish less than min.TL to NA
+#' BluegillLM$ws[BluegillLM$tl<wsBG[["min.TL"]]] <- NA
+#' #----- Add Wr
+#' BluegillLM$wr <- BluegillLM$wght/BluegillLM$ws*100
+#' #----- Examine results
+#' peek(BluegillLM,n=6)
+#' 
+#' #----- Same as above but using dplyr
+#' data(BluegillLM,package="FSAdata")   # reset to original for this example
+#' if (require(dplyr)) {
+#'   BluegillLM <- BluegillLM |>
+#'     mutate(ws=10^(wsBG[["int"]]+wsBG[["slope"]]*log10(tl)),
+#'            ws=ifelse(tl<wsBG[["min.TL"]],NA,ws),
+#'            wr=wght/ws*100)
+#'   peek(BluegillLM,n=6)
+#' }
 #'
 #' @export
 wsVal <- function(species="List",units=c("metric","English"),ref=75,method=NULL,
