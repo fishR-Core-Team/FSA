@@ -10,6 +10,14 @@ test_that("wsVal() messages",{
   #===== too many species name
   expect_error(wsVal(c("Bluegill","Yellow Perch")),
                "must contain only one name")
+  #===== need groups
+  expect_error(wsVal("Walleye"),
+               "\"Walleye\" has Ws equations for these sub-groups:")
+  expect_error(wsVal("Walleye",group="Derek"),
+               "There is no \"Derek\" group for \"Walleye\"")
+  expect_warning(wsVal("Bluegill",group="Derek"),
+               "There are no groups for \"Bluegill\"; thus,")
+  
   #===== bad units
   #----- typed wrong
   expect_error(wsVal("Bluegill",units="inches"),"should be one of")
@@ -24,7 +32,7 @@ test_that("wsVal() messages",{
   #===== bad choices for method
   expect_error(wsVal("Bluegill",method="Derek"),
                "There is no Ws equation for \"Bluegill\" derived from")
-  expect_error(wsVal("Brook Trout",method="EmP"),
+  expect_error(wsVal("Brook Trout",group="overall",method="EmP"),
                "There is no Ws equation for \"Brook Trout\" derived from")
   expect_error(wsVal("Blue Sucker",method="RLP"),
                "There is no Ws equation for \"Blue Sucker\" derived from")
@@ -75,28 +83,42 @@ test_that("wrAdd() messages",{
 
 ## Test Output Types ----
 test_that("wsVal() results",{
-  ## Do Bluegill results match
+  ## Do Bluegill results match ... example with no group or quad
   bg1 <- wsVal("Bluegill")
   bg2 <- WSlit[WSlit$species=="Bluegill" & WSlit$units=="metric",]
-  bg2 <- bg2[,!names(bg2) %in% c("max.len","quad","comment")]
+  bg2 <- bg2[,!names(bg2) %in% c("group","max.len","quad","comment")]
   expect_equal(bg1,bg2,ignore_attr=TRUE)
   bg1 <- wsVal("Bluegill",units="English")
   bg2 <- WSlit[WSlit$species=="Bluegill" & WSlit$units=="English",]
-  bg2 <- bg2[,!names(bg2) %in% c("max.len","quad","comment")]
+  bg2 <- bg2[,!names(bg2) %in% c("group","max.len","quad","comment")]
   expect_equal(bg1,bg2,ignore_attr=TRUE)
   bg1 <- wsVal("Bluegill",units="English",simplify=TRUE)
   bg2 <- WSlit[WSlit$species=="Bluegill" & WSlit$units=="English",]
   bg2 <- bg2[,names(bg2) %in% c("species","min.len","int","slope")]
   expect_equal(bg1,bg2,ignore_attr=TRUE)
-  ## Do Ruffe results match
+  ## Do Ruffe results match ... example with quad
   ruf1 <- wsVal("Ruffe")
   ruf2 <- WSlit[WSlit$species=="Ruffe" & WSlit$units=="metric" & WSlit$ref=="75",]
-  ruf2 <- ruf2[!names(ruf2) %in% c("comment")]
+  ruf2 <- ruf2[!names(ruf2) %in% c("group","comment")]
   expect_equal(ruf1,ruf2,ignore_attr=TRUE)
   ruf1 <- wsVal("Ruffe",simplify=TRUE)
   ruf2 <- WSlit[WSlit$species=="Ruffe" & WSlit$units=="metric" & WSlit$ref=="75",]
   ruf2 <- ruf2[,names(ruf2) %in% c("species","min.len","max.len","int","slope","quad")]
   expect_equal(ruf1,ruf2,ignore_attr=TRUE)
+  ## Do Walleye results match ... example with a sub-group
+  wae1 <- wsVal("Walleye",group="overall")
+  wae2 <- WSlit[WSlit$species=="Walleye" & WSlit$group=="overall" & WSlit$units=="metric",]
+  wae2 <- wae2[,!names(wae2) %in% c("max.len","quad","comment")]
+  expect_equal(wae1,wae2,ignore_attr=TRUE)
+  wae1 <- wsVal("Walleye",group="overall",units="English")
+  wae2 <- WSlit[WSlit$species=="Walleye" & WSlit$group=="overall" & WSlit$units=="English",]
+  wae2 <- wae2[,!names(wae2) %in% c("max.len","quad","comment")]
+  expect_equal(wae1,wae2,ignore_attr=TRUE)
+  wae1 <- wsVal("Walleye",group="overall",simplify=TRUE)
+  wae2 <- WSlit[WSlit$species=="Walleye" & WSlit$group=="overall" & WSlit$units=="metric",]
+  wae2 <- wae2[,names(wae2) %in% c("species","min.len","int","slope")]
+  expect_equal(wae1,wae2,ignore_attr=TRUE)
+  
   ##
   expect_message(capture.output(wsVal("List")),"must be one of following")
   expect_output(suppressMessages(wsVal("List")))

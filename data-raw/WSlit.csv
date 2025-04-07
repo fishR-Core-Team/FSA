@@ -1,210 +1,208 @@
-species,measure,units,ref,method,min.len,max.len,int,slope,quad,source,comment
-Aegean Chub,TL,metric,75,EmP,70,220,-3.801,1.783,0.329,Giannetto et al. (2012),none
-African Sharptooth Catfish,TL,metric,75,EmP,180,450,-3.668,1.885,0.2087,Emiroglu et al. (2018),only from Sakarya River Basin (Turkey)
-Alabama Bass,TL,metric,75,RLP,100,NA,-5.598,3.2904,NA,Dicenzo et al. (1995),min.len not made clear (assumed same as Spotted Bass); same as Spotted Bass (Alabama subspecies)
-Ankara Nase,TL,metric,75,EmP,70,240,-10.017,7.402,-0.971,Emiroglu et al. (2020),only from Turkey
-Arctic Grayling,TL,metric,75,RLP,150,NA,-5.241,3.083,NA,Gilham et al. (2021),authors note that either RLP or EmP method may be used
-Arctic Grayling,TL,metric,75,EmP,150,NA,-5.279,3.096,NA,Gilham et al. (2021),authors note that either RLP or EmP method may be used
-Bighead Carp,TL,metric,50,RLP,160,NA,-4.65006,2.88934,NA,Lamer et al. (2019),none
-Bigmouth Buffalo,TL,English,75,RLP,6,NA,-3.346,3.118,NA,Bister et al. (2000),none
-Bigmouth Buffalo,TL,metric,75,RLP,150,NA,-5.069,3.118,NA,Bister et al. (2000),none
-Bigmouth Sleepers (all),TL,metric,25,EmP,70,390,-6,3.631,-0.111,Cooney and Kwak (2010),none
-Bigmouth Sleepers (all),TL,metric,50,EmP,70,390,-5.4,3.153,-0.011,Cooney and Kwak (2010),quadratic term not significant
-Bigmouth Sleepers (all),TL,metric,75,EmP,70,390,-4.323,2.237,0.188,Cooney and Kwak (2010),none
-Bigmouth Sleepers (lotic),TL,metric,25,EmP,40,390,-6.083,3.708,-0.128,Cooney and Kwak (2010),none
-Bigmouth Sleepers (lotic),TL,metric,50,EmP,40,390,-5.574,3.302,-0.043,Cooney and Kwak (2010),quadratic term not significant
-Bigmouth Sleepers (lotic),TL,metric,75,EmP,40,390,-4.933,2.764,0.075,Cooney and Kwak (2010),quadratic term not significant
-Black Bullhead,TL,English,75,RLP,5,NA,-3.297,3.085,NA,Bister et al. (2000),none
-Black Bullhead,TL,metric,75,RLP,130,NA,-4.974,3.085,NA,Bister et al. (2000),none
-Black Crappie,TL,English,75,RLP,4,NA,-3.576,3.345,NA,Neumann and Murphy (1991),none
-Black Crappie,TL,metric,75,RLP,100,NA,-5.618,3.345,NA,Neumann and Murphy (1991),none
-Blacktail Redhorse,TL,metric,75,EmP,130,450,-5.182,3.087,NA,Rypel and Richter (2008),none
-Blue Catfish,TL,English,75,RLP,6.25,NA,-3.95,3.4,NA,Muoneke and Pope (1999),none
-Blue Catfish,TL,metric,75,RLP,160,NA,-6.067,3.4,NA,Muoneke and Pope (1999),none
-Blue Sucker,TL,English,75,EmP,9.5,31.75,-3.354,2.273,0.461,Neely et al. (2008),none
-Blue Sucker,TL,metric,75,EmP,240,809,-2.98,0.977,0.461,Neely et al. (2008),none
-Bluegill,TL,English,75,Other,3,NA,-3.371,3.316,NA,Hillman (1982),none
-Bluegill,TL,metric,75,Other,80,NA,-5.374,3.316,NA,Hillman (1982),none
-Bridgelip Sucker,TL,English,75,EmP,5,18,-3.47027,3.04947,NA,Richter (2007),none
-Bridgelip Sucker,TL,metric,75,EmP,130,460,-5.09721,3.04947,NA,Richter (2007),none
-Brook Chub,TL,metric,75,EmP,90,210,-7.75,5.75,-0.66,Giannetto et al. (2012),none
-Brook Trout,TL,English,75,RLP,4.75,NA,-3.483,3.103,NA,Hyatt and Hubert (2001a),none
-Brook Trout,TL,metric,75,RLP,120,NA,-5.186,3.103,NA,Hyatt and Hubert (2001a),none
-Brook Trout (appalachia),TL,metric,75,EmP,80,226,-3.364,1.378,0.397,Harris et al. (2021),RLP and EmP (linear) models had length-related bias (thus not recommended)
-Brown Bullhead,TL,English,75,RLP,5,NA,-3.371,3.105,NA,Bister et al. (2000),none
-Brown Bullhead,TL,metric,75,RLP,130,NA,-5.076,3.105,NA,Bister et al. (2000),none
-Brown Trout (lentic),TL,English,75,RLP,5.5,NA,-3.592,3.194,NA,Hyatt and Hubert (2001b),none
-Brown Trout (lentic),TL,metric,75,RLP,140,NA,-5.422,3.194,NA,Hyatt and Hubert (2001b),none
-Brown Trout (lotic),TL,English,75,RLP,5.5,NA,-3.366,2.96,NA,Milewski and Brown (1994),none
-Brown Trout (lotic),TL,metric,75,RLP,140,NA,-4.867,2.96,NA,Milewski and Brown (1994),none
-Bull Trout,TL,English,75,RLP,4.75,NA,-3.608,3.115,NA,Hyatt and Hubert (2000),none
-Bull Trout,TL,metric,75,RLP,120,NA,-5.327,3.115,NA,Hyatt and Hubert (2000),none
-Burbot,TL,English,75,RLP,8,NA,-3.454,2.898,NA,Fisher et al. (1996),none
-Burbot,TL,metric,75,RLP,200,NA,-4.868,2.898,NA,Fisher et al. (1996),none
-Cavedano Chub,TL,metric,75,EmP,70,470,-4.79,2.68,0.1,Giannetto et al. (2011),same as European Chub
-Chain Pickerel,TL,English,75,RLP,6,NA,-3.923,3.243,NA,Neumann and Flammang (1997),none
-Chain Pickerel,TL,metric,75,RLP,150,NA,-5.824,3.243,NA,Neumann and Flammang (1997),none
-Channel Catfish,TL,English,75,RLP,2.75,NA,-3.829,3.294,NA,Brown et al. (1995),none
-Channel Catfish,TL,metric,75,RLP,70,NA,-5.8,3.294,NA,Brown et al. (1995),none
-Chinook Salmon,TL,English,75,RLP,8,NA,-3.243,2.901,NA,Halseth et al. (1990),none
-Chinook Salmon,TL,metric,75,RLP,200,NA,-4.661,2.901,NA,Halseth et al. (1990),none
-Cisco,TL,English,75,RLP,4,NA,-3.644,3.224,NA,Fisher and Fielder (1998),same as for Lake Herring
-Cisco,TL,metric,75,RLP,100,NA,-5.517,3.224,NA,Fisher and Fielder (1998),same as for Lake Herring
-Common Carp,TL,English,75,RLP,8,NA,-3.194,2.92,NA,Bister et al. (2000),none
-Common Carp,TL,metric,75,RLP,200,NA,-4.639,2.92,NA,Bister et al. (2000),none
-Cutthroat Trout (lentic),TL,English,75,RLP,5,NA,-3.514,3.086,NA,Kruse and Hubert (1997),none
-Cutthroat Trout (lentic),TL,metric,75,RLP,130,NA,-5.192,3.086,NA,Kruse and Hubert (1997),none
-Cutthroat Trout (lotic),TL,English,75,RLP,5,NA,-3.492,3.099,NA,Kruse and Hubert (1997),none
-Cutthroat Trout (lotic),TL,metric,75,RLP,130,NA,-5.189,3.099,NA,Kruse and Hubert (1997),none
-European Chub,TL,metric,75,EmP,70,470,-4.79,2.68,0.1,Giannetto et al. (2011),only from Italy (see Cavedano Chub)
-European Perch,TL,metric,75,EmP,80,460,-3.1483,1.2663,0.4291,Giannetto et al. (2012),none
-Flannelmouth Sucker,TL,English,75,RLP,4,NA,-3.527,3.068,NA,Didenko et al. (2004),none
-Flannelmouth Sucker,TL,metric,75,RLP,100,NA,-5.18,3.068,NA,Didenko et al. (2004),none
-Flathead Catfish,TL,English,75,RLP,5,NA,-3.661,3.23,NA,Bister et al. (2000),none
-Flathead Catfish,TL,metric,75,RLP,130,NA,-5.542,3.23,NA,Bister et al. (2000),none
-Fourbarbel Scraper,TL,metric,75,EmP,70,280,-6.743,4.768,-0.437,Emiroglu et al. (2020),only from Turkey
-Freshwater Drum,TL,English,75,RLP,4,NA,-3.575,3.204,NA,Blackwell et al. (1995),none
-Freshwater Drum,TL,metric,75,RLP,100,NA,-5.419,3.204,NA,Blackwell et al. (1995),none
-Gizzard Shad,TL,English,75,Other,7,NA,-3.58,3.17,NA,Anderson and Gutreuter (1983),none
-Gizzard Shad,TL,metric,75,Other,180,NA,-5.376,3.17,NA,Anderson and Gutreuter (1983),none
-Golden Shiner,TL,English,75,RLP,2,NA,-3.611,3.302,NA,Liao et al. (1995),none
-Golden Shiner,TL,metric,75,RLP,50,NA,-5.593,3.302,NA,Liao et al. (1995),none
-Golden Trout,TL,English,75,RLP,4.75,NA,-3.473,3.041,NA,Hyatt and Hubert (2000),none
-Golden Trout,TL,metric,75,RLP,120,NA,-5.088,3.041,NA,Hyatt and Hubert (2000),none
-Goldeye,TL,metric,75,EmP,160,470,-5.151,3.049,NA,Miller et al. (2023),"No validation or recommendation on which to use, but this equation was used in a subsequent paper by same authors"
-Green Sunfish,TL,English,75,RLP,2.5,NA,-3.216,3.101,NA,Bister et al. (2000),none
-Green Sunfish,TL,metric,75,RLP,60,NA,-4.915,3.101,NA,Bister et al. (2000),none
-Horse Barbel,TL,metric,75,EmP,80,480,-4.9671,3.0216,-0.0095,Giannetto et al. (2015),only from Italy
-Humpback Chub,TL,English,75,RLP,4.75,NA,-3.586,3.096,NA,Didenko et al. (2004),none
-Humpback Chub,TL,metric,75,RLP,120,NA,-5.278,3.096,NA,Didenko et al. (2004),none
-Kokanee,TL,English,75,RLP,4.75,NA,-3.458,3.033,NA,Hyatt and Hubert (2000),none
-Kokanee,TL,metric,75,RLP,120,NA,-5.062,3.033,NA,Hyatt and Hubert (2000),none
-Lake Chubsucker,TL,metric,75,EmP,80,NA,-5.9735,3.8828,-0.1701,Bonvechio and Bonvechio (2021),"Recommended to use this, not RLP"
-Lake Chubsucker,TL,English,75,EmP,80,NA,-3.5134,3.4077,-0.1713,Bonvechio and Bonvechio (2021),"Recommended to use this, not RLP"
-Lake Herring,TL,English,75,RLP,4,NA,-3.644,3.224,NA,Fisher and Fielder (1998),same as for Cisco
-Lake Herring,TL,metric,75,RLP,100,NA,-5.517,3.224,NA,Fisher and Fielder (1998),same as for Cisco
-Lake Trout,TL,English,75,RLP,11,NA,-3.778,3.246,NA,Piccolo et al. (1993),none
-Lake Trout,TL,metric,75,RLP,280,NA,-5.681,3.246,NA,Piccolo et al. (1993),none
-Largemouth Bass,TL,English,75,RLP,6,NA,-3.587,3.273,NA,Henson (1991),none
-Largemouth Bass,TL,metric,75,RLP,150,NA,-5.528,3.273,NA,Henson (1991),none
-Largescale Sucker,TL,English,75,EmP,6.75,25.25,-3.53066,3.12136,NA,Richter (2007),none
-Largescale Sucker,TL,metric,75,EmP,170,640,-5.2586,3.12136,NA,Richter (2007),none
-Longnose Gar,TL,English,75,RLP,8,NA,-4.623,3.449,NA,Bister et al. (2000),none
-Longnose Gar,TL,metric,75,RLP,200,NA,-6.811,3.449,NA,Bister et al. (2000),none
-Marble Trout,TL,metric,75,EmP,90,570,-5.208,3.202,-0.046,Lorenzoni et al. (2012),none
-Mountain Mullet,TL,metric,25,EmP,30,290,-4.985,3.047,-0.018,Cooney and Kwak (2010),quadratic term not significant
-Mountain Mullet,TL,metric,50,EmP,30,290,-4.315,2.44,0.124,Cooney and Kwak (2010),none
-Mountain Mullet,TL,metric,75,EmP,30,290,-3.564,1.754,0.286,Cooney and Kwak (2010),none
-Mountain Whitefish,TL,English,75,RLP,5.5,NA,-3.478,3.036,NA,Rogers et al. (1996),none
-Mountain Whitefish,TL,metric,75,RLP,140,NA,-5.086,3.036,NA,Rogers et al. (1996),none
-Muskellunge (female),TL,English,75,RLP,15,NA,-4.07,3.34,NA,Neumann and Willis (1994),none
-Muskellunge (female),TL,metric,75,RLP,380,NA,-6.105,3.34,NA,Neumann and Willis (1994),none
-Muskellunge (male),TL,English,75,RLP,15,NA,-3.921,3.245,NA,Neumann and Willis (1994),none
-Muskellunge (male),TL,metric,75,RLP,380,NA,-5.823,3.245,NA,Neumann and Willis (1994),none
-Muskellunge (overall),TL,English,75,RLP,15,NA,-4.052,3.325,NA,Neumann and Willis (1994),none
-Muskellunge (overall),TL,metric,75,RLP,380,NA,-6.066,3.325,NA,Neumann and Willis (1994),none
-Nile Tilapia,TL,metric,75,EmP,80,280,-8.7951,6.751,-0.8479,Emiroglu et al. (2018),only from Sakarya River Basin (Turkey)
-Nipple-Lip Scraper,TL,metric,75,EmP,70,360,-5.966,3.833,-0.181,Emiroglu et al. (2020),only from Turkey
-Northern Pike,TL,English,75,RLP,4,NA,-3.745,3.096,NA,Anderson and Neumann (1996),none
-Northern Pike,TL,metric,75,RLP,100,NA,-5.437,3.096,NA,Anderson and Neumann (1996),none
-Northern Pikeminnow,FL,English,75,RLP,10,NA,-3.328,2.986,NA,Parker et al. (1995),same as Northern Squawfish
-Northern Pikeminnow,FL,metric,75,RLP,250,NA,-4.886,2.986,NA,Parker et al. (1995),same as Northern Squawfish
-Northern Snakehead,TL,metric,75,RLP,200,NA,-5.142,3.0418,NA,Kim et al. (2019),from 4 populations
-Northern Squawfish,FL,English,75,RLP,10,NA,-3.328,2.986,NA,Parker et al. (1995),same as Northern Pikeminnow
-Northern Squawfish,FL,metric,75,RLP,250,NA,-4.886,2.986,NA,Parker et al. (1995),same as Northern Pikeminnow
-Paddlefish (female),BL,English,75,RLP,11,NA,-2.822,2.782,NA,Brown and Murphy (1993),none
-Paddlefish (female),BL,metric,75,RLP,280,NA,-4.073,2.782,NA,Brown and Murphy (1993),none
-Paddlefish (male),BL,English,75,RLP,11,NA,-3.063,2.91,NA,Brown and Murphy (1993),none
-Paddlefish (male),BL,metric,75,RLP,280,NA,-4.494,2.91,NA,Brown and Murphy (1993),none
-Paddlefish (overall),BL,English,75,RLP,11,NA,-3.34,3.092,NA,Brown and Murphy (1993),none
-Paddlefish (overall),BL,metric,75,RLP,280,NA,-5.027,3.092,NA,Brown and Murphy (1993),none
-Palmetto Bass,TL,English,75,RLP,4.5,NA,-3.448,3.139,NA,Brown and Murphy (1991b),same as Striped Bass (Hybrid) and Striped Bass x White Bass
-Palmetto Bass,TL,metric,75,RLP,115,NA,-5.201,3.139,NA,Brown and Murphy (1991b),same as Striped Bass (Hybrid) and Striped Bass x White Bass
-Pejerrey,TL,English,75,RLP,10,NA,-3.651,3.097,NA,Baigun and Anderson (1993),none
-Pejerrey,TL,metric,75,RLP,250,NA,-5.345,3.097,NA,Baigun and Anderson (1993),none
-Pumpkinseed,TL,English,75,RLP,2,NA,-3.289,3.237,NA,Liao et al. (1995),none
-Pumpkinseed,TL,metric,75,RLP,50,NA,-5.179,3.237,NA,Liao et al. (1995),none
-Pursak Chub,TL,metric,75,EmP,80,240,-4.657,2.614,0.127,Sulun et al. (2014),none
-Rainbow Trout (lentic),TL,English,75,RLP,4.75,NA,-3.354,2.99,NA,Simpkins and Hubert (1996),none
-Rainbow Trout (lentic),TL,metric,75,RLP,120,NA,-4.898,2.99,NA,Simpkins and Hubert (1996),none
-Rainbow Trout (lotic),TL,English,75,RLP,4.75,NA,-3.432,3.024,NA,Simpkins and Hubert (1996),none
-Rainbow Trout (lotic),TL,metric,75,RLP,120,NA,-5.023,3.024,NA,Simpkins and Hubert (1996),none
-Razorback Sucker,TL,English,75,RLP,4.25,NA,-3.35,2.985,NA,Didenko et al. (2004),none
-Razorback Sucker,TL,metric,75,RLP,110,NA,-4.886,2.985,NA,Didenko et al. (2004),none
-Redbreast Sunfish,TL,English,75,EmP,3,11.75,-3.2727,3.1215,NA,Bonvechio et al. (2023),also used RLP and EmP-quadratic but did not recommend
-Redbreast Sunfish,TL,metric,75,EmP,80,300,-5.0018,3.1218,NA,Bonvechio et al. (2023),also used RLP and EmP-quadratic but did not recommend
-Redear Sunfish,TL,English,75,RLP,2.75,NA,-3.263,3.119,NA,Pope et al. (1995),none
-Redear Sunfish,TL,metric,75,RLP,70,NA,-4.968,3.119,NA,Pope et al. (1995),none
-Riffle Dace,TL,metric,75,EmP,60,NA,-3.706,1.685,0.349,Giannetto et al. (2011),only from Tiber River basin (Italy)
-River Carpsucker,TL,English,75,RLP,5,NA,-3.293,2.992,NA,Bister et al. (2000),none
-River Carpsucker,TL,metric,75,RLP,130,NA,-4.839,2.992,NA,Bister et al. (2000),none
-River Goby,TL,metric,25,EmP,30,250,-4.745,2.452,0.188,Cooney and Kwak (2010),none
-River Goby,TL,metric,50,EmP,30,250,-3.866,1.667,0.367,Cooney and Kwak (2010),none
-River Goby,TL,metric,75,EmP,30,250,-3.198,1.071,0.507,Cooney and Kwak (2010),none
-Rock Bass,TL,English,75,RLP,3,NA,-3.166,3.074,NA,Bister et al. (2000),none
-Rock Bass,TL,metric,75,RLP,80,NA,-4.827,3.074,NA,Bister et al. (2000),none
-Roundtail Chub,TL,English,75,RLP,4,NA,-3.486,3.015,NA,Didenko et al. (2004),none
-Roundtail Chub,TL,metric,75,RLP,100,NA,-5.065,3.015,NA,Didenko et al. (2004),none
-Ruffe,TL,metric,50,EmP,55,205,-3.3524,1.3969,0.4054,Ogle and Winfield (2009),none
-Ruffe,TL,metric,75,EmP,55,205,-2.58,0.621,0.6073,Ogle and Winfield (2009),none
-Sardine,CL,metric,25,EmP,50,NA,-1.736,2.446,0.328,Ndjaula et al. (2013),none
-Sardine,CL,metric,50,EmP,50,NA,-1.975,3.033,0.056,Ndjaula et al. (2013),none
-Sardine,CL,metric,75,EmP,50,NA,-1.825,2.679,0.224,Ndjaula et al. (2013),none
-Sauger,TL,English,75,RLP,2.75,NA,-3.671,3.187,NA,Anderson and Neumann (1996),none
-Sauger,TL,metric,75,RLP,70,NA,-5.492,3.187,NA,Anderson and Neumann (1996),none
-Saugeye,TL,English,75,RLP,6.75,NA,-3.76,3.266,NA,Flammang et al. (1993),none
-Saugeye,TL,metric,75,RLP,170,NA,-5.692,3.266,NA,Flammang et al. (1993),none
-Shoal Bass,TL,English,75,EmP,4.75,NA,-3.169,2.391,0.415,Bonvechio et al. (2019),also used RLP but did not recommend
-Shoal Bass,TL,metric,75,EmP,120,NA,-3.052,1.225,0.415,Bonvechio et al. (2019),also used RLP but did not recommend
-Shorthead Redhorse,TL,English,75,RLP,4,NA,-3.337,2.962,NA,Bister et al. (2000),none
-Shorthead Redhorse,TL,metric,75,RLP,100,NA,-4.841,2.962,NA,Bister et al. (2000),none
-Shovelnose Sturgeon,FL,English,75,RLP,4.75,NA,-4.266,3.33,NA,Quist et al. (1998),none
-Shovelnose Sturgeon,FL,metric,75,RLP,120,NA,-6.287,3.33,NA,Quist et al. (1998),none
-Silver Carp,TL,metric,50,RLP,290,NA,-5.15756,3.06842,NA,Lamer et al. (2019),none
-Smallmouth Bass,TL,English,75,RLP,6,NA,-3.491,3.2,NA,Kolander et al. (1993),none
-Smallmouth Bass,TL,metric,75,RLP,150,NA,-5.329,3.2,NA,Kolander et al. (1993),none
-Smallmouth Buffalo,TL,English,75,RLP,8,NA,-3.448,3.208,NA,Bister et al. (2000),none
-Smallmouth Buffalo,TL,metric,75,RLP,200,NA,-5.298,3.208,NA,Bister et al. (2000),none
-South European Roach,TL,metric,75,EmP,60,200,-4.043,1.919,0.315,Giannetto et al. (2016),none
-Spotted Bass,TL,English,75,RLP,4,NA,-3.533,3.215,NA,Wiens et al. (1996),none
-Spotted Bass,TL,metric,75,RLP,100,NA,-5.392,3.215,NA,Wiens et al. (1996),none
-Spotted Bass (alabama subspecies),TL,metric,75,RLP,100,NA,-5.598,3.2904,NA,Dicenzo et al. (1995),min.len not made clear (assumed same as Spotted Bass); same as Alabama Bass
-Spotted Gar,TL,English,75,RLP,10,NA,-4.388,3.431,NA,Bister et al. (2000),none
-Spotted Gar,TL,metric,75,RLP,250,NA,-6.551,3.431,NA,Bister et al. (2000),none
-Spotted Sunfish,TL,English,75,EmP,2.75,8,-3.3468,3.3343,NA,Bonvechio et al. (2023),also used RLP and EmP-quadratic but did not recommend
-Spotted Sunfish,TL,metric,75,EmP,70,200,-5.3739,3.3343,NA,Bonvechio et al. (2023),also used RLP and EmP-quadratic but did not recommend
-Striped Bass,TL,English,75,RLP,6,NA,-3.358,3.007,NA,Brown and Murphy (1991b),none
-Striped Bass,TL,metric,75,RLP,150,NA,-4.924,3.007,NA,Brown and Murphy (1991b),none
-Striped Bass (hybrid),TL,English,75,RLP,4.5,NA,-3.448,3.139,NA,Brown and Murphy (1991b),same as Palmetto Bass and Striped Bass x White Bass
-Striped Bass (hybrid),TL,metric,75,RLP,115,NA,-5.201,3.139,NA,Brown and Murphy (1991b),same as Palmetto Bass and Striped Bass x White Bass
-Striped Bass X White Bass,TL,English,75,RLP,4.5,NA,-3.448,3.139,NA,Brown and Murphy (1991b),same as Palmetto Bass and Striped Bass (Hybrid)
-Striped Bass X White Bass,TL,metric,75,RLP,115,NA,-5.201,3.139,NA,Brown and Murphy (1991b),same as Palmetto Bass and Striped Bass (Hybrid)
-Suwannee Bass,TL,metric,75,EmP,110,NA,-0.106,-1.363,0.995,Bonvechio et al. (2010),none
-Tiger Muskellunge,TL,English,75,RLP,9.5,NA,-4.095,3.337,NA,Rogers and Koupal (1997),none
-Tiger Muskellunge,TL,metric,75,RLP,240,NA,-6.126,3.337,NA,Rogers and Koupal (1997),none
-Utah Chub,TL,English,75,EmP,4,16,-3.335,3.031,NA,Black et al. (2021),none
-Utah Chub,TL,metric,75,EmP,90,410,-4.938,3.031,NA,Black et al. (2021),none
-Walleye,TL,English,75,RLP,6,NA,-3.642,3.18,NA,Murphy et al. (1990),none
-Walleye,TL,metric,75,RLP,150,NA,-5.453,3.18,NA,Murphy et al. (1990),none
-Walleye (30-149 mm),TL,English,75,RLP,1.25,NA,-3.431,2.869,NA,Flammang et al. (1999),none
-Walleye (30-149 mm),TL,metric,75,RLP,30,NA,-4.804,2.869,NA,Flammang et al. (1999),none
-Warmouth,TL,English,75,RLP,3,NA,-3.284,3.241,NA,Bister et al. (2000),none
-Warmouth,TL,metric,75,RLP,80,NA,-5.18,3.241,NA,Bister et al. (2000),none
-White Bass,TL,English,75,RLP,4.5,NA,-3.394,3.081,NA,Brown and Murphy (1991b),none
-White Bass,TL,metric,75,RLP,115,NA,-5.066,3.081,NA,Brown and Murphy (1991b),none
-White Catfish,TL,English,75,RLP,4,NA,-3.739,3.395,NA,Bister et al. (2000),none
-White Catfish,TL,metric,75,RLP,100,NA,-5.851,3.395,NA,Bister et al. (2000),none
-White Crappie,TL,English,75,RLP,4,NA,-3.618,3.332,NA,Neumann and Murphy (1991),none
-White Crappie,TL,metric,75,RLP,100,NA,-5.642,3.332,NA,Neumann and Murphy (1991),none
-White Perch,TL,English,75,RLP,3,NA,-3.373,3.136,NA,Bister et al. (2000),none
-White Perch,TL,metric,75,RLP,80,NA,-5.122,3.136,NA,Bister et al. (2000),none
-White Sturgeon,FL,English,75,RLP,27.5,NA,-3.912,3.232,NA,Beamesderfer (1993),none
-White Sturgeon,FL,metric,75,RLP,700,NA,-5.795,3.232,NA,Beamesderfer (1993),none
-White Sucker,TL,English,75,RLP,4,NA,-3.282,2.94,NA,Bister et al. (2000),none
-White Sucker,TL,metric,75,RLP,100,NA,-4.755,2.94,NA,Bister et al. (2000),none
-Yellow Bass,TL,English,75,RLP,2.75,NA,-3.398,3.133,NA,Bister et al. (2000),none
-Yellow Bass,TL,metric,75,RLP,70,NA,-5.142,3.133,NA,Bister et al. (2000),none
-Yellow Bullhead,TL,English,75,RLP,2.5,NA,-3.491,3.232,NA,Bister et al. (2000),none
-Yellow Bullhead,TL,metric,75,RLP,60,NA,-5.374,3.232,NA,Bister et al. (2000),none
-Yellow Perch,TL,English,75,RLP,4,NA,-3.506,3.23,NA,Willis et al. (1991),none
-Yellow Perch,TL,metric,75,RLP,100,NA,-5.386,3.23,NA,Willis et al. (1991),none
+species,group,measure,units,ref,method,min.len,max.len,int,slope,quad,source,comment
+Aegean Chub,NA,TL,metric,75,EmP,70,220,-3.801,1.783,0.329,Giannetto et al. (2012),none
+African Sharptooth Catfish,NA,TL,metric,75,EmP,180,450,-3.668,1.885,0.2087,Emiroglu et al. (2018),only from Sakarya River Basin (Turkey)
+Alabama Bass,NA,TL,metric,75,RLP,100,NA,-5.598,3.2904,NA,Dicenzo et al. (1995),min.len not made clear (assumed same as Spotted Bass); same as Spotted Bass (Alabama subspecies)
+Ankara Nase,NA,TL,metric,75,EmP,70,240,-10.017,7.402,-0.971,Emiroglu et al. (2020),only from Turkey
+Arctic Grayling,NA,TL,metric,75,RLP,150,NA,-5.241,3.083,NA,Gilham et al. (2021),authors note that either RLP or EmP method may be used
+Arctic Grayling,NA,TL,metric,75,EmP,150,NA,-5.279,3.096,NA,Gilham et al. (2021),authors note that either RLP or EmP method may be used
+Bighead Carp,NA,TL,metric,50,RLP,160,NA,-4.65006,2.88934,NA,Lamer et al. (2019),none
+Bigmouth Buffalo,NA,TL,English,75,RLP,6,NA,-3.346,3.118,NA,Bister et al. (2000),none
+Bigmouth Buffalo,NA,TL,metric,75,RLP,150,NA,-5.069,3.118,NA,Bister et al. (2000),none
+Bigmouth Sleepers,all,TL,metric,25,EmP,70,390,-6,3.631,-0.111,Cooney and Kwak (2010),none
+Bigmouth Sleepers,all,TL,metric,50,EmP,70,390,-5.4,3.153,-0.011,Cooney and Kwak (2010),quadratic term not significant
+Bigmouth Sleepers,all,TL,metric,75,EmP,70,390,-4.323,2.237,0.188,Cooney and Kwak (2010),none
+Bigmouth Sleepers,lotic,TL,metric,25,EmP,40,390,-6.083,3.708,-0.128,Cooney and Kwak (2010),none
+Bigmouth Sleepers,lotic,TL,metric,50,EmP,40,390,-5.574,3.302,-0.043,Cooney and Kwak (2010),quadratic term not significant
+Bigmouth Sleepers,lotic,TL,metric,75,EmP,40,390,-4.933,2.764,0.075,Cooney and Kwak (2010),quadratic term not significant
+Black Bullhead,NA,TL,English,75,RLP,5,NA,-3.297,3.085,NA,Bister et al. (2000),none
+Black Bullhead,NA,TL,metric,75,RLP,130,NA,-4.974,3.085,NA,Bister et al. (2000),none
+Black Crappie,NA,TL,English,75,RLP,4,NA,-3.576,3.345,NA,Neumann and Murphy (1991),none
+Black Crappie,NA,TL,metric,75,RLP,100,NA,-5.618,3.345,NA,Neumann and Murphy (1991),none
+Blacktail Redhorse,NA,TL,metric,75,EmP,130,450,-5.182,3.087,NA,Rypel and Richter (2008),none
+Blue Catfish,NA,TL,English,75,RLP,6.25,NA,-3.95,3.4,NA,Muoneke and Pope (1999),none
+Blue Catfish,NA,TL,metric,75,RLP,160,NA,-6.067,3.4,NA,Muoneke and Pope (1999),none
+Blue Sucker,NA,TL,English,75,EmP,9.5,31.75,-3.354,2.273,0.461,Neely et al. (2008),none
+Blue Sucker,NA,TL,metric,75,EmP,240,809,-2.98,0.977,0.461,Neely et al. (2008),none
+Bluegill,NA,TL,English,75,Other,3,NA,-3.371,3.316,NA,Hillman (1982),none
+Bluegill,NA,TL,metric,75,Other,80,NA,-5.374,3.316,NA,Hillman (1982),none
+Bridgelip Sucker,NA,TL,English,75,EmP,5,18,-3.47027,3.04947,NA,Richter (2007),none
+Bridgelip Sucker,NA,TL,metric,75,EmP,130,460,-5.09721,3.04947,NA,Richter (2007),none
+Brook Chub,NA,TL,metric,75,EmP,90,210,-7.75,5.75,-0.66,Giannetto et al. (2012),none
+Brook Trout,overall,TL,English,75,RLP,4.75,NA,-3.483,3.103,NA,Hyatt and Hubert (2001a),none
+Brook Trout,overall,TL,metric,75,RLP,120,NA,-5.186,3.103,NA,Hyatt and Hubert (2001a),none
+Brook Trout,Appalachia,TL,metric,75,EmP,80,226,-3.364,1.378,0.397,Harris et al. (2021),RLP and EmP (linear) models had length-related bias (thus not recommended)
+Brown Bullhead,NA,TL,English,75,RLP,5,NA,-3.371,3.105,NA,Bister et al. (2000),none
+Brown Bullhead,NA,TL,metric,75,RLP,130,NA,-5.076,3.105,NA,Bister et al. (2000),none
+Brown Trout,lentic,TL,English,75,RLP,5.5,NA,-3.592,3.194,NA,Hyatt and Hubert (2001b),none
+Brown Trout,lentic,TL,metric,75,RLP,140,NA,-5.422,3.194,NA,Hyatt and Hubert (2001b),none
+Brown Trout,lotic,TL,English,75,RLP,5.5,NA,-3.366,2.96,NA,Milewski and Brown (1994),none
+Brown Trout,lotic,TL,metric,75,RLP,140,NA,-4.867,2.96,NA,Milewski and Brown (1994),none
+Bull Trout,NA,TL,English,75,RLP,4.75,NA,-3.608,3.115,NA,Hyatt and Hubert (2000),none
+Bull Trout,NA,TL,metric,75,RLP,120,NA,-5.327,3.115,NA,Hyatt and Hubert (2000),none
+Burbot,NA,TL,English,75,RLP,8,NA,-3.454,2.898,NA,Fisher et al. (1996),none
+Burbot,NA,TL,metric,75,RLP,200,NA,-4.868,2.898,NA,Fisher et al. (1996),none
+Cavedano Chub,NA,TL,metric,75,EmP,70,470,-4.79,2.68,0.1,Giannetto et al. (2011),same as European Chub
+Chain Pickerel,NA,TL,English,75,RLP,6,NA,-3.923,3.243,NA,Neumann and Flammang (1997),none
+Chain Pickerel,NA,TL,metric,75,RLP,150,NA,-5.824,3.243,NA,Neumann and Flammang (1997),none
+Channel Catfish,NA,TL,English,75,RLP,2.75,NA,-3.829,3.294,NA,Brown et al. (1995),none
+Channel Catfish,NA,TL,metric,75,RLP,70,NA,-5.8,3.294,NA,Brown et al. (1995),none
+Chinook Salmon,NA,TL,English,75,RLP,8,NA,-3.243,2.901,NA,Halseth et al. (1990),none
+Chinook Salmon,NA,TL,metric,75,RLP,200,NA,-4.661,2.901,NA,Halseth et al. (1990),none
+Cisco,NA,TL,English,75,RLP,4,NA,-3.644,3.224,NA,Fisher and Fielder (1998),same as for Lake Herring
+Cisco,NA,TL,metric,75,RLP,100,NA,-5.517,3.224,NA,Fisher and Fielder (1998),same as for Lake Herring
+Common Carp,NA,TL,English,75,RLP,8,NA,-3.194,2.92,NA,Bister et al. (2000),none
+Common Carp,NA,TL,metric,75,RLP,200,NA,-4.639,2.92,NA,Bister et al. (2000),none
+Cutthroat Trout,lentic,TL,English,75,RLP,5,NA,-3.514,3.086,NA,Kruse and Hubert (1997),none
+Cutthroat Trout,lentic,TL,metric,75,RLP,130,NA,-5.192,3.086,NA,Kruse and Hubert (1997),none
+Cutthroat Trout,lotic,TL,English,75,RLP,5,NA,-3.492,3.099,NA,Kruse and Hubert (1997),none
+Cutthroat Trout,lotic,TL,metric,75,RLP,130,NA,-5.189,3.099,NA,Kruse and Hubert (1997),none
+European Chub,NA,TL,metric,75,EmP,70,470,-4.79,2.68,0.1,Giannetto et al. (2011),only from Italy (see Cavedano Chub)
+European Perch,NA,TL,metric,75,EmP,80,460,-3.1483,1.2663,0.4291,Giannetto et al. (2012),none
+Flannelmouth Sucker,NA,TL,English,75,RLP,4,NA,-3.527,3.068,NA,Didenko et al. (2004),none
+Flannelmouth Sucker,NA,TL,metric,75,RLP,100,NA,-5.18,3.068,NA,Didenko et al. (2004),none
+Flathead Catfish,NA,TL,English,75,RLP,5,NA,-3.661,3.23,NA,Bister et al. (2000),none
+Flathead Catfish,NA,TL,metric,75,RLP,130,NA,-5.542,3.23,NA,Bister et al. (2000),none
+Fourbarbel Scraper,NA,TL,metric,75,EmP,70,280,-6.743,4.768,-0.437,Emiroglu et al. (2020),only from Turkey
+Freshwater Drum,NA,TL,English,75,RLP,4,NA,-3.575,3.204,NA,Blackwell et al. (1995),none
+Freshwater Drum,NA,TL,metric,75,RLP,100,NA,-5.419,3.204,NA,Blackwell et al. (1995),none
+Gizzard Shad,NA,TL,English,75,Other,7,NA,-3.58,3.17,NA,Anderson and Gutreuter (1983),none
+Gizzard Shad,NA,TL,metric,75,Other,180,NA,-5.376,3.17,NA,Anderson and Gutreuter (1983),none
+Golden Shiner,NA,TL,English,75,RLP,2,NA,-3.611,3.302,NA,Liao et al. (1995),none
+Golden Shiner,NA,TL,metric,75,RLP,50,NA,-5.593,3.302,NA,Liao et al. (1995),none
+Golden Trout,NA,TL,English,75,RLP,4.75,NA,-3.473,3.041,NA,Hyatt and Hubert (2000),none
+Golden Trout,NA,TL,metric,75,RLP,120,NA,-5.088,3.041,NA,Hyatt and Hubert (2000),none
+Goldeye,NA,TL,metric,75,EmP,160,470,-5.151,3.049,NA,Miller et al. (2023),"No validation or recommendation on which to use, but this equation was used in a subsequent paper by same authors"
+Green Sunfish,NA,TL,English,75,RLP,2.5,NA,-3.216,3.101,NA,Bister et al. (2000),none
+Green Sunfish,NA,TL,metric,75,RLP,60,NA,-4.915,3.101,NA,Bister et al. (2000),none
+Horse Barbel,NA,TL,metric,75,EmP,80,480,-4.9671,3.0216,-0.0095,Giannetto et al. (2015),only from Italy
+Humpback Chub,NA,TL,English,75,RLP,4.75,NA,-3.586,3.096,NA,Didenko et al. (2004),none
+Humpback Chub,NA,TL,metric,75,RLP,120,NA,-5.278,3.096,NA,Didenko et al. (2004),none
+Kokanee,NA,TL,English,75,RLP,4.75,NA,-3.458,3.033,NA,Hyatt and Hubert (2000),none
+Kokanee,NA,TL,metric,75,RLP,120,NA,-5.062,3.033,NA,Hyatt and Hubert (2000),none
+Lake Chubsucker,NA,TL,metric,75,EmP,80,NA,-5.9735,3.8828,-0.1701,Bonvechio and Bonvechio (2021),"Recommended to use this, not RLP"
+Lake Chubsucker,NA,TL,English,75,EmP,80,NA,-3.5134,3.4077,-0.1713,Bonvechio and Bonvechio (2021),"Recommended to use this, not RLP"
+Lake Herring,NA,TL,English,75,RLP,4,NA,-3.644,3.224,NA,Fisher and Fielder (1998),same as for Cisco
+Lake Herring,NA,TL,metric,75,RLP,100,NA,-5.517,3.224,NA,Fisher and Fielder (1998),same as for Cisco
+Lake Trout,NA,TL,English,75,RLP,11,NA,-3.778,3.246,NA,Piccolo et al. (1993),none
+Lake Trout,NA,TL,metric,75,RLP,280,NA,-5.681,3.246,NA,Piccolo et al. (1993),none
+Largemouth Bass,NA,TL,English,75,RLP,6,NA,-3.587,3.273,NA,Henson (1991),none
+Largemouth Bass,NA,TL,metric,75,RLP,150,NA,-5.528,3.273,NA,Henson (1991),none
+Largescale Sucker,NA,TL,English,75,EmP,6.75,25.25,-3.53066,3.12136,NA,Richter (2007),none
+Largescale Sucker,NA,TL,metric,75,EmP,170,640,-5.2586,3.12136,NA,Richter (2007),none
+Longnose Gar,NA,TL,English,75,RLP,8,NA,-4.623,3.449,NA,Bister et al. (2000),none
+Longnose Gar,NA,TL,metric,75,RLP,200,NA,-6.811,3.449,NA,Bister et al. (2000),none
+Marble Trout,NA,TL,metric,75,EmP,90,570,-5.208,3.202,-0.046,Lorenzoni et al. (2012),none
+Mountain Mullet,NA,TL,metric,25,EmP,30,290,-4.985,3.047,-0.018,Cooney and Kwak (2010),quadratic term not significant
+Mountain Mullet,NA,TL,metric,50,EmP,30,290,-4.315,2.44,0.124,Cooney and Kwak (2010),none
+Mountain Mullet,NA,TL,metric,75,EmP,30,290,-3.564,1.754,0.286,Cooney and Kwak (2010),none
+Mountain Whitefish,NA,TL,English,75,RLP,5.5,NA,-3.478,3.036,NA,Rogers et al. (1996),none
+Mountain Whitefish,NA,TL,metric,75,RLP,140,NA,-5.086,3.036,NA,Rogers et al. (1996),none
+Muskellunge,female,TL,English,75,RLP,15,NA,-4.07,3.34,NA,Neumann and Willis (1994),none
+Muskellunge,female,TL,metric,75,RLP,380,NA,-6.105,3.34,NA,Neumann and Willis (1994),none
+Muskellunge,male,TL,English,75,RLP,15,NA,-3.921,3.245,NA,Neumann and Willis (1994),none
+Muskellunge,male,TL,metric,75,RLP,380,NA,-5.823,3.245,NA,Neumann and Willis (1994),none
+Muskellunge,overall,TL,English,75,RLP,15,NA,-4.052,3.325,NA,Neumann and Willis (1994),none
+Muskellunge,overall,TL,metric,75,RLP,380,NA,-6.066,3.325,NA,Neumann and Willis (1994),none
+Nile Tilapia,NA,TL,metric,75,EmP,80,280,-8.7951,6.751,-0.8479,Emiroglu et al. (2018),only from Sakarya River Basin (Turkey)
+Nipple-Lip Scraper,NA,TL,metric,75,EmP,70,360,-5.966,3.833,-0.181,Emiroglu et al. (2020),only from Turkey
+Northern Pike,NA,TL,English,75,RLP,4,NA,-3.745,3.096,NA,Anderson and Neumann (1996),none
+Northern Pike,NA,TL,metric,75,RLP,100,NA,-5.437,3.096,NA,Anderson and Neumann (1996),none
+Northern Pikeminnow,NA,FL,English,75,RLP,10,NA,-3.328,2.986,NA,Parker et al. (1995),same as Northern Squawfish
+Northern Pikeminnow,NA,FL,metric,75,RLP,250,NA,-4.886,2.986,NA,Parker et al. (1995),same as Northern Squawfish
+Northern Snakehead,NA,TL,metric,75,RLP,200,NA,-5.142,3.0418,NA,Kim et al. (2019),from 4 populations
+Northern Squawfish,NA,FL,English,75,RLP,10,NA,-3.328,2.986,NA,Parker et al. (1995),same as Northern Pikeminnow
+Northern Squawfish,NA,FL,metric,75,RLP,250,NA,-4.886,2.986,NA,Parker et al. (1995),same as Northern Pikeminnow
+Paddlefish,female,BL,English,75,RLP,11,NA,-2.822,2.782,NA,Brown and Murphy (1993),none
+Paddlefish,female,BL,metric,75,RLP,280,NA,-4.073,2.782,NA,Brown and Murphy (1993),none
+Paddlefish,male,BL,English,75,RLP,11,NA,-3.063,2.91,NA,Brown and Murphy (1993),none
+Paddlefish,male,BL,metric,75,RLP,280,NA,-4.494,2.91,NA,Brown and Murphy (1993),none
+Paddlefish,overall,BL,English,75,RLP,11,NA,-3.34,3.092,NA,Brown and Murphy (1993),none
+Paddlefish,overall,BL,metric,75,RLP,280,NA,-5.027,3.092,NA,Brown and Murphy (1993),none
+Palmetto Bass,NA,TL,English,75,RLP,4.5,NA,-3.448,3.139,NA,Brown and Murphy (1991b),same as Striped Bass x White Bass
+Palmetto Bass,NA,TL,metric,75,RLP,115,NA,-5.201,3.139,NA,Brown and Murphy (1991b),same as Striped Bass x White Bass
+Pejerrey,NA,TL,English,75,RLP,10,NA,-3.651,3.097,NA,Baigun and Anderson (1993),none
+Pejerrey,NA,TL,metric,75,RLP,250,NA,-5.345,3.097,NA,Baigun and Anderson (1993),none
+Pumpkinseed,NA,TL,English,75,RLP,2,NA,-3.289,3.237,NA,Liao et al. (1995),none
+Pumpkinseed,NA,TL,metric,75,RLP,50,NA,-5.179,3.237,NA,Liao et al. (1995),none
+Pursak Chub,NA,TL,metric,75,EmP,80,240,-4.657,2.614,0.127,Sulun et al. (2014),none
+Rainbow Trout,lentic,TL,English,75,RLP,4.75,NA,-3.354,2.99,NA,Simpkins and Hubert (1996),none
+Rainbow Trout,lentic,TL,metric,75,RLP,120,NA,-4.898,2.99,NA,Simpkins and Hubert (1996),none
+Rainbow Trout,lotic,TL,English,75,RLP,4.75,NA,-3.432,3.024,NA,Simpkins and Hubert (1996),none
+Rainbow Trout,lotic,TL,metric,75,RLP,120,NA,-5.023,3.024,NA,Simpkins and Hubert (1996),none
+Razorback Sucker,NA,TL,English,75,RLP,4.25,NA,-3.35,2.985,NA,Didenko et al. (2004),none
+Razorback Sucker,NA,TL,metric,75,RLP,110,NA,-4.886,2.985,NA,Didenko et al. (2004),none
+Redbreast Sunfish,NA,TL,English,75,EmP,3,11.75,-3.2727,3.1215,NA,Bonvechio et al. (2023),also used RLP and EmP-quadratic but did not recommend
+Redbreast Sunfish,NA,TL,metric,75,EmP,80,300,-5.0018,3.1218,NA,Bonvechio et al. (2023),also used RLP and EmP-quadratic but did not recommend
+Redear Sunfish,NA,TL,English,75,RLP,2.75,NA,-3.263,3.119,NA,Pope et al. (1995),none
+Redear Sunfish,NA,TL,metric,75,RLP,70,NA,-4.968,3.119,NA,Pope et al. (1995),none
+Riffle Dace,NA,TL,metric,75,EmP,60,NA,-3.706,1.685,0.349,Giannetto et al. (2011),only from Tiber River basin (Italy)
+River Carpsucker,NA,TL,English,75,RLP,5,NA,-3.293,2.992,NA,Bister et al. (2000),none
+River Carpsucker,NA,TL,metric,75,RLP,130,NA,-4.839,2.992,NA,Bister et al. (2000),none
+River Goby,NA,TL,metric,25,EmP,30,250,-4.745,2.452,0.188,Cooney and Kwak (2010),none
+River Goby,NA,TL,metric,50,EmP,30,250,-3.866,1.667,0.367,Cooney and Kwak (2010),none
+River Goby,NA,TL,metric,75,EmP,30,250,-3.198,1.071,0.507,Cooney and Kwak (2010),none
+Rock Bass,NA,TL,English,75,RLP,3,NA,-3.166,3.074,NA,Bister et al. (2000),none
+Rock Bass,NA,TL,metric,75,RLP,80,NA,-4.827,3.074,NA,Bister et al. (2000),none
+Roundtail Chub,NA,TL,English,75,RLP,4,NA,-3.486,3.015,NA,Didenko et al. (2004),none
+Roundtail Chub,NA,TL,metric,75,RLP,100,NA,-5.065,3.015,NA,Didenko et al. (2004),none
+Ruffe,NA,TL,metric,50,EmP,55,205,-3.3524,1.3969,0.4054,Ogle and Winfield (2009),none
+Ruffe,NA,TL,metric,75,EmP,55,205,-2.58,0.621,0.6073,Ogle and Winfield (2009),none
+Sardine,NA,CL,metric,25,EmP,50,NA,-1.736,2.446,0.328,Ndjaula et al. (2013),none
+Sardine,NA,CL,metric,50,EmP,50,NA,-1.975,3.033,0.056,Ndjaula et al. (2013),none
+Sardine,NA,CL,metric,75,EmP,50,NA,-1.825,2.679,0.224,Ndjaula et al. (2013),none
+Sauger,NA,TL,English,75,RLP,2.75,NA,-3.671,3.187,NA,Anderson and Neumann (1996),none
+Sauger,NA,TL,metric,75,RLP,70,NA,-5.492,3.187,NA,Anderson and Neumann (1996),none
+Saugeye,NA,TL,English,75,RLP,6.75,NA,-3.76,3.266,NA,Flammang et al. (1993),none
+Saugeye,NA,TL,metric,75,RLP,170,NA,-5.692,3.266,NA,Flammang et al. (1993),none
+Shoal Bass,NA,TL,English,75,EmP,4.75,NA,-3.169,2.391,0.415,Bonvechio et al. (2019),also used RLP but did not recommend
+Shoal Bass,NA,TL,metric,75,EmP,120,NA,-3.052,1.225,0.415,Bonvechio et al. (2019),also used RLP but did not recommend
+Shorthead Redhorse,NA,TL,English,75,RLP,4,NA,-3.337,2.962,NA,Bister et al. (2000),none
+Shorthead Redhorse,NA,TL,metric,75,RLP,100,NA,-4.841,2.962,NA,Bister et al. (2000),none
+Shovelnose Sturgeon,NA,FL,English,75,RLP,4.75,NA,-4.266,3.33,NA,Quist et al. (1998),none
+Shovelnose Sturgeon,NA,FL,metric,75,RLP,120,NA,-6.287,3.33,NA,Quist et al. (1998),none
+Silver Carp,NA,TL,metric,50,RLP,290,NA,-5.15756,3.06842,NA,Lamer et al. (2019),none
+Smallmouth Bass,NA,TL,English,75,RLP,6,NA,-3.491,3.2,NA,Kolander et al. (1993),none
+Smallmouth Bass,NA,TL,metric,75,RLP,150,NA,-5.329,3.2,NA,Kolander et al. (1993),none
+Smallmouth Buffalo,NA,TL,English,75,RLP,8,NA,-3.448,3.208,NA,Bister et al. (2000),none
+Smallmouth Buffalo,NA,TL,metric,75,RLP,200,NA,-5.298,3.208,NA,Bister et al. (2000),none
+South European Roach,NA,TL,metric,75,EmP,60,200,-4.043,1.919,0.315,Giannetto et al. (2016),none
+Spotted Bass,overall,TL,English,75,RLP,4,NA,-3.533,3.215,NA,Wiens et al. (1996),none
+Spotted Bass,overall,TL,metric,75,RLP,100,NA,-5.392,3.215,NA,Wiens et al. (1996),none
+Spotted Bass,Alabama subspecies,TL,metric,75,RLP,100,NA,-5.598,3.2904,NA,Dicenzo et al. (1995),min.len not made clear (assumed same as Spotted Bass); same as Alabama Bass
+Spotted Gar,NA,TL,English,75,RLP,10,NA,-4.388,3.431,NA,Bister et al. (2000),none
+Spotted Gar,NA,TL,metric,75,RLP,250,NA,-6.551,3.431,NA,Bister et al. (2000),none
+Spotted Sunfish,NA,TL,English,75,EmP,2.75,8,-3.3468,3.3343,NA,Bonvechio et al. (2023),also used RLP and EmP-quadratic but did not recommend
+Spotted Sunfish,NA,TL,metric,75,EmP,70,200,-5.3739,3.3343,NA,Bonvechio et al. (2023),also used RLP and EmP-quadratic but did not recommend
+Striped Bass,NA,TL,English,75,RLP,6,NA,-3.358,3.007,NA,Brown and Murphy (1991b),none
+Striped Bass,NA,TL,metric,75,RLP,150,NA,-4.924,3.007,NA,Brown and Murphy (1991b),none
+Striped Bass X White Bass,NA,TL,English,75,RLP,4.5,NA,-3.448,3.139,NA,Brown and Murphy (1991b),same as Palmetto Bass and Striped Bass (Hybrid)
+Striped Bass X White Bass,NA,TL,metric,75,RLP,115,NA,-5.201,3.139,NA,Brown and Murphy (1991b),same as Palmetto Bass and Striped Bass (Hybrid)
+Suwannee Bass,NA,TL,metric,75,EmP,110,NA,-0.106,-1.363,0.995,Bonvechio et al. (2010),none
+Tiger Muskellunge,NA,TL,English,75,RLP,9.5,NA,-4.095,3.337,NA,Rogers and Koupal (1997),none
+Tiger Muskellunge,NA,TL,metric,75,RLP,240,NA,-6.126,3.337,NA,Rogers and Koupal (1997),none
+Utah Chub,NA,TL,English,75,EmP,4,16,-3.335,3.031,NA,Black et al. (2021),none
+Utah Chub,NA,TL,metric,75,EmP,90,410,-4.938,3.031,NA,Black et al. (2021),none
+Walleye,overall,TL,English,75,RLP,6,NA,-3.642,3.18,NA,Murphy et al. (1990),none
+Walleye,overall,TL,metric,75,RLP,150,NA,-5.453,3.18,NA,Murphy et al. (1990),none
+Walleye,30-149 mm,TL,English,75,RLP,1.25,6,-3.431,2.869,NA,Flammang et al. (1999),none
+Walleye,30-149 mm,TL,metric,75,RLP,30,149,-4.804,2.869,NA,Flammang et al. (1999),none
+Warmouth,NA,TL,English,75,RLP,3,NA,-3.284,3.241,NA,Bister et al. (2000),none
+Warmouth,NA,TL,metric,75,RLP,80,NA,-5.18,3.241,NA,Bister et al. (2000),none
+White Bass,NA,TL,English,75,RLP,4.5,NA,-3.394,3.081,NA,Brown and Murphy (1991b),none
+White Bass,NA,TL,metric,75,RLP,115,NA,-5.066,3.081,NA,Brown and Murphy (1991b),none
+White Catfish,NA,TL,English,75,RLP,4,NA,-3.739,3.395,NA,Bister et al. (2000),none
+White Catfish,NA,TL,metric,75,RLP,100,NA,-5.851,3.395,NA,Bister et al. (2000),none
+White Crappie,NA,TL,English,75,RLP,4,NA,-3.618,3.332,NA,Neumann and Murphy (1991),none
+White Crappie,NA,TL,metric,75,RLP,100,NA,-5.642,3.332,NA,Neumann and Murphy (1991),none
+White Perch,NA,TL,English,75,RLP,3,NA,-3.373,3.136,NA,Bister et al. (2000),none
+White Perch,NA,TL,metric,75,RLP,80,NA,-5.122,3.136,NA,Bister et al. (2000),none
+White Sturgeon,NA,FL,English,75,RLP,27.5,NA,-3.912,3.232,NA,Beamesderfer (1993),none
+White Sturgeon,NA,FL,metric,75,RLP,700,NA,-5.795,3.232,NA,Beamesderfer (1993),none
+White Sucker,NA,TL,English,75,RLP,4,NA,-3.282,2.94,NA,Bister et al. (2000),none
+White Sucker,NA,TL,metric,75,RLP,100,NA,-4.755,2.94,NA,Bister et al. (2000),none
+Yellow Bass,NA,TL,English,75,RLP,2.75,NA,-3.398,3.133,NA,Bister et al. (2000),none
+Yellow Bass,NA,TL,metric,75,RLP,70,NA,-5.142,3.133,NA,Bister et al. (2000),none
+Yellow Bullhead,NA,TL,English,75,RLP,2.5,NA,-3.491,3.232,NA,Bister et al. (2000),none
+Yellow Bullhead,NA,TL,metric,75,RLP,60,NA,-5.374,3.232,NA,Bister et al. (2000),none
+Yellow Perch,NA,TL,English,75,RLP,4,NA,-3.506,3.23,NA,Willis et al. (1991),none
+Yellow Perch,NA,TL,metric,75,RLP,100,NA,-5.386,3.23,NA,Willis et al. (1991),none

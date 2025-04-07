@@ -27,8 +27,14 @@
 * `showGrowthFun()`: Added. Replaces `GrowthFunShow()`. Updated to allow user to send an object from `nls()` and have the coefficient values extracted and put in the expression. Also, can either return a string or an expression to allow more flexibility in use (especially with `ggplot2`).
 * `vbFuns()`: Deprecated (replaced with `makeGrowthFun()`).
 * `vbStarts()`: Deprecated (replaced with `makeGrowthStarts()`. But also streamlined some of the internal functions, fixed some typos, and replaced `iVBStartsPlot()` with `iPlotGrowthStarts()` to be more general.
-* `WSLit`: Added results for Goldey, Lake Chubsucker, and Northern Snakehead. Removed `type` variable (will depend on whether `quad` is `NA` or not).
-* `wsVal()`: Modified. Added `method=` to handle species for which equations derived from more than one method are available (e.g., "Arctic Grayling"). Added a few more checks for `ref=`, `units=`, etc. and provided more descriptive error messages.
+* `WSLit`: Modified.
+  * Added results for Goldeye, Lake Chubsucker, and Northern Snakehead.
+  * Removed `type` variable (will depend on whether `quad` is `NA` or not).
+  * Added `group` variable that took the parenthetical groupings from `species` for things like Walleye, Cutthroat Trout, etc. Now `species` is an actual species name and if a sub-group of that exists then it is defined with `group`.
+* `wsVal()`: Modified.
+  * Added `group=` to handle species for which equations were derived for sub-groups of the species (e.g., separately for males and females, or lentic and lotic). See related changes to `WSlit`.
+  * Added `method=` to handle species for which equations derived from more than one method are available (e.g., "Arctic Grayling").
+  * Added a few more checks for `ref=`, `units=`, etc. and provided more descriptive error messages.
 
 
 # FSA 0.9.6

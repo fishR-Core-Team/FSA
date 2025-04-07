@@ -6,6 +6,7 @@
 \usage{
 wsVal(
   species = "List",
+  group = NULL,
   units = c("metric", "English"),
   ref = 75,
   method = NULL,
@@ -13,7 +14,9 @@ wsVal(
 )
 }
 \arguments{
-\item{species}{A string that contains the species name for which to find coefficients. See details.}
+\item{species}{A string that contains the species name for which to find Ws coefficients. See details.}
+
+\item{group}{A string that contains the sub-group of `species` for which to find the Ws coefficients. Will be things like \dQuote{"lotic"}, \dQuote{"lentic"}, \dQuote{"female"}, \dQuote{"male"}, etc.}
 
 \item{units}{A string that indicates whether the coefficients for the standard weight equation to be returned are in (\code{"metric"} (DEFAULT; mm and g) or \code{"English"} (in and lbs) units.}
 

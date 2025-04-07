@@ -11,6 +11,7 @@
 #' @format A data frame with observations on the following 13 variables:
 #'  \describe{
 #'    \item{species}{Species name. Use \code{wsVal()} to see the list of available species.}
+#'    \item{group}{Sub-group name (e.g., \code{"female"} or \code{"lotic"}).}
 #'    \item{units}{Units of measurements. \code{Metric} uses lengths in mm and weight in grams. \code{English} uses lengths in inches and weight in pounds.}
 #'    \item{ref}{Reference quartile (\code{75}, \code{50}, or \code{25}).}
 #'    \item{measure}{The type of length measurement used -- total length (\code{TL}) or fork length (\code{FL}).}

@@ -10,7 +10,8 @@
 #' 
 #' Note from above that the coefficients are returned for the TRANSFORMED model. Thus, to obtain the standard weight (Ws), the returned coefficients are used to compute the common log of Ws which must then bed raised to the power of 10 to compute the Ws.
 #'
-#' @param species A string that contains the species name for which to find coefficients. See details.
+#' @param species A string that contains the species name for which to find Ws coefficients. See details.
+#' @param group A string that contains the sub-group of `species` for which to find the Ws coefficients. Will be things like \dQuote{"lotic"}, \dQuote{"lentic"}, \dQuote{"female"}, \dQuote{"male"}, etc.
 #' @param units A string that indicates whether the coefficients for the standard weight equation to be returned are in (\code{"metric"} (DEFAULT; mm and g) or \code{"English"} (in and lbs) units.
 #' @param ref A numeric that indicates which percentile the equation should be returned for. Note that the vast majority of equations only exist for the \code{75}th percentile (DEFAULT).
 #' @param method A string that indicates which equation-derivation method should be used (one of `RLP`, `EmP`, or `Other`). Defaults to `NULL` which will result in the only method available being returned or an error asking the user to choose a method equations from more than one method are available (which is the case for very few species).
@@ -39,6 +40,10 @@
 #' wsVal("Bluegill",units="metric")
 #' wsVal("Bluegill",units="English")
 #' wsVal("Bluegill",units="English",simplify=TRUE)
+#' 
+#' #===== Find equation for Cutthroat Trout, demonstration group
+#' wsVal("Cutthroat Trout",group="lotic")
+#' wsVal("Cutthroat Trout",group="lentic")
 #' 
 #' #===== Find equation for Ruffe, demonstration quadratic formula
 #' wsVal("Ruffe",units="metric",simplify=TRUE)
@@ -71,7 +76,8 @@
 #' }
 #'
 #' @export
-wsVal <- function(species="List",units=c("metric","English"),ref=75,method=NULL,
+wsVal <- function(species="List",group=NULL,
+                  units=c("metric","English"),ref=75,method=NULL,
                   simplify=FALSE) {
   type <- measure <- NULL   # avoiding bindings warning in RCMD CHECK
   units <- match.arg(units)
@@ -81,7 +87,7 @@ wsVal <- function(species="List",units=c("metric","English"),ref=75,method=NULL,
   if (length(species)>1) STOP("'species' must contain only one name.")
   if (species=="List") iListSpecies(WSlit)
   else {
-    ## species given, ake sure it is in WSlit, then reduce data.frame to that species
+    ## species given, make sure it is in WSlit, then reduce data.frame to that species
     if (!any(unique(WSlit$species)==species)) {
       tmp <- paste0("There is no Ws equation in 'WSlit' for \"",species,"\".")
       if (any(unique(WSlit$species)==capFirst(species)))
@@ -89,6 +95,24 @@ wsVal <- function(species="List",units=c("metric","English"),ref=75,method=NULL,
              "\" (note spelling, including capitalization).\n\n")
       else STOP(tmp," Type 'wsVal()' to see a list of available species.\n\n")
     } else df <- droplevels(WSlit[WSlit$species==species,])
+    ## determine if there are "group"s for that species and then handle
+    if (any(!is.na(df$group))) {
+      ## If user did not supply a group then stop
+      if (is.null(group))
+        STOP("\"",species,"\" has Ws equations for these sub-groups: ",
+             paste(unique(df$group),collapse=", "),
+             ". Please use 'group=' to select the equation for one of these groups.\n\n")
+      else if (!group %in% unique(df$group))
+        STOP("There is no \"",group,"\" group for \"",species,"\". ",
+             "Please select from one of these groups: ",
+             paste(unique(df$group),collapse=", "),".\n\n")
+      else df <- droplevels(df[df$group==group,])
+    } else {
+      if (!is.null(group))
+        WARN("There are no groups for \"",species,
+             "\"; thus, your 'group=' has been ignored.")
+      df <- df[,!names(df)=="group"]
+    }
     ##
     tmp <- unique(df$method)
     # If more than one method in WSlit but method NULL then force a choice
