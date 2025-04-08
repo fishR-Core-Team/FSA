@@ -26,9 +26,9 @@ test_that("wsVal() messages",{
                "There is no Ws equation in 'English' units for \"Ruffe\"")
   #===== reference value does not exist
   expect_error(wsVal("Bluegill",ref=30),
-               "A 'ref' of 30 is non-standard and does not exist")
+               "There is no Ws equation for \"Bluegill\" with a reference")
   expect_error(wsVal("Bluegill",ref=50),
-               "There is no Ws equation for 'ref=50' for \"Bluegill\"")
+               "There is no Ws equation for \"Bluegill\" with a reference")
   #===== bad choices for method
   expect_error(wsVal("Bluegill",method="Derek"),
                "There is no Ws equation for \"Bluegill\" derived from")
@@ -58,6 +58,11 @@ test_that("wrAdd() messages",{
   df$rnd <- runif(nrow(df))
   df$junk <- sample(c("Derek","Hugh","Ogle"),nrow(df),replace=TRUE)
   
+  ## Simulate second data set
+  wae <- data.frame(species=factor(rep(c("Walleye"),30)),
+                    tl=round(rnorm(30,500,200),0))
+  wae$wt <- round(3.33e-06*wae$tl^3.16+rnorm(30,0,50),1)
+  
   ## bad units
   expect_error(wrAdd(wt~tl+species,df,units="inches"),"should be one of")
   
@@ -78,6 +83,19 @@ test_that("wrAdd() messages",{
   expect_error(wrAdd(df$species,df$wt,df$tl),"numeric")
   expect_error(wrAdd(df$wt,df$species,df$tl),"numeric")
   expect_error(wrAdd(df$wt,df$tl,df$rnd),"factor")
+  
+  ## need to use WsOpts
+  expect_error(wrAdd(wt~tl+species,wae),
+               "More than one Ws equation exists for \"Walleye\"")
+  expect_error(wrAdd(wt~tl+species,wae,
+                     WsOpts=list(Bluegill=list(group="overall"))),
+               "More than one Ws equation exists for \"Walleye\"")
+  expect_error(wrAdd(wt~tl+species,wae,
+                     WsOpts=list(Walleye=list(ref=50))),
+               "Use of 'ref=50' for \"Walleye\" did not return")
+  expect_error(wrAdd(wt~tl+species,wae,
+                     WsOpts=list(Walleye=list(junk=50))),
+               "'junk' in 'WsOpts=' must be one of")
 })
 
 
@@ -97,11 +115,11 @@ test_that("wsVal() results",{
   bg2 <- bg2[,names(bg2) %in% c("species","min.len","int","slope")]
   expect_equal(bg1,bg2,ignore_attr=TRUE)
   ## Do Ruffe results match ... example with quad
-  ruf1 <- wsVal("Ruffe")
+  ruf1 <- wsVal("Ruffe",ref=75)
   ruf2 <- WSlit[WSlit$species=="Ruffe" & WSlit$units=="metric" & WSlit$ref=="75",]
   ruf2 <- ruf2[!names(ruf2) %in% c("group","comment")]
   expect_equal(ruf1,ruf2,ignore_attr=TRUE)
-  ruf1 <- wsVal("Ruffe",simplify=TRUE)
+  ruf1 <- wsVal("Ruffe",ref=75,simplify=TRUE)
   ruf2 <- WSlit[WSlit$species=="Ruffe" & WSlit$units=="metric" & WSlit$ref=="75",]
   ruf2 <- ruf2[,names(ruf2) %in% c("species","min.len","max.len","int","slope","quad")]
   expect_equal(ruf1,ruf2,ignore_attr=TRUE)

@@ -46,7 +46,7 @@
 #' wsVal("Cutthroat Trout",group="lentic")
 #' 
 #' #===== Find equation for Ruffe, demonstration quadratic formula
-#' wsVal("Ruffe",units="metric",simplify=TRUE)
+#' wsVal("Ruffe",units="metric",ref=75,simplify=TRUE)
 #' wsVal("Ruffe",units="metric",ref=50,simplify=TRUE)
 #'
 #' #===== Add Ws & Wr values to a data frame (for one species) ... also see wrAdd()
@@ -77,17 +77,19 @@
 #'
 #' @export
 wsVal <- function(species="List",group=NULL,
-                  units=c("metric","English"),ref=75,method=NULL,
+                  units=c("metric","English"),ref=NULL,method=NULL,
                   simplify=FALSE) {
+  #===== load WSlit data frame into this functions environment
   type <- measure <- NULL   # avoiding bindings warning in RCMD CHECK
   units <- match.arg(units)
-  ## load WSlit data frame into this functions environment
   WSlit <- FSA::WSlit
-  ## Make checks on species
+  
+  
   if (length(species)>1) STOP("'species' must contain only one name.")
   if (species=="List") iListSpecies(WSlit)
   else {
-    ## species given, make sure it is in WSlit, then reduce data.frame to that species
+    #===== Make checks on species
+    #----- Species given, make sure in WSlit, then reduce data.frame to that species
     if (!any(unique(WSlit$species)==species)) {
       tmp <- paste0("There is no Ws equation in 'WSlit' for \"",species,"\".")
       if (any(unique(WSlit$species)==capFirst(species)))
@@ -95,28 +97,33 @@ wsVal <- function(species="List",group=NULL,
              "\" (note spelling, including capitalization).\n\n")
       else STOP(tmp," Type 'wsVal()' to see a list of available species.\n\n")
     } else df <- droplevels(WSlit[WSlit$species==species,])
-    ## determine if there are "group"s for that species and then handle
+    
+    #===== Determine if "group"s for that species and then handle
     if (any(!is.na(df$group))) {
-      ## If user did not supply a group then stop
+      #----- There are groups in WSlit, user did not supply group= so stop
       if (is.null(group))
         STOP("\"",species,"\" has Ws equations for these sub-groups: ",
              paste(unique(df$group),collapse=", "),
              ". Please use 'group=' to select the equation for one of these groups.\n\n")
-      else if (!group %in% unique(df$group))
+      #----- There are groups in WSlit, user supplied group=, is it good?
+      if (!group %in% unique(df$group))
         STOP("There is no \"",group,"\" group for \"",species,"\". ",
              "Please select from one of these groups: ",
              paste(unique(df$group),collapse=", "),".\n\n")
-      else df <- droplevels(df[df$group==group,])
+      #----- There are groups in WSlit, user supplied group= is good, reduce df
+      df <- droplevels(df[df$group==group,])
     } else {
-      if (!is.null(group))
-        WARN("There are no groups for \"",species,
-             "\"; thus, your 'group=' has been ignored.")
+      #----- There are no groups in WSlit ... check if user supplied group=
+      if (!is.null(group)) WARN("There are no groups for \"",species,
+                                "\"; thus, your 'group=' has been ignored.")
+      #---- drop group variable from df
       df <- df[,!names(df)=="group"]
     }
-    ##
+    
+    #===== Checks on method
     tmp <- unique(df$method)
-    # If more than one method in WSlit but method NULL then force a choice
-    #   otherwise (i.e., one method and method NULL) then continue with df
+    #----- If more than one method in WSlit but method NULL then force a choice
+    #      otherwise (i.e., one method and method NULL) then continue with df
     if (is.null(method) & length(tmp)>1) 
       STOP("Ws equations exist for both the RLP and EmP 'method's for \"",
            species,"\". Please select one or the other with 'method='.")
@@ -127,34 +134,42 @@ wsVal <- function(species="List",group=NULL,
              paste(unique(df$method),collapse=" and "),".\n\n")
       df <- droplevels(df[df$method==method,])
     }
-    ## Make checks on units (if OK reduce data frame to those units)
+    
+    #===== Make checks on units (if OK reduce data frame to those units)
     if (!any(unique(df$units)==units)) {
       STOP("There is no Ws equation in '",units,"' units for \"",species,"\".",
            " However, there is a Ws equation in '",unique(df$units),"' units for \"",
            species,"\".\n\n")
     } else df <- droplevels(df[df$units==units,])
-    ## Make checks on ref (if OK reduce data frame to that ref)
-    if (!ref %in% c(25,50,75)) STOP("A 'ref' of ",ref," is non-standard and does",
-                                    " not exist for any species in 'WSlit',",
-                                    " including \"",species,"\". You most likely need",
-                                    " 'ref=75' (the default) or, less commonly,",
-                                    " 'ref=50'.\n\n")
-    if (!any(unique(df$ref)==ref)) {
-      STOP("There is no Ws equation for 'ref=",ref,"' for \"",species,"\";",
-           " possible choices for 'ref' for \"",species,"\" are: ",
-           paste(df$ref,collapse=" and "),".\n\n")
-    } else df <- droplevels(df[df$ref==ref,])
-    ## Should be a single row data frame if it gets to this point
-    ## If comments says "none" then drop the comment variable
+    
+    #===== Make checks on ref (if OK reduce data frame to that ref)
+    tmp <- unique(df$ref)
+    #----- If more than one ref in WSlit but ref is NULL then force a choice
+    #      otherwise (i.e., one ref and ref is NULL) then continue with df
+    if (is.null(ref) & length(tmp)>1) 
+      STOP("Ws equations exist for more than one 'ref'erence value for \"",
+           species,"\". Please select one of the following values with 'ref=': ",
+           paste(tmp,collapse=", "),".\n\n")
+    if (!is.null(ref)) {
+      if (!any(unique(df$ref)==ref))
+        STOP("There is no Ws equation for \"",species,"\" with a reference value of '",
+             ref,"'. Possible reference values for \"",species,"\" are: ",
+             paste(unique(df$ref),collapse=", "),".\n\n")
+      df <- droplevels(df[df$ref==ref,])
+    }
+
+    #===== Wrap-up to return the info
+    # Should be a single row data frame if it gets to this point
+    # If comments says "none" then drop the comment variable
     if (df$comment=="none") df <- df[,!names(df)=="comment"]
-    ## If function is linear (as opposed to quadratic) then drop the quad variable
+    # If function is linear (as opposed to quadratic) then drop the quad variable
     if (is.na(df$quad)) df <- df[,!names(df)=="quad"]
-    ## Change "min.len" and "max.len" variables to ".TL" or ."FL" as appropriate
+    # Change "min.len" and "max.len" variables to ".TL" or ."FL" as appropriate
     tmp <- paste(c("min","max"),df$measure,sep=".")
     names(df)[names(df) %in% c("min.len","max.len")] <- tmp
-    ## Remove max.len if it is NA
+    # Remove max.len if it is NA
     if (is.na(df[,tmp[2]])) df <- df[,!names(df)==tmp[2]]
-    ## If told to simplify then only get certain values
+    # If told to simplify then only get certain values
     if (simplify)
       df <- df[,names(df) %in% c("species",tmp,"int","slope","quad")]
     df

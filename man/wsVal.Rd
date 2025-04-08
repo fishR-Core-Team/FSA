@@ -8,7 +8,7 @@ wsVal(
   species = "List",
   group = NULL,
   units = c("metric", "English"),
-  ref = 75,
+  ref = NULL,
   method = NULL,
   simplify = FALSE
 )
@@ -57,8 +57,12 @@ wsVal("Bluegill",units="metric")
 wsVal("Bluegill",units="English")
 wsVal("Bluegill",units="English",simplify=TRUE)
 
+#===== Find equation for Cutthroat Trout, demonstration group
+wsVal("Cutthroat Trout",group="lotic")
+wsVal("Cutthroat Trout",group="lentic")
+
 #===== Find equation for Ruffe, demonstration quadratic formula
-wsVal("Ruffe",units="metric",simplify=TRUE)
+wsVal("Ruffe",units="metric",ref=75,simplify=TRUE)
 wsVal("Ruffe",units="metric",ref=50,simplify=TRUE)
 
 #===== Add Ws & Wr values to a data frame (for one species) ... also see wrAdd()

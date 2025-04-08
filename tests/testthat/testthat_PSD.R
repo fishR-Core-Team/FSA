@@ -522,7 +522,7 @@ test_that("Does psdAdd() properly handle NA in species?",{
   expect_equal(which(is.na(testdf$TL) | is.na(testdf$Spp)),
                     which(is.na(gcat)))
 
-  # Just NAs for species, but with a species w/o Gabelhous lengths
+  # Just NAs for species, but with a species w/o Gabelhouse lengths
   testdf <- data.frame(TL=c(400,90,250,NA,50),
                        Spp=c("White Crappie",NA,"badSpp",
                              "White Crappie","Black Crappie"))

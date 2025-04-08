@@ -1,7 +1,10 @@
 # FSA 0.9.6.9000
 * Updated `test-coverage.yaml` and moved a `# nocov start` and `# nocov end` in `bootstrap.r` to address the errors with `test-coverage.yaml`. Addresses [#118](https://github.com/fishR-Core-Team/FSA/issues/118).
 * Added `FlexParamCurve` to Imports for use of `modpar()` in `RichardsStarts()` and `purrr` for use of `map2_chr()` in `showGrowthFun()`.
-* Added "articles" (for the package webpage) that describe how the starting values for the growth equations are derived and a simple introduction to growth model fitting with `FSA`.
+* Added the following "articles" (for the package webpage).
+    * Describe how the starting values for the growth equations are derived.
+    * Provide a simple introduction to growth model fitting with `FSA`.
+    * Provide a simple introduction to calculating relative weights with `FSA`.
 
 * internals: Added functions to return a logical about whether a value is less than, less than or equal, greater than, or greater than or equal (i.e., `is.lte()`, `is.lt()`, `is.gte()`, and `is.gt()`). Added functions that use those logical and return an informative error if the logical is FALSE (i.e., `iChkLTE()`, `iChkLT()`, `iChkGTE()`, and `iChkGT()`). The errors can "grab" the name of the object so that the error can be specific though the function is general.
 * internals: Modified `STOP()` and `WARN()` to use `strwrap()` rather than hard-coded line breaks.
@@ -27,6 +30,7 @@
 * `showGrowthFun()`: Added. Replaces `GrowthFunShow()`. Updated to allow user to send an object from `nls()` and have the coefficient values extracted and put in the expression. Also, can either return a string or an expression to allow more flexibility in use (especially with `ggplot2`).
 * `vbFuns()`: Deprecated (replaced with `makeGrowthFun()`).
 * `vbStarts()`: Deprecated (replaced with `makeGrowthStarts()`. But also streamlined some of the internal functions, fixed some typos, and replaced `iVBStartsPlot()` with `iPlotGrowthStarts()` to be more general.
+* `wrAdd()`: Modified. Added `WsOpts=` to handle species where the user must make a choice about which standard weight equation to use.
 * `WSLit`: Modified.
   * Added results for Goldeye, Lake Chubsucker, and Northern Snakehead.
   * Removed `type` variable (will depend on whether `quad` is `NA` or not).
