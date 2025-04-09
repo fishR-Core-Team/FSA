@@ -3,6 +3,7 @@
 #' @description Returns a vector with the five Gabelhouse lengths for a chosen species.
 #'
 #' @param species A string that contains the species name for which to find Gabelhouse lengths. See details.
+#' @param group A string that contains the sub-group of `species` for which to find the Gabelhouse lengths. Will be things like \dQuote{"landlocked"}, \dQuote{"lentic"}.
 #' @param units A string that indicates the units for the returned lengths. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
 #' @param incl.zero A logical that indicates if a zero is included in the first position of the returned vector (DEFAULT) or not. This position will be named \dQuote{substock}. See details.
 #' @param addLens A numeric vector that contains minimum length definitions for additional categories. See details.
@@ -34,56 +35,66 @@
 #' @keywords manip
 #'
 #' @examples
-#' # List all of the species
+#' #===== List all available species in PSDlit
 #' psdVal()
-#' # Demonstrate typical usages
-#' psdVal("Yellow perch")
-#' psdVal("Walleye",units="cm")
+#' 
+#' #===== Demonstrate typical usages
+#' psdVal("Bluegill")
 #' psdVal("Bluegill",units="in")
 #' psdVal("Bluegill",units="in",incl.zero=FALSE)
-#' psdVal("Bluegill")
-#' # Demonstrate that it will work with mis-capitalization
-#' psdVal("bluegill")
-#' psdVal("Yellow Perch")
-#' # Demonstrate adding in user-defined categories
+#' psdVal("Bluegill",showJustSource=TRUE)
+#' 
+#' #===== Demonstrate that some species have sub-groups
+#' psdVal("Brown Trout",group="lentic")
+#' psdVal("Brown Trout",group="lotic")
+#' psdVal("Palmetto Bass",group="revised")
+#' psdVal("Palmetto Bass",group="original")
+#' 
+#' #===== Demonstrate adding user-defined categories
 #' psdVal("Bluegill",units="in",addLens=7)
 #' psdVal("Bluegill",units="in",addLens=7,addNames="MinLen")
 #' psdVal("Bluegill",units="in",addLens=c(7,9),addNames=c("MinSlot","MaxSlot"))
 #' psdVal("Bluegill",units="in",addLens=c("MinLen"=7))
 #' psdVal("Bluegill",units="in",addLens=c("MinSlot"=7,"MaxSlot"=9))
-#' psdVal("Bluegill",showJustSource=TRUE)
 #'
 #' @export psdVal
-psdVal <- function(species="List",units=c("mm","cm","in"),incl.zero=TRUE,
-                   addLens=NULL,addNames=NULL,showJustSource=FALSE) {
+psdVal <- function(species="List",group=NULL,units=c("mm","cm","in"),
+                   addLens=NULL,addNames=NULL,
+                   incl.zero=TRUE,showJustSource=FALSE) {
   units <- match.arg(units)
-  # load RSDlit data frame into this function's environment
+  #====== Load PSDlit data frame into this function's environment
   PSDlit <- FSA::PSDlit
-  # continue if species name is correct
+  #====== Check species name, stop if incorrect, continue if correct
   if (iPSDLitCheck(PSDlit,species <- capFirst(species))) {
+    #----- Reduce to just that species
+    PSDlit <- PSDlit[PSDlit$species==species,]
+    #----- Handle possible sub-group
+    PSDlit <- iPSDHndlGroup(PSDlit,species,group)
+    #----- Prepare result
     if (showJustSource) {
-      PSDlit[PSDlit$species==species,c(1,12)]
+      ifelse(is.null(group),cols <- c(1,14),cols <- c(1,2,15))
+      PSDlit[,cols]
     } else {
-      # identify columns based on units
-      ifelse(units=="in",cols <- 2:6,cols <- 7:11)
-      # get the length categories
-      PSDvec <- as.matrix(PSDlit[PSDlit$species==species,cols])[1,]
-      # convert to mm if necessary
+      #..... Identify columns based on units
+      ifelse(units=="in",cols <- 3:8,cols <- 9:14)
+      if (is.null(group)) cols <- cols-1
+      #..... get the length categories
+      PSDvec <- as.matrix(PSDlit[,cols])[1,]
+      names(PSDvec) <- gsub("\\..*","",names(PSDvec))
+      #..... remove zero category (substock) if asked
+      if (!incl.zero) PSDvec <- PSDvec[!names(PSDvec)=="substock"]
+      #..... convert to mm if necessary
       if (units=="mm") PSDvec <- PSDvec*10
-      names(PSDvec) <- c("stock","quality","preferred","memorable","trophy")
-      # add a zero category if asked to
-      if (incl.zero) {
-        PSDvec <- c(0,PSDvec)
-        names(PSDvec)[1] <- "substock"
-      }
-      # add additional lengths if asked to
+      #..... add additional lengths if asked to
       if (!is.null(addLens)) {
         # add names to the addLens vector
         addLens <- iHndlAddNames(addLens,addNames)
         # handle duplicated values
         tmp <- which(PSDvec %in% addLens)
         if (length(tmp>0)) {
-          WARN("At least one Gabelhouse length that was in 'addLens' has been removed.")
+          WARN("The following Gabelhouse length categories were removed because ",
+               "they were duplicated with a length in 'addLens=': ",
+               paste(names(PSDvec)[tmp],collapse=", "),".")
           PSDvec <- PSDvec[-tmp]
         }
         # append the new lens to the Gabelhouse lengths
@@ -98,17 +109,44 @@ psdVal <- function(species="List",units=c("mm","cm","in"),incl.zero=TRUE,
 
 
 # ==============================================================================
-# Internal -- check species name against the'data' data.frame (usually PSDLit)
+# Internal -- check species name against the 'dat' data.frame (usually PSDLit)
 # ==============================================================================
-iPSDLitCheck <- function(data,species) {
+iPSDLitCheck <- function(dat,species) {
   OK <- FALSE
   if (length(species)!=1) STOP("'species' can have only one name.")
-  else if (species=="List") iListSpecies(data)
-       else if (!any(unique(data$species)==species))
-         STOP("The Gabelhouse lengths do not exist for ",species,
-              ". Type psdVal() for a list of available species.\n\n")
+  else if (species=="List") iListSpecies(dat)
+       else if (!any(unique(dat$species)==species))
+         STOP("The Gabelhouse lengths do not exist for \"",species,
+              "\". Type psdVal() for a list of available species.\n\n")
             else OK <- TRUE
   OK
+}
+
+# ==============================================================================
+# Internal -- handle possible use of group for sub-groups of a species
+# ==============================================================================
+iPSDHndlGroup <- function(dat,species,group) {
+  if (any(!is.na(dat$group))) {
+    #..... There are groups in dat, user did not supply group= so stop
+    if (is.null(group))
+      STOP("\"",species,"\" has Gabelhouse categories for these sub-groups: ",
+           paste(unique(dat$group),collapse=", "),
+           ". Please use 'group=' to select one of these groups.\n\n")
+    #..... There are groups in dat, user supplied group=, is it good?
+    if (!group %in% unique(dat$group))
+      STOP("There is no \"",group,"\" group for \"",species,"\". ",
+           "Please select from one of these groups: ",
+           paste(unique(dat$group),collapse=", "),".\n\n")
+    #..... There are groups in dat, user supplied group= is good, reduce df
+    dat <- droplevels(dat[dat$group==group,])
+  } else {
+    #..... There are no groups in dat ... check if user supplied group=
+    if (!is.null(group)) WARN("There are no groups for \"",species,
+                              "\"; thus, your 'group=' has been ignored.")
+    #..... drop group variable from df
+    dat <- dat[,!names(dat)=="group"]
+  }
+  dat
 }
 
 # ==============================================================================

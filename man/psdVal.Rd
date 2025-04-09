@@ -6,23 +6,26 @@
 \usage{
 psdVal(
   species = "List",
+  group = NULL,
   units = c("mm", "cm", "in"),
-  incl.zero = TRUE,
   addLens = NULL,
   addNames = NULL,
+  incl.zero = TRUE,
   showJustSource = FALSE
 )
 }
 \arguments{
 \item{species}{A string that contains the species name for which to find Gabelhouse lengths. See details.}
 
-\item{units}{A string that indicates the units for the returned lengths. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
+\item{group}{A string that contains the sub-group of `species` for which to find the Gabelhouse lengths. Will be things like \dQuote{"landlocked"}, \dQuote{"lentic"}.}
 
-\item{incl.zero}{A logical that indicates if a zero is included in the first position of the returned vector (DEFAULT) or not. This position will be named \dQuote{substock}. See details.}
+\item{units}{A string that indicates the units for the returned lengths. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
 \item{addLens}{A numeric vector that contains minimum length definitions for additional categories. See details.}
 
 \item{addNames}{A string vector that contains names for the additional length categories added with \code{addLens}. See details.}
+
+\item{incl.zero}{A logical that indicates if a zero is included in the first position of the returned vector (DEFAULT) or not. This position will be named \dQuote{substock}. See details.}
 
 \item{showJustSource}{A logical that indicates whether just the literature source information should be returned (\code{TRUE}) or not. If \code{TRUE} this will NOT return any of the Gabelhouse length information.}
 }
@@ -44,24 +47,27 @@ Additional lengths may be added to the returned vector with \code{addLens}. Name
 }
 
 \examples{
-# List all of the species
+#===== List all available species in PSDlit
 psdVal()
-# Demonstrate typical usages
-psdVal("Yellow perch")
-psdVal("Walleye",units="cm")
+
+#===== Demonstrate typical usages
+psdVal("Bluegill")
 psdVal("Bluegill",units="in")
 psdVal("Bluegill",units="in",incl.zero=FALSE)
-psdVal("Bluegill")
-# Demonstrate that it will work with mis-capitalization
-psdVal("bluegill")
-psdVal("Yellow Perch")
-# Demonstrate adding in user-defined categories
+psdVal("Bluegill",showJustSource=TRUE)
+
+#===== Demonstrate that some species have sub-groups
+psdVal("Brown Trout",group="lentic")
+psdVal("Brown Trout",group="lotic")
+psdVal("Palmetto Bass",group="revised")
+psdVal("Palmetto Bass",group="original")
+
+#===== Demonstrate adding user-defined categories
 psdVal("Bluegill",units="in",addLens=7)
 psdVal("Bluegill",units="in",addLens=7,addNames="MinLen")
 psdVal("Bluegill",units="in",addLens=c(7,9),addNames=c("MinSlot","MaxSlot"))
 psdVal("Bluegill",units="in",addLens=c("MinLen"=7))
 psdVal("Bluegill",units="in",addLens=c("MinSlot"=7,"MaxSlot"=9))
-psdVal("Bluegill",showJustSource=TRUE)
 
 }
 \references{

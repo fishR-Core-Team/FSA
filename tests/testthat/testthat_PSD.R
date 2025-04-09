@@ -33,12 +33,17 @@ test_that("psdVal() messages",{
   ## bad species name
   expect_error(psdVal("Derek"),
                "The Gabelhouse lengths do not exist")
-  ## bad units
-  expect_error(psdVal("Bluegill",units="inches"),
-               "should be one of")
   ## too many species name
   expect_error(psdVal(c("Bluegill","Yellow Perch")),
                "can have only one name")
+  ## needed and bad group=
+  expect_error(psdVal("Brown Trout"),
+               "\"Brown Trout\" has Gabelhouse categories for these")
+  expect_error(psdVal("Brown Trout",group="Derek"),
+               "There is no \"Derek\" group for \"Brown Trout\"")
+  ## bad units
+  expect_error(psdVal("Bluegill",units="inches"),
+               "should be one of")
   ## addLens and addNames don't match up
   expect_error(psdVal("Bluegill",addLens=7,addNames=c("Derek","Ogle")),
                "have different lengths")
@@ -46,7 +51,7 @@ test_that("psdVal() messages",{
                "have different lengths")
   ## and addLens is also a Gabelhouse length
   expect_warning(psdVal("Bluegill",addLens=150),
-                 "At least one Gabelhouse length that was in")
+                 "The following Gabelhouse length categories were removed")
 })
 
 test_that("psdCI() messages",{
@@ -100,7 +105,7 @@ test_that("psdCI() messages",{
 test_that("psdCalc() messages",{
   ## species name does not exist in PSDlit
   expect_error(psdCalc(~tl,data=tmp,species="Slimy Sculpin"),
-               "Gabelhouse lengths do not exist for Slimy Sculpin")
+               "Gabelhouse lengths do not exist for \"Slimy Sculpin\"")
   ## get Gabelhouse lengths for Yellow Perch
   ghl <- psdVal("Yellow perch")
   ## restrict data.frame to no fish
@@ -151,7 +156,7 @@ test_that("psdCalc() messages",{
                "First category name must be 'stock'")
   ## No names given
   expect_error(psdCalc(~tl,data=tmp,addLens=c(100,200,250)),
-               "Category names must be defined in 'addLens' or given in 'addNames'")
+               "Category names must be defined in 'addLens'")
   ## lengths of addLens and addNames do not match
   expect_error(psdCalc(~tl,data=tmp,addLens=c(100,200),addNames=c("name1")),
                "'addLens' and 'addNames' are different lengths")
