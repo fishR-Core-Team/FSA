@@ -38,22 +38,24 @@
 #' #===== List all available species in PSDlit
 #' psdVal()
 #' 
-#' #===== Demonstrate typical usages
+#' #===== Typical usages
 #' psdVal("Bluegill")
 #' psdVal("Bluegill",units="in")
 #' psdVal("Bluegill",units="in",incl.zero=FALSE)
 #' psdVal("Bluegill",showJustSource=TRUE)
 #' 
-#' #===== Demonstrate that some species have sub-groups
+#' #===== For species that have sub-groups
 #' psdVal("Brown Trout",group="lentic")
 #' psdVal("Brown Trout",group="lotic")
 #' psdVal("Palmetto Bass",group="revised")
 #' psdVal("Palmetto Bass",group="original")
 #' 
-#' #===== Demonstrate adding user-defined categories
+#' #===== Adding user-defined categories
+#' #-----   with lengths and names separately in addLens= and addNames=
 #' psdVal("Bluegill",units="in",addLens=7)
 #' psdVal("Bluegill",units="in",addLens=7,addNames="MinLen")
 #' psdVal("Bluegill",units="in",addLens=c(7,9),addNames=c("MinSlot","MaxSlot"))
+#' #-----   with a named vector in addLens=
 #' psdVal("Bluegill",units="in",addLens=c("MinLen"=7))
 #' psdVal("Bluegill",units="in",addLens=c("MinSlot"=7,"MaxSlot"=9))
 #'
@@ -62,30 +64,28 @@ psdVal <- function(species="List",group=NULL,units=c("mm","cm","in"),
                    addLens=NULL,addNames=NULL,
                    incl.zero=TRUE,showJustSource=FALSE) {
   units <- match.arg(units)
-  #====== Load PSDlit data frame into this function's environment
+  #====== Load PSDlit into this function's environment, do some checking, and
+  #       return a data.frame with infor for just that species/group
   PSDlit <- FSA::PSDlit
-  #====== Check species name, stop if incorrect, continue if correct
-  if (iPSDLitCheck(PSDlit,species <- capFirst(species))) {
-    #----- Reduce to just that species
-    PSDlit <- PSDlit[PSDlit$species==species,]
-    #----- Handle possible sub-group
-    PSDlit <- iPSDHndlGroup(PSDlit,species,group)
-    #----- Prepare result
+  PSDlit <- iPSDGetSpecies(PSDlit,species,group)
+  
+  #====== Prepare Result as longs as PSDlit was not returned as NULL
+  if (!is.null(PSDlit)) {
     if (showJustSource) {
       ifelse(is.null(group),cols <- c(1,14),cols <- c(1,2,15))
       PSDlit[,cols]
     } else {
-      #..... Identify columns based on units
+      #----- Identify columns based on units
       ifelse(units=="in",cols <- 3:8,cols <- 9:14)
       if (is.null(group)) cols <- cols-1
-      #..... get the length categories
+      #----- get the length categories
       PSDvec <- as.matrix(PSDlit[,cols])[1,]
       names(PSDvec) <- gsub("\\..*","",names(PSDvec))
-      #..... remove zero category (substock) if asked
+      #----- remove zero category (substock) if asked
       if (!incl.zero) PSDvec <- PSDvec[!names(PSDvec)=="substock"]
-      #..... convert to mm if necessary
+      #----- convert to mm if necessary
       if (units=="mm") PSDvec <- PSDvec*10
-      #..... add additional lengths if asked to
+      #----- add additional lengths if asked to
       if (!is.null(addLens)) {
         # add names to the addLens vector
         addLens <- iHndlAddNames(addLens,addNames)
@@ -111,43 +111,49 @@ psdVal <- function(species="List",group=NULL,units=c("mm","cm","in"),
 # ==============================================================================
 # Internal -- check species name against the 'dat' data.frame (usually PSDLit)
 # ==============================================================================
-iPSDLitCheck <- function(dat,species) {
-  OK <- FALSE
+iPSDGetSpecies <- function(dat,species,group) {
+  #===== Easy checks on species
   if (length(species)!=1) STOP("'species' can have only one name.")
-  else if (species=="List") iListSpecies(dat)
-       else if (!any(unique(dat$species)==species))
-         STOP("The Gabelhouse lengths do not exist for \"",species,
-              "\". Type psdVal() for a list of available species.\n\n")
-            else OK <- TRUE
-  OK
+  if (species=="List") {
+    iListSpecies(dat)
+    NULL   # return NULL
+  } else {
+    if (!any(unique(dat$species)==species)) {
+      tmp <- paste0("There are no Gablehouse lengths in 'PSDlit' for \"",species,"\".")
+      if (any(unique(dat$species)==capFirst(species)))
+        STOP(tmp," However, there is an entry for \"",capFirst(species),
+             "\" (note spelling, including capitalization).\n\n")
+      else STOP(tmp," Type 'psdVal()' to see a list of available species.\n\n")
+    }
+    
+    #===== Must be good species ... reduce to that species
+    dat <- dat[dat$species==species,]
+    
+    #===== Now handle possible group
+    if (any(!is.na(dat$group))) {
+      #----- There are groups in dat, user did not supply group= so stop
+      if (is.null(group))
+        STOP("\"",species,"\" has Gabelhouse categories for these sub-groups: ",
+             paste(unique(dat$group),collapse=", "),
+             ". Please use 'group=' to select one of these groups.\n\n")
+      #----- There are groups in dat, user supplied group=, is it good?
+      if (!group %in% unique(dat$group))
+        STOP("There is no \"",group,"\" group for \"",species,"\". ",
+             "Please select from one of these groups: ",
+             paste(unique(dat$group),collapse=", "),".\n\n")
+      #----- There are groups in dat, user supplied group= is good, reduce df
+      dat <- droplevels(dat[dat$group==group,])
+    } else {
+      #----- There are no groups in dat ... check if user supplied group=
+      if (!is.null(group)) WARN("There are no groups for \"",species,
+                                "\"; thus, your 'group=' has been ignored.")
+      #----- drop group variable from df
+      dat <- dat[,!names(dat)=="group"]
+    }
+    dat  # Return data.frame of just species/group
+  }
 }
 
-# ==============================================================================
-# Internal -- handle possible use of group for sub-groups of a species
-# ==============================================================================
-iPSDHndlGroup <- function(dat,species,group) {
-  if (any(!is.na(dat$group))) {
-    #..... There are groups in dat, user did not supply group= so stop
-    if (is.null(group))
-      STOP("\"",species,"\" has Gabelhouse categories for these sub-groups: ",
-           paste(unique(dat$group),collapse=", "),
-           ". Please use 'group=' to select one of these groups.\n\n")
-    #..... There are groups in dat, user supplied group=, is it good?
-    if (!group %in% unique(dat$group))
-      STOP("There is no \"",group,"\" group for \"",species,"\". ",
-           "Please select from one of these groups: ",
-           paste(unique(dat$group),collapse=", "),".\n\n")
-    #..... There are groups in dat, user supplied group= is good, reduce df
-    dat <- droplevels(dat[dat$group==group,])
-  } else {
-    #..... There are no groups in dat ... check if user supplied group=
-    if (!is.null(group)) WARN("There are no groups for \"",species,
-                              "\"; thus, your 'group=' has been ignored.")
-    #..... drop group variable from df
-    dat <- dat[,!names(dat)=="group"]
-  }
-  dat
-}
 
 # ==============================================================================
 # An internal function to handle adding names to the specific values to be added

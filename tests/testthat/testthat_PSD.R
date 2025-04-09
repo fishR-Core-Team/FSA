@@ -32,7 +32,9 @@ df2lmb <- droplevels(subset(df2,species=="Largemouth Bass"))
 test_that("psdVal() messages",{
   ## bad species name
   expect_error(psdVal("Derek"),
-               "The Gabelhouse lengths do not exist")
+               "There are no Gablehouse lengths in 'PSDlit'")
+  expect_error(psdVal("bluegill"),
+               "There are no Gablehouse lengths in 'PSDlit'")
   ## too many species name
   expect_error(psdVal(c("Bluegill","Yellow Perch")),
                "can have only one name")
