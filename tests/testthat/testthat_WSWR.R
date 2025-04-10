@@ -86,10 +86,12 @@ test_that("wrAdd() messages",{
   
   ## need to use WsOpts
   expect_error(wrAdd(wt~tl+species,wae),
-               "More than one Ws equation exists for \"Walleye\"")
+               "More than one Ws equation exists for \"Walleye\"") %>%
+    expect_output("Walleye")
   expect_error(wrAdd(wt~tl+species,wae,
                      WsOpts=list(Bluegill=list(group="overall"))),
-               "More than one Ws equation exists for \"Walleye\"")
+               "More than one Ws equation exists for \"Walleye\"") %>%
+    expect_output("Walleye")
   expect_error(wrAdd(wt~tl+species,wae,
                      WsOpts=list(Walleye=list(ref=50))),
                "Use of 'ref=50' for \"Walleye\" did not return")

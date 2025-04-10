@@ -91,10 +91,10 @@ wsVal <- function(species="List",group=NULL,
     #===== Make checks on species
     #----- Species given, make sure in WSlit, then reduce data.frame to that species
     if (!any(unique(WSlit$species)==species)) {
-      tmp <- paste0("There is no Ws equation in 'WSlit' for \"",species,"\".")
+      tmp <- paste0("There is no Ws equation in 'WSlit' for ",iStrCollapse(species),".")
       if (any(unique(WSlit$species)==capFirst(species)))
-        STOP(tmp," However, there is an entry for \"",capFirst(species),
-             "\" (note spelling, including capitalization).\n\n")
+        STOP(tmp," However, there is an entry for ",iStrCollapse(capFirst(species)),
+             " (note spelling, including capitalization).\n\n")
       else STOP(tmp," Type 'wsVal()' to see a list of available species.\n\n")
     } else df <- droplevels(WSlit[WSlit$species==species,])
     
@@ -102,20 +102,20 @@ wsVal <- function(species="List",group=NULL,
     if (any(!is.na(df$group))) {
       #----- There are groups in WSlit, user did not supply group= so stop
       if (is.null(group))
-        STOP("\"",species,"\" has Ws equations for these sub-groups: ",
-             paste(unique(df$group),collapse=", "),
+        STOP(iStrCollapse(species)," has Ws equations for these sub-groups: ",
+             iStrCollapse(unique(df$group)),
              ". Please use 'group=' to select the equation for one of these groups.\n\n")
       #----- There are groups in WSlit, user supplied group=, is it good?
       if (!group %in% unique(df$group))
-        STOP("There is no \"",group,"\" group for \"",species,"\". ",
-             "Please select from one of these groups: ",
-             paste(unique(df$group),collapse=", "),".\n\n")
+        STOP("There is no ",iStrCollapse(group)," group for ",iStrCollapse(species),
+             ". Please select from one of these groups: ",
+             iStrCollapse(unique(df$group),last="or"),".\n\n")
       #----- There are groups in WSlit, user supplied group= is good, reduce df
       df <- droplevels(df[df$group==group,])
     } else {
       #----- There are no groups in WSlit ... check if user supplied group=
-      if (!is.null(group)) WARN("There are no groups for \"",species,
-                                "\"; thus, your 'group=' has been ignored.")
+      if (!is.null(group)) WARN("There are no groups for ",iStrCollapse(species),
+                                "; thus, your 'group=' has been ignored.")
       #---- drop group variable from df
       df <- df[,!names(df)=="group"]
     }
@@ -125,21 +125,21 @@ wsVal <- function(species="List",group=NULL,
     #----- If more than one method in WSlit but method NULL then force a choice
     #      otherwise (i.e., one method and method NULL) then continue with df
     if (is.null(method) & length(tmp)>1) 
-      STOP("Ws equations exist for both the RLP and EmP 'method's for \"",
-           species,"\". Please select one or the other with 'method='.")
+      STOP("Ws equations exist for both the RLP and EmP 'method's for ",
+           iStrCollapse(species),". Please select one or the other with 'method='.")
     if (!is.null(method)) {
       if (!any(unique(df$method)==method))
-        STOP("There is no Ws equation for \"",species,"\" derived from the '",
-             method,"' method. Possible methods for \"",species,"\" are: ",
-             paste(unique(df$method),collapse=" and "),".\n\n")
+        STOP("There is no Ws equation for ",iStrCollapse(species)," derived from the '",
+             method,"' method. Possible methods for ",iStrCollapse(species)," are: ",
+             iStrCollapse(unique(df$method),last="or"),".\n\n")
       df <- droplevels(df[df$method==method,])
     }
     
     #===== Make checks on units (if OK reduce data frame to those units)
     if (!any(unique(df$units)==units)) {
-      STOP("There is no Ws equation in '",units,"' units for \"",species,"\".",
-           " However, there is a Ws equation in '",unique(df$units),"' units for \"",
-           species,"\".\n\n")
+      STOP("There is no Ws equation in '",units,"' units for ",iStrCollapse(species),
+           ". However, there is a Ws equation in '",unique(df$units),"' units for ",
+           iStrCollapse(species),".\n\n")
     } else df <- droplevels(df[df$units==units,])
     
     #===== Make checks on ref (if OK reduce data frame to that ref)
@@ -147,14 +147,16 @@ wsVal <- function(species="List",group=NULL,
     #----- If more than one ref in WSlit but ref is NULL then force a choice
     #      otherwise (i.e., one ref and ref is NULL) then continue with df
     if (is.null(ref) & length(tmp)>1) 
-      STOP("Ws equations exist for more than one 'ref'erence value for \"",
-           species,"\". Please select one of the following values with 'ref=': ",
-           paste(tmp,collapse=", "),".\n\n")
+      STOP("Ws equations exist for more than one 'ref'erence value for ",
+           iStrCollapse(species),
+           ". Please select one of the following values with 'ref=': ",
+           iStrCollapse(tmp,last="or",quotes=""),".\n\n")
     if (!is.null(ref)) {
       if (!any(unique(df$ref)==ref))
-        STOP("There is no Ws equation for \"",species,"\" with a reference value of '",
-             ref,"'. Possible reference values for \"",species,"\" are: ",
-             paste(unique(df$ref),collapse=", "),".\n\n")
+        STOP("There is no Ws equation for ",iStrCollapse(species),
+             " with a reference value of '",
+             ref,"'. Possible reference values for ",iStrCollapse(species),
+             " are: ",iStrCollapse(unique(df$ref),last="or",quotes=""),".\n\n")
       df <- droplevels(df[df$ref==ref,])
     }
 

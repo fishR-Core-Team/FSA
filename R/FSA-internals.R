@@ -419,6 +419,15 @@ WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
   warning(msg,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
 }
 
+# Used to collapse a vector of strings ... generally by comma with and or or at end
+iStrCollapse <- function(x,sep=",",last="and",quotes=c("\"")) {
+  x <- paste0(quotes,x,quotes)
+  n <- length(x)
+  if (n==1) x
+  else if (n==2) paste(x,collapse=paste0(" ",last," "))
+  else paste0(paste(x[-n],collapse=", "),paste0(", ",last," ",x[n]))
+}
+
 
 #Checks if specified confidence interval is numeric.
 iCheckConfLevel <- function(conf.level) {

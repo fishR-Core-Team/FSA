@@ -94,7 +94,7 @@ psdVal <- function(species="List",group=NULL,units=c("mm","cm","in"),
         if (length(tmp>0)) {
           WARN("The following Gabelhouse length categories were removed because ",
                "they were duplicated with a length in 'addLens=': ",
-               paste(names(PSDvec)[tmp],collapse=", "),".")
+               iStrCollapse(names(PSDvec)[tmp]),".")
           PSDvec <- PSDvec[-tmp]
         }
         # append the new lens to the Gabelhouse lengths
@@ -119,10 +119,11 @@ iPSDGetSpecies <- function(dat,species,group) {
     NULL   # return NULL
   } else {
     if (!any(unique(dat$species)==species)) {
-      tmp <- paste0("There are no Gablehouse lengths in 'PSDlit' for \"",species,"\".")
+      tmp <- paste0("There are no Gablehouse lengths in 'PSDlit' for ",
+                    iStrCollapse(species),".")
       if (any(unique(dat$species)==capFirst(species)))
-        STOP(tmp," However, there is an entry for \"",capFirst(species),
-             "\" (note spelling, including capitalization).\n\n")
+        STOP(tmp," However, there is an entry for ",iStrCollapse(capFirst(species)),
+             " (note spelling, including capitalization).\n\n")
       else STOP(tmp," Type 'psdVal()' to see a list of available species.\n\n")
     }
     
@@ -133,20 +134,20 @@ iPSDGetSpecies <- function(dat,species,group) {
     if (any(!is.na(dat$group))) {
       #----- There are groups in dat, user did not supply group= so stop
       if (is.null(group))
-        STOP("\"",species,"\" has Gabelhouse categories for these sub-groups: ",
-             paste(unique(dat$group),collapse=", "),
+        STOP(iStrCollapse(species)," has Gabelhouse categories for these sub-groups: ",
+             iStrCollapse(unique(dat$group)),
              ". Please use 'group=' to select one of these groups.\n\n")
       #----- There are groups in dat, user supplied group=, is it good?
       if (!group %in% unique(dat$group))
-        STOP("There is no \"",group,"\" group for \"",species,"\". ",
-             "Please select from one of these groups: ",
-             paste(unique(dat$group),collapse=", "),".\n\n")
+        STOP("There is no ",iStrCollapse(group)," group for ",iStrCollapse(species),
+             ". Please select from one of these groups: ",
+             iStrCollapse(unique(dat$group),last="or"),".\n\n")
       #----- There are groups in dat, user supplied group= is good, reduce df
       dat <- droplevels(dat[dat$group==group,])
     } else {
       #----- There are no groups in dat ... check if user supplied group=
-      if (!is.null(group)) WARN("There are no groups for \"",species,
-                                "\"; thus, your 'group=' has been ignored.")
+      if (!is.null(group)) WARN("There are no groups for ",iStrCollapse(species),
+                                "; thus, your 'group=' has been ignored.")
       #----- drop group variable from df
       dat <- dat[,!names(dat)=="group"]
     }

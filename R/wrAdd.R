@@ -90,9 +90,9 @@ wrAdd.default <- function(wt,len,spec,
     #----- Restrict data.frame to species, group, ref, and method ... then show
     print(df[,c("species","group","ref","method")])
     #----- Error message for next two possible problems
-    STOP("More than one Ws equation exists for \"",unique(df$species),
-         "\". Please use a named list in 'opts=' to select one ",
-         "equation for \"",unique(df$species),"\" by specifing 'group', ",
+    STOP("More than one Ws equation exists for ",iStrCollapse(unique(df$species)),
+         ". Please use a named list in 'opts=' to select one ",
+         "equation for ",iStrCollapse(unique(df$species))," by specifing 'group', ",
          "'ref', or 'method' as appropriate. See details in documentation ",
          "and above (for reference).")
   }
@@ -122,16 +122,18 @@ wrAdd.default <- function(wt,len,spec,
                "'ref', or 'method'.")
         Wsdf <- droplevels(Wsdf[Wsdf[[names(tmp)]]==tmp,])
         if (nrow(Wsdf)==0)
-          STOP("Use of '",crit_opts[i],"=",tmp[[1]],"' for \"",species,"\" did ",
-               "not return a standard weight equation. Please reconsider your use ",
-               "of 'WsOpts=' to restrict to only one equation for \"",species,"\".")
+          STOP("Use of '",crit_opts[i],"=",tmp[[1]],"' for ",iStrCollapse(species),
+               " did not return a standard weight equation. Please reconsider your use ",
+               "of 'WsOpts=' to restrict to only one equation for ",
+               iStrCollapse(species),".")
         else if (nrow(Wsdf)>1) {
           #..... send error if not reduced to only one Ws equation
           print(Wsdf[,c("species","group","ref","method")])
-          STOP("Use of '",crit_opts[i],"=",tmp[[1]],"' for \"",species,"\" did ",
-               "not result in a single standard weight equation. Please examine the ",
-               "output above to appropriately make another choice for use ",
-               "in 'WsOpts=' to restrict to only one equation for \"",species,"\".")
+          STOP("Use of '",crit_opts[i],"=",tmp[[1]],"' for ",iStrCollapse(species),
+               " did not result in a single standard weight equation. Please",
+               " examine the output above to appropriately make another choice",
+               " for use in 'WsOpts=' to restrict to only one equation for ",
+               iStrCollapse(species),".")
         }
       }
     }

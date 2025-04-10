@@ -1115,7 +1115,7 @@ iHndlGrowthModelParams <- function(type,param,pname) {
       STOP("'pname' not used with ",type," model; use 'param' instead.")
     if (!pname %in% param_list[[type]]$pnms)
       STOP("For ",type," models, 'pname' must be one of: ",
-           paste(param_list[[type]]$pnms,collapse=", "))
+           iStrCollapse(param_list[[type]]$pnms))
     param <- param_list[[type]]$pnum[param_list[[type]]$pnms==pname]
   }
   

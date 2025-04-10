@@ -9,6 +9,7 @@
 
 * internals: Added functions to return a logical about whether a value is less than, less than or equal, greater than, or greater than or equal (i.e., `is.lte()`, `is.lt()`, `is.gte()`, and `is.gt()`). Added functions that use those logical and return an informative error if the logical is FALSE (i.e., `iChkLTE()`, `iChkLT()`, `iChkGTE()`, and `iChkGT()`). The errors can "grab" the name of the object so that the error can be specific though the function is general.
 * internals: Modified `STOP()` and `WARN()` to use `strwrap()` rather than hard-coded line breaks.
+* internals: Added `iStrCollapse()`, largely for use with `STOP()` and `WARN()`.
 * throughout: Changed many `df[-which(CONDITION),]` constructs to `df[!CONDITION]` as suggested [here](https://stackoverflow.com/a/5236518).
 
 * `findGrowthStarts()`: Added. This replaces `vbStarts()` and includes starting values for Gompertz, logistic, and Richards functions, and seasonal and tag-recapture von Bertalanffy parameterizations. Note that `constvals=` and `fixed=` must now be numeric vectors (and not lists) and that the returned starting values are in a numeric vector.

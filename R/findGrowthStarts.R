@@ -157,8 +157,8 @@ findGrowthStarts <- function(formula,data,
   if (!is.null(fixed)) {
     if (!all(fxdnms %in% names(sv))) { # some not correctly named
       fxdnms <- fxdnms[!fxdnms %in% names(sv)]
-      WARN("Some names in 'fixed' (",paste(fxdnms,collapse=", "),
-           ") are not parameters (",paste(names(sv),collapse=", "),
+      WARN("Some names in 'fixed' (",iStrCollapse(fxdnms,),
+           ") are not parameters (",iStrCollapse(names(sv)),
            ") for ",type," parameterization #",param," and were ignored.")
     }
   }
