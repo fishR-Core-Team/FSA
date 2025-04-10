@@ -50,22 +50,24 @@ Additional lengths may be added to the returned vector with \code{addLens}. Name
 #===== List all available species in PSDlit
 psdVal()
 
-#===== Demonstrate typical usages
+#===== Typical usages
 psdVal("Bluegill")
 psdVal("Bluegill",units="in")
 psdVal("Bluegill",units="in",incl.zero=FALSE)
 psdVal("Bluegill",showJustSource=TRUE)
 
-#===== Demonstrate that some species have sub-groups
+#===== For species that have sub-groups
 psdVal("Brown Trout",group="lentic")
 psdVal("Brown Trout",group="lotic")
 psdVal("Palmetto Bass",group="revised")
 psdVal("Palmetto Bass",group="original")
 
-#===== Demonstrate adding user-defined categories
+#===== Adding user-defined categories
+#-----   with lengths and names separately in addLens= and addNames=
 psdVal("Bluegill",units="in",addLens=7)
 psdVal("Bluegill",units="in",addLens=7,addNames="MinLen")
 psdVal("Bluegill",units="in",addLens=c(7,9),addNames=c("MinSlot","MaxSlot"))
+#-----   with a named vector in addLens=
 psdVal("Bluegill",units="in",addLens=c("MinLen"=7))
 psdVal("Bluegill",units="in",addLens=c("MinSlot"=7,"MaxSlot"=9))
 

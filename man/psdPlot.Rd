@@ -8,6 +8,7 @@ psdPlot(
   formula,
   data,
   species = "List",
+  group = NULL,
   units = c("mm", "cm", "in"),
   startcat = 0,
   w = 1,
@@ -35,6 +36,8 @@ psdPlot(
 \item{data}{A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.}
 
 \item{species}{A string that contains the species name for which Gabelhouse length categories exist. See \code{\link{psdVal}} for details.}
+
+\item{group}{A string that contains the sub-group of `species` for which to find the Gabelhouse lengths. Will be things like \dQuote{"landlocked"}, \dQuote{"lentic"}.}
 
 \item{units}{A string that indicates the type of units used for the length measurements. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
@@ -90,20 +93,21 @@ The length of fish plotted on the x-axis can be controlled with \code{xlim}, how
 }
 
 \examples{
-## Random length data
-# suppose this is yellow perch to the nearest mm
-df <- data.frame(spec=rep("Yellow Perch",170),
-                 mm=c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
-                      rnorm(20,mean=300,sd=40)))
+#===== Random length data for Yellow Perch (for example) to the nearest mm
+set.seed(633437)
+yepdf <- data.frame(yepmm=round(c(rnorm(100,mean=125,sd=15),
+                                  rnorm(50,mean=200,sd=25),
+                                  rnorm(20,mean=270,sd=40)),0),
+                    species=rep("Yellow Perch",170))
 
-## Example graphics
+#===== Example graphics
 op <- par(mar=c(3,3,2,1),mgp=c(1.7,0.5,0))
-# Using 10-mm increments
-psdPlot(~mm,data=df,species="Yellow perch",w=10)
-psdPlot(~mm,data=df,species="Yellow perch",w=10,substock.col="gray90",
+#----- Using 10-mm increments
+psdPlot(~yepmm,data=yepdf,species="Yellow Perch",w=10)
+psdPlot(~yepmm,data=yepdf,species="Yellow Perch",w=10,substock.col="gray90",
         stock.col="gray30")
-# ... but without the PSD values
-psdPlot(~mm,data=df,species="Yellow perch",w=10,psd.add=FALSE)
+#----- Same, but without the PSD values
+psdPlot(~yepmm,data=yepdf,species="Yellow Perch",w=10,psd.add=FALSE)
 par(op)
 
 }

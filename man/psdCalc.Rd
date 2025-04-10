@@ -8,6 +8,7 @@ psdCalc(
   formula,
   data,
   species,
+  group = NULL,
   units = c("mm", "cm", "in"),
   method = c("multinomial", "binomial"),
   conf.level = 0.95,
@@ -26,6 +27,8 @@ psdCalc(
 \item{data}{A data.frame that minimally contains the observed lengths given in the variable in \code{formula}.}
 
 \item{species}{A string that contains the species name for which Gabelhouse lengths exist. See \code{\link{psdVal}} for details. See details for how to use this function for species for which Gabelhouse lengths are not defined.}
+
+\item{group}{A string that contains the sub-group of `species` for which to find the Gabelhouse lengths. Will be things like \dQuote{"landlocked"}, \dQuote{"lentic"}.}
 
 \item{units}{A string that indicates the type of units used for the lengths. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
@@ -57,6 +60,7 @@ Convenience function for calculating (traditional) PSD-X and (incremental) PSD X
 Computes the (traditional) PSD-X and (incremental) PSD X-Y values, with associated confidence intervals, for each Gabelhouse length. All PSD-X and PSD X-Y values are printed if \code{what="all"} (DEFAULT), only PSD-X values are printed if \code{what="traditional"}, only PSD X-Y values are printed if \code{what="incremental"}, and nothing is printed (but the matrix is still returned) if \code{what="none"}.
 
 Confidence intervals can be computed with either the multinomial (Default) or binomial distribution as set in \code{method}See details in \code{\link{psdCI}} for more information.
+
 This function may be used for species for which Gabelhouse length categories are not defined. In this case do not include a name in \code{species}, but define at least two lengths in \code{addLens} where the first category MUST be called \dQuote{stock}.
 }
 \section{Testing}{
@@ -68,51 +72,48 @@ This function may be used for species for which Gabelhouse length categories are
 }
 
 \examples{
-## Random length data
-# suppose this is yellow perch to the nearest mm
+#===== Random length data for Yellow Perch (for example) to the nearest mm
+set.seed(633437)
 yepdf <- data.frame(yepmm=round(c(rnorm(100,mean=125,sd=15),
                                   rnorm(50,mean=200,sd=25),
-                                  rnorm(20,mean=300,sd=40)),0),
+                                  rnorm(20,mean=270,sd=40)),0),
                     species=rep("Yellow Perch",170))
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1,drop0Est=TRUE)
+                    
+#===== Simple (typical) uses with just Gabelhouse lengths
+#----- All results
+psdCalc(~yepmm,data=yepdf,species="Yellow Perch")
+#----- Just the traditional indices
+psdCalc(~yepmm,data=yepdf,species="Yellow Perch",what="traditional")
+#----- Just the incremental indices
+psdCalc(~yepmm,data=yepdf,species="Yellow Perch",what="incremental")
+#----- Can control the number of digits/decimals
+psdCalc(~yepmm,data=yepdf,species="Yellow Perch",what="traditional",digits=1)
 
-## add a length
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150)
+#===== Add a custom length of interest (to the Gabelhouse lengths)
+psdCalc(~yepmm,data=yepdf,species="Yellow Perch",addLens=150)
+#----- Additional lengths can be named
+psdCalc(~yepmm,data=yepdf,species="Yellow Perch",
+        addLens=c("minLen"=150))
+psdCalc(~yepmm,data=yepdf,species="Yellow Perch",
+        addLens=c("minLen"=150,"maxslot"=275))
+#----- Can return just those results that include the additional lengths
+psdCalc(~yepmm,data=yepdf,species="Yellow Perch",
+        addLens=c("minSlot"=150,"maxSlot"=275),justAdds=TRUE)
+psdCalc(~yepmm,data=yepdf,species="Yellow Perch",
+        addLens=c("minSlot"=150,"maxSlot"=275),justAdds=TRUE,what="traditional")
 
-## add lengths with names
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,addNames="minLen")
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150))
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),addNames=c("minSlot","maxSlot"))
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150,"maxslot"=275))
+#===== Can show intermediate values (num in category and in stock)
+psdCalc(~yepmm,data=yepdf,species="Yellow Perch",showInterm=TRUE)
+psdCalc(~yepmm,data=yepdf,species="Yellow Perch",what="traditional",showInterm=TRUE)
 
-## add lengths with names, return just those values that use those lengths
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150),justAdds=TRUE)
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150),justAdds=TRUE,
-        what="traditional")
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),
-        addNames=c("minSlot","maxSlot"),justAdds=TRUE)
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),
-        addNames=c("minSlot","maxSlot"),justAdds=TRUE,what="traditional")
+#===== Some species require use of group (e.g., treat these as if Brown Trout)
+psdCalc(~yepmm,data=yepdf,species="Brown Trout",group="lotic")
+psdCalc(~yepmm,data=yepdf,species="Brown Trout",group="lentic")
 
-## different output types
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,what="traditional")
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,what="incremental")
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,what="none")
-
-## Show intermediate values
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",showInterm=TRUE)
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",what="traditional",showInterm=TRUE)
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",what="incremental",showInterm=TRUE)
-
-## Control the digits
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
-
-## Working with a species not in PSDlit ... same data, but don't give species
+#===== For species not in PSDlit ... don't include species and use addLens
+#      Note that these are same data as above, but treated as different species
 psdCalc(~yepmm,data=yepdf,addLens=c("stock"=130,"quality"=200,"preferred"=250,
                                     "memorable"=300,"trophy"=380))
-psdCalc(~yepmm,data=yepdf,addLens=c("stock"=130,"quality"=200,
-                                    "preferred"=250,"name1"=220))
                                     
 }
 \references{

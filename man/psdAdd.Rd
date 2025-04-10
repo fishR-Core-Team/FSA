@@ -11,6 +11,7 @@ psdAdd(len, ...)
 \method{psdAdd}{default}(
   len,
   species,
+  group = NULL,
   units = c("mm", "cm", "in"),
   use.names = TRUE,
   addSpec = NULL,
@@ -22,6 +23,7 @@ psdAdd(len, ...)
 \method{psdAdd}{formula}(
   len,
   data = NULL,
+  group = NULL,
   units = c("mm", "cm", "in"),
   use.names = TRUE,
   addSpec = NULL,
@@ -36,6 +38,8 @@ psdAdd(len, ...)
 \item{\dots}{Not used.}
 
 \item{species}{A character or factor vector that contains the species names. Ignored if \code{len} is a formula.}
+
+\item{group}{A named list that provides specific choices for \code{group} for species for which more than one set of Gabelhouse lengths exists in \code{\link{PSDlit}}.}
 
 \item{units}{A string that indicates the type of units used for the lengths. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
@@ -56,7 +60,9 @@ A numeric or factor vector that contains the Gabelhouse length categories.
 Creates a vector of the Gabelhouse lengths specific to a species for all individuals in an entire data frame.
 }
 \details{
-This computes a vector that contains the Gabelhouse lengths specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the Gabelhouse lengths for each individual. The Gabelhouse length value will be \code{NA} for each individual for which Gabelhouse length definitions do not exist in \code{\link{PSDlit}}. Species names in the data.frame must be the same as those used in \code{\link{PSDlit}}. See the examples for one method for changing species names to something that this function will recognize.
+This computes a vector that contains the Gabelhouse lengths specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the Gabelhouse lengths for each individual. The Gabelhouse length value will be \code{NA} for each individual for which Gabelhouse length definitions do not exist in \code{\link{PSDlit}}. Species names in the data.frame must be the same as those used in \code{\link{PSDlit}}.
+
+Some species have Gabelhouse lengths for sub-groups (e.g., \dQuote{lentic} vs \dQuote{lotic}). For these species, choose which sub-group to use with \code{group}.
 
 Individuals shorter than \dQuote{stock} length will be listed as \code{substock} if \code{use.names=TRUE} or \code{0} if \code{use.names=FALSE}.
 
@@ -67,49 +73,56 @@ Additional lengths to be used for a species may be included by giving a vector o
 }
 
 \examples{
-## Create random data for three species
-# only for repeatability
+#===== Create random data for three species
 set.seed(345234534)
 dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),
                   tl=round(rnorm(30,130,50),0))
-dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
 dlb <- data.frame(species=factor(rep(c("Largemouth Bass"),30)),
                   tl=round(rnorm(30,350,60),0))
-dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
 dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),
                   tl=round(rnorm(30,1900,300),0))
-dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
 df <- rbind(dbg,dlb,dbt)
 str(df)
 
-## Examples (non-dplyr)
-# Add variable using category names -- formula notation
-df$PSD <- psdAdd(tl~species,data=df)
-head(df)
-# Add variable using category names -- non-formula notation
-df$PSD1 <- psdAdd(df$tl,df$species)
-head(df)
-# Add variable using length values as names
+#===== Examples not using dplyr
+#----- Add variable using category names -- non-formula notation
+df$PSD <- psdAdd(df$tl,df$species)
+peek(df,n=6)
+#----- Add variable using category names -- formula notation
+df$PSD1 <- psdAdd(tl~species,data=df)
+peek(df,n=6)
+#----- Add variable using length values as names
 df$PSD2 <- psdAdd(tl~species,data=df,use.names=FALSE)
-head(df)
-# Add additional length and name for Bluegill
+peek(df,n=6)
+#----- Add additional length and name for Bluegill
 df$PSD3 <- psdAdd(tl~species,data=df,addSpec="Bluegill",addLens=175)
-head(df)
-# Add add'l lengths and names for Bluegill and Largemouth Bass from a data.frame
+peek(df,n=6)
+#----- Add add'l lengths and names for Bluegill and Largemouth Bass from a data.frame
 addls <- data.frame(species=c("Bluegill","Largemouth Bass","Largemouth Bass"),
                     lens=c(175,254,356))
 df$psd4 <- psdAdd(tl~species,data=df,addSpec=addls$species,addLens=addls$lens)
-head(df)
+peek(df,n=6)
 
-## All of the above but using dplyr
+#===== All of the above but using dplyr
 if (require(dplyr)) {
   df <- df \%>\%
     mutate(PSD1A=psdAdd(tl,species)) \%>\%
     mutate(PSD2A=psdAdd(tl,species,use.names=FALSE)) \%>\%
     mutate(psd3a=psdAdd(tl,species,addSpec="Bluegill",addLens=175)) \%>\%
     mutate(psd4a=psdAdd(tl,species,addSpec=addls$species,addLens=addls$lens))
+  peek(df,n=6)
 }
-df
+
+#===== Example for a species with sub-groups
+dbt <- data.frame(species=factor(rep(c("Brown Trout"),30)),
+                  tl=round(rnorm(30,230,50),0))
+dlt <- data.frame(species=factor(rep(c("Lake Trout"),30)),
+                  tl=round(rnorm(30,550,60),0))
+df2 <- rbind(dbt,dlt)
+str(df2)
+
+df2$psd <- psdAdd(tl~species,data=df2,group=list("Brown Trout"="lotic"))
+peek(df2,n=6)
 
 }
 \references{

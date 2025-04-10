@@ -106,40 +106,50 @@ test_that("psdCI() messages",{
 
 test_that("psdCalc() messages",{
   ## species name does not exist in PSDlit
-  expect_error(psdCalc(~tl,data=tmp,species="Slimy Sculpin"),
-               "Gabelhouse lengths do not exist for \"Slimy Sculpin\"")
+  expect_error(psdCalc(~tl,data=df,species="Slimy Sculpin"),
+               "There are no Gablehouse lengths in 'PSDlit'")
+  expect_error(psdCalc(~tl,data=df,species="Yellow perch"),
+               "There are no Gablehouse lengths in 'PSDlit'")
+  ## needed and bad group=
+  expect_error(psdCalc(~tl,data=df,species="Brown Trout"),
+               "\"Brown Trout\" has Gabelhouse categories for these")
+  expect_error(psdCalc(~tl,data=df,species="Brown Trout",group="Derek"),
+               "There is no \"Derek\" group for \"Brown Trout\"")
+  expect_no_failure(psdCalc(~tl,data=df,species="Brown Trout",group="lotic"))  %>%
+    suppressWarnings()
+  
   ## get Gabelhouse lengths for Yellow Perch
-  ghl <- psdVal("Yellow perch")
+  ghl <- psdVal("Yellow Perch")
   ## restrict data.frame to no fish
   tmp <- subset(df,tl<ghl["substock"])
-  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch"),
+  expect_error(psdCalc(~tl,data=tmp,species="Yellow Perch"),
                "does not contain any rows")
   ## restrict data.frame to sub-stock-length fish
   tmp <- subset(df,tl<ghl["stock"])
-  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch"),
+  expect_error(psdCalc(~tl,data=tmp,species="Yellow Perch"),
                "no stock-length fish in the sample")
   ## restrict data.frame to no >=quality fish
   tmp <- subset(df,tl<ghl["quality"])
-  psdCalc(~tl,data=tmp,species="Yellow perch") %>%
+  psdCalc(~tl,data=tmp,species="Yellow Perch") %>%
     expect_warning("No fish in larger than 'stock' categories") %>%
     suppressWarnings()
   
   ## bad formulae
-  expect_error(psdCalc(tl,data=df,species="Yellow perch"),
+  expect_error(psdCalc(tl,data=df,species="Yellow Perch"),
                "not found")
-  expect_error(psdCalc(tl~species,data=df,species="Yellow perch"),
+  expect_error(psdCalc(tl~species,data=df,species="Yellow Perch"),
                "Function only works with formulas with 1 variable")
-  expect_error(psdCalc(~tl+species,data=df,species="Yellow perch"),
+  expect_error(psdCalc(~tl+species,data=df,species="Yellow Perch"),
                "Function only works with formulas with 1 variable")
-  expect_error(psdCalc(~species,data=df,species="Yellow perch"),
+  expect_error(psdCalc(~species,data=df,species="Yellow Perch"),
                "must be numeric")
   
   # testing confidence intervals
-  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch",conf.level=0),
+  expect_error(psdCalc(~tl,data=tmp,species="Yellow Perch",conf.level=0),
                "must be between 0 and 1")
-  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch",conf.level=1),
+  expect_error(psdCalc(~tl,data=tmp,species="Yellow Perch",conf.level=1),
                "must be between 0 and 1")
-  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch",conf.level="R"),
+  expect_error(psdCalc(~tl,data=tmp,species="Yellow Perch",conf.level="R"),
                "must be numeric")
 
   # Testing when species name not given
@@ -161,35 +171,35 @@ test_that("psdCalc() messages",{
                "Category names must be defined in 'addLens'")
   ## lengths of addLens and addNames do not match
   expect_error(psdCalc(~tl,data=tmp,addLens=c(100,200),addNames=c("name1")),
-               "'addLens' and 'addNames' are different lengths")
+               "'addLens' and 'addNames' cannot be different lengths")
   expect_error(psdCalc(~tl,data=tmp,addLens=c(100,200),
                        addNames=c("name1","name2","name3")),
-               "'addLens' and 'addNames' are different lengths")
+               "'addLens' and 'addNames' cannot be different lengths")
 })
 
 test_that("psdPlot() messages",{
   ## get Gabelhouse lengths for Yellow Perch
-  ghl <- psdVal("Yellow perch")
+  ghl <- psdVal("Yellow Perch")
   
   ## restrict data.frame to no fish
   tmp <- subset(df,tl<ghl["substock"])
-  expect_error(psdPlot(~tl,data=tmp,species="Yellow perch"),
+  expect_error(psdPlot(~tl,data=tmp,species="Yellow Perch"),
                "does not contain any rows")
   ## restrict data.frame to no >=quality fish
   tmp <- subset(df,tl<ghl["quality"])
   ## set minimum length higher than stock length
-  expect_error(psdPlot(~tl,data=df,species="Yellow perch",
+  expect_error(psdPlot(~tl,data=df,species="Yellow Perch",
                        xlim=c(ghl["stock"]+10,300)),
                "Minimum length value in")
   
   ## bad formulae
-  expect_error(psdPlot(tl,data=df,species="Yellow perch"),
+  expect_error(psdPlot(tl,data=df,species="Yellow Perch"),
                "not found")
-  expect_error(psdPlot(tl~species,data=df,species="Yellow perch"),
+  expect_error(psdPlot(tl~species,data=df,species="Yellow Perch"),
                "Function only works with formulas with 1 variable.")
-  expect_error(psdPlot(~tl+species,data=df,species="Yellow perch"),
+  expect_error(psdPlot(~tl+species,data=df,species="Yellow Perch"),
                "Function only works with formulas with 1 variable.")
-  expect_error(psdPlot(~species,data=df,species="Yellow perch"),
+  expect_error(psdPlot(~species,data=df,species="Yellow Perch"),
                "must be numeric")
 })
 
@@ -274,7 +284,7 @@ test_that("tictactoe() errors and warnings",{
 
 ## Test Output Types ----
 test_that("psdVal() returns",{
-  ## check values for yellow perch
+  ## check values for yellow Perch
   tmp <- psdVal("Yellow Perch",incl.zero=FALSE)
   expect_equal(tmp,c(130,200,250,300,380),ignore_attr=TRUE)
   expect_equal(names(tmp),c("stock","quality","preferred","memorable","trophy"))
@@ -299,11 +309,11 @@ test_that("psdVal() returns",{
   expect_equal(tmp,c(0,5,7,8,9,10,12,15),ignore_attr=TRUE)
   expect_equal(names(tmp),c("substock","stock","minSlot","quality","maxSlot",
                             "preferred","memorable","trophy"))
-  tmp <- psdVal("yellow perch")
+  tmp <- psdVal("Yellow Perch")
   expect_equal(tmp,c(0,130,200,250,300,380),ignore_attr=TRUE)
   expect_equal(names(tmp),c("substock","stock","quality","preferred",
                             "memorable","trophy"))
-  tmp <- psdVal("yellow Perch",showJustSource=TRUE)
+  tmp <- psdVal("Yellow Perch",showJustSource=TRUE)
   expect_equal(class(tmp),"data.frame")
   expect_equal(ncol(tmp),2)
   expect_equal(nrow(tmp),1)
@@ -363,7 +373,7 @@ test_that("psdCI() returns",{
 
 test_that("psdCalc() returns",{
   ## All values
-  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch"))
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow Perch"))
   expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),8)
@@ -372,7 +382,7 @@ test_that("psdCalc() returns",{
                                "PSD Q-P","PSD P-M","PSD M-T"))
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
   ## Traditional values
-  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow Perch",
                                   what="traditional"))
   expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
@@ -380,9 +390,9 @@ test_that("psdCalc() returns",{
   expect_equal(ncol(tmp),3)
   expect_equal(rownames(tmp),c("PSD-Q","PSD-P","PSD-M","PSD-T"))
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
-  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch"))
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow Perch"))
   ## Incremental values
-  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow Perch",
                                   what="incremental"))
   expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
@@ -391,7 +401,7 @@ test_that("psdCalc() returns",{
   expect_equal(rownames(tmp),c("PSD S-Q","PSD Q-P","PSD P-M","PSD M-T"))
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
   ## All values, but don't drop 0s
-  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow Perch",
                                   drop0Est=FALSE))
   expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
@@ -401,7 +411,7 @@ test_that("psdCalc() returns",{
                                "PSD Q-P","PSD P-M","PSD M-T"))
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
   ## All values, with some additional lengths
-  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow Perch",
                                   addLens=225,addNames="Derek"))
   expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
@@ -412,7 +422,7 @@ test_that("psdCalc() returns",{
                                "PSD P-M","PSD M-T"))
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
   ## All values, with some additional lengths but no names
-  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow Perch",
                                   addLens=c(225,245),drop0Est=FALSE))
   expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
@@ -423,7 +433,7 @@ test_that("psdCalc() returns",{
                                "PSD 245-P","PSD P-M","PSD M-T"))
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
   ## Just the additional values
-  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow Perch",
                                   addLens=c(225,245),drop0Est=FALSE,
                                   justAdds=TRUE))
   expect_equal(class(tmp),c("matrix","array"))
@@ -435,7 +445,7 @@ test_that("psdCalc() returns",{
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
   ## All values, but df only has values greater than stock values
   df1 <- droplevels(subset(df,tl>=130))
-  tmp <- suppressWarnings(psdCalc(~tl,data=df1,species="Yellow perch"))
+  tmp <- suppressWarnings(psdCalc(~tl,data=df1,species="Yellow Perch"))
   expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),8)
@@ -445,7 +455,7 @@ test_that("psdCalc() returns",{
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
   ## All values, but df only has values greater than quality values
   df1 <- droplevels(subset(df,tl>=200))
-  tmp <- suppressWarnings(psdCalc(~tl,data=df1,species="Yellow perch"))
+  tmp <- suppressWarnings(psdCalc(~tl,data=df1,species="Yellow Perch"))
   expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),7)
@@ -455,7 +465,7 @@ test_that("psdCalc() returns",{
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
   ## All values, but df only has values greater than memorable value
   df1 <- droplevels(subset(df,tl>=300))
-  tmp <- suppressWarnings(psdCalc(~tl,data=df1,species="Yellow perch"))
+  tmp <- suppressWarnings(psdCalc(~tl,data=df1,species="Yellow Perch"))
   expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),5)
