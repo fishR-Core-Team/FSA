@@ -65,10 +65,6 @@ reference:
       - makeGrowthFun
       - showGrowthFun
       - findGrowthStarts
-      - Schnute
-      - SchnuteRichards
-      - growthModels
-      - vbStarts
   - title: Mortality Rates
     desc: Estimate mortality rates from catch curve data and empirical models.
     contents:
@@ -135,6 +131,9 @@ reference:
       - CodNorwegian
       - CutthroatAL
       - Ecoli
+      - GrowthData1
+      - GrowthData2
+      - GrowthData3
       - Mirex
       - PikeNY
       - PikeNYPartial1
@@ -145,6 +144,7 @@ reference:
       - WhitefishLC
       - WR79
       - WSlit
+
   - title: Defunct
     desc: Defunct functions.
     contents:
@@ -154,7 +154,18 @@ navbar:
   left:
     - text: Reference
       href: reference/index.html
-  right:
+    - text: Articles
+      menu:
+      - text: Computing Proportional Size Distribution Metrics
+        href: articles/Computing_PSD.html
+      - text: Computing Relative Weights
+        href: articles/Computing_Relative_Weights.html
+      - text: Fitting Growth Functions
+        href: articles/Fitting_Growth_Functions.html
+      - text: "--------"
+      - text: Explaining Starting Values for Growth Functions
+        href: articles/Growth_Starting_Values.html
+    right:
     - icon: fa-newspaper
       href: news/index.html
       aria-label: See package news
