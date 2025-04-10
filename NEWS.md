@@ -5,6 +5,7 @@
     * Describe how the starting values for the growth equations are derived.
     * Provide a simple introduction to growth model fitting with `FSA`.
     * Provide a simple introduction to calculating relative weights with `FSA`.
+    * Provide a simple introduction to calculating proportional size distribution metrics with `FSA`.
 
 * internals: Added functions to return a logical about whether a value is less than, less than or equal, greater than, or greater than or equal (i.e., `is.lte()`, `is.lt()`, `is.gte()`, and `is.gt()`). Added functions that use those logical and return an informative error if the logical is FALSE (i.e., `iChkLTE()`, `iChkLT()`, `iChkGTE()`, and `iChkGT()`). The errors can "grab" the name of the object so that the error can be specific though the function is general.
 * internals: Modified `STOP()` and `WARN()` to use `strwrap()` rather than hard-coded line breaks.
@@ -23,7 +24,12 @@
     * Removed first parameterization as it had limited placement for the inflection point.
     * Moved the old parameterization to new places as follows: third to first, and fifth to second. Thus, the first parameterization will be the one that most closely follows the parameterization of the self-starting function to be used in `findGrowthStarts()`. Removed the other two parameterizations as they were essentially the same as the first except for how the exponent was defined, which has no biological meaning.
     * Modified parameterizations to have the same general look (i.e., Linf times something raised to a power). After this, the powers were all the same, so there is just a "b" parameter now.
-* `PSDLit`: Added length categories for Goldeye, Lake Chubsucker, and Northern Snakehead.
+* `psdAdd()`: Modified. Added `group=` to handle the change for sub-groups in `PSDlit`. Modified `addLens=` to more closely match how `addLens=` words in `psdCalc()` and, thus, removed `addSpecs=`.
+* `psdCalc()`: Modified. Added `group=` to handle the change for sub-groups in `PSDlit`. Made other coding changes that did not affect forward-facing functionality.
+* `PSDLit`: Modified.
+    * Added length categories for Goldeye, Lake Chubsucker, and Northern Snakehead.
+    * Added a `group` variable to handle species with specified sub-groups.
+* `psdVals()`: Modified. Added `group=` to handle the change for sub-groups in `PSDlit`. Made other coding changes that did not affect forward-facing functionality.
 * `RichardsFuns()`: Deprecated (replaced with `makeGrowthFun()`).
 * `Schnute()`: Deleted (made defunct) as it was added to `makeGrowthFun()` (use `Schnute <- makeGrowthFun("Schnute")` instead). Note that order of arguments was changed so that the parameters appear before the constants to be consistent with other growth functions.
 * `SchnuteRichards()`: Deleted (made defunct) as it was added to `makeGrowthFun()` (use `SchnuteRichards <- makeGrowthFun("Schnute-Richards")` instead) and was likely little used.

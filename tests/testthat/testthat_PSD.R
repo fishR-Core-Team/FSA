@@ -228,10 +228,6 @@ test_that("psdAdd() messages",{
   expect_error(psdAdd(df$tl,df$wt),
                "factor")
   
-  ## bad addSpec/addLens combination
-  expect_warning(psdAdd(tl~species,df,addSpec="Derek",verbose=FALSE),
-                 "is not NULL")
-
   ## Bad species
   tmp <- df[df$species=="Bluefin Tuna",]
   expect_message(psdAdd(tl~species,data=tmp),

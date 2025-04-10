@@ -14,7 +14,7 @@ psdAdd(len, ...)
   group = NULL,
   units = c("mm", "cm", "in"),
   use.names = TRUE,
-  addSpec = NULL,
+  as.fact = ifelse(is.null(addLens), use.names, FALSE),
   addLens = NULL,
   verbose = TRUE,
   ...
@@ -26,7 +26,7 @@ psdAdd(len, ...)
   group = NULL,
   units = c("mm", "cm", "in"),
   use.names = TRUE,
-  addSpec = NULL,
+  as.fact = ifelse(is.null(addLens), use.names, FALSE),
   addLens = NULL,
   verbose = TRUE,
   ...
@@ -45,9 +45,9 @@ psdAdd(len, ...)
 
 \item{use.names}{A logical that indicates whether the vector returned is numeric (\code{=FALSE}) or string (\code{=TRUE}; default) representations of the Gabelhouse lengths. See details.}
 
-\item{addSpec}{A character vector of species names for which \code{addLens} will be provided.}
+\item{as.fact}{A logical that indicates that the new variable should be returned as a factor (\code{=TRUE}) or not (\code{=FALSE}). Defaults to same \code{use.names} unless \code{addLens} is not \code{NULL}, in which case it will default to \code{FALSE}. See details.}
 
-\item{addLens}{A numeric vector of lengths that should be used in addition to the Gabelhouse lengths for the species in \code{addSpec}. See examples.}
+\item{addLens}{A named list with (possibly named) numeric vectors of lengths that should be used in addition to the Gabelhouse lengths for the species that forms the names in hte list. See examples.}
 
 \item{verbose}{A logical that indicates whether detailed messages about species without Gabelhouse lengths or with no recorded values should be printed or not.}
 
@@ -66,7 +66,7 @@ Some species have Gabelhouse lengths for sub-groups (e.g., \dQuote{lentic} vs \d
 
 Individuals shorter than \dQuote{stock} length will be listed as \code{substock} if \code{use.names=TRUE} or \code{0} if \code{use.names=FALSE}.
 
-Additional lengths to be used for a species may be included by giving a vector of species names in \code{addSpec} and a corresponding vector of additional lengths in \code{addLens}. Note, however, that \code{use.names} will be reset to \code{FALSE} if \code{addSpec} and \code{addLens} are specified, as there is no way to order the names for all species when additional lengths are used.
+Additional lengths to be used for a species may be included by giving a named list with vectors of additional lengths in \code{addLens}. Note, however, that \code{as.fact} will be reset to \code{FALSE} if \code{addLens} are specified, as there is no way to order the names (i.e., factor levels) for all species when additional lengths are used.
 }
 \section{IFAR Chapter}{
  6-Size Structure.
@@ -84,34 +84,42 @@ dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),
 df <- rbind(dbg,dlb,dbt)
 str(df)
 
-#===== Examples not using dplyr
+#===== Simple examples
 #----- Add variable using category names -- non-formula notation
 df$PSD <- psdAdd(df$tl,df$species)
 peek(df,n=6)
+
 #----- Add variable using category names -- formula notation
 df$PSD1 <- psdAdd(tl~species,data=df)
 peek(df,n=6)
+
 #----- Add variable using length values as names
 df$PSD2 <- psdAdd(tl~species,data=df,use.names=FALSE)
 peek(df,n=6)
-#----- Add additional length and name for Bluegill
-df$PSD3 <- psdAdd(tl~species,data=df,addSpec="Bluegill",addLens=175)
-peek(df,n=6)
-#----- Add add'l lengths and names for Bluegill and Largemouth Bass from a data.frame
-addls <- data.frame(species=c("Bluegill","Largemouth Bass","Largemouth Bass"),
-                    lens=c(175,254,356))
-df$psd4 <- psdAdd(tl~species,data=df,addSpec=addls$species,addLens=addls$lens)
-peek(df,n=6)
 
-#===== All of the above but using dplyr
+#----- Same as above but using dplyr
 if (require(dplyr)) {
   df <- df \%>\%
     mutate(PSD1A=psdAdd(tl,species)) \%>\%
-    mutate(PSD2A=psdAdd(tl,species,use.names=FALSE)) \%>\%
-    mutate(psd3a=psdAdd(tl,species,addSpec="Bluegill",addLens=175)) \%>\%
-    mutate(psd4a=psdAdd(tl,species,addSpec=addls$species,addLens=addls$lens))
+    mutate(PSD2A=psdAdd(tl,species,use.names=FALSE))
   peek(df,n=6)
 }
+
+#===== Adding lengths besides the Gabelhouse lengths
+#----- Add a "minimum length" for Bluegill
+df$PSD3 <- psdAdd(tl~species,data=df,addLens=list("Bluegill"=c("minLen"=175)))
+df$PSD3A <- psdAdd(tl~species,data=df,addLens=list("Bluegill"=175))
+df$PSD3B <- psdAdd(tl~species,data=df,addLens=list("Bluegill"=c("minLen"=175)),
+                   use.names=FALSE)
+head(df,n=6)
+
+#----- Add add'l lengths and names for Bluegill and Largemouth Bass
+addls <- data.frame(species=c("Bluegill","Largemouth Bass","Largemouth Bass"),
+                    lens=c(175,254,356))
+df$psd4 <- psdAdd(tl~species,data=df,
+                  addLens=list("Bluegill"=175,
+                               "Largemouth Bass"=c(254,356)))
+peek(df,n=20)
 
 #===== Example for a species with sub-groups
 dbt <- data.frame(species=factor(rep(c("Brown Trout"),30)),
