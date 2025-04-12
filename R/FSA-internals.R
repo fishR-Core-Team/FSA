@@ -419,6 +419,13 @@ WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
   warning(msg,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
 }
 
+MESSAGE <- function(...,domain=NULL,appendLF=TRUE) {
+  # create message, wrapped according to windows size
+  msg <- strwrap(paste(as.character(list(...)),collapse=""),
+                 width=0.9*getOption("width"),exdent=2,prefix="\n",initial="")
+  message(msg,domain=domain,appendLF=appendLF)
+}
+
 # Used to collapse a vector of strings ... generally by comma with and or or at end
 iStrCollapse <- function(x,sep=",",last="and",quotes=c("\"")) {
   x <- paste0(quotes,x,quotes)

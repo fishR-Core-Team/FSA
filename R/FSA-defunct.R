@@ -86,9 +86,3 @@ Subset <- function(...) {
 Schnute <- function(...) {
   .Defunct(msg="'Schnute' has been removed; use 'Schnute <- makeGrowthFun(\"Schnute\")'.")
 }
-
-#' @rdname FSA-defunct
-#' @export
-SchnuteRichards <- function(...) {
-  .Defunct(msg="'SchnuteRichards' has been removed; use 'SchnuteRichards <- makeGrowthFun(\"Schnute-Richards\")'.")
-}

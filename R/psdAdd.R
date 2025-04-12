@@ -132,7 +132,8 @@ psdAdd.default <- function(len,species,group=NULL,units=c("mm","cm","in"),
   # data.frame where species is NA and doesn't have Gabelhousee length
   ndata <- data[is.na(data$species) | !data$species %in% GLHSspecs,]
   if (verbose & nrow(ndata)>0)
-    message("No known Gabelhouse (PSD) lengths for: ",unique(ndata$species))
+    MESSAGE("Species in the data with no Gabelhouse (PSD) lengths in `PSDlit`: ",
+            iStrCollapse(unique(ndata$species)),".")
   # data.frame where species have Gabelhouse lengths ... make sure no NAs
   data <- data[data$species %in% GLHSspecs,]
   data <- data[!is.na(data$species),]

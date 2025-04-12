@@ -231,7 +231,7 @@ test_that("psdAdd() messages",{
   ## Bad species
   tmp <- df[df$species=="Bluefin Tuna",]
   expect_message(psdAdd(tl~species,data=tmp),
-                 "No known Gabelhouse")
+                 "Species in the data with no Gabelhouse")
   
   ## One species had all missing lengths
   tmp <- df

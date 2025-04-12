@@ -30,6 +30,8 @@ The objective of this article is to briefly describe how to fit growth functions
 
 The main functions from `FSA` used to model fish growth are `makeGrowthFun()` to create R functions that represent various parameterizations of common fisheries growth functions, `findGrowthStarts()` to identify typically useful starting values to be used in non-linear algorithms for fitting common fisheries growth models, and `showGrowthFun()` for creating strings or expressions of the equations for common fisheries growth function. Each of these functions uses `type=` to identify a common fisheries growth function family (i.e,. `"von Bertalanffy"`, "`Gomperz`", "`logistic`", "`Richards`", "`Schnute`", or "`Schnute-Richards`") and `param=` or `pname=` to identify a specific paramaterization of the function within that family, either by number or by name. These and other common arguments to these functions are described and illustrated below. More focused or advanced use is illustrated in the function documentations.
 
+Note that the `FSA` functions described here were modified after version 0.9.6 and are thus **specific to FSA >v0.9.6**.
+
 # First Example -- Typical von Bertalanffy
 The most common growth model is the von Bertalanffy model as parameterized by Beverton and Holt with three paramaters $L_\infty$, $K$, and $t_0$. The equation for this growth function can be displayed with `showGrowthFun()` using `type="von Bertalanffy"`, `pname="Typical"`,^[Or `param=1`] and, to display the equation, `plot=TRUE`).^[`cex=1.5` is used to make the text larger.]
 

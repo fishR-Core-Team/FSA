@@ -15,6 +15,7 @@
 \alias{plotBinResp}
 \alias{residPlot}
 \alias{Subset}
+\alias{Schnute}
 \title{DEFUNCT functions.}
 \usage{
 bootCase(...)
@@ -42,6 +43,8 @@ plotBinResp(...)
 residPlot(...)
 
 Subset(...)
+
+Schnute(...)
 }
 \arguments{
 \item{\dots}{Additional arguments to pass through.}
