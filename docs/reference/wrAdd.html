@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.6.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,6 +16,14 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/Computing_PSDs.html">Computing Proportional Size Distribution Metrics</a></li>
+    <li><a class="dropdown-item" href="../articles/Computing_Relative_Weights.html">Computing Relative Weights</a></li>
+    <li><a class="dropdown-item" href="../articles/Fitting_Growth_Functions.html">Fitting Growth Functions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="../articles/Growth_Starting_Values.html">Explaining Starting Values for Growth Functions</a></li>
+  </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../news/index.html" aria-label="See package news"><span class="fa fa-newspaper"></span></a></li>
 <li class="nav-item"><a class="nav-link" href="../index.html" aria-label="Goto FSA home"><span class="fa fa-home"></span></a></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/fishR-Core-Team/FSA" aria-label="Goto FSA github page"><span class="fa fa-github"></span></a></li>
@@ -40,7 +48,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">wrAdd</span><span class="op">(</span><span class="va">wt</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
-<span><span class="fu">wrAdd</span><span class="op">(</span><span class="va">wt</span>, <span class="va">len</span>, <span class="va">spec</span>, units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"metric"</span>, <span class="st">"English"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">wrAdd</span><span class="op">(</span><span class="va">wt</span>, <span class="va">len</span>, <span class="va">spec</span>, units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"metric"</span>, <span class="st">"English"</span><span class="op">)</span>, WsOpts <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'formula'</span></span>
 <span><span class="fu">wrAdd</span><span class="op">(</span><span class="va">wt</span>, <span class="va">data</span>, units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"metric"</span>, <span class="st">"English"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
@@ -70,6 +78,10 @@
 <dd><p>A string that indicates whether the weight and length data in <code>formula</code> are in (<code>"metric"</code> (DEFAULT; mm and g) or <code>"English"</code> (in and lbs) units.</p></dd>
 
 
+<dt id="arg-wsopts">WsOpts<a class="anchor" aria-label="anchor" href="#arg-wsopts"></a></dt>
+<dd><p>A named list that provides specific choices for <code>group</code>, <code>ref</code>, or <code>method</code> for species for which more than one standard weight equation exists in <code><a href="WSlit.html">WSlit</a></code>.</p></dd>
+
+
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>A data.frame that minimally contains variables of the the observed lengths, observed weights, and the species names given in the <code>formula=</code>.</p></dd>
 
@@ -80,7 +92,9 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This computes a vector that contains the relative weight specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the relative weights for each individual. The relative weight value will be <code>NA</code> for each individual for which a standard weight equation does not exist in <code><a href="WSlit.html">WSlit</a></code>, a standard weight equation for the units given in <code>units=</code> does not exist in <code><a href="WSlit.html">WSlit</a></code>, a standard weight equation for the 75th percentile does not exist in <code><a href="WSlit.html">WSlit</a></code>, or if the individual is shorter or longer than the lengths for which the standard weight equation should be applied. Either the linear or quadratic equation has been listed as preferred for each species, so only that equation will be used. The use of the 75th percentile is by far the most common and, because this function is designed for use on entire data frames, it will be the only percentile allowed. Thus, to use equations for other percentiles, one will have to use “manual” methods. See <code><a href="WSlit.html">WSlit</a></code> and <code><a href="wsVal.html">wsVal</a></code> for more details about types of equations, percentiles, finding which species have published standard weight equations, etc. See the examples for one method for changing species names to something that this function will recognize.</p>
+    <p>This computes a vector that contains the relative weight specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the relative weights for each individual. The relative weight value will be <code>NA</code> for each individual for which a standard weight equation does not exist in <code><a href="WSlit.html">WSlit</a></code>, a standard weight equation for the units given in <code>units=</code> does not exist in <code><a href="WSlit.html">WSlit</a></code>, or if the individual is shorter or longer than the lengths for which the standard weight equation should be applied. Either the linear or quadratic equation has been listed as preferred for each species, so only that equation will be used.</p>
+<p>The species names in <code>species</code> must match the spelling and capitalization of <code>species</code> in <code><a href="WSlit.html">WSlit</a></code>. Use <code><a href="wsVal.html">wsVal()</a></code> to see a list of all species for which standard weight equations exist in <code><a href="WSlit.html">WSlit</a></code> and, more importantly, how the species names are spelled and capitalized. See the examples for one method for changing species names to something that this function will recognize.</p>
+<p>Some (few) species have more than one equation listed in <code><a href="WSlit.html">WSlit</a></code> (for the specified units). In these instances the user must select one of the equations to use with <code>WsOpts</code>. <code>WsOpts</code> is a list of lists where the inside list contains one or more of <code>group</code>, <code>ref</code>, or <code>method</code> (see <code><a href="WSlit.html">WSlit</a></code>) required to specify a single equation for a particular species, which is the name of the inner list. See the examples for an illustration of how to use <code>WsOpts</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="ifar-chapter">IFAR Chapter<a class="anchor" aria-label="anchor" href="#ifar-chapter"></a></h2>
@@ -101,8 +115,8 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Create random data for three species</span></span></span>
-<span class="r-in"><span><span class="co"># just to control the randomization</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#===== Create random data for three species</span></span></span>
+<span class="r-in"><span><span class="co">#----- just to control the randomization</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">345234534</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dbt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>species<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Bluefin Tuna"</span><span class="op">)</span>,<span class="fl">30</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                  tl<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span>,<span class="fl">1900</span>,<span class="fl">300</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -120,111 +134,110 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ tl     : num  1371 1558 2031 2226 2124 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ wt     : num  19231 38147 90530 104718 88761 ...</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#===== Add Wr variable</span></span></span>
+<span class="r-in"><span><span class="co">#----- using formula interface</span></span></span>
 <span class="r-in"><span><span class="va">df</span><span class="op">$</span><span class="va">Wr1</span> <span class="op">&lt;-</span> <span class="fu">wrAdd</span><span class="op">(</span><span class="va">wt</span><span class="op">~</span><span class="va">tl</span><span class="op">+</span><span class="va">species</span>,data<span class="op">=</span><span class="va">df</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">## same but with non-formula interface</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">df</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            species   tl       wt       Wr1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     Bluefin Tuna 1371  19231.0        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    Bluefin Tuna 2060  84458.4        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20    Bluefin Tuna 2545 142705.1        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30    Bluefin Tuna 1889  59611.6        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40        Bluegill   52     -5.8        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50        Bluegill  122     36.7 104.78446</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60        Bluegill   72     19.0        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70 Largemouth Bass  396    900.0  95.49622</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80 Largemouth Bass  328    553.9 108.88706</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90 Largemouth Bass  371    612.6  80.46670</span>
+<span class="r-in"><span><span class="co">#----- same but with non-formula interface</span></span></span>
 <span class="r-in"><span><span class="va">df</span><span class="op">$</span><span class="va">Wr2</span> <span class="op">&lt;-</span> <span class="fu">wrAdd</span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">wt</span>,<span class="va">df</span><span class="op">$</span><span class="va">tl</span>,<span class="va">df</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## Same as above but using dplyr</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">df</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            species   tl       wt       Wr1       Wr2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     Bluefin Tuna 1371  19231.0        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    Bluefin Tuna 2060  84458.4        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20    Bluefin Tuna 2545 142705.1        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30    Bluefin Tuna 1889  59611.6        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40        Bluegill   52     -5.8        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50        Bluegill  122     36.7 104.78446 104.78446</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60        Bluegill   72     19.0        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70 Largemouth Bass  396    900.0  95.49622  95.49622</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80 Largemouth Bass  328    553.9 108.88706 108.88706</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90 Largemouth Bass  371    612.6  80.46670  80.46670</span>
+<span class="r-in"><span><span class="co">#----- same but using dplyr</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="va">df</span>,Wr3a<span class="op">=</span><span class="fu">wrAdd</span><span class="op">(</span><span class="va">wt</span>,<span class="va">tl</span>,<span class="va">species</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">df</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Wr3<span class="op">=</span><span class="fu">wrAdd</span><span class="op">(</span><span class="va">wt</span>,<span class="va">tl</span>,<span class="va">species</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">df</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            species   tl       wt       Wr1       Wr2      Wr3a</span>
+<span class="r-in"><span><span class="co">#----- examine results</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">df</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            species   tl       wt       Wr1       Wr2       Wr3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     Bluefin Tuna 1371  19231.0        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Bluefin Tuna 1558  38146.9        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     Bluefin Tuna 2031  90530.4        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     Bluefin Tuna 2226 104718.3        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     Bluefin Tuna 2124  88760.7        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     Bluefin Tuna 1685  62842.5        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     Bluefin Tuna 1951  79294.6        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     Bluefin Tuna 2136  88992.9        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     Bluefin Tuna 1638  50819.4        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10    Bluefin Tuna 2060  84458.4        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    Bluefin Tuna 1857  64052.5        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    Bluefin Tuna 2382 125738.2        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13    Bluefin Tuna 2021  85658.6        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14    Bluefin Tuna 1862  58800.5        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15    Bluefin Tuna 1814  60758.3        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16    Bluefin Tuna 1953  78388.3        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17    Bluefin Tuna 2079  79556.7        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18    Bluefin Tuna 1840  66489.0        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19    Bluefin Tuna 2049  92100.8        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20    Bluefin Tuna 2545 142705.1        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21    Bluefin Tuna 2037 100179.1        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22    Bluefin Tuna 1310  16968.9        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23    Bluefin Tuna 2028  79251.3        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24    Bluefin Tuna 1767  49999.8        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25    Bluefin Tuna 1970  76008.7        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26    Bluefin Tuna 1866  61425.8        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27    Bluefin Tuna 1777  56046.1        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28    Bluefin Tuna 1682  55881.3        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29    Bluefin Tuna 2295 112096.0        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 30    Bluefin Tuna 1889  59611.6        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31        Bluegill  158     75.3  91.21118  91.21118  91.21118</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32        Bluegill  157     80.3  99.33729  99.33729  99.33729</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33        Bluegill  126     26.0  66.70289  66.70289  66.70289</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34        Bluegill  203    196.2 103.52426 103.52426 103.52426</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35        Bluegill  136     59.9 119.29213 119.29213 119.29213</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36        Bluegill  192    159.4 101.17226 101.17226 101.17226</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37        Bluegill  132     54.9 120.71165 120.71165 120.71165</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38        Bluegill  121     30.7  90.07870  90.07870  90.07870</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39        Bluegill  136     42.4  84.44051  84.44051  84.44051</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 40        Bluegill   52     -5.8        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41        Bluegill  111     17.5  68.35134  68.35134  68.35134</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42        Bluegill  226    267.8  98.98901  98.98901  98.98901</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43        Bluegill  217    238.2 100.74912 100.74912 100.74912</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44        Bluegill  163     86.9  94.93048  94.93048  94.93048</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45        Bluegill  119     18.3  56.74628  56.74628  56.74628</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46        Bluegill   79     17.9        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47        Bluegill   78      3.5        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48        Bluegill  172    113.9 104.11454 104.11454 104.11454</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49        Bluegill  106     28.0 127.42181 127.42181 127.42181</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 50        Bluegill  122     36.7 104.78446 104.78446 104.78446</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51        Bluegill   95     14.1  92.27576  92.27576  92.27576</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52        Bluegill   47     -3.3        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53        Bluegill  155     72.8  93.97048  93.97048  93.97048</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54        Bluegill  167    101.5 102.31474 102.31474 102.31474</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55        Bluegill  146     65.1 102.46768 102.46768 102.46768</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56        Bluegill  125     54.5 143.56312 143.56312 143.56312</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57        Bluegill   66     -7.1        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58        Bluegill  160     92.1 107.00345 107.00345 107.00345</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59        Bluegill   85      1.7  16.08777  16.08777  16.08777</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 60        Bluegill   72     19.0        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61 Largemouth Bass  351    537.7  84.67395  84.67395  84.67395</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62 Largemouth Bass  297    480.0 130.58984 130.58984 130.58984</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63 Largemouth Bass  358    598.2  88.30540  88.30540  88.30540</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64 Largemouth Bass  451   1435.8  99.53461  99.53461  99.53461</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65 Largemouth Bass  375    676.8  85.83334  85.83334  85.83334</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66 Largemouth Bass  429   1230.9 100.50555 100.50555 100.50555</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67 Largemouth Bass  393    904.5  98.39245  98.39245  98.39245</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68 Largemouth Bass  168    104.3 183.16691 183.16691 183.16691</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69 Largemouth Bass  358    567.9  83.83256  83.83256  83.83256</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 70 Largemouth Bass  396    900.0  95.49622  95.49622  95.49622</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71 Largemouth Bass  319    481.4 103.65713 103.65713 103.65713</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72 Largemouth Bass  325    476.1  96.45038  96.45038  96.45038</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73 Largemouth Bass  305    386.9  96.49068  96.49068  96.49068</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74 Largemouth Bass  343    505.1  85.77480  85.77480  85.77480</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75 Largemouth Bass  359    720.1 105.33403 105.33403 105.33403</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76 Largemouth Bass  295    349.4  97.18415  97.18415  97.18415</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77 Largemouth Bass  355    561.3  85.17216  85.17216  85.17216</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78 Largemouth Bass  336    630.0 114.45429 114.45429 114.45429</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79 Largemouth Bass  502   2053.0 100.22722 100.22722 100.22722</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 80 Largemouth Bass  328    553.9 108.88706 108.88706 108.88706</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 81 Largemouth Bass  387    899.9 102.94761 102.94761 102.94761</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 82 Largemouth Bass  324    510.4 104.44721 104.44721 104.44721</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 83 Largemouth Bass  387    875.1 100.11051 100.11051 100.11051</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 84 Largemouth Bass  274    243.7  86.31732  86.31732  86.31732</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 85 Largemouth Bass  437   1347.0 103.53134 103.53134 103.53134</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 86 Largemouth Bass  313    412.5  94.51644  94.51644  94.51644</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 87 Largemouth Bass  260    182.4  76.70383  76.70383  76.70383</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 88 Largemouth Bass  441   1288.2  96.10274  96.10274  96.10274</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89 Largemouth Bass  266    265.7 103.69408 103.69408 103.69408</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 90 Largemouth Bass  371    612.6  80.46670  80.46670  80.46670</span>
 <span class="r-in"><span> </span></span>
-<span class="r-in"><span><span class="co">## Example with only one species in the data.frame</span></span></span>
+<span class="r-in"><span><span class="co">#===== Example with only one species in the data.frame</span></span></span>
 <span class="r-in"><span><span class="va">bg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">df</span>,<span class="va">species</span><span class="op">==</span><span class="st">"Bluegill"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">bg</span><span class="op">$</span><span class="va">Wr4</span> <span class="op">&lt;-</span> <span class="fu">wrAdd</span><span class="op">(</span><span class="va">wt</span><span class="op">~</span><span class="va">tl</span><span class="op">+</span><span class="va">species</span>,data<span class="op">=</span><span class="va">bg</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">bg</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     species  tl    wt       Wr1       Wr2       Wr3       Wr4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31 Bluegill 158  75.3  91.21118  91.21118  91.21118  91.21118</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32 Bluegill 157  80.3  99.33729  99.33729  99.33729  99.33729</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 Bluegill 126  26.0  66.70289  66.70289  66.70289  66.70289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34 Bluegill 203 196.2 103.52426 103.52426 103.52426 103.52426</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35 Bluegill 136  59.9 119.29213 119.29213 119.29213 119.29213</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36 Bluegill 192 159.4 101.17226 101.17226 101.17226 101.17226</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37 Bluegill 132  54.9 120.71165 120.71165 120.71165 120.71165</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38 Bluegill 121  30.7  90.07870  90.07870  90.07870  90.07870</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39 Bluegill 136  42.4  84.44051  84.44051  84.44051  84.44051</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40 Bluegill  52  -5.8        NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41 Bluegill 111  17.5  68.35134  68.35134  68.35134  68.35134</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42 Bluegill 226 267.8  98.98901  98.98901  98.98901  98.98901</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43 Bluegill 217 238.2 100.74912 100.74912 100.74912 100.74912</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44 Bluegill 163  86.9  94.93048  94.93048  94.93048  94.93048</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45 Bluegill 119  18.3  56.74628  56.74628  56.74628  56.74628</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46 Bluegill  79  17.9        NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47 Bluegill  78   3.5        NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48 Bluegill 172 113.9 104.11454 104.11454 104.11454 104.11454</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49 Bluegill 106  28.0 127.42181 127.42181 127.42181 127.42181</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50 Bluegill 122  36.7 104.78446 104.78446 104.78446 104.78446</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51 Bluegill  95  14.1  92.27576  92.27576  92.27576  92.27576</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52 Bluegill  47  -3.3        NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53 Bluegill 155  72.8  93.97048  93.97048  93.97048  93.97048</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54 Bluegill 167 101.5 102.31474 102.31474 102.31474 102.31474</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55 Bluegill 146  65.1 102.46768 102.46768 102.46768 102.46768</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56 Bluegill 125  54.5 143.56312 143.56312 143.56312 143.56312</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57 Bluegill  66  -7.1        NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58 Bluegill 160  92.1 107.00345 107.00345 107.00345 107.00345</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59 Bluegill  85   1.7  16.08777  16.08777  16.08777  16.08777</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60 Bluegill  72  19.0        NA        NA        NA        NA</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#===== Example with a species that has Ws eqns for multiple groups and a</span></span></span>
+<span class="r-in"><span><span class="co">#      group needs to be specified with WsOpts</span></span></span>
+<span class="r-in"><span><span class="va">wae</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>species<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Walleye"</span><span class="op">)</span>,<span class="fl">30</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                  tl<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span>,<span class="fl">500</span>,<span class="fl">200</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">wae</span><span class="op">$</span><span class="va">wt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">3.33e-06</span><span class="op">*</span><span class="va">wae</span><span class="op">$</span><span class="va">tl</span><span class="op">^</span><span class="fl">3.16</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span>,<span class="fl">0</span>,<span class="fl">50</span><span class="op">)</span>,<span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># wae$Wr &lt;- wrAdd(wt~tl+species,data=wae) # will err b/c multiple groups</span></span></span>
+<span class="r-in"><span><span class="va">wae</span><span class="op">$</span><span class="va">Wr</span> <span class="op">&lt;-</span> <span class="fu">wrAdd</span><span class="op">(</span><span class="va">wt</span><span class="op">~</span><span class="va">tl</span><span class="op">+</span><span class="va">species</span>,data<span class="op">=</span><span class="va">wae</span>,</span></span>
+<span class="r-in"><span>                WsOpts<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Walleye<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>group<span class="op">=</span><span class="st">"overall"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">wae</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    species  tl     wt        Wr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Walleye 791 4768.4  82.25673</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Walleye 300  271.9 102.36786</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Walleye 659 2719.5  83.83656</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Walleye 493 1066.4  82.73074</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Walleye 505 1151.5  82.75559</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 Walleye 676 2794.8  79.45482</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 Walleye 754 4131.0  82.98781</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 Walleye 500 1067.4  79.17765</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 Walleye 544 1431.0  81.17740</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 Walleye 490 1117.6  88.40216</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

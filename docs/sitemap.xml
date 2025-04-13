@@ -1,5 +1,10 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://fishr-core-team.github.io/FSA/404.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/articles/Computing_PSDs.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/articles/Computing_Relative_Weights.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/articles/Fitting_Growth_Functions.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/articles/Growth_Starting_Values.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/articles/index.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/authors.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/CODE_OF_CONDUCT.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/index.html</loc></url>
@@ -32,12 +37,16 @@
 <url><loc>https://fishr-core-team.github.io/FSA/reference/expandLenFreq.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/extraTests.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/fact2num.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/findGrowthStarts.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/fishR.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/FSA-defunct.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/FSA-internals.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/FSA.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/FSAUtils.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/geomean.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/GrowthData1.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/GrowthData2.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/GrowthData3.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/growthModels.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/headtail.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/hist.formula.html</loc></url>
@@ -51,6 +60,7 @@
 <url><loc>https://fishr-core-team.github.io/FSA/reference/lencat.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/logbtcf.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/lwCompPreds.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/makeGrowthFun.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/metaM.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/Mirex.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/mrClosed.html</loc></url>
@@ -74,9 +84,9 @@
 <url><loc>https://fishr-core-team.github.io/FSA/reference/removal.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/repeatedRows2Keep.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/rSquared.html</loc></url>
-<url><loc>https://fishr-core-team.github.io/FSA/reference/Schnute.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/SchnuteRichards.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/se.html</loc></url>
+<url><loc>https://fishr-core-team.github.io/FSA/reference/showGrowthFun.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/SMBassLS.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/SMBassWB.html</loc></url>
 <url><loc>https://fishr-core-team.github.io/FSA/reference/SpotVA1.html</loc></url>

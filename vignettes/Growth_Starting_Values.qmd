@@ -1,5 +1,5 @@
 ---
-title: "Deriving Startig Values for Growth Functions in FSA"
+title: "Deriving Starting Values for Growth Functions in FSA"
 author: "Derek H. Ogle"
 date: "`r Sys.Date()`"
 format: 
@@ -263,7 +263,7 @@ Starting values for (most of) these parameters were developed with the following
 * Use this model to predict annual growth rates ($g_1$ and $g_2$) at $L_1$ and $L_2$. [$L_1$ and $L_2$ are chosen by the user in parameterization 18, but are set in `FSA` at the 10th and 90th percentiles of observed $L_m$ for the other parameterizations.]
 * Use these results in $L_\infty=\frac{L_2g_1-L_1g_2}{L1-L2}$ and $K=-log\left[1+\frac{g_1-g_2}{L_1-L_2}\right]$ from Francis (1988).
 
-In the Wang models $\beta$ is 0 if there is no individual variation in growth. In my experience a starting value for $\beta$ near 0, but no 0, is usually sufficient. `FSA` defaults to use $\beta=0.1$ as a starting value. A starting value for $\alpha$ of $L+\infty-\bar{L}_m$ is used by noting that if $\beta=0$ then parameterizations 15 and 16 are equal when $\alpha=L\infy-L_m$. An average $\alpha$ can be estimated by using $\bar{L}_m$ for $L_m$. These starting values for $\alpha$ and $\beta$ have not been rigorously tested.
+In the Wang models $\beta$ is 0 if there is no individual variation in growth. In my experience a starting value for $\beta$ near 0, but no 0, is usually sufficient. `FSA` defaults to use $\beta=0.1$ as a starting value. A starting value for $\alpha$ of $L_\infty-\bar{L}_m$ is used by noting that if $\beta=0$ then parameterizations 15 and 16 are equal when $\alpha=L_\infty-L_m$. An average $\alpha$ can be estimated by using $\bar{L}_m$ for $L_m$. These starting values for $\alpha$ and $\beta$ have not been rigorously tested.
 
 ::: {.callout-warning}
 Starting values for parameterization 19 have not been developed for `FSA`. Starting values for this parameterization will have to be developed by other means.
@@ -287,6 +287,7 @@ Starting values for parameterization 19 have not been developed for `FSA`. Start
 <br>
 
 New parameters in these growth functions are:^[$L_\infty$, $t_0$, and $L_0$ are as defined for the von Bertalanffy model.]
+
 - $t_i$ = age at the inflection point
 - $g_i$ = instantaneous growth rate at $t_i$, the inflection point
 - $a_1$, $a_2$ = nuisance parameters with no biological meaning
@@ -672,7 +673,7 @@ There may be times when the provided starting values are non-sensical (you may g
 
 ```{r}
 #| echo: true
-#| label: fig-ex-vb1
+#| label: f-ex-vb1
 #| fig-width: 4.5
 #| fig-height: 4.5
 sv1 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=1,
@@ -699,7 +700,7 @@ Of course, all of these optional arguments may be used together.^[Though fixing 
 
 ```{r}
 #| echo: true
-#| label: fig-ex-vb2
+#| label: f-ex-vb2
 #| fig-width: 4.5
 #| fig-height: 4.5
 sv4 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=7,

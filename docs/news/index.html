@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.6.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,6 +16,14 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/Computing_PSDs.html">Computing Proportional Size Distribution Metrics</a></li>
+    <li><a class="dropdown-item" href="../articles/Computing_Relative_Weights.html">Computing Relative Weights</a></li>
+    <li><a class="dropdown-item" href="../articles/Fitting_Growth_Functions.html">Fitting Growth Functions</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="../articles/Growth_Starting_Values.html">Explaining Starting Values for Growth Functions</a></li>
+  </ul></li>
       </ul><ul class="navbar-nav"><li class="active nav-item"><a class="nav-link" href="../news/index.html" aria-label="See package news"><span class="fa fa-newspaper"></span></a></li>
 <li class="nav-item"><a class="nav-link" href="../index.html" aria-label="Goto FSA home"><span class="fa fa-home"></span></a></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/fishR-Core-Team/FSA" aria-label="Goto FSA github page"><span class="fa fa-github"></span></a></li>
@@ -31,7 +39,66 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.9.6" id="fsa-096">FSA 0.9.6<a class="anchor" aria-label="anchor" href="#fsa-096"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.9.6.9000" id="fsa-0969000">FSA 0.9.6.9000<a class="anchor" aria-label="anchor" href="#fsa-0969000"></a></h2>
+<ul><li><p>Updated <code>test-coverage.yaml</code> and moved a <code># nocov start</code> and <code># nocov end</code> in <code>bootstrap.r</code> to address the errors with <code>test-coverage.yaml</code>. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/118" class="external-link">#118</a>.</p></li>
+<li><p>Added <code>FlexParamCurve</code> to Imports for use of <code>modpar()</code> in <code>findGrowthStarts(param="Richards")</code> and <code>purrr</code> for use of <code>map2_chr()</code> in <code><a href="../reference/showGrowthFun.html">showGrowthFun()</a></code>.</p></li>
+<li>
+<p>Added the following “vignettes”.</p>
+<ul><li>Describe how the starting values for the growth equations are derived.</li>
+<li>Provide a simple introduction to growth model fitting with <code>FSA</code>.</li>
+<li>Provide a simple introduction to calculating relative weights with <code>FSA</code>.</li>
+<li>Provide a simple introduction to calculating proportional size distribution metrics with <code>FSA</code>.</li>
+</ul></li>
+<li><p>internals: Added functions to return a logical about whether a value is less than, less than or equal, greater than, or greater than or equal (i.e., <code>is.lte()</code>, <code>is.lt()</code>, <code>is.gte()</code>, and <code>is.gt()</code>). Added functions that use those logical and return an informative error if the logical is FALSE (i.e., <code>iChkLTE()</code>, <code>iChkLT()</code>, <code>iChkGTE()</code>, and <code>iChkGT()</code>). The errors can “grab” the name of the object so that the error can be specific though the function is general.</p></li>
+<li><p>internals: Modified <code><a href="../reference/FSA-internals.html">STOP()</a></code> and <code><a href="../reference/FSA-internals.html">WARN()</a></code> to use <code><a href="https://rdrr.io/r/base/strwrap.html" class="external-link">strwrap()</a></code> rather than hard-coded line breaks. Added <code>MESSAGE()</code>. Added <code>iStrCollapse()</code>, largely for use with <code><a href="../reference/FSA-internals.html">STOP()</a></code>, <code><a href="../reference/FSA-internals.html">WARN()</a></code>, and <code>MESSAGE()</code>.</p></li>
+<li><p>throughout: Changed many <code>df[-which(CONDITION),]</code> constructs to <code>df[!CONDITION]</code> as suggested <a href="https://stackoverflow.com/a/5236518" class="external-link">here</a>.</p></li>
+<li><p><code><a href="../reference/findGrowthStarts.html">findGrowthStarts()</a></code>: Added. This replaces <code><a href="../reference/vbStarts.html">vbStarts()</a></code> and includes starting values for Gompertz, logistic, and Richards functions, and seasonal and tag-recapture von Bertalanffy parameterizations. Note that <code>constvals=</code> and <code>fixed=</code> must now be numeric vectors (and not lists) and that the returned starting values are in a numeric vector.</p></li>
+<li><p><code><a href="../reference/growthModels.html">GompertzFuns()</a></code>: Deprecated (replaced with <code><a href="../reference/makeGrowthFun.html">makeGrowthFun()</a></code>).</p></li>
+<li><p><code>GrowthData1</code>, <code>GrowthData2</code>, <code>GrowthData3</code>: Added for testing growth functions.</p></li>
+<li><p><code><a href="../reference/growthModels.html">growthFunShow()</a></code>: Deprecated (replaced with <code><a href="../reference/showGrowthFun.html">showGrowthFun()</a></code>). But also fixed expression for QuinnDeriso3 parameterization of the Gompertz function (i.e., erroneous t* changed to t0 … related to fixing <a href="https://github.com/fishR-Core-Team/FSA/issues/113" class="external-link">#113</a>). Also changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization. Will be deleted in future versions.</p></li>
+<li><p><code><a href="../reference/growthModels.html">logisticFuns()</a></code>: Deprecated (replaced with <code><a href="../reference/makeGrowthFun.html">makeGrowthFun()</a></code>).</p></li>
+<li>
+<p><code><a href="../reference/makeGrowthFun.html">makeGrowthFun()</a></code>: Added. This replaces <code><a href="../reference/growthModels.html">vbFuns()</a></code>, <code><a href="../reference/growthModels.html">GompertzFuns()</a></code>, <code><a href="../reference/growthModels.html">logisticFuns()</a></code>, <code><a href="../reference/growthModels.html">RichardsFuns()</a></code>, <code><a href="../reference/FSA-defunct.html">Schnute()</a></code>, <code>SchnuteRichards()</code>. Along the way, the following changes were made.</p>
+<ul><li>Included numbers for parameterizations in <code>param=</code> and moved names to <code>pname=</code>. Some names were changed.</li>
+<li>In Gompertz functions … changed a parameter in “Original” to a1, changed a parameter to a2 in Ricker2 and QuinnDeriso1, and a to a2 in Ricker3 and QuinnDeriso2, to distinguish them when they are different.</li>
+<li>In Richards functions …
+<ul><li>Restricted to only 4-parameter functions; thus, removed sixth parameterization</li>
+<li>Removed first parameterization as it had limited placement for the inflection point.</li>
+<li>Moved the old parameterization to new places as follows: third to first, and fifth to second. Thus, the first parameterization will be the one that most closely follows the parameterization of the self-starting function to be used in <code><a href="../reference/findGrowthStarts.html">findGrowthStarts()</a></code>. Removed the other two parameterizations as they were essentially the same as the first except for how the exponent was defined, which has no biological meaning.</li>
+<li>Modified parameterizations to have the same general look (i.e., Linf times something raised to a power). After this, the powers were all the same, so there is just a “b” parameter now.</li>
+</ul></li>
+</ul></li>
+<li><p><code><a href="../reference/peek.html">peek()</a></code>: Modified. Addressed <a href="https://github.com/fishR-Core-Team/FSA/issues/125" class="external-link">#125</a>.</p></li>
+<li><p><code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Added <code>group=</code> to handle the change for sub-groups in <code>PSDlit</code>. Modified <code>addLens=</code> to more closely match how <code>addLens=</code> words in <code><a href="../reference/psdCalc.html">psdCalc()</a></code> and, thus, removed <code>addSpecs=</code>.</p></li>
+<li><p><code><a href="../reference/psdCalc.html">psdCalc()</a></code>: Modified. Added <code>group=</code> to handle the change for sub-groups in <code>PSDlit</code>. Made other coding changes that did not affect forward-facing functionality.</p></li>
+<li>
+<p><code>PSDLit</code>: Modified.</p>
+<ul><li>Added length categories for Goldeye, Lake Chubsucker, and Northern Snakehead.</li>
+<li>Added a <code>group</code> variable to handle species with specified sub-groups.</li>
+</ul></li>
+<li><p><code>psdVals()</code>: Modified. Added <code>group=</code> to handle the change for sub-groups in <code>PSDlit</code>. Made other coding changes that did not affect forward-facing functionality.</p></li>
+<li><p><code><a href="../reference/growthModels.html">RichardsFuns()</a></code>: Deprecated (replaced with <code><a href="../reference/makeGrowthFun.html">makeGrowthFun()</a></code>).</p></li>
+<li><p><code><a href="../reference/FSA-defunct.html">Schnute()</a></code>: Deleted (made defunct) as it was added to <code><a href="../reference/makeGrowthFun.html">makeGrowthFun()</a></code> (use <code>Schnute &lt;- makeGrowthFun("Schnute")</code> instead). Note that order of arguments was changed so that the parameters appear before the constants to be consistent with other growth functions.</p></li>
+<li><p><code>SchnuteRichards()</code>: Deleted (made defunct) as it was added to <code><a href="../reference/makeGrowthFun.html">makeGrowthFun()</a></code> (use <code>SchnuteRichards &lt;- makeGrowthFun("Schnute-Richards")</code> instead) and was likely little used.</p></li>
+<li><p><code><a href="../reference/showGrowthFun.html">showGrowthFun()</a></code>: Added. Replaces <code>GrowthFunShow()</code>. Updated to allow user to send an object from <code><a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls()</a></code> and have the coefficient values extracted and put in the expression. Also, can either return a string or an expression to allow more flexibility in use (especially with <code>ggplot2</code>).</p></li>
+<li><p><code><a href="../reference/growthModels.html">vbFuns()</a></code>: Deprecated (replaced with <code><a href="../reference/makeGrowthFun.html">makeGrowthFun()</a></code>).</p></li>
+<li><p><code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Deprecated (replaced with <code>makeGrowthStarts()</code>. But also streamlined some of the internal functions, fixed some typos, and replaced <code>iVBStartsPlot()</code> with <code>iPlotGrowthStarts()</code> to be more general.</p></li>
+<li><p><code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Added <code>WsOpts=</code> to handle species where the user must make a choice about which standard weight equation to use.</p></li>
+<li>
+<p><code>WSLit</code>: Modified.</p>
+<ul><li>Added results for Goldeye, Lake Chubsucker, and Northern Snakehead.</li>
+<li>Removed <code>type</code> variable (will depend on whether <code>quad</code> is <code>NA</code> or not).</li>
+<li>Added <code>group</code> variable that took the parenthetical groupings from <code>species</code> for things like Walleye, Cutthroat Trout, etc. Now <code>species</code> is an actual species name and if a sub-group of that exists then it is defined with <code>group</code>.</li>
+</ul></li>
+<li>
+<p><code><a href="../reference/wsVal.html">wsVal()</a></code>: Modified.</p>
+<ul><li>Added <code>group=</code> to handle species for which equations were derived for sub-groups of the species (e.g., separately for males and females, or lentic and lotic). See related changes to <code>WSlit</code>.</li>
+<li>Added <code>method=</code> to handle species for which equations derived from more than one method are available (e.g., “Arctic Grayling”).</li>
+<li>Added a few more checks for <code>ref=</code>, <code>units=</code>, etc. and provided more descriptive error messages.</li>
+</ul></li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.9.6" id="fsa-096">FSA 0.9.6<a class="anchor" aria-label="anchor" href="#fsa-096"></a></h2><p class="text-muted">CRAN release: 2025-01-07</p>
 <ul><li>
 <p>Updated testing to use <code>testthat</code> v3.0.0.</p>
 <ul><li>Changes to <code>DESCRIPTION</code> including adding <code>tidyr</code> in Suggests (for example in <code><a href="../reference/removal.html">removal()</a></code>).</li>
@@ -333,7 +400,7 @@
 <li>
 <code><a href="../reference/nlsTracePlot.html">nlsTracePlot()</a></code>: Modified. Moved error catching for improper keyword for legend placement forward.</li>
 <li>
-<code><a href="../reference/SchnuteRichards.html">SchnuteRichards()</a></code>: Added. This addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/54" class="external-link">#54</a>.</li>
+<code>SchnuteRichards()</code>: Added. This addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/54" class="external-link">#54</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.22" id="fsa-0822">FSA 0.8.22<a class="anchor" aria-label="anchor" href="#fsa-0822"></a></h2><p class="text-muted">CRAN release: 2018-11-22</p>
@@ -1103,7 +1170,7 @@
 <li>
 <code>RichardsModels()</code>: Moved into <code>growthModels</code> file. Did not change behavior.</li>
 <li>
-<code><a href="../reference/Schnute.html">Schnute()</a></code>: Moved into <code>growthModels</code> file. Changed <code>param=</code> to <code>type=</code> to better match similar functions.</li>
+<code><a href="../reference/FSA-defunct.html">Schnute()</a></code>: Moved into <code>growthModels</code> file. Changed <code>param=</code> to <code>type=</code> to better match similar functions.</li>
 <li>
 <code>SchnuteModels()</code>: Moved into <code>growthModels</code> file. Did not change behavior.</li>
 <li>
@@ -1234,7 +1301,7 @@
 <li>
 <code>schnuteModels()</code>: Deleteed.</li>
 <li>
-<code><a href="../reference/Schnute.html">Schnute()</a></code>: Added. Replaced <code>schnute()</code>. Fixed bugs with the way <code>t1=</code> and <code>t3=</code> are handled.</li>
+<code><a href="../reference/FSA-defunct.html">Schnute()</a></code>: Added. Replaced <code>schnute()</code>. Fixed bugs with the way <code>t1=</code> and <code>t3=</code> are handled.</li>
 <li>
 <code>SchnuteModels()</code>: Added. Replaced <code>schnuteModels()</code>. Added <code>cex=</code>.</li>
 <li>

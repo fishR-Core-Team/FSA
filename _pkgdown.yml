@@ -150,6 +150,12 @@ reference:
     contents:
       - FSA-defunct
 
+  - title: Deprecated
+    desc: Deprecated functions.
+    contents:
+      - growthModels
+      - vbStarts
+
 navbar:
   left:
     - text: Reference
@@ -157,7 +163,7 @@ navbar:
     - text: Articles
       menu:
       - text: Computing Proportional Size Distribution Metrics
-        href: articles/Computing_PSD.html
+        href: articles/Computing_PSDs.html
       - text: Computing Relative Weights
         href: articles/Computing_Relative_Weights.html
       - text: Fitting Growth Functions
@@ -165,7 +171,7 @@ navbar:
       - text: "--------"
       - text: Explaining Starting Values for Growth Functions
         href: articles/Growth_Starting_Values.html
-    right:
+  right:
     - icon: fa-newspaper
       href: news/index.html
       aria-label: See package news

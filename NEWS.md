@@ -1,7 +1,7 @@
 # FSA 0.9.6.9000
 * Updated `test-coverage.yaml` and moved a `# nocov start` and `# nocov end` in `bootstrap.r` to address the errors with `test-coverage.yaml`. Addresses [#118](https://github.com/fishR-Core-Team/FSA/issues/118).
 * Added `FlexParamCurve` to Imports for use of `modpar()` in `findGrowthStarts(param="Richards")` and `purrr` for use of `map2_chr()` in `showGrowthFun()`.
-* Added the following "articles" (for the package webpage).
+* Added the following "vignettes".
     * Describe how the starting values for the growth equations are derived.
     * Provide a simple introduction to growth model fitting with `FSA`.
     * Provide a simple introduction to calculating relative weights with `FSA`.
@@ -18,7 +18,7 @@
 * `logisticFuns()`: Deprecated (replaced with `makeGrowthFun()`).
 * `makeGrowthFun()`: Added. This replaces `vbFuns()`, `GompertzFuns()`, `logisticFuns()`, `RichardsFuns()`, `Schnute()`, `SchnuteRichards()`. Along the way, the following changes were made.
   * Included numbers for parameterizations in `param=` and moved names to `pname=`. Some names were changed.
-  * In Gompertz functions ... changed 1 parameter in "Original" to a1, changed a parameter to a2 in Ricker2 and QuinnDeriso1, and a to a2 in Ricker3 and QuinnDeriso2, to distinguish them when they are different.
+  * In Gompertz functions ... changed a parameter in "Original" to a1, changed a parameter to a2 in Ricker2 and QuinnDeriso1, and a to a2 in Ricker3 and QuinnDeriso2, to distinguish them when they are different.
   * In Richards functions ...
     * Restricted to only 4-parameter functions; thus, removed sixth parameterization
     * Removed first parameterization as it had limited placement for the inflection point.
