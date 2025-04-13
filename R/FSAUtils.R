@@ -506,27 +506,26 @@ perc <- function(x,val,dir=c("geq","gt","leq","lt"),na.rm=TRUE,
 #' @keywords manip
 #'
 #' @examples
-#' peek(iris)
-#' peek(iris,n=6)
-#' peek(iris,n=6,which=c("Sepal.Length","Sepal.Width","Species"))
-#' peek(iris,n=6,which=grep("Sepal",names(iris)))
-#' peek(iris,n=200)
+#' peek(CutthroatAL)
+#' peek(CutthroatAL,n=6)
+#' peek(CutthroatAL,n=6,which=c("id","y1998","y1999","y2000"))
 #'
 #' ## Make a matrix for demonstration purposes only
-#' miris <- as.matrix(iris[,1:4])
-#' peek(miris)
-#' peek(miris,n=6)
-#' peek(miris,n=6,addrownums=FALSE)
-#' peek(miris,n=6,which=2:4)
+#' mCutthroatAL <- as.matrix(CutthroatAL)
+#' peek(mCutthroatAL)
+#' peek(mCutthroatAL,n=6)
+#' peek(mCutthroatAL,n=6,addrownums=FALSE)
+#' peek(mCutthroatAL,n=6,which=2:4)
 #'
-#' ## Make a tbl_df type from dplyr ... note how peek() is not limited by
-#' ## the tbl_df restriction on number of rows to show (but head() is).
+#' ## Make a tibble type from dplyr ... note how peek() is not limited by
+#' ## the tibble restriction on number of rows to show (but head() is).
 #' if (require(dplyr)) {
-#'   iris2 <- tbl_df(iris)
-#'   class(iris2)
-#'   peek(iris2,n=6)
-#'   head(iris2,n=15)
+#'   CutthroatAL2 <- as_tibble(CutthroatAL)
+#'   class(CutthroatAL2)
+#'   peek(CutthroatAL2,n=6)
+#'   head(CutthroatAL2,n=15)
 #' }
+#' 
 #' @export
 peek <- function(x,n=20L,which=NULL,addrownums=TRUE) {
   ## Some checks
@@ -542,7 +541,7 @@ peek <- function(x,n=20L,which=NULL,addrownums=TRUE) {
   if (n>=N) tmp <- x
   else {
     rows <- c(1,round((1:(n-2))*(N/(n-1)),0),N)
-    tmp <- x[rows,]
+    tmp <- x[rows,,drop=FALSE]
     if (addrownums) {
       if (is.null(rownames(tmp))) rownames(tmp) <- rows
     } else rownames(tmp) <- NULL

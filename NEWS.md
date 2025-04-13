@@ -24,6 +24,7 @@
     * Removed first parameterization as it had limited placement for the inflection point.
     * Moved the old parameterization to new places as follows: third to first, and fifth to second. Thus, the first parameterization will be the one that most closely follows the parameterization of the self-starting function to be used in `findGrowthStarts()`. Removed the other two parameterizations as they were essentially the same as the first except for how the exponent was defined, which has no biological meaning.
     * Modified parameterizations to have the same general look (i.e., Linf times something raised to a power). After this, the powers were all the same, so there is just a "b" parameter now.
+* `peek()`: Modified. Addressed [#125](https://github.com/fishR-Core-Team/FSA/issues/125).
 * `psdAdd()`: Modified. Added `group=` to handle the change for sub-groups in `PSDlit`. Modified `addLens=` to more closely match how `addLens=` words in `psdCalc()` and, thus, removed `addSpecs=`.
 * `psdCalc()`: Modified. Added `group=` to handle the change for sub-groups in `PSDlit`. Made other coding changes that did not affect forward-facing functionality.
 * `PSDLit`: Modified.
