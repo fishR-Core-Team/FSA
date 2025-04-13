@@ -69,7 +69,7 @@ df$Wr2 <- wrAdd(df$wt,df$tl,df$species)
 peek(df,n=10)
 #----- same but using dplyr
 if (require(dplyr)) {
-  df <- df |>
+  df <- df \%>\%
     mutate(Wr3=wrAdd(wt,tl,species))
 }
 #----- examine results

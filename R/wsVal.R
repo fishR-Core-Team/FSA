@@ -68,7 +68,7 @@
 #' #----- Same as above but using dplyr
 #' data(BluegillLM,package="FSAdata")   # reset to original for this example
 #' if (require(dplyr)) {
-#'   BluegillLM <- BluegillLM |>
+#'   BluegillLM <- BluegillLM %>%
 #'     mutate(ws=10^(wsBG[["int"]]+wsBG[["slope"]]*log10(tl)),
 #'            ws=ifelse(tl<wsBG[["min.TL"]],NA,ws),
 #'            wr=wght/ws*100)

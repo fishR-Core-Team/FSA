@@ -182,7 +182,7 @@ iRoundCoefs <- function(fit,constvals,digits,def_digits) {
          "parameters plus constant values (=",length(cfs),").")
   if (length(digits)==1) digits <- rep(digits,length(cfs))
   # Round coefficients to digits and return
-  purrr::map2_chr(cfs,digits,\(x,y) formatC(x,format="f",digits=y))
+  purrr::map2_chr(cfs,digits,function(x,y) formatC(x,format="f",digits=y))
 }
 
 iHndlt0 <- function(t0) {
@@ -810,7 +810,7 @@ iMakeEqnSchnute <- function(param,yvar,xvar,fit,constvals,digits) {
            "parameters plus constant values (=",length(cfs),").")
     if (length(digits)==1) digits <- rep(digits,length(cfs))
     # Round coefficients to digits
-    cfs <- purrr::map2_chr(cfs,digits,\(x,y) formatC(x,format="f",digits=y))
+    cfs <- purrr::map2_chr(cfs,digits,function(x,y) formatC(x,format="f",digits=y))
     # Isolate coefficients
     L1 <- cfs[["L1"]]
     L3 <- cfs[["L3"]]
