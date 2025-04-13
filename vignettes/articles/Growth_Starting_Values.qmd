@@ -10,10 +10,6 @@ format:
     fig-cap-location: bottom
     tbl-cap-location: top
     echo: false
-vignette: >
-  %\VignetteIndexEntry{Computig PSD Metrics}
-  %\VignetteEngine{quarto::html}
-  %\VignetteEncoding{UTF-8}
 knitr:
   opts_chunk:
     collapse: true

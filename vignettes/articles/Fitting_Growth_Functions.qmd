@@ -7,10 +7,6 @@ format:
     toc: true
     toc-depth: 2
     reference-location: margin
-vignette: >
-  %\VignetteIndexEntry{Computig PSD Metrics}
-  %\VignetteEngine{quarto::html}
-  %\VignetteEncoding{UTF-8}
 knitr:
   opts_chunk:
     collapse: true

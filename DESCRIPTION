@@ -47,7 +47,6 @@ Suggests:
     pkgdown,
     plyr,
     psych,
-    quarto,
     Rcapture,
     rmarkdown,
     testthat (>= 3.0.0),
@@ -55,7 +54,6 @@ Suggests:
     tidyr,
     covr,
     quarto
-VignetteBuilder: quarto
 Encoding: UTF-8
 RoxygenNote: 7.3.2
 Config/testthat/edition: 3
