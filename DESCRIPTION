@@ -44,7 +44,6 @@ Suggests:
     marked,
     nlme,
     nlstools,
-    pkgdown,
     plyr,
     psych,
     Rcapture,
@@ -59,4 +58,6 @@ RoxygenNote: 7.3.2
 Config/testthat/edition: 3
 Config/Needs/website:
     rlib/pkgdown,
-    quarto
+    quarto,
+    dplyr,
+    ggplot2
