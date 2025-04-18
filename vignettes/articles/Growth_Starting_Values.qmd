@@ -186,9 +186,7 @@ The ninth parameterization (@tbl-VBparams2) of the von Bertalanffy model in `FSA
 
 : Parameterizations of the von Bertalanffy growth equation for length-at-age data available in `FSA`. {#tbl-VBparams2}
 
-::: {.callout-warning}
 Starting values for the ninth parameterization (i.e., the "double") von Bertalanffy growth model have not been developed in `FSA`. Starting values for this parameterization will have to be developed by other means.
-:::
 
 <br>
 
@@ -225,9 +223,7 @@ Starting values for $L_\infty$, $K$, and $t_0$ are derived as if the data were r
 - $NGT$ set at 0.3, a likely fraction of the year for "no growth" in the northern hemisphere.
 - $K'$ set at $\frac{K}{(1-NGT)}$, assuming that $K$ was only over the "growth period" (i.e., $1-NGT$).
 
-::: {.callout-warning}
 Starting values for the seasonal growth models are much less tested than those for annual growth models. Please consider them carefully.
-:::
 
 ## von Bertalanffy Tag-Recapture
 Still other parameterizations of the von Bertalanffy model are used with tag-recapture data (@tbl-VBparams4).
