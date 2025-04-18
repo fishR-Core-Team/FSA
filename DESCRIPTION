@@ -57,4 +57,6 @@ Suggests:
 Encoding: UTF-8
 RoxygenNote: 7.3.2
 Config/testthat/edition: 3
-Config/Needs/website: quarto
+Config/Needs/website:
+    rlib/pkgdown,
+    quarto
