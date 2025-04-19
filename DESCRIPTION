@@ -35,21 +35,14 @@ Imports:
     purrr,
     withr
 Suggests:
-    DescTools,
     dplyr,
     fishmethods,
     FSAdata,
-    ggplot2,
     knitr,
-    marked,
     nlme,
     nlstools,
-    plyr,
-    psych,
-    Rcapture,
     rmarkdown,
     testthat (>= 3.0.0),
-    tibble,
     tidyr,
     covr,
     quarto
@@ -57,7 +50,6 @@ Encoding: UTF-8
 RoxygenNote: 7.3.2
 Config/testthat/edition: 3
 Config/Needs/website:
+    ggplot2,
     rlib/pkgdown,
-    quarto,
-    dplyr,
-    ggplot2
+    quarto

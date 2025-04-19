@@ -231,15 +231,17 @@ fishR <- function(where=c("home","posts","books","IFAR","AIFFD",
 #' headtail(miris,addrownums=FALSE)
 #' headtail(miris,10,which=2:4)
 #'
-#' ## Make a tbl_df type from tibble ... note how headtail()
-#' ## is not limited by the tbl_df restriction on number of
-#' ## rows to show (but head() is).
-#' if (require(tibble)) {
-#'   iris2 <- as_tibble(iris)
-#'   class(iris2)
-#'   headtail(iris2,n=15)
-#'   head(iris2,n=15)
+#' ## Make a tibble type from tibble ... note how headtail() is not limited by
+#' ##   the tibble restriction on number of rows to show (but head() is).
+#' \dontrun{
+#'   if (require(tibble)) {
+#'     iris2 <- as_tibble(iris)
+#'     class(iris2)
+#'     headtail(iris2,n=15)
+#'     head(iris2,n=15)
+#'   }
 #' }
+#' 
 #' @export
 headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
   ## Some checks
@@ -519,11 +521,13 @@ perc <- function(x,val,dir=c("geq","gt","leq","lt"),na.rm=TRUE,
 #'
 #' ## Make a tibble type from dplyr ... note how peek() is not limited by
 #' ## the tibble restriction on number of rows to show (but head() is).
-#' if (require(dplyr)) {
-#'   CutthroatAL2 <- as_tibble(CutthroatAL)
-#'   class(CutthroatAL2)
-#'   peek(CutthroatAL2,n=6)
-#'   head(CutthroatAL2,n=15)
+#' \dontrun{
+#'   if (require(dplyr)) {
+#'     CutthroatAL2 <- as_tibble(CutthroatAL)
+#'     class(CutthroatAL2)
+#'     peek(CutthroatAL2,n=6)
+#'     head(CutthroatAL2,n=15)
+#'   }
 #' }
 #' 
 #' @export
@@ -866,7 +870,7 @@ validn <- function(object) {
 #' 
 #' @note This function is largely an implementation of the code suggested by Russell Senior on R-help in November, 1999.
 #' 
-#' @seealso See \code{\link[psych]{geometric.mean}} in \pkg{psych} and \code{\link[DescTools]{Gmean}} for geometric mean calculators. See \code{Gsd} (documented with \code{\link[DescTools]{Gmean}}) from \pkg{DescTools} for geometric standard deviation calculators.
+#' @seealso See \code{geometric.mean} in \pkg{psych} and \code{Gmean} for geometric mean calculators. See \code{Gsd} (documented with \code{Gmean}) from \pkg{DescTools} for geometric standard deviation calculators.
 #' 
 #' @keywords misc
 #' 

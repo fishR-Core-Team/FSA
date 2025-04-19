@@ -239,50 +239,53 @@ ex1.E2R1
                  event.ord=c("first","second","third","fourth")) )
 
 ## ONLY RUN IN INTERACTIVE MODE
-if (interactive()) {
+\dontrun{
 
 ########################################################################
-## A larger example of 'frequency' format (data from Rcapture package)
-data(bunting,package="Rcapture")
-head(bunting)
-# convert to 'individual' format
-bun.F2I <- capHistConvert(bunting,in.type="frequency",freq="freq")
-head(bun.F2I)
-# convert to 'MARK' format
-bun.F2M <- capHistConvert(bunting,id="id",in.type="frequency",freq="freq",out.type="MARK")
-head(bun.F2M)
-# convert converted 'individual' back to 'MARK' format
-bun.I2M <- capHistConvert(bun.F2I,id="id",in.type="individual",out.type="MARK")
-head(bun.I2M)
-# convert converted 'individual' back to 'frequency' format
-bun.I2F <- capHistConvert(bun.F2I,id="id",in.type="individual",
-           out.type="frequency",var.lbls.pre="Sample")
-head(bun.I2F)
+  if (require(Rcapture)) {
+    ## A larger example of 'frequency' format (data from Rcapture package)
+    data(bunting,package="Rcapture")
+    head(bunting)
+    # convert to 'individual' format
+    bun.F2I <- capHistConvert(bunting,in.type="frequency",freq="freq")
+    head(bun.F2I)
+    # convert to 'MARK' format
+    bun.F2M <- capHistConvert(bunting,id="id",in.type="frequency",freq="freq",out.type="MARK")
+    head(bun.F2M)
+    # convert converted 'individual' back to 'MARK' format
+    bun.I2M <- capHistConvert(bun.F2I,id="id",in.type="individual",out.type="MARK")
+    head(bun.I2M)
+    # convert converted 'individual' back to 'frequency' format
+    bun.I2F <- capHistConvert(bun.F2I,id="id",in.type="individual",
+               out.type="frequency",var.lbls.pre="Sample")
+    head(bun.I2F)
+  }
 
 
 ########################################################################
-## A larger example of 'marked' or 'RMark' format, but with a covariate
-##   and when the covariate is removed there is no frequency or individual
-##   fish identifier.
-data(dipper,package="marked")
-head(dipper)
-# isolate males and females
-dipperF <- subset(dipper,sex=="Female")
-dipperM <- subset(dipper,sex=="Male")
-# convert females to 'individual' format
-dipF.R2I <- capHistConvert(dipperF,cols2ignore="sex",in.type="RMark")
-head(dipF.R2I)
-# convert males to 'individual' format
-dipM.R2I <- capHistConvert(dipperM,cols2ignore="sex",in.type="RMark")
-head(dipM.R2I)
-# add sex variable to each data.frame and then combine
-dipF.R2I$sex <- "Female"
-dipM.R2I$sex <- "Male"
-dip.R2I <- rbind(dipF.R2I,dipM.R2I)
-head(dip.R2I)
-tail(dip.R2I)
-
-} # end interactive
+if (require(marked)) {
+    ## A larger example of 'marked' or 'RMark' format, but with a covariate
+    ##   and when the covariate is removed there is no frequency or individual
+    ##   fish identifier.
+    data(dipper,package="marked")
+    head(dipper)
+    # isolate males and females
+    dipperF <- subset(dipper,sex=="Female")
+    dipperM <- subset(dipper,sex=="Male")
+    # convert females to 'individual' format
+    dipF.R2I <- capHistConvert(dipperF,cols2ignore="sex",in.type="RMark")
+    head(dipF.R2I)
+    # convert males to 'individual' format
+    dipM.R2I <- capHistConvert(dipperM,cols2ignore="sex",in.type="RMark")
+    head(dipM.R2I)
+    # add sex variable to each data.frame and then combine
+    dipF.R2I$sex <- "Female"
+    dipM.R2I$sex <- "Male"
+    dip.R2I <- rbind(dipF.R2I,dipM.R2I)
+    head(dip.R2I)
+    tail(dip.R2I)
+ }
+} # end \dontrun
 
 
 ## An example of problem with unused levels

@@ -38,11 +38,13 @@ peek(mCutthroatAL,n=6,which=2:4)
 
 ## Make a tibble type from dplyr ... note how peek() is not limited by
 ## the tibble restriction on number of rows to show (but head() is).
-if (require(dplyr)) {
-  CutthroatAL2 <- as_tibble(CutthroatAL)
-  class(CutthroatAL2)
-  peek(CutthroatAL2,n=6)
-  head(CutthroatAL2,n=15)
+\dontrun{
+  if (require(dplyr)) {
+    CutthroatAL2 <- as_tibble(CutthroatAL)
+    class(CutthroatAL2)
+    peek(CutthroatAL2,n=6)
+    head(CutthroatAL2,n=15)
+  }
 }
 
 }

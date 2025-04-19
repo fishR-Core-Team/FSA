@@ -566,12 +566,12 @@ test_that("Does psdCalc() compute correct PSD values?",{
   expect_equal(bgres[,"Estimate"],c(80,60,40,20,20,20,20,20),ignore_attr=TRUE)
 })
 
-test_that("Does psdCalc() work with a tibble?",{
-  tmp <- tibble::as_tibble(df2bg)
-  suppressWarnings(bgres <- psdCalc(~tl,data=df2bg,species="Bluegill"))
-  suppressWarnings(bgres2 <- psdCalc(~tl,data=tmp,species="Bluegill"))
-  expect_equal(bgres,bgres2)
-})
+#test_that("Does psdCalc() work with a tibble?",{
+#  tmp <- tibble::as_tibble(df2bg)
+#  suppressWarnings(bgres <- psdCalc(~tl,data=df2bg,species="Bluegill"))
+#  suppressWarnings(bgres2 <- psdCalc(~tl,data=tmp,species="Bluegill"))
+#  expect_equal(bgres,bgres2)
+#})
 
 test_that("Does psdCI results match Brenden et al. (2008) results",{
   ## proportions table from Brenden et al. (2008)

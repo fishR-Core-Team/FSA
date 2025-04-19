@@ -117,11 +117,11 @@ text(10,150,showGrowthFun(fit=rv,parse=TRUE))
 \dontrun{
 library(ggplot2)
 ggplot(data=GrowthData1,mapping=aes(y=tlV,x=age)) +
-geom_point() +
-stat_function(fun=vb1,args=list(Linf=coef(rv)),color="blue",linewidth=1) +
-annotate(geom="text",label=showGrowthFun(fit=rv),parse=TRUE,size=4,x=10,y=150) +
-labs(y="Length (mm)",x="Age (yrs)") +
-theme_bw()
+  geom_point() +
+  stat_function(fun=vb1,args=list(Linf=coef(rv)),color="blue",linewidth=1) +
+  annotate(geom="text",label=showGrowthFun(fit=rv),parse=TRUE,size=4,x=10,y=150) +
+  labs(y="Length (mm)",x="Age (yrs)") +
+  theme_bw()
 }
 
 }
