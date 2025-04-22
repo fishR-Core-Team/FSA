@@ -44,12 +44,11 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0),
     tidyr,
-    covr,
-    quarto
+    covr
 Encoding: UTF-8
 RoxygenNote: 7.3.2
 Config/testthat/edition: 3
 Config/Needs/website:
-    ggplot2,
     r-lib/pkgdown,
-    quarto
+    quarto,
+    ggplot2
