@@ -51,5 +51,5 @@ RoxygenNote: 7.3.2
 Config/testthat/edition: 3
 Config/Needs/website:
     ggplot2,
-    rlib/pkgdown,
+    r-lib/pkgdown,
     quarto

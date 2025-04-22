@@ -541,61 +541,53 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 id21     1      1     0      0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ONLY RUN IN INTERACTIVE MODE</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">########################################################################</span></span></span>
-<span class="r-in"><span><span class="co">## A larger example of 'frequency' format (data from Rcapture package)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">bunting</span>,package<span class="op">=</span><span class="st">"Rcapture"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bunting</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># convert to 'individual' format</span></span></span>
-<span class="r-in"><span><span class="va">bun.F2I</span> <span class="op">&lt;-</span> <span class="fu">capHistConvert</span><span class="op">(</span><span class="va">bunting</span>,in.type<span class="op">=</span><span class="st">"frequency"</span>,freq<span class="op">=</span><span class="st">"freq"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bun.F2I</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># convert to 'MARK' format</span></span></span>
-<span class="r-in"><span><span class="va">bun.F2M</span> <span class="op">&lt;-</span> <span class="fu">capHistConvert</span><span class="op">(</span><span class="va">bunting</span>,id<span class="op">=</span><span class="st">"id"</span>,in.type<span class="op">=</span><span class="st">"frequency"</span>,freq<span class="op">=</span><span class="st">"freq"</span>,out.type<span class="op">=</span><span class="st">"MARK"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bun.F2M</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># convert converted 'individual' back to 'MARK' format</span></span></span>
-<span class="r-in"><span><span class="va">bun.I2M</span> <span class="op">&lt;-</span> <span class="fu">capHistConvert</span><span class="op">(</span><span class="va">bun.F2I</span>,id<span class="op">=</span><span class="st">"id"</span>,in.type<span class="op">=</span><span class="st">"individual"</span>,out.type<span class="op">=</span><span class="st">"MARK"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bun.I2M</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># convert converted 'individual' back to 'frequency' format</span></span></span>
-<span class="r-in"><span><span class="va">bun.I2F</span> <span class="op">&lt;-</span> <span class="fu">capHistConvert</span><span class="op">(</span><span class="va">bun.F2I</span>,id<span class="op">=</span><span class="st">"id"</span>,in.type<span class="op">=</span><span class="st">"individual"</span>,</span></span>
-<span class="r-in"><span>           out.type<span class="op">=</span><span class="st">"frequency"</span>,var.lbls.pre<span class="op">=</span><span class="st">"Sample"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bun.I2F</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va">Rcapture</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co">## A larger example of 'frequency' format (data from Rcapture package)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">bunting</span>,package<span class="op">=</span><span class="st">"Rcapture"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bunting</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="co"># convert to 'individual' format</span></span></span>
+<span class="r-in"><span>    <span class="va">bun.F2I</span> <span class="op">&lt;-</span> <span class="fu">capHistConvert</span><span class="op">(</span><span class="va">bunting</span>,in.type<span class="op">=</span><span class="st">"frequency"</span>,freq<span class="op">=</span><span class="st">"freq"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bun.F2I</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="co"># convert to 'MARK' format</span></span></span>
+<span class="r-in"><span>    <span class="va">bun.F2M</span> <span class="op">&lt;-</span> <span class="fu">capHistConvert</span><span class="op">(</span><span class="va">bunting</span>,id<span class="op">=</span><span class="st">"id"</span>,in.type<span class="op">=</span><span class="st">"frequency"</span>,freq<span class="op">=</span><span class="st">"freq"</span>,out.type<span class="op">=</span><span class="st">"MARK"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bun.F2M</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="co"># convert converted 'individual' back to 'MARK' format</span></span></span>
+<span class="r-in"><span>    <span class="va">bun.I2M</span> <span class="op">&lt;-</span> <span class="fu">capHistConvert</span><span class="op">(</span><span class="va">bun.F2I</span>,id<span class="op">=</span><span class="st">"id"</span>,in.type<span class="op">=</span><span class="st">"individual"</span>,out.type<span class="op">=</span><span class="st">"MARK"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bun.I2M</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="co"># convert converted 'individual' back to 'frequency' format</span></span></span>
+<span class="r-in"><span>    <span class="va">bun.I2F</span> <span class="op">&lt;-</span> <span class="fu">capHistConvert</span><span class="op">(</span><span class="va">bun.F2I</span>,id<span class="op">=</span><span class="st">"id"</span>,in.type<span class="op">=</span><span class="st">"individual"</span>,</span></span>
+<span class="r-in"><span>               out.type<span class="op">=</span><span class="st">"frequency"</span>,var.lbls.pre<span class="op">=</span><span class="st">"Sample"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bun.I2F</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">########################################################################</span></span></span>
-<span class="r-in"><span><span class="co">## A larger example of 'marked' or 'RMark' format, but with a covariate</span></span></span>
-<span class="r-in"><span><span class="co">##   and when the covariate is removed there is no frequency or individual</span></span></span>
-<span class="r-in"><span><span class="co">##   fish identifier.</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dipper</span>,package<span class="op">=</span><span class="st">"marked"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dipper</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># isolate males and females</span></span></span>
-<span class="r-in"><span><span class="va">dipperF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">dipper</span>,<span class="va">sex</span><span class="op">==</span><span class="st">"Female"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dipperM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">dipper</span>,<span class="va">sex</span><span class="op">==</span><span class="st">"Male"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># convert females to 'individual' format</span></span></span>
-<span class="r-in"><span><span class="va">dipF.R2I</span> <span class="op">&lt;-</span> <span class="fu">capHistConvert</span><span class="op">(</span><span class="va">dipperF</span>,cols2ignore<span class="op">=</span><span class="st">"sex"</span>,in.type<span class="op">=</span><span class="st">"RMark"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dipF.R2I</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># convert males to 'individual' format</span></span></span>
-<span class="r-in"><span><span class="va">dipM.R2I</span> <span class="op">&lt;-</span> <span class="fu">capHistConvert</span><span class="op">(</span><span class="va">dipperM</span>,cols2ignore<span class="op">=</span><span class="st">"sex"</span>,in.type<span class="op">=</span><span class="st">"RMark"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dipM.R2I</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># add sex variable to each data.frame and then combine</span></span></span>
-<span class="r-in"><span><span class="va">dipF.R2I</span><span class="op">$</span><span class="va">sex</span> <span class="op">&lt;-</span> <span class="st">"Female"</span></span></span>
-<span class="r-in"><span><span class="va">dipM.R2I</span><span class="op">$</span><span class="va">sex</span> <span class="op">&lt;-</span> <span class="st">"Male"</span></span></span>
-<span class="r-in"><span><span class="va">dip.R2I</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">dipF.R2I</span>,<span class="va">dipM.R2I</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dip.R2I</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">dip.R2I</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># end interactive</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No 'freq' or 'id' given; assumed frequencies were 1 for each capture</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   history.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No 'freq' or 'id' given; assumed frequencies were 1 for each capture</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   history.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     event1 event2 event3 event4 event5 event6 event7  sex</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 289      1      1      0      0      0      0      0 Male</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 290      1      1      0      0      0      0      0 Male</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 291      1      1      0      0      0      0      0 Male</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 292      1      1      0      0      0      0      0 Male</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 293      1      1      1      1      0      0      0 Male</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 294      1      1      1      1      1      1      0 Male</span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va">marked</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co">## A larger example of 'marked' or 'RMark' format, but with a covariate</span></span></span>
+<span class="r-in"><span>    <span class="co">##   and when the covariate is removed there is no frequency or individual</span></span></span>
+<span class="r-in"><span>    <span class="co">##   fish identifier.</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dipper</span>,package<span class="op">=</span><span class="st">"marked"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dipper</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="co"># isolate males and females</span></span></span>
+<span class="r-in"><span>    <span class="va">dipperF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">dipper</span>,<span class="va">sex</span><span class="op">==</span><span class="st">"Female"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">dipperM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">dipper</span>,<span class="va">sex</span><span class="op">==</span><span class="st">"Male"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="co"># convert females to 'individual' format</span></span></span>
+<span class="r-in"><span>    <span class="va">dipF.R2I</span> <span class="op">&lt;-</span> <span class="fu">capHistConvert</span><span class="op">(</span><span class="va">dipperF</span>,cols2ignore<span class="op">=</span><span class="st">"sex"</span>,in.type<span class="op">=</span><span class="st">"RMark"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dipF.R2I</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="co"># convert males to 'individual' format</span></span></span>
+<span class="r-in"><span>    <span class="va">dipM.R2I</span> <span class="op">&lt;-</span> <span class="fu">capHistConvert</span><span class="op">(</span><span class="va">dipperM</span>,cols2ignore<span class="op">=</span><span class="st">"sex"</span>,in.type<span class="op">=</span><span class="st">"RMark"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dipM.R2I</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="co"># add sex variable to each data.frame and then combine</span></span></span>
+<span class="r-in"><span>    <span class="va">dipF.R2I</span><span class="op">$</span><span class="va">sex</span> <span class="op">&lt;-</span> <span class="st">"Female"</span></span></span>
+<span class="r-in"><span>    <span class="va">dipM.R2I</span><span class="op">$</span><span class="va">sex</span> <span class="op">&lt;-</span> <span class="st">"Male"</span></span></span>
+<span class="r-in"><span>    <span class="va">dip.R2I</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">dipF.R2I</span>,<span class="va">dipM.R2I</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dip.R2I</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">dip.R2I</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># } # end \dontrun</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## An example of problem with unused levels</span></span></span>
