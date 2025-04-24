@@ -158,11 +158,12 @@ round(tmp/tmp["stock"]*100,1)
 All of that (in the previous sections) is a bit tedious and, more importantly, does not compute confidence intervals for the values.^[See `psdCI()` for how to compute confidence intervals from the raw data.] `psdCalc()` provides a convenient interface for computing all of the PSD metrics, with confidence intervals, for a data.frame with one species. Before illustrating `psdCalc()`, I returned to the original `YPerchSB1` data.frame without the changes made in the previous sections.
 
 ```{r}
-#| echo: -1
+#| echo: false
 data(YPerchSB1,package="FSAdata")
+```
+```{r}
 peek(YPerchSB1,n=6)
 ```
-
 ```{r}
 #| echo: false
 #| results: hide

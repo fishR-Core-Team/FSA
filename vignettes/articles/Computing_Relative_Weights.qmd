@@ -226,8 +226,10 @@ CiscoTL |>
 `wrAdd()` can be used to add a relative weight variable to a data.frame for **all** species in the data.frame for which a standard weight equation exists. The main argument to `wrAdd()` is a formula of the form `weight~length+species` where `weight` is the observed weight variable, `length` is the observed length variable, and `species` is the name of the species variable. One constraint here is that the species must be spelled (and capitalized) as in `WSlit`. In these data for Cisco, the species name is in `spname` but the species is all capital letters as "CISCO", rather than the required "Cisco". `capFirst()`^[From `FSA`.] may be used to convert a word to a form where just the first letter is capitalized, and  is used below.^[Note that the `CiscoTL` data.frame was re-read so that the additions in the previous section were removed.]
 
 ```{r}
-#| echo: -1
+#| echo: false
 data("CiscoTL",package="FSAdata")
+```
+```{r}
 CiscoTL <- CiscoTL |>
   mutate(Wr=wrAdd(weight~length+capFirst(spname)))
 peek(CiscoTL,n=10)
