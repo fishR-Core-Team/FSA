@@ -1,8 +1,12 @@
 pandoc: 3.1.11
-pkgdown: 2.1.1
-pkgdown_sha: ~
-articles: {}
-last_built: 2025-01-07T15:37Z
+pkgdown: 2.1.1.9000
+pkgdown_sha: 62d5c5a0fc12899aae97f6ce14018d2784bf308b
+articles:
+  articles/Computing_PSDs: Computing_PSDs.html
+  articles/Computing_Relative_Weights: Computing_Relative_Weights.html
+  articles/Fitting_Growth_Functions: Fitting_Growth_Functions.html
+  articles/Growth_Starting_Values: Growth_Starting_Values.html
+last_built: 2025-04-24T13:49Z
 urls:
   reference: https://fishr-core-team.github.io/FSA/reference
   article: https://fishr-core-team.github.io/FSA/articles
