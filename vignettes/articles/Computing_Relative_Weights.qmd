@@ -20,7 +20,7 @@ Condition is a measure of the physical condition of a population of fish based o
 
 $$ Wr_i = 100\frac{W_i}{Ws_i} $$ {#eq-Wri}
 
-where $Wr_i$ is the relative weight, $W_i$ is the observed weight, and $Ws_i$ is the standard weight for the $i$th fish. Individual relative weights are summarized to provide an overall measure of condition for the population. Relative weight and condition are explained in a variety of sources, including [Ogle (2015)](https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r). The goal of this vignette is to demonstrate how to calculate relative weights using functions in`FSA`.
+where $Wr_i$ is the relative weight, $W_i$ is the observed weight, and $Ws_i$ is the standard weight for the $i$th fish. Individual relative weights are summarized to provide an overall measure of condition for the population. Relative weight and condition are explained in a variety of sources, including [Ogle (2016)](https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r). The goal of this vignette is to demonstrate how to calculate relative weights using functions in`FSA`.
 
 The following packages are used herein. Note that the `FSA` functions described here were modified after version 0.9.6 and are thus **specific to FSA >v0.9.6**.
 

@@ -28,7 +28,7 @@ psdCalc(
 
 \item{species}{A string that contains the species name for which Gabelhouse lengths exist. See \code{\link{psdVal}} for details. See details for how to use this function for species for which Gabelhouse lengths are not defined.}
 
-\item{group}{A string that contains the sub-group of `species` for which to find the Gabelhouse lengths; e.g., things like \dQuote{landlocked}, \dQuote{lentic}.}
+\item{group}{A string that contains the sub-group of \code{species} for which to find the Gabelhouse lengths; e.g., things like \dQuote{landlocked}, \dQuote{lentic}.}
 
 \item{units}{A string that indicates the type of units used for the lengths. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 

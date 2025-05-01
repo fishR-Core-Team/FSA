@@ -13,7 +13,7 @@
 #' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains the observed lengths. Note that this formula may only contain one variable and it must be numeric.
 #' @param data A data.frame that minimally contains the observed lengths given in the variable in \code{formula}.
 #' @param species A string that contains the species name for which Gabelhouse lengths exist. See \code{\link{psdVal}} for details. See details for how to use this function for species for which Gabelhouse lengths are not defined.
-#' @param group A string that contains the sub-group of `species` for which to find the Gabelhouse lengths; e.g., things like \dQuote{landlocked}, \dQuote{lentic}.
+#' @param group A string that contains the sub-group of \code{species} for which to find the Gabelhouse lengths; e.g., things like \dQuote{landlocked}, \dQuote{lentic}.
 #' @param units A string that indicates the type of units used for the lengths. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
 #' @param what A string that indicates the type of PSD values that will be printed. See details.
 #' @param drop0Est A logical that indicates whether the PSD values that are zero should be dropped from the output.

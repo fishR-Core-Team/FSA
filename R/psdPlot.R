@@ -11,7 +11,7 @@
 #' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements. Note that this formula can only contain one variable.
 #' @param data A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.
 #' @param species A string that contains the species name for which Gabelhouse length categories exist. See \code{\link{psdVal}} for details.
-#' @param group A string that contains the sub-group of `species` for which to find the Gabelhouse lengths; e.g., things like \dQuote{landlocked}, \dQuote{lentic}.
+#' @param group A string that contains the sub-group of \code{species} for which to find the Gabelhouse lengths; e.g., things like \dQuote{landlocked}, \dQuote{lentic}.
 #' @param units A string that indicates the type of units used for the length measurements. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
 #' @param startcat A number that indicates the beginning of the first length-class.
 #' @param w A number that indicates the width of length classes to create.
