@@ -17,7 +17,7 @@ psdVal(
 \arguments{
 \item{species}{A string that contains the species name for which to find Gabelhouse lengths. See details.}
 
-\item{group}{A string that contains the sub-group of `species` for which to find the Gabelhouse lengths. Will be things like \dQuote{"landlocked"}, \dQuote{"lentic"}.}
+\item{group}{A string that contains the sub-group of \code{species} for which to find the Gabelhouse lengths; e.g., things like \dQuote{landlocked}, \dQuote{lentic}.}
 
 \item{units}{A string that indicates the units for the returned lengths. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
@@ -36,11 +36,13 @@ A vector of minimum values for length categories for the chosen species.
 Returns a vector with the five Gabelhouse lengths for a chosen species.
 }
 \details{
-Finds the Gabelhouse lengths from \code{data(PSDlit)} for the species given in \code{species}. The species name must be spelled exactly (within capitalization differences) as it appears in \code{data(PSDlit)}. Type \code{psdVal()} to see the list of species and how they are spelled.
+Finds the Gabelhouse lengths from \code{data(PSDlit)} for the species given in \code{species}. The species name must be spelled exactly (including capitalization) as it appears in \code{data(PSDlit)}. Type \code{psdVal()} to see the list of species and how they are spelled.
 
 A zero is included in the first position of the returned vector if \code{incl.zero=TRUE}. This is useful when computing PSD values with a data.frame that contains fish smaller than the stock length.
 
-Additional lengths may be added to the returned vector with \code{addLens}. Names for these lengths can be included in \code{addNames}. If \code{addNames} is non-NULL, then it must be of the same length as \code{addLens}. If \code{addLens} is non-NULL but \code{addNames} is NULL, then the default names will be the same as the lengths in \code{addLens}. The \code{addLens} argument is useful for calculating PSD values that are different from the Gabelhouse lengths.
+Additional lengths may be added to the returned vector with \code{addLens}. Names for these lengths can be included as names in \code{addLens} or separately in \code{addNames}. If \code{addNames} is NULL and \code{addLens} is not named then the default category names will be the lengths from \code{addLens}. The \code{addLens} argument is useful for calculating PSD values that are different from the Gabelhouse lengths.
+
+See examples and \href{https://fishr-core-team.github.io/FSA/articles/Computing_PSDs.html}{this article} for a demonstration.
 }
 \section{IFAR Chapter}{
  6-Size Structure.

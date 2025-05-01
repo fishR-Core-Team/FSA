@@ -4,21 +4,23 @@
 #'
 #' @details Computes the (traditional) PSD-X and (incremental) PSD X-Y values, with associated confidence intervals, for each Gabelhouse length. All PSD-X and PSD X-Y values are printed if \code{what="all"} (DEFAULT), only PSD-X values are printed if \code{what="traditional"}, only PSD X-Y values are printed if \code{what="incremental"}, and nothing is printed (but the matrix is still returned) if \code{what="none"}.
 #' 
-#' Confidence intervals can be computed with either the multinomial (Default) or binomial distribution as set in \code{method}See details in \code{\link{psdCI}} for more information.
+#' Confidence intervals can be computed with either the multinomial (DEFAULT) or binomial distribution as set in \code{method}See details in \code{\link{psdCI}} for more information.
 #' 
 #' This function may be used for species for which Gabelhouse length categories are not defined. In this case do not include a name in \code{species}, but define at least two lengths in \code{addLens} where the first category MUST be called \dQuote{stock}.
+#' 
+#' See examples and \href{https://fishr-core-team.github.io/FSA/articles/Computing_PSDs.html}{this article} for a demonstration.
 #'
 #' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains the observed lengths. Note that this formula may only contain one variable and it must be numeric.
 #' @param data A data.frame that minimally contains the observed lengths given in the variable in \code{formula}.
 #' @param species A string that contains the species name for which Gabelhouse lengths exist. See \code{\link{psdVal}} for details. See details for how to use this function for species for which Gabelhouse lengths are not defined.
-#' @param group A string that contains the sub-group of `species` for which to find the Gabelhouse lengths. Will be things like \dQuote{"landlocked"}, \dQuote{"lentic"}.
+#' @param group A string that contains the sub-group of `species` for which to find the Gabelhouse lengths; e.g., things like \dQuote{landlocked}, \dQuote{lentic}.
 #' @param units A string that indicates the type of units used for the lengths. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
 #' @param what A string that indicates the type of PSD values that will be printed. See details.
 #' @param drop0Est A logical that indicates whether the PSD values that are zero should be dropped from the output.
 #' @param method A character that identifies the confidence interval method to use. See details in \code{\link{psdCI}}.
 #' @param addLens A numeric vector that contains minimum lengths for additional categories. See \code{\link{psdVal}} for details.
 #' @param addNames A string vector that contains names for the additional lengths added with \code{addLens}. See \code{\link{psdVal}} for details.
-#' @param justAdds A logical that indicates whether just the values related to the length sin \code{addLens} should be returned.
+#' @param justAdds A logical that indicates whether just the values related to the lengths in \code{addLens} should be returned.
 #' @param conf.level A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).
 #' @param showIntermediate A logical that indicates whether the number of fish in the category and the number of stock fish (i.e., \dQuote{intermediate} values) should be included in the returned matrix. Default is to not include these values.
 #' @param digits A numeric that indicates the number of decimals to round the result to. Default is zero digits following the recommendation of Neumann and Allen (2007).
@@ -56,20 +58,21 @@
 #' #===== Simple (typical) uses with just Gabelhouse lengths
 #' #----- All results
 #' psdCalc(~yepmm,data=yepdf,species="Yellow Perch")
+#' 
 #' #----- Just the traditional indices
 #' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",what="traditional")
+#' 
 #' #----- Just the incremental indices
 #' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",what="incremental")
-#' #----- Can control the number of digits/decimals
-#' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",what="traditional",digits=1)
 #' 
 #' #===== Add a custom length of interest (to the Gabelhouse lengths)
 #' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",addLens=150)
+#' 
 #' #----- Additional lengths can be named
-#' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",
-#'         addLens=c("minLen"=150))
+#' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",addLens=c("minLen"=150))
 #' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",
 #'         addLens=c("minLen"=150,"maxslot"=275))
+#' 
 #' #----- Can return just those results that include the additional lengths
 #' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",
 #'         addLens=c("minSlot"=150,"maxSlot"=275),justAdds=TRUE)
@@ -78,7 +81,6 @@
 #' 
 #' #===== Can show intermediate values (num in category and in stock)
 #' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",showInterm=TRUE)
-#' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",what="traditional",showInterm=TRUE)
 #' 
 #' #===== Some species require use of group (e.g., treat these as if Brown Trout)
 #' psdCalc(~yepmm,data=yepdf,species="Brown Trout",group="lotic")

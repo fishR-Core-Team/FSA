@@ -80,7 +80,7 @@
 
 
 <dt id="arg-group">group<a class="anchor" aria-label="anchor" href="#arg-group"></a></dt>
-<dd><p>A string that contains the sub-group of `species` for which to find the Gabelhouse lengths. Will be things like “"landlocked"”, “"lentic"”.</p></dd>
+<dd><p>A string that contains the sub-group of `species` for which to find the Gabelhouse lengths; e.g., things like “landlocked”, “lentic”.</p></dd>
 
 
 <dt id="arg-units">units<a class="anchor" aria-label="anchor" href="#arg-units"></a></dt>
@@ -104,7 +104,7 @@
 
 
 <dt id="arg-justadds">justAdds<a class="anchor" aria-label="anchor" href="#arg-justadds"></a></dt>
-<dd><p>A logical that indicates whether just the values related to the length sin <code>addLens</code> should be returned.</p></dd>
+<dd><p>A logical that indicates whether just the values related to the lengths in <code>addLens</code> should be returned.</p></dd>
 
 
 <dt id="arg-what">what<a class="anchor" aria-label="anchor" href="#arg-what"></a></dt>
@@ -130,8 +130,9 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Computes the (traditional) PSD-X and (incremental) PSD X-Y values, with associated confidence intervals, for each Gabelhouse length. All PSD-X and PSD X-Y values are printed if <code>what="all"</code> (DEFAULT), only PSD-X values are printed if <code>what="traditional"</code>, only PSD X-Y values are printed if <code>what="incremental"</code>, and nothing is printed (but the matrix is still returned) if <code>what="none"</code>.</p>
-<p>Confidence intervals can be computed with either the multinomial (Default) or binomial distribution as set in <code>method</code>See details in <code><a href="psdCI.html">psdCI</a></code> for more information.</p>
+<p>Confidence intervals can be computed with either the multinomial (DEFAULT) or binomial distribution as set in <code>method</code>See details in <code><a href="psdCI.html">psdCI</a></code> for more information.</p>
 <p>This function may be used for species for which Gabelhouse length categories are not defined. In this case do not include a name in <code>species</code>, but define at least two lengths in <code>addLens</code> where the first category MUST be called “stock”.</p>
+<p>See examples and <a href="https://fishr-core-team.github.io/FSA/articles/Computing_PSDs.html">this article</a> for a demonstration.</p>
     </div>
     <div class="section level2">
     <h2 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a></h2>
@@ -179,6 +180,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD Q-P       27      15      38</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD P-M        9       1      17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD M-T        5       0      10</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#----- Just the traditional indices</span></span></span>
 <span class="r-in"><span><span class="fu">psdCalc</span><span class="op">(</span><span class="op">~</span><span class="va">yepmm</span>,data<span class="op">=</span><span class="va">yepdf</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,what<span class="op">=</span><span class="st">"traditional"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Some category sample size &lt;20, some CI coverage may be lower than 95%.</span>
@@ -186,6 +188,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD-Q       40      27      54</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD-P       14       5      23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD-M        5       0      10</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#----- Just the incremental indices</span></span></span>
 <span class="r-in"><span><span class="fu">psdCalc</span><span class="op">(</span><span class="op">~</span><span class="va">yepmm</span>,data<span class="op">=</span><span class="va">yepdf</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,what<span class="op">=</span><span class="st">"incremental"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Some category sample size &lt;20, some CI coverage may be lower than 95%.</span>
@@ -194,13 +197,6 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD Q-P       27      15      38</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD P-M        9       1      17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD M-T        5       0      10</span>
-<span class="r-in"><span><span class="co">#----- Can control the number of digits/decimals</span></span></span>
-<span class="r-in"><span><span class="fu">psdCalc</span><span class="op">(</span><span class="op">~</span><span class="va">yepmm</span>,data<span class="op">=</span><span class="va">yepdf</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,what<span class="op">=</span><span class="st">"traditional"</span>,digits<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Some category sample size &lt;20, some CI coverage may be lower than 95%.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       Estimate 95% LCI 95% UCI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PSD-Q     40.4    27.2    53.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PSD-P     13.8     4.5    23.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PSD-M      4.6     0.0    10.2</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#===== Add a custom length of interest (to the Gabelhouse lengths)</span></span></span>
 <span class="r-in"><span><span class="fu">psdCalc</span><span class="op">(</span><span class="op">~</span><span class="va">yepmm</span>,data<span class="op">=</span><span class="va">yepdf</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,addLens<span class="op">=</span><span class="fl">150</span><span class="op">)</span></span></span>
@@ -215,9 +211,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD Q-P         27      14      40</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD P-M          9       1      18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD M-T          5       0      11</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#----- Additional lengths can be named</span></span></span>
-<span class="r-in"><span><span class="fu">psdCalc</span><span class="op">(</span><span class="op">~</span><span class="va">yepmm</span>,data<span class="op">=</span><span class="va">yepdf</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,</span></span>
-<span class="r-in"><span>        addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"minLen"</span><span class="op">=</span><span class="fl">150</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">psdCalc</span><span class="op">(</span><span class="op">~</span><span class="va">yepmm</span>,data<span class="op">=</span><span class="va">yepdf</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"minLen"</span><span class="op">=</span><span class="fl">150</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Some category sample size &lt;20, some CI coverage may be lower than 95%.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Estimate 95% LCI 95% UCI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD-minLen         67      53      81</span>
@@ -244,6 +240,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD P-maxslot        5       0      11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD maxslot-M        5       0      11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD M-T              5       0      11</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#----- Can return just those results that include the additional lengths</span></span></span>
 <span class="r-in"><span><span class="fu">psdCalc</span><span class="op">(</span><span class="op">~</span><span class="va">yepmm</span>,data<span class="op">=</span><span class="va">yepdf</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,</span></span>
 <span class="r-in"><span>        addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"minSlot"</span><span class="op">=</span><span class="fl">150</span>,<span class="st">"maxSlot"</span><span class="op">=</span><span class="fl">275</span><span class="op">)</span>,justAdds<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
@@ -273,12 +270,6 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD Q-P  29   109       27      15      38</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD P-M  10   109        9       1      17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PSD M-T   5   109        5       0      10</span>
-<span class="r-in"><span><span class="fu">psdCalc</span><span class="op">(</span><span class="op">~</span><span class="va">yepmm</span>,data<span class="op">=</span><span class="va">yepdf</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,what<span class="op">=</span><span class="st">"traditional"</span>,showInterm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Some category sample size &lt;20, some CI coverage may be lower than 95%.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       num stock Estimate 95% LCI 95% UCI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PSD-Q  44   109       40      27      54</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PSD-P  15   109       14       5      23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PSD-M   5   109        5       0      10</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#===== Some species require use of group (e.g., treat these as if Brown Trout)</span></span></span>
 <span class="r-in"><span><span class="fu">psdCalc</span><span class="op">(</span><span class="op">~</span><span class="va">yepmm</span>,data<span class="op">=</span><span class="va">yepdf</span>,species<span class="op">=</span><span class="st">"Brown Trout"</span>,group<span class="op">=</span><span class="st">"lotic"</span><span class="op">)</span></span></span>

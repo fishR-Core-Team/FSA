@@ -65,7 +65,7 @@
 
 
 <dt id="arg-group">group<a class="anchor" aria-label="anchor" href="#arg-group"></a></dt>
-<dd><p>A string that contains the sub-group of `species` for which to find the Gabelhouse lengths. Will be things like “"landlocked"”, “"lentic"”.</p></dd>
+<dd><p>A string that contains the sub-group of <code>species</code> for which to find the Gabelhouse lengths; e.g., things like “landlocked”, “lentic”.</p></dd>
 
 
 <dt id="arg-units">units<a class="anchor" aria-label="anchor" href="#arg-units"></a></dt>
@@ -94,9 +94,10 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Finds the Gabelhouse lengths from <code>data(PSDlit)</code> for the species given in <code>species</code>. The species name must be spelled exactly (within capitalization differences) as it appears in <code>data(PSDlit)</code>. Type <code>psdVal()</code> to see the list of species and how they are spelled.</p>
+    <p>Finds the Gabelhouse lengths from <code>data(PSDlit)</code> for the species given in <code>species</code>. The species name must be spelled exactly (including capitalization) as it appears in <code>data(PSDlit)</code>. Type <code>psdVal()</code> to see the list of species and how they are spelled.</p>
 <p>A zero is included in the first position of the returned vector if <code>incl.zero=TRUE</code>. This is useful when computing PSD values with a data.frame that contains fish smaller than the stock length.</p>
-<p>Additional lengths may be added to the returned vector with <code>addLens</code>. Names for these lengths can be included in <code>addNames</code>. If <code>addNames</code> is non-NULL, then it must be of the same length as <code>addLens</code>. If <code>addLens</code> is non-NULL but <code>addNames</code> is NULL, then the default names will be the same as the lengths in <code>addLens</code>. The <code>addLens</code> argument is useful for calculating PSD values that are different from the Gabelhouse lengths.</p>
+<p>Additional lengths may be added to the returned vector with <code>addLens</code>. Names for these lengths can be included as names in <code>addLens</code> or separately in <code>addNames</code>. If <code>addNames</code> is NULL and <code>addLens</code> is not named then the default category names will be the lengths from <code>addLens</code>. The <code>addLens</code> argument is useful for calculating PSD values that are different from the Gabelhouse lengths.</p>
+<p>See examples and <a href="https://fishr-core-team.github.io/FSA/articles/Computing_PSDs.html">this article</a> for a demonstration.</p>
     </div>
     <div class="section level2">
     <h2 id="ifar-chapter">IFAR Chapter<a class="anchor" aria-label="anchor" href="#ifar-chapter"></a></h2>

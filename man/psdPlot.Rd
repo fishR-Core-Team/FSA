@@ -37,7 +37,7 @@ psdPlot(
 
 \item{species}{A string that contains the species name for which Gabelhouse length categories exist. See \code{\link{psdVal}} for details.}
 
-\item{group}{A string that contains the sub-group of `species` for which to find the Gabelhouse lengths. Will be things like \dQuote{"landlocked"}, \dQuote{"lentic"}.}
+\item{group}{A string that contains the sub-group of `species` for which to find the Gabelhouse lengths; e.g., things like \dQuote{landlocked}, \dQuote{lentic}.}
 
 \item{units}{A string that indicates the type of units used for the length measurements. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
@@ -84,9 +84,11 @@ None. However, a graphic is produced.
 Constructs a length-frequency histogram with Gabelhouse lengths highlighted.
 }
 \details{
-Constructs a length-frequency histogram with the stock-sized fish highlighted, the Gabelhouse lengths marked by vertical lines, and the (traditional) PSD-X values superimposed.
+Constructs a length-frequency histogram with the stock-sized fish highlighted, the Gabelhouse lengths marked by vertical lines, and the (traditional) PSD-X values superimposed. The length of fish plotted on the x-axis can be controlled with \code{xlim}, however, the minimum value in \code{xlim} must be less than the stock length for that species.
 
-The length of fish plotted on the x-axis can be controlled with \code{xlim}, however, the minimum value in \code{xlim} must be less than the stock length for that species.
+This plot is meant to be illustrative and not of “publication-quality.” Thus, only some aspects of the plot can be modified to change its appearance.
+
+See examples and \href{https://fishr-core-team.github.io/FSA/articles/Computing_PSDs.html}{this article} for a demonstration.
 }
 \section{IFAR Chapter}{
  6-Size Structure.
