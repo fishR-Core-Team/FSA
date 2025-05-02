@@ -27,12 +27,12 @@ library(ggplot2)
 
 The objective of this article is to briefly describe how to fit growth functions commonly used in fisheries to data using the `FSA` package for R. It assumes that you are familiar with fish growth data, fish growth functions, and non-linear modeling. This background is also described in Chapter 12 of my [Introductory Fisheries Analyses with R](https://derekogle.com/IFAR/) book, my (and co-authors) Chapter 12 in [Age and Growth of Fishes: Principles and Techniques](https://fisheries.org/bookstore/all-titles/professional-and-trade/55078c/) book, and in several [fishR blog posts](https://fishr-core-team.github.io/fishR/blog/#category=Growth).
 
-The main functions from `FSA` used to model fish growth are `makeGrowthFun()` to create R functions that represent various parameterizations of common fisheries growth functions, `findGrowthStarts()` to identify typically useful starting values to be used in non-linear algorithms for fitting common fisheries growth models, and `showGrowthFun()` for creating strings or expressions of the equations for common fisheries growth function. Each of these functions uses `type=` to identify a common fisheries growth function family (i.e,. `"von Bertalanffy"`, "`Gomperz`", "`logistic`", "`Richards`", "`Schnute`", or "`Schnute-Richards`") and `param=` or `pname=` to identify a specific paramaterization of the function within that family, either by number or by name. These and other common arguments to these functions are described and illustrated below. More focused or advanced use is illustrated in the function documentations.
+The main functions from `FSA` used to model fish growth are `makeGrowthFun()` to create R functions that represent various parameterizations of common fisheries growth functions, `findGrowthStarts()` to identify typically useful starting values to be used in non-linear algorithms for fitting common fisheries growth models, and `showGrowthFun()` for creating strings or expressions of the equations for common fisheries growth function. Each of these functions uses `type=` to identify a common fisheries growth function family (i.e,. `"von Bertalanffy"`, "`Gomperz`", "`logistic`", "`Richards`", "`Schnute`", or "`Schnute-Richards`") and `param=` or `pname=` to identify a specific paramaterization of the function within that family, either by number or by name. [See [this article](Growth_Function_Parameterizations.html) for specifics of each parameterization available in `FSA`.] These and other common arguments to these functions are described and illustrated below. More focused or advanced use is illustrated in the function documentations.
 
 Note that the `FSA` functions described here were modified after version 0.9.6 and are thus **specific to FSA >v0.9.6**.
 
 # First Example -- Typical von Bertalanffy
-The most common growth model is the von Bertalanffy model as parameterized by Beverton and Holt with three paramaters $L_\infty$, $K$, and $t_0$. The equation for this growth function can be displayed with `showGrowthFun()` using `type="von Bertalanffy"`, `pname="Typical"`,^[Or `param=1`] and, to display the equation, `plot=TRUE`).^[`cex=1.5` is used to make the text larger.]
+The most common growth model is the von Bertalanffy model as parameterized by Beverton and Holt with three paramaters $L_\infty$, $K$, and $t_0$. The equation for this growth function can be displayed with `showGrowthFun()` using `type="von Bertalanffy"`, `pname="Typical"`,^[Or `param=1`] and, to display the equation, `plot=TRUE`.^[`cex=1.5` is used to make the text larger.]
 
 ```{r}
 #| results: hide
@@ -83,21 +83,23 @@ peek(GrowthData1,n=10,which=c("tlV","age"))
 `findGrowthStarts()` requires a formula of the form `length~age`,^[This is true for length-at-age models, but will differ for tag-recapture data, which will be shown later.] a corresponding data.frame in `data=`, and the same `type=` and `pname=`^[Or `param=`] as in `showGrowthFun()` and `makeGrowthFun()`. For example, starting values for the `GrowthData1` data and the typical parameterization of the von Bertalanffy growth function are obtained below. The results of `findGrowthStarts()` should be assigned to an object for later use.^[The leading and trailing parentheses below force the result to also be shown when it is assigned to an object.]
 
 ```{r}
-( vsv1 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",pname="Typical") )
+( vsv1 <- findGrowthStarts(tlV~age,data=GrowthData1,
+                           type="von Bertalanffy",pname="Typical") )
 ```
 
 There may be times when the provided starting values are non-sensical (you may get a warning message) or they do not lead to model convergence when fitting the non-linear regression to data. In these instances it may be useful to view a quick diagnostic plot of how the model evaluated at the starting values "fits" the data. Such a plot can be made by including `plot=TRUE` in `findGrowthStarts()`.^[As a general rule use `plot=TRUE` to immediately examine the relative "fit" of the starting values, rather than waiting for an "issue" to appear.]
 
 ```{r}
-vsv1 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",pname="Typical",
-                         plot=TRUE)
+vsv1 <- findGrowthStarts(tlV~age,data=GrowthData1,
+                         type="von Bertalanffy",pname="Typical",plot=TRUE)
 ```
 
 Additionally, it may be useful to "fix" some starting values at values of your choice (rather than having them determined from the data). Such parameters can be included in a **NAMED** vector given to `fixed=` in `findGrowthStarts()`. For example, the `K` parameter is fixed at 0.5 below.^[Fixing $K$ looks inappropriate in this example.]
 
 ```{r}
-vsv2 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=1,
-                         fixed=c(K=0.5),plot=TRUE)
+vsv2 <- findGrowthStarts(tlV~age,data=GrowthData1,
+                         type="von Bertalanffy",pname="Typical",plot=TRUE,
+                         fixed=c(K=0.5))
 ```
 
 Data are then fit to the non-linear growth model using `nls()` with a formula that has `length` on the left-hand-side and the specific growth function with the specific `age` variable and model parameter names on the right-hand-side, the associated data in `data=`, and the saved starting values in `start=`.

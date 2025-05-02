@@ -52,7 +52,7 @@ showGrowthFun(
 A string or expression representing the equation of the growth function given in \code{type} and \code{param}/\code{pname}.
 }
 \description{
-Creates a string or expression for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions, as well as the Schnute and Schnute-Richards growth functions. Parameters may be replaced with values from a model fit. The string or expression can be added to user plots as titles, annotations, etc. The string/expression can also be plotted to a blank plot with \code{plot=TRUE} to see the equation of the growth function.
+Creates a string or expression for a specific parameterization of the von Bertalanffy, Gompertz, Richards, logistic growth functions, as well as the Schnute and Schnute-Richards growth functions. Parameters may be replaced with values from a model fit. The string or expression can be added to plots as titles, annotations, etc. The string/expression can also be plotted to a blank plot with \code{plot=TRUE} to see the equation of the growth function.
 }
 \examples{
 #===== The string (first) and expression (second) for default type="von Bertalanffy")
@@ -126,5 +126,5 @@ ggplot(data=GrowthData1,mapping=aes(y=tlV,x=age)) +
 
 }
 \seealso{
-See \code{\link{makeGrowthFun}} to make functions that correspond to these expressions.
+See \code{\link{makeGrowthFun}} to make functions that correspond to these expressions. Also see \href{https://fishr-core-team.github.io/FSA/articles/Fitting_Growth_Functions.html}{this article} and examples for how to use this function in practice.
 }

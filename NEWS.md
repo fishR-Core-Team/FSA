@@ -2,7 +2,8 @@
 * Updated `test-coverage.yaml` and moved a `# nocov start` and `# nocov end` in `bootstrap.r` to address the errors with `test-coverage.yaml`. Addresses [#118](https://github.com/fishR-Core-Team/FSA/issues/118).
 * Removed `DescTools`, `plyr`, `psych` from Suggests (and all their uses in tests and linked code in documentation). Removed `ggplot2`, `marked`, `rcapture`, and `tibble` from Suggests (and use in examples was put in a `\dontrun()`).
 * Added `FlexParamCurve` to Imports for use of `modpar()` in `findGrowthStarts(param="Richards")` and `purrr` for use of `map2_chr()` in `showGrowthFun()`.
-* Added the following "vignettes".
+* Added the following "articles".
+    * Show growth equations.
     * Describe how the starting values for the growth equations are derived.
     * Provide a simple introduction to growth model fitting with `FSA`.
     * Provide a simple introduction to calculating relative weights with `FSA`.

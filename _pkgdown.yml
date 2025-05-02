@@ -160,7 +160,7 @@ navbar:
   left:
     - text: Reference
       href: reference/index.html
-    - text: Articles
+    - text: Demonstrations
       menu:
       - text: Computing Proportional Size Distribution Metrics
         href: articles/Computing_PSDs.html
@@ -168,7 +168,10 @@ navbar:
         href: articles/Computing_Relative_Weights.html
       - text: Fitting Growth Functions
         href: articles/Fitting_Growth_Functions.html
-      - text: "--------"
+    - text: Explanations
+      menu:
+      - text: Growth Function Equations
+        href: articles/Growth_Function_Parameterizations.html
       - text: Explaining Starting Values for Growth Functions
         href: articles/Growth_Starting_Values.html
   right:
