@@ -39,12 +39,17 @@
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-demonstrations" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Demonstrations</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-demonstrations">
 <li><a class="dropdown-item" href="../articles/Computing_PSDs.html">Computing Proportional Size Distribution Metrics</a></li>
     <li><a class="dropdown-item" href="../articles/Computing_Relative_Weights.html">Computing Relative Weights</a></li>
     <li><a class="dropdown-item" href="../articles/Fitting_Growth_Functions.html">Fitting Growth Functions</a></li>
-    <li><hr class="dropdown-divider"></li>
+  </ul>
+</li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-explanations" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Explanations</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-explanations">
+<li><a class="dropdown-item" href="../articles/Growth_Function_Parameterizations.html">Growth Function Equations</a></li>
     <li><a class="dropdown-item" href="../articles/Growth_Starting_Values.html">Explaining Starting Values for Growth Functions</a></li>
   </ul>
 </li>
@@ -64,7 +69,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Fitting Growth Functions in FSA</h1>
 
       <p class="author">Derek H. Ogle</p>
-      <p class="date">2025-04-24</p>
+      <p class="date">2025-05-02</p>
 
       <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/dev/vignettes/articles/Fitting_Growth_Functions.qmd" class="external-link"><code>vignettes/articles/Fitting_Growth_Functions.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
@@ -81,11 +86,11 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <p>The objective of this article is to briefly describe how to fit growth functions commonly used in fisheries to data using the <code>FSA</code> package for R. It assumes that you are familiar with fish growth data, fish growth functions, and non-linear modeling. This background is also described in Chapter 12 of my <a href="https://derekogle.com/IFAR/" class="external-link">Introductory Fisheries Analyses with R</a> book, my (and co-authors) Chapter 12 in <a href="https://fisheries.org/bookstore/all-titles/professional-and-trade/55078c/" class="external-link">Age and Growth of Fishes: Principles and Techniques</a> book, and in several <a href="https://fishr-core-team.github.io/fishR/blog/#category=Growth" class="external-link">fishR blog posts</a>.</p>
-<p>The main functions from <code>FSA</code> used to model fish growth are <code><a href="../reference/makeGrowthFun.html">makeGrowthFun()</a></code> to create R functions that represent various parameterizations of common fisheries growth functions, <code><a href="../reference/findGrowthStarts.html">findGrowthStarts()</a></code> to identify typically useful starting values to be used in non-linear algorithms for fitting common fisheries growth models, and <code><a href="../reference/showGrowthFun.html">showGrowthFun()</a></code> for creating strings or expressions of the equations for common fisheries growth function. Each of these functions uses <code>type=</code> to identify a common fisheries growth function family (i.e,. <code>"von Bertalanffy"</code>, “<code>Gomperz</code>”, “<code>logistic</code>”, “<code>Richards</code>”, “<code>Schnute</code>”, or “<code>Schnute-Richards</code>”) and <code>param=</code> or <code>pname=</code> to identify a specific paramaterization of the function within that family, either by number or by name. These and other common arguments to these functions are described and illustrated below. More focused or advanced use is illustrated in the function documentations.</p>
+<p>The main functions from <code>FSA</code> used to model fish growth are <code><a href="../reference/makeGrowthFun.html">makeGrowthFun()</a></code> to create R functions that represent various parameterizations of common fisheries growth functions, <code><a href="../reference/findGrowthStarts.html">findGrowthStarts()</a></code> to identify typically useful starting values to be used in non-linear algorithms for fitting common fisheries growth models, and <code><a href="../reference/showGrowthFun.html">showGrowthFun()</a></code> for creating strings or expressions of the equations for common fisheries growth function. Each of these functions uses <code>type=</code> to identify a common fisheries growth function family (i.e,. <code>"von Bertalanffy"</code>, “<code>Gomperz</code>”, “<code>logistic</code>”, “<code>Richards</code>”, “<code>Schnute</code>”, or “<code>Schnute-Richards</code>”) and <code>param=</code> or <code>pname=</code> to identify a specific paramaterization of the function within that family, either by number or by name. [See <a href="Growth_Function_Parameterizations.html">this article</a> for specifics of each parameterization available in <code>FSA</code>.] These and other common arguments to these functions are described and illustrated below. More focused or advanced use is illustrated in the function documentations.</p>
 <p>Note that the <code>FSA</code> functions described here were modified after version 0.9.6 and are thus <strong>specific to FSA &gt;v0.9.6</strong>.</p>
 <section class="section level2"><h2 id="first-example-typical-von-bertalanffy">First Example – Typical von Bertalanffy<a class="anchor" aria-label="anchor" href="#first-example-typical-von-bertalanffy"></a>
 </h2>
-<p>The most common growth model is the von Bertalanffy model as parameterized by Beverton and Holt with three paramaters <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>∞</mi></msub><annotation encoding="application/x-tex">L_\infty</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>0</mn></msub><annotation encoding="application/x-tex">t_0</annotation></semantics></math>. The equation for this growth function can be displayed with <code><a href="../reference/showGrowthFun.html">showGrowthFun()</a></code> using <code>type="von Bertalanffy"</code>, <code>pname="Typical"</code>,<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Or &lt;code&gt;param=1&lt;/code&gt;&lt;/p&gt;"><sup>1</sup></a> and, to display the equation, <code>plot=TRUE</code>).<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;&lt;code&gt;cex=1.5&lt;/code&gt; is used to make the text larger.&lt;/p&gt;"><sup>2</sup></a></p>
+<p>The most common growth model is the von Bertalanffy model as parameterized by Beverton and Holt with three paramaters <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>∞</mi></msub><annotation encoding="application/x-tex">L_\infty</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mn>0</mn></msub><annotation encoding="application/x-tex">t_0</annotation></semantics></math>. The equation for this growth function can be displayed with <code><a href="../reference/showGrowthFun.html">showGrowthFun()</a></code> using <code>type="von Bertalanffy"</code>, <code>pname="Typical"</code>,<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Or &lt;code&gt;param=1&lt;/code&gt;&lt;/p&gt;"><sup>1</sup></a> and, to display the equation, <code>plot=TRUE</code>.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;&lt;code&gt;cex=1.5&lt;/code&gt; is used to make the text larger.&lt;/p&gt;"><sup>2</sup></a></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/showGrowthFun.html">showGrowthFun</a></span><span class="op">(</span>type<span class="op">=</span><span class="st">"von Bertalanffy"</span>,pname<span class="op">=</span><span class="st">"Typical"</span>,plot<span class="op">=</span><span class="cn">TRUE</span>,cex<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span></span></code></pre></div>
@@ -126,7 +131,7 @@
 <span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;     Linf * (1 - exp(-K * (t - t0)))</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x55a228c7ef38&gt;</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x555866095908&gt;</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:FSA&gt;</span></span></code></pre></div>
 </div>
 <p>The same <code>vb1()</code> function can be used to predict mean lengths for a number of ages (e.g., ages 2 to 12 below).</p>
@@ -156,15 +161,16 @@
 <p><code><a href="../reference/findGrowthStarts.html">findGrowthStarts()</a></code> requires a formula of the form <code>length~age</code>,<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;This is true for length-at-age models, but will differ for tag-recapture data, which will be shown later.&lt;/p&gt;"><sup>5</sup></a> a corresponding data.frame in <code>data=</code>, and the same <code>type=</code> and <code>pname=</code><a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Or &lt;code&gt;param=&lt;/code&gt;&lt;/p&gt;"><sup>6</sup></a> as in <code><a href="../reference/showGrowthFun.html">showGrowthFun()</a></code> and <code><a href="../reference/makeGrowthFun.html">makeGrowthFun()</a></code>. For example, starting values for the <code>GrowthData1</code> data and the typical parameterization of the von Bertalanffy growth function are obtained below. The results of <code><a href="../reference/findGrowthStarts.html">findGrowthStarts()</a></code> should be assigned to an object for later use.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;The leading and trailing parentheses below force the result to also be shown when it is assigned to an object.&lt;/p&gt;"><sup>7</sup></a></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span> <span class="va">vsv1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/findGrowthStarts.html">findGrowthStarts</a></span><span class="op">(</span><span class="va">tlV</span><span class="op">~</span><span class="va">age</span>,data<span class="op">=</span><span class="va">GrowthData1</span>,type<span class="op">=</span><span class="st">"von Bertalanffy"</span>,pname<span class="op">=</span><span class="st">"Typical"</span><span class="op">)</span> <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="op">(</span> <span class="va">vsv1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/findGrowthStarts.html">findGrowthStarts</a></span><span class="op">(</span><span class="va">tlV</span><span class="op">~</span><span class="va">age</span>,data<span class="op">=</span><span class="va">GrowthData1</span>,</span>
+<span>                           type<span class="op">=</span><span class="st">"von Bertalanffy"</span>,pname<span class="op">=</span><span class="st">"Typical"</span><span class="op">)</span> <span class="op">)</span></span>
 <span><span class="co">#&gt;        Linf           K          t0 </span></span>
 <span><span class="co">#&gt; 454.4806075   0.2974555  -0.4752262</span></span></code></pre></div>
 </div>
 <p>There may be times when the provided starting values are non-sensical (you may get a warning message) or they do not lead to model convergence when fitting the non-linear regression to data. In these instances it may be useful to view a quick diagnostic plot of how the model evaluated at the starting values “fits” the data. Such a plot can be made by including <code>plot=TRUE</code> in <code><a href="../reference/findGrowthStarts.html">findGrowthStarts()</a></code>.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;As a general rule use &lt;code&gt;plot=TRUE&lt;/code&gt; to immediately examine the relative “fit” of the starting values, rather than waiting for an “issue” to appear.&lt;/p&gt;"><sup>8</sup></a></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">vsv1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/findGrowthStarts.html">findGrowthStarts</a></span><span class="op">(</span><span class="va">tlV</span><span class="op">~</span><span class="va">age</span>,data<span class="op">=</span><span class="va">GrowthData1</span>,type<span class="op">=</span><span class="st">"von Bertalanffy"</span>,pname<span class="op">=</span><span class="st">"Typical"</span>,</span>
-<span>                         plot<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">vsv1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/findGrowthStarts.html">findGrowthStarts</a></span><span class="op">(</span><span class="va">tlV</span><span class="op">~</span><span class="va">age</span>,data<span class="op">=</span><span class="va">GrowthData1</span>,</span>
+<span>                         type<span class="op">=</span><span class="st">"von Bertalanffy"</span>,pname<span class="op">=</span><span class="st">"Typical"</span>,plot<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure><p><img src="Fitting_Growth_Functions_files/figure-html/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" width="432"></p>
@@ -175,8 +181,9 @@
 <p>Additionally, it may be useful to “fix” some starting values at values of your choice (rather than having them determined from the data). Such parameters can be included in a <strong>NAMED</strong> vector given to <code>fixed=</code> in <code><a href="../reference/findGrowthStarts.html">findGrowthStarts()</a></code>. For example, the <code>K</code> parameter is fixed at 0.5 below.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Fixing &lt;math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"&gt;&lt;semantics&gt;&lt;mi&gt;K&lt;/mi&gt;&lt;annotation encoding="application/x-tex"&gt;K&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt; looks inappropriate in this example.&lt;/p&gt;'><sup>9</sup></a></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">vsv2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/findGrowthStarts.html">findGrowthStarts</a></span><span class="op">(</span><span class="va">tlV</span><span class="op">~</span><span class="va">age</span>,data<span class="op">=</span><span class="va">GrowthData1</span>,type<span class="op">=</span><span class="st">"von Bertalanffy"</span>,param<span class="op">=</span><span class="fl">1</span>,</span>
-<span>                         fixed<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>K<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span>,plot<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">vsv2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/findGrowthStarts.html">findGrowthStarts</a></span><span class="op">(</span><span class="va">tlV</span><span class="op">~</span><span class="va">age</span>,data<span class="op">=</span><span class="va">GrowthData1</span>,</span>
+<span>                         type<span class="op">=</span><span class="st">"von Bertalanffy"</span>,pname<span class="op">=</span><span class="st">"Typical"</span>,plot<span class="op">=</span><span class="cn">TRUE</span>,</span>
+<span>                         fixed<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>K<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure><p><img src="Fitting_Growth_Functions_files/figure-html/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center" width="432"></p>
@@ -397,7 +404,7 @@
 <span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;     (Linf - Lm) * (1 - exp(-K * dt))</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x55a22657e460&gt;</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x55586830b648&gt;</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:FSA&gt;</span></span></code></pre></div>
 </div>
 <p>For example, the predicted change in length for times-at-large of 1, 2, and 3 years and a length-at-marking of 300 mm (and assuming <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>∞</mi></msub><annotation encoding="application/x-tex">L_\infty</annotation></semantics></math>=450 and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>=0.3) is obtained with the following.</p>
@@ -589,107 +596,89 @@
 </div>
 </div>
 </section><script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
         }
       }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'light-border',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config);
-  }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
       }
-    } else {
-      return undefined;
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
     }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
         });
-        return popup.innerHTML;
-      });
+      }
     }
-  }
-});
-</script></main>
+  });
+  </script></main>
 </div>
 
 
@@ -698,7 +687,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.9000.</p>
 </div>
 
     </footer>

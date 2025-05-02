@@ -17,11 +17,14 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/Computing_PSDs.html">Computing Proportional Size Distribution Metrics</a></li>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-demonstrations" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Demonstrations</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-demonstrations"><li><a class="dropdown-item" href="../articles/Computing_PSDs.html">Computing Proportional Size Distribution Metrics</a></li>
     <li><a class="dropdown-item" href="../articles/Computing_Relative_Weights.html">Computing Relative Weights</a></li>
     <li><a class="dropdown-item" href="../articles/Fitting_Growth_Functions.html">Fitting Growth Functions</a></li>
-    <li><hr class="dropdown-divider"></li>
+  </ul></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-explanations" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Explanations</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-explanations"><li><a class="dropdown-item" href="../articles/Growth_Function_Parameterizations.html">Growth Function Equations</a></li>
     <li><a class="dropdown-item" href="../articles/Growth_Starting_Values.html">Explaining Starting Values for Growth Functions</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../news/index.html" aria-label="See package news"><span class="fa fa-newspaper"></span></a></li>
@@ -65,7 +68,7 @@
 
 
 <dt id="arg-group">group<a class="anchor" aria-label="anchor" href="#arg-group"></a></dt>
-<dd><p>A string that contains the sub-group of `species` for which to find the Gabelhouse lengths. Will be things like “"landlocked"”, “"lentic"”.</p></dd>
+<dd><p>A string that contains the sub-group of <code>species</code> for which to find the Gabelhouse lengths; e.g., things like “landlocked”, “lentic”.</p></dd>
 
 
 <dt id="arg-units">units<a class="anchor" aria-label="anchor" href="#arg-units"></a></dt>
@@ -94,9 +97,10 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Finds the Gabelhouse lengths from <code>data(PSDlit)</code> for the species given in <code>species</code>. The species name must be spelled exactly (within capitalization differences) as it appears in <code>data(PSDlit)</code>. Type <code>psdVal()</code> to see the list of species and how they are spelled.</p>
+    <p>Finds the Gabelhouse lengths from <code>data(PSDlit)</code> for the species given in <code>species</code>. The species name must be spelled exactly (including capitalization) as it appears in <code>data(PSDlit)</code>. Type <code>psdVal()</code> to see the list of species and how they are spelled.</p>
 <p>A zero is included in the first position of the returned vector if <code>incl.zero=TRUE</code>. This is useful when computing PSD values with a data.frame that contains fish smaller than the stock length.</p>
-<p>Additional lengths may be added to the returned vector with <code>addLens</code>. Names for these lengths can be included in <code>addNames</code>. If <code>addNames</code> is non-NULL, then it must be of the same length as <code>addLens</code>. If <code>addLens</code> is non-NULL but <code>addNames</code> is NULL, then the default names will be the same as the lengths in <code>addLens</code>. The <code>addLens</code> argument is useful for calculating PSD values that are different from the Gabelhouse lengths.</p>
+<p>Additional lengths may be added to the returned vector with <code>addLens</code>. Names for these lengths can be included as names in <code>addLens</code> or separately in <code>addNames</code>. If <code>addNames</code> is NULL and <code>addLens</code> is not named then the default category names will be the lengths from <code>addLens</code>. The <code>addLens</code> argument is useful for calculating PSD values that are different from the Gabelhouse lengths.</p>
+<p>See examples and <a href="https://fishr-core-team.github.io/FSA/articles/Computing_PSDs.html">this article</a> for a demonstration.</p>
     </div>
     <div class="section level2">
     <h2 id="ifar-chapter">IFAR Chapter<a class="anchor" aria-label="anchor" href="#ifar-chapter"></a></h2>
@@ -217,7 +221,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.9000.</p>
 </div>
 
     </footer></div>
