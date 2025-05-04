@@ -174,13 +174,14 @@ fact2num <- function(object) {
 #' fishR("books")     # examples page
 #' fishR("IFAR")      # Introduction to Fisheries Analysis with R page
 #' fishR("AIFFD")     # Analysis & Interpretation of Freshw. Fisher. Data page
-#' fishR("packages")  # list of r-related fishereis packages
+#' fishR("packages")  # list of r-related fisheries packages
 #' fishR("data")      # list of fisheries data sets
+#' fishR("teaching")  # teaching resources
 #' }
 #' 
 #' @export
 fishR <- function(where=c("home","posts","books","IFAR","AIFFD",
-                          "packages","data"),
+                          "packages","data","teaching"),
                   open=TRUE) {
   where <- match.arg(where)
   tmp <- "https://fishr-core-team.github.io/fishR/"
@@ -191,7 +192,8 @@ fishR <- function(where=c("home","posts","books","IFAR","AIFFD",
          IFAR=     { tmp <- paste0(tmp,"pages/books.html#introductory-fisheries-analyses-with-r") },
          AIFFD=    { tmp <- paste0(tmp,"pages/books.html#analysis-and-interpretation-of-freshwater-fisheries-data-i") },
          packages= { tmp <- paste0(tmp,"pages/packages.html") },
-         data=     { tmp <- paste0(tmp,"pages/data_fishR_alpha.html")}
+         data=     { tmp <- paste0(tmp,"pages/data_fishR_alpha.html")},
+         teaching= { tmp <- paste0(tmp,"teaching/")}
   )
   if (open) utils::browseURL(tmp)
   invisible(tmp)

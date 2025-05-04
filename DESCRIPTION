@@ -1,12 +1,11 @@
 Package: FSA
 Version: 0.9.6.9000
-Date: 2025-4-1
+Date: 2025-5-2
 Title: Simple Fisheries Stock Assessment Methods
 Description: A variety of simple fish stock assessment methods.
 Authors@R: c(
     person(c("Derek","H."), "Ogle", email="DerekOgle51@gmail.com",
-           role=c("aut","cre"),
-           comment=c(ORCID="0000-0002-0370-9299")),
+           role=c("aut","cre")),
     person(c("Jason","C."), "Doll", email="jason.doll@fmarion.edu",
            role=c("aut")),
     person(c("A.","Powell"), "Wheeler", email="powell.wheeler@gmail.com",
