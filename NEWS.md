@@ -1,3 +1,6 @@
+# FSA 0.10.9000
+
+
 # FSA 0.10.0
 * Updated `test-coverage.yaml` and moved a `# nocov start` and `# nocov end` in `bootstrap.r` to address the errors with `test-coverage.yaml`. Addresses [#118](https://github.com/fishR-Core-Team/FSA/issues/118).
 * Removed `DescTools`, `plyr`, `psych` from Suggests (and all their uses in tests and linked code in documentation). Removed `ggplot2`, `marked`, `rcapture`, and `tibble` from Suggests (and use in examples was put in a `\dontrun()`).
