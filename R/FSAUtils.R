@@ -40,7 +40,8 @@ capFirst <- function(x,which=c("all","first")) {
   ## Get the class of the object
   cls <- class(x)
   ## Perform a check
-  if (!inherits(cls,c("character","factor"))) STOP("'capFirst' only works with 'character' or 'factor' objects.")
+  if (!inherits(cls,c("character","factor")))
+    STOP("'capFirst' only works with 'character' or 'factor' objects.")
   ## Capitalize the one word or the words in the vector
   if (length(x)==1) x <- iCapFirst(x,which)
   else x <- apply(matrix(x),MARGIN=1,FUN=iCapFirst,which=which)
@@ -173,13 +174,14 @@ fact2num <- function(object) {
 #' fishR("books")     # examples page
 #' fishR("IFAR")      # Introduction to Fisheries Analysis with R page
 #' fishR("AIFFD")     # Analysis & Interpretation of Freshw. Fisher. Data page
-#' fishR("packages")  # list of r-related fishereis packages
+#' fishR("packages")  # list of r-related fisheries packages
 #' fishR("data")      # list of fisheries data sets
+#' fishR("teaching")  # teaching resources
 #' }
 #' 
 #' @export
 fishR <- function(where=c("home","posts","books","IFAR","AIFFD",
-                          "packages","data"),
+                          "packages","data","teaching"),
                   open=TRUE) {
   where <- match.arg(where)
   tmp <- "https://fishr-core-team.github.io/fishR/"
@@ -190,7 +192,8 @@ fishR <- function(where=c("home","posts","books","IFAR","AIFFD",
          IFAR=     { tmp <- paste0(tmp,"pages/books.html#introductory-fisheries-analyses-with-r") },
          AIFFD=    { tmp <- paste0(tmp,"pages/books.html#analysis-and-interpretation-of-freshwater-fisheries-data-i") },
          packages= { tmp <- paste0(tmp,"pages/packages.html") },
-         data=     { tmp <- paste0(tmp,"pages/data_fishR_alpha.html")}
+         data=     { tmp <- paste0(tmp,"pages/data_fishR_alpha.html")},
+         teaching= { tmp <- paste0(tmp,"teaching/")}
   )
   if (open) utils::browseURL(tmp)
   invisible(tmp)
@@ -230,15 +233,17 @@ fishR <- function(where=c("home","posts","books","IFAR","AIFFD",
 #' headtail(miris,addrownums=FALSE)
 #' headtail(miris,10,which=2:4)
 #'
-#' ## Make a tbl_df type from tibble ... note how headtail()
-#' ## is not limited by the tbl_df restriction on number of
-#' ## rows to show (but head() is).
-#' if (require(tibble)) {
-#'   iris2 <- as_tibble(iris)
-#'   class(iris2)
-#'   headtail(iris2,n=15)
-#'   head(iris2,n=15)
+#' ## Make a tibble type from tibble ... note how headtail() is not limited by
+#' ##   the tibble restriction on number of rows to show (but head() is).
+#' \dontrun{
+#'   if (require(tibble)) {
+#'     iris2 <- as_tibble(iris)
+#'     class(iris2)
+#'     headtail(iris2,n=15)
+#'     head(iris2,n=15)
+#'   }
 #' }
+#' 
 #' @export
 headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
   ## Some checks
@@ -505,27 +510,28 @@ perc <- function(x,val,dir=c("geq","gt","leq","lt"),na.rm=TRUE,
 #' @keywords manip
 #'
 #' @examples
-#' peek(iris)
-#' peek(iris,n=6)
-#' peek(iris,n=6,which=c("Sepal.Length","Sepal.Width","Species"))
-#' peek(iris,n=6,which=grep("Sepal",names(iris)))
-#' peek(iris,n=200)
+#' peek(CutthroatAL)
+#' peek(CutthroatAL,n=6)
+#' peek(CutthroatAL,n=6,which=c("id","y1998","y1999","y2000"))
 #'
 #' ## Make a matrix for demonstration purposes only
-#' miris <- as.matrix(iris[,1:4])
-#' peek(miris)
-#' peek(miris,n=6)
-#' peek(miris,n=6,addrownums=FALSE)
-#' peek(miris,n=6,which=2:4)
+#' mCutthroatAL <- as.matrix(CutthroatAL)
+#' peek(mCutthroatAL)
+#' peek(mCutthroatAL,n=6)
+#' peek(mCutthroatAL,n=6,addrownums=FALSE)
+#' peek(mCutthroatAL,n=6,which=2:4)
 #'
-#' ## Make a tbl_df type from dplyr ... note how peek() is not limited by
-#' ## the tbl_df restriction on number of rows to show (but head() is).
-#' if (require(dplyr)) {
-#'   iris2 <- tbl_df(iris)
-#'   class(iris2)
-#'   peek(iris2,n=6)
-#'   head(iris2,n=15)
+#' ## Make a tibble type from dplyr ... note how peek() is not limited by
+#' ## the tibble restriction on number of rows to show (but head() is).
+#' \dontrun{
+#'   if (require(dplyr)) {
+#'     CutthroatAL2 <- as_tibble(CutthroatAL)
+#'     class(CutthroatAL2)
+#'     peek(CutthroatAL2,n=6)
+#'     head(CutthroatAL2,n=15)
+#'   }
 #' }
+#' 
 #' @export
 peek <- function(x,n=20L,which=NULL,addrownums=TRUE) {
   ## Some checks
@@ -541,7 +547,7 @@ peek <- function(x,n=20L,which=NULL,addrownums=TRUE) {
   if (n>=N) tmp <- x
   else {
     rows <- c(1,round((1:(n-2))*(N/(n-1)),0),N)
-    tmp <- x[rows,]
+    tmp <- x[rows,,drop=FALSE]
     if (addrownums) {
       if (is.null(rownames(tmp))) rownames(tmp) <- rows
     } else rownames(tmp) <- NULL
@@ -866,7 +872,7 @@ validn <- function(object) {
 #' 
 #' @note This function is largely an implementation of the code suggested by Russell Senior on R-help in November, 1999.
 #' 
-#' @seealso See \code{\link[psych]{geometric.mean}} in \pkg{psych} and \code{\link[DescTools]{Gmean}} for geometric mean calculators. See \code{Gsd} (documented with \code{\link[DescTools]{Gmean}}) from \pkg{DescTools} for geometric standard deviation calculators.
+#' @seealso See \code{geometric.mean} in \pkg{psych} and \code{Gmean} for geometric mean calculators. See \code{Gsd} (documented with \code{Gmean}) from \pkg{DescTools} for geometric standard deviation calculators.
 #' 
 #' @keywords misc
 #' 

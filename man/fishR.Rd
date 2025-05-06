@@ -5,7 +5,7 @@
 \title{Opens web pages associated with the fishR website.}
 \usage{
 fishR(
-  where = c("home", "posts", "books", "IFAR", "AIFFD", "packages", "data"),
+  where = c("home", "posts", "books", "IFAR", "AIFFD", "packages", "data", "teaching"),
   open = TRUE
 )
 }
@@ -28,8 +28,9 @@ fishR("posts")     # blog posts (some examples) page
 fishR("books")     # examples page
 fishR("IFAR")      # Introduction to Fisheries Analysis with R page
 fishR("AIFFD")     # Analysis & Interpretation of Freshw. Fisher. Data page
-fishR("packages")  # list of r-related fishereis packages
+fishR("packages")  # list of r-related fisheries packages
 fishR("data")      # list of fisheries data sets
+fishR("teaching")  # teaching resources
 }
 
 }

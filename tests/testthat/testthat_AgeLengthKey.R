@@ -41,7 +41,7 @@ test_that("iCheckALK() messages",{
                  "Key contained rows that sum to 0.")
   # give warning that the row was removed
   expect_warning(FSA:::iCheckALK(tmp,remove0rows=TRUE),
-                 "these rows were removed from the table")
+                 "'key' contained rows that sum to 0; as requested")
   ## bad row names
   tmp <- alk
   rownames(tmp) <- paste0("Len",rownames(alk))
@@ -58,8 +58,8 @@ test_that("alkPlot() messages",{
   ## Bad argument choices
   expect_error(alkPlot(alk,type="derek"),"should be one of")
   expect_error(alkPlot(alk,col="derek"),"is not a valid color or palette")
-  expect_warning(alkPlot(alk,col=gray.colors(3)),"colors will be recycled")
-  expect_warning(alkPlot(alk,col=heat.colors(8)),"colors will not be used")
+  expect_warning(alkPlot(alk,col=gray.colors(3)),"Number of colors")
+  expect_warning(alkPlot(alk,col=heat.colors(8)),"Number of colors")
   ## one row is all zeros
   tmp <- alk
   tmp[2,] <- 0
@@ -143,7 +143,7 @@ test_that("Does age variable get added with alkIndivAge()",{
   WR1.age <- subset(WR1, !is.na(age))
   WR1.len <- subset(WR1, is.na(age))
   # remove age variable
-  WR1.len <- WR1.len[,-which(names(WR1.len)=="age")]
+  WR1.len <- WR1.len[,names(WR1.len)!="age"]
   WR1.key <- prop.table(xtabs(~LCat+age,data=WR1.age),margin=1)
   tmp <- alkIndivAge(WR1.key,~len,data=WR1.len)
   expect_true(any(names(tmp)=="age"))

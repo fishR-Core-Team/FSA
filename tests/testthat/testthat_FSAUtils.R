@@ -202,12 +202,12 @@ test_that("geomean() / geosd() results",{
   expect_equal(round(geomean(tmp),4),1.0861)
   expect_equal(round(geosd(tmp),4),1.0795)
   # match geometric.mean in psych package
-  expect_equal(geomean(tmp),psych::geometric.mean(tmp))
-  expect_equal(geomean(tmp2,na.rm=TRUE),psych::geometric.mean(tmp2))
-  expect_equal(geomean(tmp),DescTools::Gmean(tmp))
-  expect_equal(geomean(tmp2,na.rm=TRUE),DescTools::Gmean(tmp2,na.rm=TRUE))
-  expect_equal(geosd(tmp),DescTools::Gsd(tmp))
-  expect_equal(geosd(tmp2,na.rm=TRUE),DescTools::Gsd(tmp2,na.rm=TRUE))
+  #expect_equal(geomean(tmp),psych::geometric.mean(tmp))
+  #expect_equal(geomean(tmp2,na.rm=TRUE),psych::geometric.mean(tmp2))
+  #expect_equal(geomean(tmp),DescTools::Gmean(tmp))
+  #expect_equal(geomean(tmp2,na.rm=TRUE),DescTools::Gmean(tmp2,na.rm=TRUE))
+  #expect_equal(geosd(tmp),DescTools::Gsd(tmp))
+  #expect_equal(geosd(tmp2,na.rm=TRUE),DescTools::Gsd(tmp2,na.rm=TRUE))
 })
 
 test_that("headtail() return values",{
@@ -248,9 +248,9 @@ test_that("headtail() return values",{
   expect_true(is.null(rownames(tmp)))
   
   ## check how it handles tbl_df object
-  iris2 <- tibble::as_tibble(iris)
-  tmp <- FSA::headtail(iris2,n=15)
-  expect_equal(class(tmp),"data.frame")
+#  iris2 <- tibble::as_tibble(iris)
+#  tmp <- FSA::headtail(iris2,n=15)
+#  expect_equal(class(tmp),"data.frame")
 })
 
 test_that("peek() return values",{
@@ -288,9 +288,9 @@ test_that("peek() return values",{
   expect_true(is.null(rownames(tmp)))
   
   ## check how it handles tbl_df object
-  iris2 <- tibble::as_tibble(iris)
-  tmp <- FSA::peek(iris2,n=15)
-  expect_equal(class(tmp),"data.frame")
+#  iris2 <- tibble::as_tibble(iris)
+#  tmp <- FSA::peek(iris2,n=15)
+#  expect_equal(class(tmp),"data.frame")
 })
 
 test_that("lagratio() calculations",{

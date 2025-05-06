@@ -147,7 +147,7 @@ purl2 <- function(file,out.dir=NULL,newname=NULL,topnotes=NULL,
     }
     ## Remove the blank lines as directed in blanks argument
     if (blanks=="all") {
-      flines <- flines[-which(flines=="")]
+      flines <- flines[flines!=""]
     } else {
       if (blanks=="extra") {
         blankLines <- which(flines=="")

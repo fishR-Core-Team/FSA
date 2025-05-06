@@ -1,3 +1,57 @@
+# FSA 0.9.6.9000
+* Updated `test-coverage.yaml` and moved a `# nocov start` and `# nocov end` in `bootstrap.r` to address the errors with `test-coverage.yaml`. Addresses [#118](https://github.com/fishR-Core-Team/FSA/issues/118).
+* Removed `DescTools`, `plyr`, `psych` from Suggests (and all their uses in tests and linked code in documentation). Removed `ggplot2`, `marked`, `rcapture`, and `tibble` from Suggests (and use in examples was put in a `\dontrun()`).
+* Added `FlexParamCurve` to Imports for use of `modpar()` in `findGrowthStarts(param="Richards")` and `purrr` for use of `map2_chr()` in `showGrowthFun()`.
+* Removed my ORCID from DESCRIPTION to alleviate note on WinBuilder for R4.4.3.
+* Added the following "articles".
+    * Show growth equations.
+    * Describe how the starting values for the growth equations are derived.
+    * Provide a simple introduction to growth model fitting with `FSA`.
+    * Provide a simple introduction to calculating relative weights with `FSA`.
+    * Provide a simple introduction to calculating proportional size distribution metrics with `FSA`.
+
+* internals: Added functions to return a logical about whether a value is less than, less than or equal, greater than, or greater than or equal (i.e., `is.lte()`, `is.lt()`, `is.gte()`, and `is.gt()`). Added functions that use those logical and return an informative error if the logical is FALSE (i.e., `iChkLTE()`, `iChkLT()`, `iChkGTE()`, and `iChkGT()`). The errors can "grab" the name of the object so that the error can be specific though the function is general.
+* internals: Modified `STOP()` and `WARN()` to use `strwrap()` rather than hard-coded line breaks. Added `MESSAGE()`. Added `iStrCollapse()`, largely for use with `STOP()`, `WARN()`, and `MESSAGE()`.
+* throughout: Changed many `df[-which(CONDITION),]` constructs to `df[!CONDITION]` as suggested [here](https://stackoverflow.com/a/5236518).
+
+* `findGrowthStarts()`: Added. This replaces `vbStarts()` and includes starting values for Gompertz, logistic, and Richards functions, and seasonal and tag-recapture von Bertalanffy parameterizations. Note that `constvals=` and `fixed=` must now be numeric vectors (and not lists) and that the returned starting values are in a numeric vector.
+* `fishR()`: Modified. Added link to teaching resources.
+* `GompertzFuns()`: Deprecated (replaced with `makeGrowthFun()`).
+* `GrowthData1`, `GrowthData2`, `GrowthData3`: Added for testing growth functions.
+* `growthFunShow()`: Deprecated (replaced with `showGrowthFun()`). But also fixed expression for QuinnDeriso3 parameterization of the Gompertz function (i.e., erroneous t* changed to t0 ... related to fixing [#113](https://github.com/fishR-Core-Team/FSA/issues/113)). Also changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization. Will be deleted in future versions.
+* `logisticFuns()`: Deprecated (replaced with `makeGrowthFun()`).
+* `makeGrowthFun()`: Added. This replaces `vbFuns()`, `GompertzFuns()`, `logisticFuns()`, `RichardsFuns()`, `Schnute()`, `SchnuteRichards()`. Along the way, the following changes were made.
+  * Included numbers for parameterizations in `param=` and moved names to `pname=`. Some names were changed.
+  * In Gompertz functions ... changed a parameter in "Original" to a1, changed a parameter to a2 in Ricker2 and QuinnDeriso1, and a to a2 in Ricker3 and QuinnDeriso2, to distinguish them when they are different.
+  * In Richards functions ...
+    * Restricted to only 4-parameter functions; thus, removed sixth parameterization
+    * Removed first parameterization as it had limited placement for the inflection point.
+    * Moved the old parameterization to new places as follows: third to first, and fifth to second. Thus, the first parameterization will be the one that most closely follows the parameterization of the self-starting function to be used in `findGrowthStarts()`. Removed the other two parameterizations as they were essentially the same as the first except for how the exponent was defined, which has no biological meaning.
+    * Modified parameterizations to have the same general look (i.e., Linf times something raised to a power). After this, the powers were all the same, so there is just a "b" parameter now.
+* `peek()`: Modified. Addressed [#125](https://github.com/fishR-Core-Team/FSA/issues/125).
+* `psdAdd()`: Modified. Added `group=` to handle the change for sub-groups in `PSDlit`. Modified `addLens=` to more closely match how `addLens=` words in `psdCalc()` and, thus, removed `addSpecs=`.
+* `psdCalc()`: Modified. Added `group=` to handle the change for sub-groups in `PSDlit`. Made other coding changes that did not affect forward-facing functionality.
+* `PSDLit`: Modified.
+    * Added length categories for Goldeye, Lake Chubsucker, and Northern Snakehead.
+    * Added a `group` variable to handle species with specified sub-groups.
+* `psdVals()`: Modified. Added `group=` to handle the change for sub-groups in `PSDlit`. Made other coding changes that did not affect forward-facing functionality.
+* `RichardsFuns()`: Deprecated (replaced with `makeGrowthFun()`).
+* `Schnute()`: Deleted (made defunct) as it was added to `makeGrowthFun()` (use `Schnute <- makeGrowthFun("Schnute")` instead). Note that order of arguments was changed so that the parameters appear before the constants to be consistent with other growth functions.
+* `SchnuteRichards()`: Deleted (made defunct) as it was added to `makeGrowthFun()` (use `SchnuteRichards <- makeGrowthFun("Schnute-Richards")` instead) and was likely little used.
+* `showGrowthFun()`: Added. Replaces `GrowthFunShow()`. Updated to allow user to send an object from `nls()` and have the coefficient values extracted and put in the expression. Also, can either return a string or an expression to allow more flexibility in use (especially with `ggplot2`).
+* `vbFuns()`: Deprecated (replaced with `makeGrowthFun()`).
+* `vbStarts()`: Deprecated (replaced with `makeGrowthStarts()`. But also streamlined some of the internal functions, fixed some typos, and replaced `iVBStartsPlot()` with `iPlotGrowthStarts()` to be more general.
+* `wrAdd()`: Modified. Added `WsOpts=` to handle species where the user must make a choice about which standard weight equation to use.
+* `WSLit`: Modified.
+  * Added results for Goldeye, Lake Chubsucker, and Northern Snakehead.
+  * Removed `type` variable (will depend on whether `quad` is `NA` or not).
+  * Added `group` variable that took the parenthetical groupings from `species` for things like Walleye, Cutthroat Trout, etc. Now `species` is an actual species name and if a sub-group of that exists then it is defined with `group`.
+* `wsVal()`: Modified.
+  * Added `group=` to handle species for which equations were derived for sub-groups of the species (e.g., separately for males and females, or lentic and lotic). See related changes to `WSlit`.
+  * Added `method=` to handle species for which equations derived from more than one method are available (e.g., "Arctic Grayling").
+  * Added a few more checks for `ref=`, `units=`, etc. and provided more descriptive error messages.
+
+
 # FSA 0.9.6
 * Updated testing to use `testthat` v3.0.0.
   * Changes to `DESCRIPTION` including adding `tidyr` in Suggests (for example in `removal()`).
@@ -1248,7 +1302,7 @@
 # FSA 0.4.11
 * **Date:** May14
 * Removed Roxygen directives in DESCRIPTION (with changes to roxygen2 4.0.1).
-* Changed `@S3method` and `@method` to `@export` in the following files according to changes in ROxygen2 as [described here](https://stackoverflow.com/questions/7198758/roxygen2-how-to-properly-document-s3-methods/7199577/), among several other places: `ageBias`, `agePrecision`, `bootCase`, `catchCurve`, `chapmanRobson`, `confint.nlsboot`, `depletion`, `dietOverlap`, `fitPlot`, `hist.formula`, `htest.nlsBoot`, `ks2d1`, `ks2d1p`, `ks2d2`, `ks2d2p`, `ksTest`, `lencat`, `mrClosed`, `mrOpen`, `plotBinResp`, `predict.nlsBoot`, `removal`, `residPlot`, `srStarts`, `Subset`, `Summarize`, `sumTable`, `vbStarts`, and `walfordChapmanPlot`.
+* Changed `@S3method` and `@method` to `@export` in the following files according to changes in ROxygen2 as described at stackoverflow.com/questions/7198758/, among several other places: `ageBias`, `agePrecision`, `bootCase`, `catchCurve`, `chapmanRobson`, `confint.nlsboot`, `depletion`, `dietOverlap`, `fitPlot`, `hist.formula`, `htest.nlsBoot`, `ks2d1`, `ks2d1p`, `ks2d2`, `ks2d2p`, `ksTest`, `lencat`, `mrClosed`, `mrOpen`, `plotBinResp`, `predict.nlsBoot`, `removal`, `residPlot`, `srStarts`, `Subset`, `Summarize`, `sumTable`, `vbStarts`, and `walfordChapmanPlot`.
 
 * `addZeroCatch()`: Modified. Added a catch for the situation where no zeros need to be added to the data.frame. Cleaned-up the help file, modified the examples, and added another example. Thanks to Ben Neely for bringing this bug (handling where zeros are not needed) to my attention.
 * `capHistSum()`: Modified. Cleaned up the code (no changes in functionality).

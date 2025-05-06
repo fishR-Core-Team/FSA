@@ -19,7 +19,7 @@ test_that("ageBias() messages",{
 
 test_that("agePrecision() messages",{
   expect_error(agePrecision(~otolithC,data=WhitefishLC),
-               "compare at least two sets of ages")
+               "'formula' has less than two variables")
   expect_error(agePrecision(~otolithC+as.character(scaleC),data=WhitefishLC),
                "must be numeric")
   ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)

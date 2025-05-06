@@ -210,50 +210,53 @@
 #'                  event.ord=c("first","second","third","fourth")) )
 #' 
 #' ## ONLY RUN IN INTERACTIVE MODE
-#' if (interactive()) {
+#' \dontrun{
 #' 
 #' ########################################################################
-#' ## A larger example of 'frequency' format (data from Rcapture package)
-#' data(bunting,package="Rcapture")
-#' head(bunting)
-#' # convert to 'individual' format
-#' bun.F2I <- capHistConvert(bunting,in.type="frequency",freq="freq")
-#' head(bun.F2I)
-#' # convert to 'MARK' format
-#' bun.F2M <- capHistConvert(bunting,id="id",in.type="frequency",freq="freq",out.type="MARK")
-#' head(bun.F2M)
-#' # convert converted 'individual' back to 'MARK' format
-#' bun.I2M <- capHistConvert(bun.F2I,id="id",in.type="individual",out.type="MARK")
-#' head(bun.I2M)
-#' # convert converted 'individual' back to 'frequency' format
-#' bun.I2F <- capHistConvert(bun.F2I,id="id",in.type="individual",
-#'            out.type="frequency",var.lbls.pre="Sample")
-#' head(bun.I2F)
-#'
+#'   if (require(Rcapture)) {
+#'     ## A larger example of 'frequency' format (data from Rcapture package)
+#'     data(bunting,package="Rcapture")
+#'     head(bunting)
+#'     # convert to 'individual' format
+#'     bun.F2I <- capHistConvert(bunting,in.type="frequency",freq="freq")
+#'     head(bun.F2I)
+#'     # convert to 'MARK' format
+#'     bun.F2M <- capHistConvert(bunting,id="id",in.type="frequency",freq="freq",out.type="MARK")
+#'     head(bun.F2M)
+#'     # convert converted 'individual' back to 'MARK' format
+#'     bun.I2M <- capHistConvert(bun.F2I,id="id",in.type="individual",out.type="MARK")
+#'     head(bun.I2M)
+#'     # convert converted 'individual' back to 'frequency' format
+#'     bun.I2F <- capHistConvert(bun.F2I,id="id",in.type="individual",
+#'                out.type="frequency",var.lbls.pre="Sample")
+#'     head(bun.I2F)
+#'   }
+#' 
 #'
 #' ########################################################################
-#' ## A larger example of 'marked' or 'RMark' format, but with a covariate
-#' ##   and when the covariate is removed there is no frequency or individual
-#' ##   fish identifier.
-#' data(dipper,package="marked")
-#' head(dipper)
-#' # isolate males and females
-#' dipperF <- subset(dipper,sex=="Female")
-#' dipperM <- subset(dipper,sex=="Male")
-#' # convert females to 'individual' format
-#' dipF.R2I <- capHistConvert(dipperF,cols2ignore="sex",in.type="RMark")
-#' head(dipF.R2I)
-#' # convert males to 'individual' format
-#' dipM.R2I <- capHistConvert(dipperM,cols2ignore="sex",in.type="RMark")
-#' head(dipM.R2I)
-#' # add sex variable to each data.frame and then combine
-#' dipF.R2I$sex <- "Female"
-#' dipM.R2I$sex <- "Male"
-#' dip.R2I <- rbind(dipF.R2I,dipM.R2I)
-#' head(dip.R2I)
-#' tail(dip.R2I)
-#' 
-#' } # end interactive
+#' if (require(marked)) {
+#'     ## A larger example of 'marked' or 'RMark' format, but with a covariate
+#'     ##   and when the covariate is removed there is no frequency or individual
+#'     ##   fish identifier.
+#'     data(dipper,package="marked")
+#'     head(dipper)
+#'     # isolate males and females
+#'     dipperF <- subset(dipper,sex=="Female")
+#'     dipperM <- subset(dipper,sex=="Male")
+#'     # convert females to 'individual' format
+#'     dipF.R2I <- capHistConvert(dipperF,cols2ignore="sex",in.type="RMark")
+#'     head(dipF.R2I)
+#'     # convert males to 'individual' format
+#'     dipM.R2I <- capHistConvert(dipperM,cols2ignore="sex",in.type="RMark")
+#'     head(dipM.R2I)
+#'     # add sex variable to each data.frame and then combine
+#'     dipF.R2I$sex <- "Female"
+#'     dipM.R2I$sex <- "Male"
+#'     dip.R2I <- rbind(dipF.R2I,dipM.R2I)
+#'     head(dip.R2I)
+#'     tail(dip.R2I)
+#'  }
+#' } # end \dontrun
 #'
 #'
 #' ## An example of problem with unused levels
@@ -370,7 +373,7 @@ iEvent2Indiv <- function(df,id,event.ord) {
   # See if there is an id variable
   if (is.null(id)) STOP("No variable with unique fish identification information given in 'id'.")
   # All other variables are "events"
-  event <- names(df)[which(names(df)!=id)]
+  event <- names(df)[names(df)!=id]
   # Control the event order if told to do so by the user
   if (!is.null(event.ord)) df[,event] <- ordered(df[,event],levels=event.ord)
   # Make a table of ids by events
@@ -393,13 +396,14 @@ iEvent2Indiv <- function(df,id,event.ord) {
 iFrequency2Indiv <- function(df,freq) {
   if (is.null(freq)) {
     tmp <- "No 'freq' given; assumed frequencies were 1 for each capture history."
-    if (any(c("freq","Freq","FREQ") %in% names(df))) tmp <- paste0(tmp,"\nHowever, one variable appears to contain frequencies.")
+    if (any(c("freq","Freq","FREQ") %in% names(df)))
+      tmp <- paste0(tmp," However, one variable appears to contain frequencies.")
     WARN(tmp)
     nfreq <- rep(1,nrow(df))
   } else {
     # isolate frequencies and create a df without them
     nfreq <- df[,freq]
-    df <- df[,-which(names(df)==freq)]
+    df <- df[,!names(df)==freq]
   }
   tmp <- matrix(NA,ncol=ncol(df),nrow=sum(nfreq))
   for (i in seq_len(ncol(df))) tmp[,i] <- rep(df[,i],nfreq)
@@ -431,14 +435,15 @@ iMark2Indiv <- function(df,freq) {
   # isolate frequencies and capture histories
   if (is.null(freq)) {
     tmp <- "No 'freq' given; assumed frequencies were 1 for each capture history."
-    if (any(c("freq","Freq","FREQ") %in% names(df))) tmp <- paste0(tmp,"\nHowever, one variable appears to contain frequencies.")
+    if (any(c("freq","Freq","FREQ") %in% names(df)))
+      tmp <- paste0(tmp," However, one variable appears to contain frequencies.")
     WARN(tmp)
     nfreq <- rep(1,nrow(df))
   } else {
     # isolate frequencies and create a df without them
     # make sure frequencies are numeric and capture history is character
     nfreq <- as.numeric(df[,freq])
-    df <- df[,-which(names(df)==freq)]
+    df <- df[,!names(df)==freq]
   }
   # expand the string 
   tmp <- iExpandCHString(df,nfreq)
@@ -451,11 +456,13 @@ iRMark2Indiv <- function(df,id,freq) {
   # force to be a data.frame (likely comes as a vector)
   df <- as.data.frame(df)
   # can't supply both id and freq
-  if (!is.null(id) & !is.null(freq)) STOP("Only one of 'id' or 'freq' can be used with the RMark format.")
+  if (!is.null(id) & !is.null(freq))
+    STOP("Only one of 'id' or 'freq' can be used with the RMark format.")
   # if neither id nor freq then create a freq=1 column and use it
   if (is.null(id) & is.null(freq)) {
     tmp <- "No 'freq' or 'id' given; assumed frequencies were 1 for each capture history."
-    if (any(c("freq","Freq","FREQ") %in% names(df))) tmp <- paste0(tmp,"\nHowever, one variable appears to contain frequencies.")
+    if (any(c("freq","Freq","FREQ") %in% names(df)))
+      tmp <- paste0(tmp," However, one variable appears to contain frequencies.")
     WARN(tmp)
     df$freq <- rep(1,nrow(df))
     freq <- "freq"
@@ -464,11 +471,11 @@ iRMark2Indiv <- function(df,id,freq) {
   if (!is.null(id)) {
     # expland the string by first isolating the capture histories
     #   and id variables (first two arguments)
-    tmp <- iExpandCHString(df[,which(names(df)!=id)],ids=df[,id],idname=id)
+    tmp <- iExpandCHString(df[,names(df)!=id],ids=df[,id],idname=id)
   } else {
     # expand the string by first isolating the capture histories
     #   and freq variables (first two arguments)
-    tmp <- iExpandCHString(df[,which(names(df)!=freq)],df[,freq])
+    tmp <- iExpandCHString(df[,names(df)!=freq],df[,freq])
   }
   tmp
 }

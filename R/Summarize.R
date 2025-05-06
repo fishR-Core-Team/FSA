@@ -29,7 +29,7 @@
 #'
 #' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
-#' @seealso See \code{\link[base]{summary}} for related one dimensional functionality. See \code{\link[base]{tapply}}, \code{summaryBy} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{describe} in \pkg{prettyR}, and \code{basicStats} in \pkg{fBasics} for similar \dQuote{by} functionality.
+#' @seealso See \code{\link[base]{summary}} for related one dimensional functionality. See \code{\link[base]{tapply}}, \code{summaryBy} in \pkg{doBy}, \code{describe} in \pkg{psych}, \code{describe} in \pkg{prettyR}, and \code{basicStats} in \pkg{fBasics} for similar \dQuote{by} functionality.
 #'
 #' @keywords misc
 #'
@@ -183,7 +183,7 @@ iSummarizeQf <- function(tmp,digits,na.rm,exclude,nvalid,percZero) {
   ## Get the response variable
   nv <- tmp$mf[,tmp$Rpos]
   ## Make sure LHS is simple enough
-  if (tmp$Enum>2) STOP("With a quantitative response (LHS), the RHS\n may contain only one or two factors.")
+  if (tmp$Enum>2) STOP("With a quantitative response (LHS), the RHS may contain only one or two factors.")
   ## Get results for quant variable by each level of interaction variable.
   if (tmp$Enum==1) { ## Only one explanatory variable
     rv <- tmp$mf[,tmp$Enames]
@@ -224,11 +224,11 @@ iSummarizeQf <- function(tmp,digits,na.rm,exclude,nvalid,percZero) {
   rownames(res) <- NULL
   ## Remove validn column if asked to ("never") or not interesting (all = n)
   if (nvalid=="never" | (nvalid=="different" & all(res$n==res$nvalid))) {
-    res <- res[,-which(names(res)=="nvalid")]
+    res <- res[,names(res)!="nvalid"]
   }
   ## Remove percZero column if asked to ("never") or not interesting (none >0)
   if (percZero=="never" | (percZero=="different" & !any(res$percZero>0,na.rm=TRUE))) {
-    res <- res[,-which(names(res)=="percZero")]
+    res <- res[,names(res)!="percZero"]
   }
   ## Return the result
   res

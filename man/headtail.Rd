@@ -40,15 +40,17 @@ headtail(miris,10)
 headtail(miris,addrownums=FALSE)
 headtail(miris,10,which=2:4)
 
-## Make a tbl_df type from tibble ... note how headtail()
-## is not limited by the tbl_df restriction on number of
-## rows to show (but head() is).
-if (require(tibble)) {
-  iris2 <- as_tibble(iris)
-  class(iris2)
-  headtail(iris2,n=15)
-  head(iris2,n=15)
+## Make a tibble type from tibble ... note how headtail() is not limited by
+##   the tibble restriction on number of rows to show (but head() is).
+\dontrun{
+  if (require(tibble)) {
+    iris2 <- as_tibble(iris)
+    class(iris2)
+    headtail(iris2,n=15)
+    head(iris2,n=15)
+  }
 }
+
 }
 \seealso{
 \code{peek}

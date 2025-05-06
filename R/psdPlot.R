@@ -2,13 +2,16 @@
 #'
 #' @description Constructs a length-frequency histogram with Gabelhouse lengths highlighted.
 #'
-#' @details Constructs a length-frequency histogram with the stock-sized fish highlighted, the Gabelhouse lengths marked by vertical lines, and the (traditional) PSD-X values superimposed.
-#'
-#' The length of fish plotted on the x-axis can be controlled with \code{xlim}, however, the minimum value in \code{xlim} must be less than the stock length for that species.
+#' @details Constructs a length-frequency histogram with the stock-sized fish highlighted, the Gabelhouse lengths marked by vertical lines, and the (traditional) PSD-X values superimposed. The length of fish plotted on the x-axis can be controlled with \code{xlim}, however, the minimum value in \code{xlim} must be less than the stock length for that species.
+#' 
+#' This plot is meant to be illustrative and not of “publication-quality.” Thus, only some aspects of the plot can be modified to change its appearance.
+#' 
+#' See examples and \href{https://fishr-core-team.github.io/FSA/articles/Computing_PSDs.html}{this article} for a demonstration.
 #'
 #' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements. Note that this formula can only contain one variable.
 #' @param data A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.
 #' @param species A string that contains the species name for which Gabelhouse length categories exist. See \code{\link{psdVal}} for details.
+#' @param group A string that contains the sub-group of \code{species} for which to find the Gabelhouse lengths; e.g., things like \dQuote{landlocked}, \dQuote{lentic}.
 #' @param units A string that indicates the type of units used for the length measurements. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
 #' @param startcat A number that indicates the beginning of the first length-class.
 #' @param w A number that indicates the width of length classes to create.
@@ -48,24 +51,25 @@
 #' @keywords hplot
 #'
 #' @examples
-#' ## Random length data
-#' # suppose this is yellow perch to the nearest mm
-#' df <- data.frame(spec=rep("Yellow Perch",170),
-#'                  mm=c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
-#'                       rnorm(20,mean=300,sd=40)))
+#' #===== Random length data for Yellow Perch (for example) to the nearest mm
+#' set.seed(633437)
+#' yepdf <- data.frame(yepmm=round(c(rnorm(100,mean=125,sd=15),
+#'                                   rnorm(50,mean=200,sd=25),
+#'                                   rnorm(20,mean=270,sd=40)),0),
+#'                     species=rep("Yellow Perch",170))
 #'
-#' ## Example graphics
+#' #===== Example graphics
 #' op <- par(mar=c(3,3,2,1),mgp=c(1.7,0.5,0))
-#' # Using 10-mm increments
-#' psdPlot(~mm,data=df,species="Yellow perch",w=10)
-#' psdPlot(~mm,data=df,species="Yellow perch",w=10,substock.col="gray90",
+#' #----- Using 10-mm increments
+#' psdPlot(~yepmm,data=yepdf,species="Yellow Perch",w=10)
+#' psdPlot(~yepmm,data=yepdf,species="Yellow Perch",w=10,substock.col="gray90",
 #'         stock.col="gray30")
-#' # ... but without the PSD values
-#' psdPlot(~mm,data=df,species="Yellow perch",w=10,psd.add=FALSE)
+#' #----- Same, but without the PSD values
+#' psdPlot(~yepmm,data=yepdf,species="Yellow Perch",w=10,psd.add=FALSE)
 #' par(op)
 #'
 #' @export psdPlot
-psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
+psdPlot <- function(formula,data,species="List",group=NULL,units=c("mm","cm","in"),
                     startcat=0,w=1,justPSDQ=FALSE,
                     main="",xlab="Length",ylab="Number",
                     xlim=NULL,ylim=c(0,max(h$counts)*1.05),
@@ -79,8 +83,8 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
   ## make sure there is data 
   if (nrow(data)==0) STOP("'data' does not contain any rows.")
   ## get psd breaks for this species
-  if (justPSDQ) brks <- psdVal(species,units=units)[1:3]
-    else brks <- psdVal(species,units=units)  
+  if (justPSDQ) brks <- psdVal(species,group,units=units)[1:3]
+    else brks <- psdVal(species,group,units=units)  
   ## If xlim is provided then limit temporary df to fish in range of xlim
   if (!is.null(xlim)) {
     if (min(xlim)>brks["stock"])

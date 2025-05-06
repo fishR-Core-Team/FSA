@@ -123,7 +123,7 @@ alkIndivAge <- function(key,formula,data,type=c("SR","CR"),
   } else STOP("'formula' must have only one variable on LHS and RHS.")
   #Check for NA's
   if (any(is.na(data[,cl]))) 
-    STOP("Length variable contains 'NA's;\n  Please remove these fish from the length sample before using 'alkIndivAge()'.")
+    STOP("Length variable contains 'NA's; Please remove these fish from the length sample before using 'alkIndivAge()'.")
   ## Set the random seed if asked to do so
   if (!is.null(seed)) set.seed(seed)
   ## Begin process
@@ -133,9 +133,9 @@ alkIndivAge <- function(key,formula,data,type=c("SR","CR"),
   if (min(data[,cl],na.rm=TRUE)<min(da.len.cats)) {
     STOP("The minimum observed length in the length sample (",
          min(data[,cl],na.rm=TRUE),
-         ")\n is less than the smallest length category in the age-length key (",
+         ") is less than the smallest length category in the age-length key (",
          min(da.len.cats),
-         ").\n You should include fish of these lengths in your age sample\n",
+         "). You should include fish of these lengths in your age sample\n",
          " or exclude fish of this length from your length sample.\n")
   }
   # Find the minimum width of the length categories so that this can be used
@@ -147,10 +147,10 @@ alkIndivAge <- function(key,formula,data,type=c("SR","CR"),
   if (max(data[,cl],na.rm=TRUE)>(max(da.len.cats)+min.w)) {
     WARN("The maximum observed length in the length sample (",
          max(data[,cl],na.rm=TRUE),
-         ") is greater\n",
+         ") is greater",
          " than the largest length category in the age-length key (",
          max(da.len.cats),
-         ").\n The last length category will be treated as all-inclusive.")
+         "). The last length category will be treated as all-inclusive.")
   }
   # Create length categories var (TMPLCAT) for L sample
   if (is.null(breaks)) breaks <- da.len.cats
@@ -171,7 +171,7 @@ alkIndivAge <- function(key,formula,data,type=c("SR","CR"),
     CR=,Cr=,cr=,C=,c= {data <- iAgeKey.CR(key,age.cats,data,ca)}
   )
   # Remove length category column that was added
-  data[,-which(names(data)=="TMPLCAT")]
+  data[,names(data)!="TMPLCAT"]
 }
 
 
@@ -183,7 +183,7 @@ iAgeKey.SR <- function(key,age.cats,data,data.len.cats,ca) {
     # Number in len interval from L sample
     len.n <- nrow(data[data$TMPLCAT==i,])
     # Conditional probability of age for len interval
-    age.prob <- key[which(as.numeric(rownames(key))==i),]
+    age.prob <- key[as.numeric(rownames(key))==i,]
     # Integer number of fish for each age
     age.freq <- floor(len.n*age.prob)
     # Vector of ages for integer counts
@@ -211,7 +211,7 @@ iAgeKey.SR <- function(key,age.cats,data,data.len.cats,ca) {
 iAgeKey.CR <- function(key,age.cats,data,ca) {
   for (i in 1:dim(data)[1]) { #### Cycle through the fish
     # Conditional probability of age for length interval
-    age.prob <- key[which(as.numeric(rownames(key))==data$TMPLCAT[i]),]
+    age.prob <- key[as.numeric(rownames(key))==data$TMPLCAT[i],]
     data[i,ca] <- sample(age.cats,1,prob=age.prob)                              
   }
   data

@@ -24,9 +24,9 @@ test_that("Summarize(), formula method messages",{
   expect_error(Summarize(q1+q2~f1+f2,data=d1),
                "more than one variable on the LHS")
   expect_error(Summarize(q1~f1+f2+c1,data=d1),
-               "may contain only one or two factors")
+               "With a quantitative response")
   expect_error(Summarize(q1~f1+f2+c1,data=d1),
-               "may contain only one or two factors")
+               "With a quantitative response")
   expect_error(Summarize(~f1+f2,data=d1),
                "Must have one variable on LHS of formula")
   expect_error(Summarize(~q1+q2,data=d1),

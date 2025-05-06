@@ -62,10 +62,9 @@ reference:
   - title: Individual Growth
     desc: Fit various growth models (von Bertalanffy, Gompertz, logistic, Richards, Schnute) to individual fish.
     contents:
-      - vbFuns
-      - vbStarts
-      - Schnute
-      - SchnuteRichards
+      - makeGrowthFun
+      - showGrowthFun
+      - findGrowthStarts
   - title: Mortality Rates
     desc: Estimate mortality rates from catch curve data and empirical models.
     contents:
@@ -132,6 +131,9 @@ reference:
       - CodNorwegian
       - CutthroatAL
       - Ecoli
+      - GrowthData1
+      - GrowthData2
+      - GrowthData3
       - Mirex
       - PikeNY
       - PikeNYPartial1
@@ -142,15 +144,36 @@ reference:
       - WhitefishLC
       - WR79
       - WSlit
+
   - title: Defunct
     desc: Defunct functions.
     contents:
       - FSA-defunct
 
+  - title: Deprecated
+    desc: Deprecated functions.
+    contents:
+      - growthModels
+      - vbStarts
+
 navbar:
   left:
     - text: Reference
       href: reference/index.html
+    - text: Demonstrations
+      menu:
+      - text: Computing Proportional Size Distribution Metrics
+        href: articles/Computing_PSDs.html
+      - text: Computing Relative Weights
+        href: articles/Computing_Relative_Weights.html
+      - text: Fitting Growth Functions
+        href: articles/Fitting_Growth_Functions.html
+    - text: Explanations
+      menu:
+      - text: Growth Function Equations
+        href: articles/Growth_Function_Parameterizations.html
+      - text: Explaining Starting Values for Growth Functions
+        href: articles/Growth_Starting_Values.html
   right:
     - icon: fa-newspaper
       href: news/index.html

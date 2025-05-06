@@ -289,7 +289,7 @@ confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),
   names(resd) <- c("S","S_LCI","S_UCI","Z","Z_LCI","Z_UCI")
   ## remove estimates if not asked for
   if (!incl.est) {
-    resm <- resm[,-which(colnames(resm)=="Est"),drop=FALSE]
+    resm <- resm[,colnames(resm)!="Est",drop=FALSE]
     resd <- resd[!names(resd) %in% c("S","Z")]
   }
   ## remove unasked for parameters

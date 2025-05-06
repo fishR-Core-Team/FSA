@@ -25,27 +25,28 @@ Shows the first, last, and approximately evenly spaced rows from a data frame or
 If \code{n} is larger than the number of rows in \code{x} then all of \code{x} is displayed.
 }
 \examples{
-peek(iris)
-peek(iris,n=6)
-peek(iris,n=6,which=c("Sepal.Length","Sepal.Width","Species"))
-peek(iris,n=6,which=grep("Sepal",names(iris)))
-peek(iris,n=200)
+peek(CutthroatAL)
+peek(CutthroatAL,n=6)
+peek(CutthroatAL,n=6,which=c("id","y1998","y1999","y2000"))
 
 ## Make a matrix for demonstration purposes only
-miris <- as.matrix(iris[,1:4])
-peek(miris)
-peek(miris,n=6)
-peek(miris,n=6,addrownums=FALSE)
-peek(miris,n=6,which=2:4)
+mCutthroatAL <- as.matrix(CutthroatAL)
+peek(mCutthroatAL)
+peek(mCutthroatAL,n=6)
+peek(mCutthroatAL,n=6,addrownums=FALSE)
+peek(mCutthroatAL,n=6,which=2:4)
 
-## Make a tbl_df type from dplyr ... note how peek() is not limited by
-## the tbl_df restriction on number of rows to show (but head() is).
-if (require(dplyr)) {
-  iris2 <- tbl_df(iris)
-  class(iris2)
-  peek(iris2,n=6)
-  head(iris2,n=15)
+## Make a tibble type from dplyr ... note how peek() is not limited by
+## the tibble restriction on number of rows to show (but head() is).
+\dontrun{
+  if (require(dplyr)) {
+    CutthroatAL2 <- as_tibble(CutthroatAL)
+    class(CutthroatAL2)
+    peek(CutthroatAL2,n=6)
+    head(CutthroatAL2,n=15)
+  }
 }
+
 }
 \seealso{
 \code{headtail}

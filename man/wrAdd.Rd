@@ -8,7 +8,7 @@
 \usage{
 wrAdd(wt, ...)
 
-\method{wrAdd}{default}(wt, len, spec, units = c("metric", "English"), ...)
+\method{wrAdd}{default}(wt, len, spec, units = c("metric", "English"), WsOpts = NULL, ...)
 
 \method{wrAdd}{formula}(wt, data, units = c("metric", "English"), ...)
 }
@@ -21,26 +21,34 @@ wrAdd(wt, ...)
 
 \item{spec}{A character or factor vector that contains the species names. Not used if \code{wt} is a formula.}
 
-\item{units}{A string that indicates whether the weight and length data in \code{formula} are in (\code{"metric"} (DEFAULT; mm and g) or \code{"English"} (in and lbs) units.}
+\item{units}{A string that indicates whether the weight and length data in \code{formula} are in \code{"metric"} (DEFAULT; mm and g) or \code{"English"} (in and lbs) units.}
+
+\item{WsOpts}{A named list that provides specific choices for \code{group}, \code{ref}, or \code{method} for species for which more than one standard weight equation exists in \code{\link{WSlit}}.}
 
 \item{data}{A data.frame that minimally contains variables of the the observed lengths, observed weights, and the species names given in the \code{formula=}.}
 }
 \value{
-Returns A numeric vector that contains the computed relative weights, in the same order as in \code{data=}.
+A numeric vector that contains the computed relative weights, in the same order as in \code{data=}.
 }
 \description{
-This computes a vector that contains the relative weight specific to each species for all individuals in an entire data frame.
+Returns a vector that contains the relative weight specific to each species for all individuals in an entire data frame.
 }
 \details{
-This computes a vector that contains the relative weight specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the relative weights for each individual. The relative weight value will be \code{NA} for each individual for which a standard weight equation does not exist in \code{\link{WSlit}}, a standard weight equation for the units given in \code{units=} does not exist in \code{\link{WSlit}}, a standard weight equation for the 75th percentile does not exist in \code{\link{WSlit}}, or if the individual is shorter or longer than the lengths for which the standard weight equation should be applied. Either the linear or quadratic equation has been listed as preferred for each species, so only that equation will be used. The use of the 75th percentile is by far the most common and, because this function is designed for use on entire data frames, it will be the only percentile allowed. Thus, to use equations for other percentiles, one will have to use \dQuote{manual} methods. See \code{\link{WSlit}} and \code{\link{wsVal}} for more details about types of equations, percentiles, finding which species have published standard weight equations, etc. See the examples for one method for changing species names to something that this function will recognize.
+This computes a vector that contains the relative weight specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the relative weights for each individual. The relative weight value will be \code{NA} for each individual for which a standard weight equation does not exist in \code{\link{WSlit}}, a standard weight equation for the units given in \code{units=} does not exist in \code{\link{WSlit}}, or if the individual is shorter or longer than the lengths for which the standard weight equation should be applied. Either the linear or quadratic equation has been listed as preferred for each species, so only that equation will be used.
+
+The species names in \code{species} must match the spelling and capitalization of \code{species} in \code{\link{WSlit}}. Use \code{wsVal()} to see a list of all species for which standard weight equations exist in \code{\link{WSlit}} and, more importantly, how the species names are spelled and capitalized.
+
+Some (few) species have more than one equation listed in \code{\link{WSlit}} (for the specified units). In these instances the user must select one of the equations to use with \code{WsOpts}. \code{WsOpts} is a list of lists where the inside list contains one or more of \code{group}, \code{ref}, or \code{method} (see \code{\link{WSlit}}) required to specify a single equation for a particular species, which is the name of the inner list. See the examples for an illustration of how to use \code{WsOpts}.
+
+See examples and \href{https://fishr-core-team.github.io/FSA/articles/Computing_Relative_Weights.html}{this article} for a demonstration.
 }
 \section{IFAR Chapter}{
  8-Condition.
 }
 
 \examples{
-## Create random data for three species
-# just to control the randomization
+#===== Create random data for three species
+#----- just to control the randomization
 set.seed(345234534)
 dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),
                   tl=round(rnorm(30,1900,300),0))
@@ -54,20 +62,36 @@ dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
 df <- rbind(dbt,dbg,dlb)
 str(df)
 
+#===== Add Wr variable
+#----- using formula interface
 df$Wr1 <- wrAdd(wt~tl+species,data=df)
-## same but with non-formula interface
+
+#----- same but with non-formula interface
 df$Wr2 <- wrAdd(df$wt,df$tl,df$species)
 
-## Same as above but using dplyr
+#----- same but using dplyr
 if (require(dplyr)) {
-  df <- mutate(df,Wr3a=wrAdd(wt,tl,species))
+  df <- df \%>\%
+    mutate(Wr3=wrAdd(wt,tl,species))
 }
 
-df
+#----- examine results
+peek(df,n=10)
  
-## Example with only one species in the data.frame
+#===== Example with only one species in the data.frame
 bg <- droplevels(subset(df,species=="Bluegill"))
 bg$Wr4 <- wrAdd(wt~tl+species,data=bg)
+bg
+
+#===== Example with a species that has Ws eqns for multiple groups and a
+#      group needs to be specified with WsOpts
+wae <- data.frame(species=factor(rep(c("Walleye"),30)),
+                  tl=round(rnorm(30,500,200),0))
+wae$wt <- round(3.33e-06*wae$tl^3.16+rnorm(30,0,50),1)
+# wae$Wr <- wrAdd(wt~tl+species,data=wae) # will err b/c multiple groups
+wae$Wr <- wrAdd(wt~tl+species,data=wae,
+                WsOpts=list(Walleye=list(group="overall")))
+peek(wae,n=10)
 
 }
 \references{

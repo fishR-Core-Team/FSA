@@ -4,19 +4,23 @@
 #'
 #' @details Computes the (traditional) PSD-X and (incremental) PSD X-Y values, with associated confidence intervals, for each Gabelhouse length. All PSD-X and PSD X-Y values are printed if \code{what="all"} (DEFAULT), only PSD-X values are printed if \code{what="traditional"}, only PSD X-Y values are printed if \code{what="incremental"}, and nothing is printed (but the matrix is still returned) if \code{what="none"}.
 #' 
-#' Confidence intervals can be computed with either the multinomial (Default) or binomial distribution as set in \code{method}See details in \code{\link{psdCI}} for more information.
+#' Confidence intervals can be computed with either the multinomial (DEFAULT) or binomial distribution as set in \code{method}See details in \code{\link{psdCI}} for more information.
+#' 
 #' This function may be used for species for which Gabelhouse length categories are not defined. In this case do not include a name in \code{species}, but define at least two lengths in \code{addLens} where the first category MUST be called \dQuote{stock}.
+#' 
+#' See examples and \href{https://fishr-core-team.github.io/FSA/articles/Computing_PSDs.html}{this article} for a demonstration.
 #'
 #' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains the observed lengths. Note that this formula may only contain one variable and it must be numeric.
 #' @param data A data.frame that minimally contains the observed lengths given in the variable in \code{formula}.
 #' @param species A string that contains the species name for which Gabelhouse lengths exist. See \code{\link{psdVal}} for details. See details for how to use this function for species for which Gabelhouse lengths are not defined.
+#' @param group A string that contains the sub-group of \code{species} for which to find the Gabelhouse lengths; e.g., things like \dQuote{landlocked}, \dQuote{lentic}.
 #' @param units A string that indicates the type of units used for the lengths. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
 #' @param what A string that indicates the type of PSD values that will be printed. See details.
 #' @param drop0Est A logical that indicates whether the PSD values that are zero should be dropped from the output.
 #' @param method A character that identifies the confidence interval method to use. See details in \code{\link{psdCI}}.
 #' @param addLens A numeric vector that contains minimum lengths for additional categories. See \code{\link{psdVal}} for details.
 #' @param addNames A string vector that contains names for the additional lengths added with \code{addLens}. See \code{\link{psdVal}} for details.
-#' @param justAdds A logical that indicates whether just the values related to the length sin \code{addLens} should be returned.
+#' @param justAdds A logical that indicates whether just the values related to the lengths in \code{addLens} should be returned.
 #' @param conf.level A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).
 #' @param showIntermediate A logical that indicates whether the number of fish in the category and the number of stock fish (i.e., \dQuote{intermediate} values) should be included in the returned matrix. Default is to not include these values.
 #' @param digits A numeric that indicates the number of decimals to round the result to. Default is zero digits following the recommendation of Neumann and Allen (2007).
@@ -44,117 +48,113 @@
 #' @keywords hplot
 #'
 #' @examples
-#' ## Random length data
-#' # suppose this is yellow perch to the nearest mm
+#' #===== Random length data for Yellow Perch (for example) to the nearest mm
+#' set.seed(633437)
 #' yepdf <- data.frame(yepmm=round(c(rnorm(100,mean=125,sd=15),
 #'                                   rnorm(50,mean=200,sd=25),
-#'                                   rnorm(20,mean=300,sd=40)),0),
+#'                                   rnorm(20,mean=270,sd=40)),0),
 #'                     species=rep("Yellow Perch",170))
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1,drop0Est=TRUE)
-#'
-#' ## add a length
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150)
+#'                     
+#' #===== Simple (typical) uses with just Gabelhouse lengths
+#' #----- All results
+#' psdCalc(~yepmm,data=yepdf,species="Yellow Perch")
 #' 
-#' ## add lengths with names
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,addNames="minLen")
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150))
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),addNames=c("minSlot","maxSlot"))
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150,"maxslot"=275))
+#' #----- Just the traditional indices
+#' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",what="traditional")
 #' 
-#' ## add lengths with names, return just those values that use those lengths
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150),justAdds=TRUE)
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150),justAdds=TRUE,
-#'         what="traditional")
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),
-#'         addNames=c("minSlot","maxSlot"),justAdds=TRUE)
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),
-#'         addNames=c("minSlot","maxSlot"),justAdds=TRUE,what="traditional")
+#' #----- Just the incremental indices
+#' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",what="incremental")
 #' 
-#' ## different output types
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,what="traditional")
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,what="incremental")
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,what="none")
+#' #===== Add a custom length of interest (to the Gabelhouse lengths)
+#' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",addLens=150)
 #' 
-#' ## Show intermediate values
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",showInterm=TRUE)
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",what="traditional",showInterm=TRUE)
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",what="incremental",showInterm=TRUE)
+#' #----- Additional lengths can be named
+#' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",addLens=c("minLen"=150))
+#' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",
+#'         addLens=c("minLen"=150,"maxslot"=275))
 #' 
-#' ## Control the digits
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
+#' #----- Can return just those results that include the additional lengths
+#' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",
+#'         addLens=c("minSlot"=150,"maxSlot"=275),justAdds=TRUE)
+#' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",
+#'         addLens=c("minSlot"=150,"maxSlot"=275),justAdds=TRUE,what="traditional")
 #' 
-#' ## Working with a species not in PSDlit ... same data, but don't give species
+#' #===== Can show intermediate values (num in category and in stock)
+#' psdCalc(~yepmm,data=yepdf,species="Yellow Perch",showInterm=TRUE)
+#' 
+#' #===== Some species require use of group (e.g., treat these as if Brown Trout)
+#' psdCalc(~yepmm,data=yepdf,species="Brown Trout",group="lotic")
+#' psdCalc(~yepmm,data=yepdf,species="Brown Trout",group="lentic")
+#' 
+#' #===== For species not in PSDlit ... don't include species and use addLens
+#' #      Note that these are same data as above, but treated as different species
 #' psdCalc(~yepmm,data=yepdf,addLens=c("stock"=130,"quality"=200,"preferred"=250,
 #'                                     "memorable"=300,"trophy"=380))
-#' psdCalc(~yepmm,data=yepdf,addLens=c("stock"=130,"quality"=200,
-#'                                     "preferred"=250,"name1"=220))
 #'                                     
 #' @export psdCalc
-psdCalc <- function(formula,data,species,units=c("mm","cm","in"),
+psdCalc <- function(formula,data,species,group=NULL,units=c("mm","cm","in"),
                     method=c("multinomial","binomial"),conf.level=0.95,
                     addLens=NULL,addNames=NULL,justAdds=FALSE,
                     what=c("all","traditional","incremental","none"),
                     drop0Est=TRUE,showIntermediate=FALSE,digits=0) {
+  #===== Checks
   method <- match.arg(method)
   what <- match.arg(what)
   units <- match.arg(units)
-  
-  ## Check on conf.level
   iCheckConfLevel(conf.level) 
   
-  ## make sure species is not missing, or if it is that addLens have been given
+  #----- Make sure species is not missing, or if it is that addLens have been given
   if (!missing(species)) {
-    brks <- psdVal(species,units=units,incl.zero=FALSE,
+    brks <- psdVal(species,group,units=units,incl.zero=FALSE,
                    addLens=addLens,addNames=addNames)    
   } else {
-    ## species is missing so must have and addLens
-    if (is.null(addLens)) STOP("Must include name in 'species' or lengths in 'addLens'.")
-    ## ... and addLens must have at least two values
-    if (length(addLens)<2) STOP("'addLens' must contain at least two length categories.")
-    ## ... and those lengths must be named ...
+    # species is missing so must have an addLens
+    if (is.null(addLens))
+      STOP("Must include name in 'species' or lengths in 'addLens'.")
+    # ... and addLens must have at least two values
+    if (length(addLens)<2)
+      STOP("'addLens' must contain at least two length categories.")
+    # ... and those lengths must be named ...
     if (is.null(names(addLens))) {
       if (is.null(addNames)) 
         STOP("Category names must be defined in 'addLens' or given in 'addNames'.")
       if (length(addLens)!=length(addNames))
-        STOP("'addLens' and 'addNames' are different lengths.")
+        STOP("'addLens' and 'addNames' cannot be different lengths.")
       names(addLens) <- addNames
     }
-    ## first category must be "stock"
+    # first category must be "stock"
     if (names(addLens)[1]!="stock") STOP("First category name must be 'stock'.")
-    ## another category must be "quality"
-#    if (!("quality" %in% names(addLens)))
-#      STOP("One length category must be called 'quality'")
-    ## looks good so set brks to addLens (but make sure they are ordered)
+    # looks good so set brks to addLens (but make sure they are ordered)
     brks <- addLens[order(addLens)]
   }
 
-  ## find psd lengths for this species
-  ## perform checks and initial preparation of the data.frame
+  #===== Find psd lengths for this species
+  #----- Perform checks and initial preparation of the data.frame
   dftemp <- iPrepData4PSD(formula,data,brks[1],units)
-  ## add the length categorization variable, don't drop unused levels
+  #----- add the length categorization variable, don't drop unused levels
   dftemp <- lencat(formula,data=dftemp,breaks=brks,vname="lcatr",
                    use.names=TRUE,droplevels=FALSE)
-  ## get sample size (number of stock-length fish)
+  #----- get sample size (number of stock-length fish)
   n <- nrow(dftemp)
-  ## make the proportions table
+  #----- make the proportions table
   ptbl <- prop.table(table(dftemp$lcatr))
-  ## check to see if some fish are more than quality-sized
-  if (!cumsum(ptbl)[[2]]<1) WARN("No fish in larger than 'stock' categories.")
-  ## compute all traditional and interval PSD values
+  #----- check to see if at least some fish are more than quality-sized
+  if (!cumsum(ptbl)[["stock"]]<1) WARN("No fish in larger than 'stock' categories.")
+  #----- compute all traditional and interval PSD values
   res <- iGetAllPSD(ptbl,n=n,method=method,conf.level=conf.level,digits=digits)
-  ## decide to keep intermediate calculation columns or not (in first two columns)
+  #----- decide to keep intermediate calculation columns or not (in first two columns)
   if (!showIntermediate) res <- res[,-c(1:2)]
-  ## return result
+  
+  #==== return result
   k <- length(ptbl)
   switch(what,
          all=         {  },
          traditional= { res <- res[1:(k-1),] },
          incremental= { res <- res[k:nrow(res),] }
          )
-  ## Drop estimates that are zero if requested to do so
+  #----- Drop estimates that are zero if requested to do so
   if (drop0Est) res <- res[res[,"Estimate"]>0,,drop=FALSE]
-  ## Return just the additional lengths if requested to do so
+  #----- Return just the additional lengths if requested to do so
   if (justAdds & !is.null(addLens)) {
     # add names to the additional lengths
     addLens <- iHndlAddNames(addLens,addNames)
@@ -164,7 +164,7 @@ psdCalc <- function(formula,data,species,units=c("mm","cm","in"),
     for (i in names(addLens)) tmp <- c(tmp,grep(i,rownames(res)))
     res <- res[sort(unique(tmp)),]
   }
-  ## Invisibly return the matrix if requested to do so
+  #----- Invisibly return the matrix if requested to do so
   if (what=="none") invisible(res)
     else round(res,digits)
 }
@@ -234,7 +234,7 @@ iGetAllPSD <- function(ptbl,n,method,conf.level=0.95,digits) {
   # do this here and suppress warnings for psdCI so that there is only one warning
   ns <- n*ptbl
   if (any(ns>0 & ns<20))
-    WARN("Some category sample size <20, some CI coverage may be\n lower than ",
+    WARN("Some category sample size <20, some CI coverage may be lower than ",
          100*conf.level,"%.")
   ## Compute all PSDs
   suppressWarnings(res <- t(apply(id1,MARGIN=1,FUN=psdCI,ptbl=ptbl,n=n,

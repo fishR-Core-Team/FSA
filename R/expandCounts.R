@@ -116,7 +116,7 @@ expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,
   zerocounts <- which(data[,cform$vname]==0 | is.na(data[,cform$vname]))
   if (length(zerocounts)>0) {
     if (length(zerocounts)>5) msg <- paste0(msg,length(zerocounts)," rows")
-    else msg <- paste0(msg,"  Rows ",paste(zerocounts,collapse=", "))
+    else msg <- paste0(msg,"  Rows ",iStrCollapse(zerocounts))
     msg <- paste0(msg," had zero or no counts in ",cform$vname,".\n")
   }
   
@@ -138,7 +138,7 @@ expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,
   newdf <- rbind(data[zerocounts,],data[onecounts,],data[morecounts,])
   # Fifth, clean-up the new data.frame as requested or needed
   #   remove the counts variable if asked for
-  if (removeCount) newdf <- newdf[,-which(names(data) == cform$vname)]
+  if (removeCount) newdf <- newdf[,names(data)!=cform$vname]
   #   get integer rownames
   row.names(newdf) <- NULL
 
@@ -158,7 +158,7 @@ expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,
     upr <- lform$Enames[2]
     # error check that lwr>upr ... stop if so.
     tmp <- which(data[,lwr]>data[,upr])
-    if (length(tmp)>0) STOP("Rows ",paste0(tmp,collapse=", ")," have '",
+    if (length(tmp)>0) STOP("Rows ",iStrCollapse(tmp)," have '",
                             lwr,"' greater than '",upr,"'.")
     
     ## error check if the rows with zero or missing counts in the
@@ -167,7 +167,7 @@ expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,
     if (length(zerocounts)>0) {
       tmp <- zerocounts[which(!is.na(data[zerocounts,lwr]) | !is.na(data[zerocounts,upr]))]
       if (length(tmp)>0) {
-        emsg <- paste0("Rows ",paste0(tmp,collapse=", ")," had zero or no ",cform$vname)
+        emsg <- paste0("Rows ",iStrCollapse(tmp)," had zero or no ",cform$vname)
         emsg <- paste0(emsg," but had non-missing\n values for ",lwr," and ",upr,".")
         emsg <- paste0(emsg,"  This implies a data entry error.")
         STOP(emsg)

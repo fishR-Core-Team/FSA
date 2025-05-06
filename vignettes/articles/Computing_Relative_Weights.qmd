@@ -1,0 +1,296 @@
+---
+title: "Computing Relative Weights in FSA"
+author: "Derek H. Ogle"
+date: "`r Sys.Date()`"
+format: 
+  html: 
+    toc: true
+    toc-depth: 2
+    reference-location: margin
+    fig-cap-location: bottom
+    tbl-cap-location: top
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+# Introduction
+Condition is a measure of the physical condition of a population of fish based on the relative heaviness or plumpness of the fish as compared to a standard. One measure is called **relative weight** and is simply 100 times the observed weight of a fish divided by a standard weight derived from an accepted model for that species and the individual's observed length; i.e.,
+
+$$ Wr_i = 100\frac{W_i}{Ws_i} $$ {#eq-Wri}
+
+where $Wr_i$ is the relative weight, $W_i$ is the observed weight, and $Ws_i$ is the standard weight for the $i$th fish. Individual relative weights are summarized to provide an overall measure of condition for the population. Relative weight and condition are explained in a variety of sources, including [Ogle (2016)](https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r). The goal of this vignette is to demonstrate how to calculate relative weights using functions in`FSA`.
+
+The following packages are used herein. Note that the `FSA` functions described here were modified after version 0.9.6 and are thus **specific to FSA >v0.9.6**.
+
+```{r}
+#| label: setup
+#| results: hide
+#| message: false
+library(FSA)
+library(dplyr)  # mutate, select, group_by, summarize
+```
+
+
+# Standard Weight Equations
+Equations for computing the standard weight (i.e., $Ws_i$) from an individual fish's observed length (i.e., $L_i$) have been derived for a number of freshwater game fish in the United States, as well as several non-game fish in the United States and some other fish from outside of the United States. The specifics of these equations have been collated into the `WSlit` data.frame^[Specifics [here](https://fishr-core-team.github.io/FSA/reference/WSlit.html).] distributed with `FSA` and are most easily accessed with `wsVal()`. For example, the specifics of the standard weight equation for Bluegill are retrieved below.
+
+```{r}
+wsVal("Bluegill")
+```
+
+The results returned from `wsVal()` are:
+
+- `species`: species of fish asked for. If left blank then a list of all species for which a standard weight equation exists in `WSlit` will be shown.
+- `group`: the sub-group for the species. Some species have separate standard weight equations for sub-groups (e.g,. `male` or `female`, or `lentic` and `lotic`). If `group` does not appear in the output then there is no sub-group for that species (as illustrated here). The sub-group can be chosen with `group=` in `wsVal()` as demonstrated later.^[Leave `group=` at the default `NULL` for species without sub-group equations.]
+- `measure`: the length measure used (will generally be `TL` for total length, but could be `FL` for fork length, `BL` for body length, or `CL` for caudal length depending on the species).
+- `units`: the units for which the equation was developed. The default is `metric` which has length in mm and weight in grams. However, `English` can also be used which has lengths in inches and weight in pounds. These are the only two "units" for which the equation can be returned; thus, if you recorded lengths and weights in different units you will need to adjust your data accordingly (or adjust the standard weights computed from the equations (see below) accordingly).
+- `ref`: the quantile used when developing the standard weight equation. The 75th percentile is used for most species, but some species have alternatives (50th or 25th percentile). Alternatives for a species can be chosen with `ref=` in `wsVal()`.^[For species with only one possible `ref`, then `ref=` should be left at the default `NULL`.]
+- `method`: the method used to develop the standard weight equation. This will usually be `RLP` (regression-line-percentile) or `EmP` (empirical percentile) but is `Other` only for Bluegill, as shown here. Some (very few) species have equations for both methods. In these instances, you will need to choose which to use with `method=` in `wsVal()`.^[For species where only one method is available then leave `method=` at the default `NULL`.]
+- `min.TL`: the minimum length for which the standard weight equation is appropriate.^[The postfix after the period will be replaced with the `measure` type ( (here `TL` but for some species `FL`, `BL`, or `CL`)).]
+- `max.TL`: the maximum length for which the standard weight equation is appropriate. Maximum lengths have not been specified for all species and, thus, may not appear in all outputs (e.g., for Bluegill here).
+- `int`: the intercept, **on the common logarithm (i.e., log10) scale**, for the standard weight equation.
+- `slope`: the slope, **on the log10 scale**, for the standard weight equation.
+- `quad`: the coefficient for the quadratic term, **on the log10 scale**, of the standard weight equation. Most species will not have a quadratic term and, thus, this may not appear in many outputs.
+- `source`: the literature source for the standard weight equation.
+- `comments`: comments about the standard weight equation. Not all species have comments, thus, this may not appear in many outputs.
+
+A simpler output of only the equation coefficients and the lengths for which it applies may be returned by including `simplify=TRUE` in `wsVal()`.^[I don't often use this, but it is available for a "cleaner" look.]
+
+```{r}
+wsVal("Bluegill",simplify=TRUE)
+```
+
+Blue Sucker is an example where some of the "optional" values are returned (e.g., `max.TL` and `quad`). The example below further illustrates that the results can be returned in "English" units for many species.
+
+```{r}
+wsVal("Blue Sucker",units="English")
+```
+
+Use of `wsVal()` requires spelling (and capitalizing) the name as it appears in `WSlit`. One can see all species names available in `WSlit` with `wsVal()` without any arguments.
+
+```{r}
+wsVal()
+```
+
+All parts of the species names in `WSlit` are capitalized (e.g., "Blue Sucker" and not "blue sucker" or "Blue sucker"). `wsVal()` will return an informative error message if your capitalization is not correct but the message will be less informative if your spelling is off.
+
+```{r}
+#| error: true
+wsVal("Blue sucker")
+wsVal("Blue suckr")
+```
+
+It is also not always obvious whether a species has equations for sub-groups or not.^[But see @tbl-species_issues.] One way to deal with this is to just ask for the equation for your species of interest without using `group=`. If sub-groups exist then you will get an error message asking you to choose which sub-group to use.
+
+```{r}
+#| error: true
+wsVal("Brown Trout")
+```
+
+Then try again by choosing the sub-group with `group=`.
+
+```{r}
+wsVal("Brown Trout",group="lentic")
+```
+
+The same general process can be used for species that have equations developed from multiple methods.
+
+```{r}
+#| error: true
+wsVal("Arctic Grayling")
+wsVal("Arctic Grayling",method="EmP")
+```
+
+Or for multiple reference groups.
+
+```{r}
+#| error: true
+wsVal("Ruffe")
+wsVal("Ruffe",ref=50)
+```
+
+## Cautions
+@tbl-species_issues shows species for which multiple standard weight equations exist in `WSlit` such that the specific one must be chosen by using `group=`, `method=`, or `ref=` in `wsVal()`.
+
+
+| Species | Cause of Multiple Equations |
+|:-----|:--------------------|
+| Arctic Grayling | Multiple `method`s exist |
+| Bigmouth Sleepers | Sub-`group`s exist; multiple `ref`erence values |
+| Brook Trout | Sub-`group`s exist |
+| Brown Trout | Sub-`group`s exist |
+| Cutthroat Trout | Sub-`group`s exist |
+| Mountain Mullet | Multiple `ref`erence values |
+| Muskellunge | Sub-`group`s exist |
+| Paddlefish | Sub-`group`s exist |
+| Rainbow Trout | Sub-`group`s exist |
+| River Goby | Multiple `ref`erence values |
+| Ruffe | Multiple `ref`erence values |
+| Sardine | Multiple `ref`erence values |
+| Spotted Bass | Sub-`group`s exist |
+| Walleye | Sub-`group`s exist |
+
+: Species for which the user will have to select among multiple standard weight equations by using `group=`, `method=`, or `ref=` in `wsVal()`. {#tbl-species_issues}
+
+
+# Calculate Individual Relative Weight
+## Example with Linear Equation
+The specifics of the standard weight equation returned by `wsVal()` can be used to compute the standard weight for a fish given its observed length. As an example, suppose that the relative weight of a Largemouth Bass with an observed length and weight of 350 mm and 650 g is desired.
+
+Begin by assigning the specifics of the standard weight equation for Largemouth Bass returned by `wsVal()` to an object (e.g., `wsLMB` here).
+
+```{r}
+wsLMB <- wsVal("Largemouth Bass")
+```
+
+The intercept and slope for the standard weight equation on the **log10-log10** scale can be extracted from this object.
+
+```{r}
+wsLMB[["int"]]
+wsLMB[["slope"]]
+```
+
+The standard weight is then computed from these results and the **log10-transformed** observed length as follows (with the result saved to an object, called `ex1` here).  Make sure to note the use of `10^` to back-transform the **log10-transformed** standard weight to a standard weight on the raw scale.
+
+```{r}
+( ex1 <- 10^(wsLMB[["int"]]+wsLMB[["slope"]]*log10(350)) )
+```
+
+This calculation suggests that standard weight for a 250 mm Largemouth Bass is `r formatC(ex1,format="f",digits=1)` g. With this and @eq-Wri, the relative weight for this individual can be computed (recalling that the observed weight was 650 g).
+
+```{r}
+100*650/ex1
+```
+
+This indicates that the individual is heavier than a standard fish of the same length as this values is greater than 100.
+
+## Example with Quadratic Equation
+A similar process can be followed for species where the standard weight equation includes a quadratic term. The only "trick" here is to include the quadratic term multiplied by the **square** of the log10-transformed observed length when computing the standard weight. This calculation is illustrated below with a 500 mm and 1010 g Blue Sucker.
+
+```{r}
+( wsBS <- wsVal("Blue Sucker",simplify=TRUE) )
+( ex2 <- 10^(wsBS[["int"]]+wsBS[["slope"]]*log10(500)+wsBS[["quad"]]*log10(500)^2) )
+100*1010/ex2
+```
+
+## Cautions
+A few things to consider when calculating relative weights for individuals.
+
+* Make sure the individual is longer than the minimum and shorter than the maximum (if given) length returned by `wsVal()`.
+* Make sure to log10-transform the observed length when computing the standard weight. Note that all standard weight equations use log10 so never use the natural log with standard weight calculations.
+* Make sure to back-transform (i.e., raise to the power of 10) the value so that the standard weight is on the raw rather than log10-transformed scale.
+* Relative weights have traditionally been reported on a scale where the fraction is multiplied by 100 (i.e., so 100 means that the observed weight equals the standard weight). Thus, don't forget to multiply by 100 when computing the relative weight.
+
+# Calculate Relative Weights for All of One Species
+It is not common to compute the standard and relative weights for a single individual as was done in the previous section. Rather, it is more useful to calculate these values for all individuals in a sample, and then summarize those values for an overall assessment of the condition of those individuals.
+
+Consider the `CiscoTL` data.frame distributed with the `FSAdata` package that contains the lengths (mm) and weights (g) of Cisco (*Coregonus artedii*) sampled from Trout Lake, WI, USA over a 25 year period.
+
+```{r}
+data("CiscoTL",package="FSAdata")
+str(CiscoTL)
+peek(CiscoTL,n=10)
+```
+
+Note that there are lots of missing weights in this data.frame.
+
+## "Manual" Calculations
+The relative weight calculation begins by finding the specifics of the standard weight equation for Cisco.
+
+```{r}
+( wsC <- wsVal("Cisco") )
+```
+
+Two new variables -- `Ws` for standard weight and `Wr` for relative weight -- are added to the data.frame in three steps below. First, `Ws` is calculated using the coefficients from the standard weight equation and the log-transformed length variable as shown above (but within `mutate()` from `dplyr`). Second, if the observed length is less than the minimum length for which the standard weight equation should be applied, then the previously calculated `Ws` is replaced with an `NA` (for missing value). Finally, the relative weight is computed from the observed weight and standard weight variables using @eq-Wri.
+
+```{r}
+CiscoTL <- CiscoTL |>
+  mutate(Ws=10^(wsC[["int"]]+wsC[["slope"]]*log10(length)),
+         Ws=ifelse(length<wsC$min.TL,NA,Ws),
+         Wr=100*weight/Ws)
+peek(CiscoTL,n=10)
+```
+
+As an illustration, the mean and standard deviation of relative weights are computed below (along with `validn` which is the number of non-`NA` (i.e., non-missing) relative weights).^[More interesting summaries and plots may be constructed with these data. This is just an example of summarizing relative weights for a sample.] These results suggest that this population of Cisco is substantially "skinnier" (i.e., under-weight) than the standard for the species (because the mean relative weight is substantially less than 100).
+
+```{r}
+CiscoTL |>
+  summarize(validn=sum(!is.na(Wr)),
+            mnWr=mean(Wr,na.rm=TRUE),
+            sdWr=sd(Wr,na.rm=TRUE))
+```
+
+## Using the `WrAdd()` Convenience Function
+`wrAdd()` can be used to add a relative weight variable to a data.frame for **all** species in the data.frame for which a standard weight equation exists. The main argument to `wrAdd()` is a formula of the form `weight~length+species` where `weight` is the observed weight variable, `length` is the observed length variable, and `species` is the name of the species variable. One constraint here is that the species must be spelled (and capitalized) as in `WSlit`. In these data for Cisco, the species name is in `spname` but the species is all capital letters as "CISCO", rather than the required "Cisco". `capFirst()`^[From `FSA`.] may be used to convert a word to a form where just the first letter is capitalized, and  is used below.^[Note that the `CiscoTL` data.frame was re-read so that the additions in the previous section were removed.]
+
+```{r}
+#| echo: false
+data("CiscoTL",package="FSAdata")
+```
+```{r}
+CiscoTL <- CiscoTL |>
+  mutate(Wr=wrAdd(weight~length+capFirst(spname)))
+peek(CiscoTL,n=10)
+```
+
+`wrAdd()` deals with species that have more than one standard weight equation^[As illustrated previuosly.] with `WsOpts=`. For example, consider adding a relative weight variable to the `RuffeSLRH92` data.frame distributed with `FSAdata`.
+
+```{r}
+data("RuffeSLRH92",package="FSAdata")
+str(RuffeSLRH92)
+```
+
+Note that there is no species variable, which is needed by `wrAdd()`.^[Note that `wrAdd()` is more convenient for data.frames with multiple species as will be illustrated in the next section.] Additionally, for simplicity of presentation, I removed several other variables that are not needed for this example.
+
+```{r}
+RuffeSLRH92 <- RuffeSLRH92 |>
+  mutate(species="Ruffe") |>
+  select(species,length,weight,sex)
+peek(RuffeSLRH92,n=10)
+```
+
+Code similar to that used above for Cisco returns an error because there are standard weight equations for Ruffe for both 50th and 75th percentile references (see snippet below with the error message).
+
+```{r}
+#| error: true
+RuffeSLRH92 <- RuffeSLRH92 |>
+  mutate(Wr=wrAdd(weight~length+species))
+```
+
+To continue, `wrAdd()` must be instructed as to which of these two equations should be used to calculate the standard weight and, thus, relative weight. This is handled with a list in `WsOpts=` which will include the species name set equal to a list which identifies the specific equation to use (i.e., `ref=50` in this example).
+
+```{r}
+RuffeSLRH92 <- RuffeSLRH92 |>
+  mutate(Wr=wrAdd(weight~length+species,WsOpts=list(Ruffe=list(ref=50))))
+peek(RuffeSLRH92,n=10)
+```
+
+# Calculate Relative Weights for All of Multiple Species
+The real value of `wrAdd()` is that it can be used to efficiently add a relative weight variable for multiple species in a single data.frame. For example, `InchLake2` distributed with `FSAdata` contains lengths and weights for several species captured from Inch Lake.
+
+```{r}
+data("InchLake2",package="FSAdata")
+peek(InchLake2,n=10)
+```
+
+One oddity of these data is that length was recorded in inches, whereas weight was recorded in grams. The standard weight equations either use inches and pounds or millimeters and grams. In this case, I converted the inches to mm first, and then added the relative weight variable with `wrAdd()` as before.
+
+```{r}
+InchLake2 <- InchLake2 |>
+  mutate(lenmm=length*25.4,
+         Wr=wrAdd(weight~lenmm+species))
+```
+
+The mean and sd of relative weight by species is shown below. It is important to carefully examine these results because a species could have no mean relative weight calculated because there is no standard weight equation for that species (in `WSlit`) or because the species name is not spelled as expected (in `WSlit`). The four species with no mean relative weight below all do, indeed, not have a known standard weight equation.
+
+```{r}
+InchLake2 |>
+  group_by(species) |>
+  summarize(validn=sum(!is.na(Wr)),
+            mnWr=mean(Wr,na.rm=TRUE),
+            sdWr=sd(Wr,na.rm=TRUE)) |>
+  as.data.frame()
+```
+

@@ -1,9 +1,11 @@
 #' @name growthModels
 #' 
-#' @title Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.
+#' @title DEPRECATED (as of v0.10.0). Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.
 #'
-#' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions. Use \code{growthFunShow()} to see the equations for each growth function.
+#' @description DEPRECATED (as of v0.10.0). Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions. Use \code{growthFunShow()} to see the equations for each growth function.
 #'
+#' @details DEPRECATED ... use \code{\link{makeGrowthFun}} and \code{\link{showGrowthFun}} instead. 
+#' 
 #' @param type A string (in \code{growthFunShow}) that indicates the type of growth function to show.
 #' @param param A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function. See details.
 #' @param case A numeric that indicates the specific case of the Schnute function to use. See details.
@@ -26,17 +28,18 @@
 #'   \itemize{
 #'     \item The \sQuote{Ricker2} and \sQuote{QuinnDeriso1} are synonymous, as are \sQuote{Ricker3} and \sQuote{QuinnDeriso2}.
 #'     \item The parameterizations and parameters for the Gompertz function are varied and confusing in the literature. I have attempted to use a uniform set of parameters in these functions, but that makes a direct comparison to the literature difficult. Common sources for Gompertz models are listed in the references below. I make some comments here to aid comparisons to the literature.
-#'     \item Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, ti is the age at the inflection point, gi is the instantaneous growth rate at the inflection point, t0 is a dimensionless parameter related to time/age, and a is a dimensionless parameter related to growth.
-#'     \item In the Quinn and Deriso (1999) functions (the \sQuote{QuinnDerisoX} functions), the a parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there. Also note that their Y is L here.
+#'     \item Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, ti is the age at the inflection point, gi is the instantaneous growth rate at the inflection point, t0 is a the hypothetical age at a mean length of 0, and a, b, and c are nuisance parameters with no real-world interpretations.
+#'     \item The function in Ricker (1975)[p. 232] is the same as \sQuote{Ricker2} where the a parameter here is equal to G there and the gi parameter here is equal to the g parameter there. Also note that their w is L here.
 #'     \item In the Ricker (1979)[p. 705] functions (the \sQuote{RickerX} functions), the a parameter here is equal to k there and the gi parameter here is equal to the g parameter there. Also note that their w is L here. In the Ricker (1979) functions as presented in Campana and Jones (1992), the a parameter here is equal to k parameter there and the gi parameter here is equal to the G parameter there. Also note that their X is L here.
-#'     \item The function in Ricker (1975)[p. 232] is the same as \sQuote{Ricker2} where the a parameter here is qual to G there and the gi parameter here is equal to the g parameter there. Also note that their w is L here.
+#'     \item In the Quinn and Deriso (1999) functions (the \sQuote{QuinnDerisoX} functions), the a parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there. Also note that their Y is L here.
 #'     \item The function in Quist \emph{et al.} (2012)[p. 714] is the same as \sQuote{Ricker1} where the gi parameter here is equal to the G parameter there and the ti parameter here is equal to the t0 parameter there.
-#'     \item The function in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker1} where the gi parameter here is equal to k2 parameter there and the ti parameter here is equal to the t2 parameter there.
+#'     \item The function in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker1} where the gi parameter here is equal to the k2 parameter there and the ti parameter here is equal to the t2 parameter there.
 #'   }
 #'   \item Richards
 #'   \itemize{
-#'     \item Within FSA, Linf is the mean asymptotic length, ti is the age at the inflection point, k controls the slope at the inflection point (maximum relative growth rate), b is dimensionless but related to the vertical position (i.e., size) of the inflection point, a is dimensionless but related to the horizontal position (i.e., age) of the inflection point, and L0 is the mean length at age-0.
-#'     \item The parameterizations (1-6) correspond to functions/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010). Note that their A, S, k, d, and B are Linf, a, k, b, and L0, respectively, here (in FSA). Their (Tjorve and Tjorve 2010) K does not appear here.
+#'     \item Only 4-parameter parameterizations from Tjorve and Tjorve (2010) that seemed useful for modeling fish growth are provided here.
+#'     \item Within FSA, Linf is the mean asymptotic length; ti is the age at the inflection point; k controls the slope at the inflection point (maximum relative growth rate); a is dimensionless but related to the horizontal position (i.e., age) of the inflection point; b, c, and d are dimensionless but related to the vertical position (i.e., size) of the inflection point; and L0 is the mean length at age-0.
+#'     \item The parameterizations (1-5) correspond to functions/equations 5, 3(alt), 7, 4, and 6, respectively, in Tjorve and Tjorve (2010). Note that their A, S, k are Linf, a, k and their d is b, c, and d, respectively, here (in FSA).
 #'   }
 #'   \item logistic
 #'   \itemize{
@@ -47,8 +50,6 @@
 #' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
 #' @section IFAR Chapter: 12-Individual Growth.
-#'
-#' @seealso See \code{\link{Schnute}} for an implementation of the Schnute (1981) model.
 #'
 #' @references Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
@@ -90,6 +91,8 @@
 #' 
 #' Tjorve, E. and K. M. C. Tjorve. 2010. A unified approach to the Richards-model family for use in growth analyses: Why we need only two model forms. Journal of Theoretical Biology 267:417-425. [Was (is?) from https://www.researchgate.net/profile/Even_Tjorve/publication/46218377_A_unified_approach_to_the_Richards-model_family_for_use_in_growth_analyses_why_we_need_only_two_model_forms/links/54ba83b80cf29e0cb04bd24e.pdf.]
 #' 
+#' Tjorve, K. M. C. and E. Tjorve. 2017. The use of Gompertz models in growth analyses, and new Gompertz-model approach: An addition to the Unified-Richards family. PLOS One. [Was (is?) from https://doi.org/10.1371/journal.pone.0178691.]
+#' 
 #' Troynikov, V. S., R. W. Day, and A. M. Leorke. Estimation of seasonal growth parameters using a stochastic Gompertz model for tagging data. Journal of Shellfish Research 17:833-838. [Was (is?) from https://www.researchgate.net/profile/Robert_Day2/publication/249340562_Estimation_of_seasonal_growth_parameters_using_a_stochastic_gompertz_model_for_tagging_data/links/54200fa30cf203f155c2a08a.pdf.]
 #' 
 #' Vaughan, D. S. and T. E. Helser. 1990. Status of the Red Drum stock of the Atlantic coast: Stock assessment report for 1989. NOAA Technical Memorandum NMFS-SEFC-263, 117 p. [Was (is?) from https://repository.library.noaa.gov/view/noaa/5927/noaa_5927_DS1.pdf.]
@@ -116,24 +119,22 @@
 #' ( gomp1 <- GompertzFuns() )
 #' plot(gomp1(ages,Linf=800,gi=0.5,ti=5)~ages,type="b",pch=19)
 #' ( gomp2 <- GompertzFuns("Ricker2") )
-#' plot(gomp2(ages,L0=2,a=6,gi=0.5)~ages,type="b",pch=19)
+#' plot(gomp2(ages,L0=2,b=6,gi=0.5)~ages,type="b",pch=19)
 #' ( gomp2c <- GompertzFuns("Ricker2",simple=TRUE) )   # compare to gomp2
 #' ( gompT <- GompertzFuns("Troynikov1"))
 #'
 #' ## Simple Examples -- Richards
-#' ( rich1 <- RichardsFuns() )
-#' plot(rich1(ages,Linf=800,k=0.5,a=1,b=6)~ages,type="b",pch=19)
+#' ( rich1 <- RichardsFuns(1) )
+#' plot(rich1(ages,Linf=800,k=0.5,ti=3,b1=0.15)~ages,type="b",pch=19)
 #' ( rich2 <- RichardsFuns(2) )
-#' plot(rich2(ages,Linf=800,k=0.5,ti=3,b=6)~ages,type="b",pch=19)
+#' plot(rich2(ages,Linf=800,k=0.5,t0=-1,b2=6)~ages,type="b",pch=19)
 #' ( rich3 <- RichardsFuns(3) )
-#' plot(rich3(ages,Linf=800,k=0.5,ti=3,b=0.15)~ages,type="b",pch=19)
+#' plot(rich3(ages,Linf=800,k=0.5,L0=50,b3=1.5)~ages,type="b",pch=19)
 #' ( rich4 <- RichardsFuns(4) )
-#' plot(rich4(ages,Linf=800,k=0.5,ti=3,b=0.95)~ages,type="b",pch=19)
-#' lines(rich4(ages,Linf=800,k=0.5,ti=3,b=1.5)~ages,type="b",pch=19,col="blue")
+#' plot(rich4(ages,Linf=800,k=0.5,ti=3,b2=6)~ages,type="b",pch=19)
 #' ( rich5 <- RichardsFuns(5) )
-#' plot(rich5(ages,Linf=800,k=0.5,L0=50,b=1.5)~ages,type="b",pch=19)
-#' ( rich6 <- RichardsFuns(6) )
-#' plot(rich6(ages,Linf=800,k=0.5,ti=3,Lninf=50,b=1.5)~ages,type="b",pch=19)
+#' plot(rich5(ages,Linf=800,k=0.5,ti=3,b3=0.95)~ages,type="b",pch=19)
+#' lines(rich5(ages,Linf=800,k=0.5,ti=3,b3=1.5)~ages,type="b",pch=19,col="blue")
 #' ( rich2c <- RichardsFuns(2,simple=TRUE) ) # compare to rich2
 #' 
 #' ## Simple Examples -- Logistic
@@ -177,116 +178,7 @@
 #' summary(fit3,correlation=TRUE)
 #' curve(vb3(x,L1=coef(fit3),t1=c(0,4)),from=0,to=5,col="green",lwd=2,add=TRUE)
 #'
-#' ## Gompertz
-#' # Make some fake data using the original parameterization
-#' gompO <- GompertzFuns("original")
-#' # setup ages, sample sizes (general reduction in numbers with
-#' # increasing age), and additive SD to model
-#' t <- 1:15
-#' n <- c(10,40,35,25,12,10,10,8,6,5,3,3,3,2,2)
-#' sd <- 15
-#' # expand ages
-#' ages <- rep(t,n)
-#' # get lengths from gompertz and a random error for individuals
-#' lens <- gompO(ages,Linf=450,a=1,gi=0.3)+rnorm(length(ages),0,sd)
-#' # put together as a data.frame
-#' df <- data.frame(age=ages,len=round(lens,0))
 #'
-#' plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
-#'   
-#' # Fit first Ricker parameterization
-#' fit1 <- nls(len~gomp1(age,Linf,gi,ti),data=df,start=list(Linf=500,gi=0.3,ti=3))
-#' summary(fit1,correlation=TRUE)
-#' curve(gomp1(x,Linf=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
-#'
-#' # Fit third Ricker parameterization
-#' fit2 <- nls(len~gomp2(age,L0,a,gi),data=df,start=list(L0=30,a=3,gi=0.3))
-#' summary(fit2,correlation=TRUE)
-#' curve(gomp2(x,L0=coef(fit2)),from=0,to=15,col="blue",lwd=5,add=TRUE)
-#'
-#' # Fit third Quinn and Deriso parameterization (using simple=TRUE model)
-#' gomp3 <- GompertzFuns("QD3",simple=TRUE)
-#' fit3 <- nls(len~gomp3(age,Linf,gi,t0),data=df,start=list(Linf=500,gi=0.3,t0=0))
-#' summary(fit3,correlation=TRUE)
-#' curve(gomp3(x,Linf=coef(fit3)[1],gi=coef(fit3)[2],t0=coef(fit3)[3]),
-#'       from=0,to=15,col="green",lwd=2,add=TRUE)
-#' 
-#' ## Richards
-#' 
-#' \dontrun{
-#' # Fit first Richards parameterization ... DOES NOT CONVERGE
-#' fit1 <- nls(len~rich1(age,Linf,k,a,b),data=df,
-#'             start=list(Linf=450,k=0.3,a=0.2,b=3))
-#' summary(fit1,correlation=TRUE)
-#' curve(rich1(x,Linf=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
-#'
-#' # Fit second Richards parameterization ... DOES NOT CONVERGE
-#' fit2 <- nls(len~rich2(age,Linf,k,ti,b),data=df,
-#'             start=list(Linf=450,k=0.25,ti=3,b=3))
-#' summary(fit2,correlation=TRUE)
-#' curve(rich2(x,Linf=coef(fit2)),from=0,to=15,col="blue",lwd=7,add=TRUE)
-#' }
-#'
-#' plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
-#' 
-#' # Fit third Richards parameterization
-#' fit3 <- nls(len~rich3(age,Linf,k,ti,b),data=df,
-#'             start=list(Linf=450,k=0.25,ti=3,b=-0.1))
-#' summary(fit3,correlation=TRUE)
-#' curve(rich3(x,Linf=coef(fit3)),from=0,to=15,col="green",lwd=4,add=TRUE)
-#' 
-#' # Fit fourth Richards parameterization
-#' fit4 <- nls(len~rich4(age,Linf,k,ti,b),data=df,
-#'             start=list(Linf=450,k=0.25,ti=3,b=0.7))
-#' summary(fit4,correlation=TRUE)
-#' curve(rich4(x,Linf=coef(fit4)),from=0,to=15,col="black",lwd=1,add=TRUE)
-#' 
-#' ## Logistic
-#' plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
-#' 
-#' # Fit first Campana-Jones parameterization
-#' fit1 <- nls(len~log1(age,Linf,gninf,ti),data=df,
-#'             start=list(Linf=450,gninf=0.45,ti=4))
-#' summary(fit1,correlation=TRUE)
-#' curve(log1(x,Linf=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
-#'
-#' # Fit second Campana-Jones parameterization
-#' fit2 <- nls(len~log2(age,Linf,gninf,a),data=df,
-#'             start=list(Linf=450,gninf=0.45,a=7))
-#' summary(fit2,correlation=TRUE)
-#' curve(log2(x,Linf=coef(fit2)),from=0,to=15,col="blue",lwd=5,add=TRUE)
-#'
-#' # Fit Karkach parameterization (using simple=TRUE model)
-#' log3 <- logisticFuns("Karkach",simple=TRUE)
-#' fit3 <- nls(len~log3(age,Linf,L0,gninf),data=df,
-#'             start=list(Linf=450,L0=30,gninf=0.45))
-#' summary(fit3,correlation=TRUE)
-#' curve(log3(x,Linf=coef(fit3)[1],L0=coef(fit3)[2],gninf=coef(fit3)[3]),
-#'       from=0,to=15,col="green",lwd=2,add=TRUE)
-#'
-#'
-#' #############################################################################
-#' ## Create expressions of the models
-#' #############################################################################
-#' # Typical von Bertalanffy ... Show as a stand-alone plot
-#' growthFunShow("vonBertalanffy","Typical",plot=TRUE)
-#' # Get and save the expression
-#' ( tmp <- growthFunShow("vonBertalanffy","Typical") )
-#' # Use expression as title on a plot
-#' lens <- vb1(ages,Linf=20,K=0.3,t0=-0.2)
-#' plot(lens~ages,type="b",pch=19,main=tmp)
-#' # Put expression in the main plot
-#' text(10,5,tmp)
-#' # Put multiple expressions on a plot
-#' op <- par(mar=c(0.1,0.1,0.1,0.1))
-#' plot(0,type="n",xlab="",ylab="",xlim=c(0,1),ylim=c(0,3),xaxt="n",yaxt="n")
-#' text(0,2.5,"Original:",pos=4)
-#' text(0.5,2.5,growthFunShow("vonBertalanffy","Original"))
-#' text(0,1.5,"Typical:",pos=4)
-#' text(0.5,1.5,growthFunShow("vonBertalanffy","Typical"))
-#' text(0,0.5,"Francis:",pos=4)
-#' text(0.5,0.5,growthFunShow("vonBertalanffy","Francis"))
-#' par(op)
 NULL
 
 #' @rdname growthModels
@@ -477,6 +369,9 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
     S2 <- u*sin(2*pi*(t2-w))/(2*pi)
     ((L2*g1-L1*g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^((t2-t1)+S2-S1))
   }
+
+  ## make note of deprecation
+  .Deprecated("makeGrowthFun",msg="'vbFuns()' is deprecated as of v0.10.0. Please use 'makeGrowthFun()' instead as it will be continuously updated in the future.")
   
   param <- match.arg(param)
   if (msg) {
@@ -701,23 +596,23 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
   SRicker1 <- function(t,Linf,gi,ti) {
     Linf*exp(-exp(-gi*(t-ti)))
   }
-  QD1 <- QuinnDeriso1 <- Ricker2 <- function(t,L0,a=NULL,gi=NULL) {
-    if (length(L0)==3) { a <- L0[[2]]
+  QD1 <- QuinnDeriso1 <- Ricker2 <- function(t,L0,b=NULL,gi=NULL) {
+    if (length(L0)==3) { b <- L0[[2]]
     gi <- L0[[3]]
     L0 <- L0[[1]] }
-    L0*exp(a*(1-exp(-gi*t)))
+    L0*exp(b*(1-exp(-gi*t)))
   }
-  SQD1 <- SQuinnDeriso1 <- SRicker2 <- function(t,L0,a,gi) {
-    L0*exp(a*(1-exp(-gi*t)))
+  SQD1 <- SQuinnDeriso1 <- SRicker2 <- function(t,L0,b,gi) {
+    L0*exp(b*(1-exp(-gi*t)))
   }
-  QD2 <- QuinnDeriso2 <- Ricker3 <-  function(t,Linf,a=NULL,gi=NULL) {
-    if (length(Linf)==3) { a <- Linf[[2]]
+  QD2 <- QuinnDeriso2 <- Ricker3 <-  function(t,Linf,c=NULL,gi=NULL) {
+    if (length(Linf)==3) { c <- Linf[[2]]
     gi <- Linf[[3]]
     Linf <- Linf[[1]] }
-    Linf*exp(-a*exp(-gi*t))
+    Linf*exp(-c*exp(-gi*t))
   }
-  SQD2 <- SQuinnDeriso2 <- SRicker3 <- function(t,Linf,a,gi) {
-    Linf*exp(-a*exp(-gi*t))
+  SQD2 <- SQuinnDeriso2 <- SRicker3 <- function(t,Linf,c,gi) {
+    Linf*exp(-c*exp(-gi*t))
   }
   QD3 <- QuinnDeriso3 <- function(t,Linf,gi=NULL,t0=NULL) {
     if (length(Linf)==3) { gi <- Linf[[2]]
@@ -744,7 +639,11 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
   STroynikov2 <- function(Lm,dt,Linf,gi) {
     Linf*((Lm/Linf)^exp(-gi*dt))
   }
+  
   ## Main function
+  ## make note of deprecation
+  .Deprecated("makeGrowthFun",msg="'GompertzFuns()' is deprecated as of v0.10.0. Please use 'makeGrowthFun()' instead as it will be continuously updated in the future.")
+  
   param <- match.arg(param)
   comcat <- "parameterization of the Gompertz function.\n\n"
   if (msg) {
@@ -754,7 +653,7 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
                      "  E[L|t] = Linf*exp(-exp(a-gi*t))\n\n",
                      "where Linf = asymptotic mean length\n",
                      "      gi = decrease in growth rate at the inflection point\n",
-                     "      a = an undefined parameter\n\n")
+                     "      a = a nuisance parameter with no interpretation\n\n")
            },
            Ricker1= {
              message("You have chosen the 'Ricker1' ",comcat,
@@ -765,17 +664,17 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
            },
            Ricker2=,QD1=,QuinnDeriso1= {
              message("You have chosen the 'Ricker2'/'QuinnDeriso1' ",comcat,
-                     "  E[L|t] = L0*exp(a*(1-exp(-gi*t)))\n\n",
+                     "  E[L|t] = L0*exp(b*(1-exp(-gi*t)))\n\n",
                      "  where L0 = the mean length at age-0 (i.e., hatching or birth)\n",
                      "        gi = instantaneous growth rate at the inflection point\n",
-                     "         a = dimenstionless parameter related to growth\n\n")
+                     "         b = a nuisance parameter with no interpretation\n\n")
            },
            Ricker3=,QD2=,QuinnDeriso2= {
              message("You have chosen the 'Ricker3'/'QuinnDeriso2' ",comcat,
-                     "  E[L|t] = Linf*exp(-(a/gi)*exp(-gi*t))\n\n",
+                     "  E[L|t] = Linf*exp(-(c/gi)*exp(-gi*t))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "          gi = instantaneous growth rate at the inflection point\n",
-                     "           a = dimenstionless parameter related to growth\n\n")
+                     "           c = a nuisance parameter with no interpretation\n\n")
            },
            QD3=,QuinnDeriso3= {
              message("You have chosen the 'QuinnDeriso3' ",comcat,
@@ -814,122 +713,106 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
 #' @rdname growthModels
 #' @export
 RichardsFuns <- function(param=1,simple=FALSE,msg=FALSE) {
-  Richards1 <- function(t,Linf,k=NULL,a=NULL,b=NULL) {
-    if (length(Linf)==4) { k <- Linf[[2]]
-    a <- Linf[[3]]
-    b <- Linf[[4]]
-    Linf <- Linf[[1]] }
-    Linf*(1-a*exp(-k*t))^b
-  }
-  SRichards1 <- function(t,Linf,k,a,b) {
-    Linf*(1-a*exp(-k*t))^b
-  }
-  Richards2 <- function(t,Linf,k=NULL,ti=NULL,b=NULL) {
+  Richards1 <- function(t,Linf,k=NULL,ti=NULL,b1=NULL) { #eqn 5 from Tjorve & Tjorve (2010)
     if (length(Linf)==4) { k <- Linf[[2]]
     ti <- Linf[[3]]
-    b <- Linf[[4]]
+    b1 <- Linf[[4]]
     Linf <- Linf[[1]] }
-    Linf*(1-(1/b)*exp(-k*(t-ti)))^b
+    Linf/((1+b1*exp(-k*(t-ti)))^(1/b1))
   }
-  SRichards2 <- function(t,Linf,k,ti,b) {
-    Linf*(1-(1/b)*exp(-k*(t-ti)))^b
+  SRichards1 <- function(t,Linf,k,ti,b1) {
+    Linf/((1+b1*exp(-k*(t-ti)))^(1/b1))
   }
-  Richards3 <- function(t,Linf,k=NULL,ti=NULL,b=NULL) {
+  Richards2 <- function(t,Linf,k=NULL,t0=NULL,b2=NULL) { #eqn 3(alt) from Tjorve & Tjorve (2010)
     if (length(Linf)==4) { k <- Linf[[2]]
-    ti <- Linf[[3]]
-    b <- Linf[[4]]
+    t0 <- Linf[[3]]
+    b2 <- Linf[[4]]
     Linf <- Linf[[1]] }
-    Linf/((1+b*exp(-k*(t-ti)))^(1/b))
+    Linf/((1+exp(-k*(t-t0)))^(-b2))
   }
-  SRichards3 <- function(t,Linf,k,ti,b) {
-    Linf/((1+b*exp(-k*(t-ti)))^(1/b))
+  SRichards2 <- function(t,Linf,k,t0,b2) {
+    Linf/((1+exp(-k*(t-t0)))^(-b2))
   }
-  Richards4 <- function(t,Linf,k=NULL,ti=NULL,b=NULL) {
-    if (length(Linf)==4) { k <- Linf[[2]]
-    ti <- Linf[[3]]
-    b <- Linf[[4]]
-    Linf <- Linf[[1]] }
-    Linf*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))
-  }
-  SRichards4 <- function(t,Linf,k,ti,b) {
-    Linf*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))
-  }
-  Richards5 <- function(t,Linf,k=NULL,L0=NULL,b=NULL) {
+  Richards3 <- function(t,Linf,k=NULL,L0=NULL,b3=NULL) { #eqn 7 from Tjorve & Tjorve (2010)
     if (length(Linf)==4) { k <- Linf[[2]]
     L0 <- Linf[[3]]
-    b <- Linf[[4]]
+    b3 <- Linf[[4]]
     Linf <- Linf[[1]] }
-    Linf*(1+(((L0/Linf)^(1-b))-1)*exp(-k*t))^(1/(1-b))
+    Linf*(1+(((L0/Linf)^(1-b3))-1)*exp(-k*t))^(1/(1-b3))
   }
-  SRichards5 <- function(t,Linf,k,L0,b) {
-    Linf*(1+(((L0/Linf)^(1-b))-1)*exp(-k*t))^(1/(1-b))
+  SRichards3 <- function(t,Linf,k,L0,b3) {
+    Linf*(1+(((L0/Linf)^(1-b3))-1)*exp(-k*t))^(1/(1-b3))
   }
-  Richards6 <- function(t,Linf,k=NULL,ti=NULL,Lninf=NULL,b=NULL) {
-    if (length(Linf)==5) { k <- Linf[[2]]
+  Richards4 <- function(t,Linf,k=NULL,ti=NULL,b2=NULL) { #eqn 4 from Tjorve & Tjorve (2010)
+    if (length(Linf)==4) { k <- Linf[[2]]
     ti <- Linf[[3]]
-    Lninf <- Linf[[3]]
-    b <- Linf[[4]]
+    b2 <- Linf[[4]]
     Linf <- Linf[[1]] }
-    Lninf+(Linf-Lninf)*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))
+    Linf*(1-(1/b2)*exp(-k*(t-ti)))^b2
   }
-  SRichards6 <- function(t,Linf,k,ti,Lninf,b) {
-    Lninf+(Linf-Lninf)*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))
+  SRichards4 <- function(t,Linf,k,ti,b2) {
+    Linf*(1-(1/b2)*exp(-k*(t-ti)))^b2
   }
+  Richards5 <- function(t,Linf,k=NULL,ti=NULL,b3=NULL) { #eqn 6 from Tjorve & Tjorve (2010)
+    if (length(Linf)==4) { k <- Linf[[2]]
+    ti <- Linf[[3]]
+    b3 <- Linf[[4]]
+    Linf <- Linf[[1]] }
+    Linf*(1+(b3-1)*exp(-k*(t-ti)))^(1/(1-b3))
+  }
+  SRichards5 <- function(t,Linf,k,ti,b3) {
+    Linf*(1+(b3-1)*exp(-k*(t-ti)))^(1/(1-b3))
+  }
+
   ## Main function
-  if (!param %in% 1:6) STOP("'param' must be in 1:6.")
+  ## make note of deprecation
+  .Deprecated("makeGrowthFun",msg="'RichardsFuns()' is deprecated as of v0.10.0. Please use 'makeGrowthFun()' instead as it will be continuously updated in the future.")
+  
+  if (!param %in% 1:5) STOP("'param' must be in 1:5.")
   param <- paste0("Richards",param)
   if (msg) {
     switch(param,
            Richards1= {
              message("You have chosen the '",param,"' parameterization.",
-                     "  E[L|t] = Linf*(1-a*exp(-k*t))^b\n\n",
+                     "  Linf/((1+b1*exp(-k*(t-ti)))^(1/b1))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "           k = controls the slope at the inflection point\n",
-                     "           a = a dimensionless parameter that controls the x- value of the inflection point\n",
-                     "           b = a dimensionless parameter that controls the y- value of the inflection point\n\n")
+                     "          ti = time/age at the inflection point\n",
+                     "          b1 = dimensionless, controls the y- value of the inflection point\n\n")
            },
            Richards2= {
              message("You have chosen the '",param,"' parameterization.",
-                     "  Linf*(1-(1/b)*exp(-k*(t-ti)))^b\n\n",
+                     "  Linf/((1-*exp(-k*(t-t0)))^(-b2))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "           k = controls the slope at the inflection point\n",
-                     "          ti = time/age at the inflection point\n",
-                     "           b = a dimensionless parameter that controls the y- value of the inflection point\n\n")
+                     "          t0 = hypothetical time/age when mean length is 0\n",
+                     "          b2 = dimensionless, controls the y- value of the inflection point\n\n")
            },
            Richards3= {
              message("You have chosen the '",param,"' parameterization.",
-                     "  Linf/((1+b*exp(-k*(t-ti)))^(1/b))\n\n",
-                     "  where Linf = asymptotic mean length\n",
-                     "           k = controls the slope at the inflection point\n",
-                     "          ti = time/age at the inflection point\n",
-                     "           b = a dimensionless parameter that controls the y- value of the inflection point\n\n")
-           },
-           Richards4= {
-             message("You have chosen the '",param,"' parameterization.",
-                     "  Linf*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))\n\n",
-                     "  where Linf = asymptotic mean length\n",
-                     "           k = controls the slope at the inflection point\n",
-                     "          ti = time/age at the inflection point\n",
-                     "           b = a dimensionless parameter that controls the y- value of the inflection point\n\n")
-           },
-           Richards5= {
-             message("You have chosen the '",param,"' parameterization.",
-                     "  Linf*(1+(((L0/Linf)^(1-b))-1)*exp(-k*t))^(1/(1-b))\n\n",
+                     "  Linf*(1+(((L0/Linf)^(1-b3))-1)*exp(-k*t))^(1/(1-b3))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "           k = controls the slope at the inflection point\n",
                      "          L0 = mean length at t=0\n",
-                     "           b = a dimensionless parameter that controls the y- value of the inflection point\n\n")
+                     "          b3 = dimensionless, controls the y- value of the inflection point\n\n")
            },
-           Richards6= {
+           Richards4= {
              message("You have chosen the '",param,"' parameterization.",
-                     "  Lninf+(Linf-Lninf)*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))\n\n",
-                     "  where Linf = upper asymptotic mean length\n",
+                     "  Linf*(1-(1/b2)*exp(-k*(t-ti)))^b2\n\n",
+                     "  where Linf = asymptotic mean length\n",
                      "           k = controls the slope at the inflection point\n",
-                     "       Lninf = lower asymptotic mean length\n",
                      "          ti = time/age at the inflection point\n",
-                     "           b = a dimensionless parameter that controls the y- value of the inflection point\n\n")
+                     "          b2 = dimensionless, controls the y- value of the inflection point\n\n")
+           },
+           Richards5= {
+             message("You have chosen the '",param,"' parameterization.",
+                     "  Linf*(1+(b3-1)*exp(-k*(t-ti)))^(1/(1-b3))\n\n",
+                     "  where Linf = asymptotic mean length\n",
+                     "           k = controls the slope at the inflection point\n",
+                     "          ti = time/age at the inflection point\n",
+                     "          b3 = dimensionless, controls the y- value of the inflection point\n\n")
            }
-    )
+           )
   }
   if (simple) param <- paste0("S",param)
   get(param)
@@ -977,7 +860,11 @@ logisticFuns <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1",
   SHaddon <- function(Lm,dLmax,L50,L95) {
     dLmax/(1+exp(log(19)*((Lm-L50)/(L95-L50))))
   }
+  
   ## Main function
+  ## make note of deprecation
+  .Deprecated("makeGrowthFun",msg="'logisticFuns()' is deprecated as of v0.10.0. Please use 'makeGrowthFun()' instead as it will be continuously updated in the future.")
+  
   param <- match.arg(param)
   comcat <- "parameterization of the logistic growth function.\n\n"
   if (msg) {
@@ -1018,146 +905,23 @@ logisticFuns <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1",
   get(param)
 }
 
-
-#' @title The four-parameter growth function from Schnute (1981).
-#'
-#' @description The four-parameter growth function from Schnute (1981).
-#'
-#' @param t A numeric vector of ages over which to model growth.
-#' @param case A string that indicates the case of the Schnute growth function to use.
-#' @param t1 The (young) age that corresponds to \code{L1}. Set to minimum value in \code{t} by default.
-#' @param t3 The (old) age that corresponds to \code{L3}. Set to maximum value in \code{t} by default.
-#' @param L1 The mean size/length at \code{t1}.
-#' @param L3 The mean size/length at \code{t3}.
-#' @param a  A dimensionless parameter that is related to the time/age at the inflection point.
-#' @param b A dimensionless parameter that is related to size/length at the inflection point.
-#' 
-#' @return \code{Schnute} returns a predicted size given the case of the function and the provided parameter values.
-#' 
-#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
-#'
-#' @section IFAR Chapter: None specifically, but 12-Individual Growth is related.
-#'
-#' @seealso See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{RichardsFuns}}, \code{\link{logisticFuns}}, and \code{\link{SchnuteRichards}} for similar functionality for other models.
-#'
-#' @references Schnute, J. 1981. A versatile growth model with statistical stable parameters. Canadian Journal of Fisheries and Aquatic Sciences 38:1128-1140.
-#' 
-#' @keywords manip
-#'
-#' @examples
-#' ## See the formulae
-#' growthFunShow("Schnute",1,plot=TRUE)
-#' growthFunShow("Schnute",2,plot=TRUE)
-#' growthFunShow("Schnute",3,plot=TRUE)
-#' growthFunShow("Schnute",4,plot=TRUE)
-#' 
-#' ## Simple examples
-#' ages <- 1:15
-#' s1 <- Schnute(ages,case=1,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
-#' s2 <- Schnute(ages,case=2,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
-#' s3 <- Schnute(ages,case=3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
-#' s4 <- Schnute(ages,case=4,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
-#'
-#' plot(s1~ages,type="l",lwd=2)
-#' lines(s2~ages,lwd=2,col="red")
-#' lines(s3~ages,lwd=2,col="blue")
-#' lines(s4~ages,lwd=2,col="green")
-#' 
-#' @rdname Schnute
-#' @export
-Schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
-  ## check case
-  case <- as.character(case)
-  if (!case %in% c("1","2","3","4")) STOP("'case' must be 1, 2, 3, or 4.")
-  ## needed to get around global binding issue
-  b <- b
-  ## check t1 and t3
-  if (length(t)==1) {
-    if (is.null(t1)) STOP("Must provide a 't1' if 't' is only one value.")
-    if (is.null(t3)) STOP("Must provide a 't3' if 't' is only one value.")
-  } else {
-    if (is.null(t1)) t1 <- min(t,na.rm=TRUE)
-    if (is.null(t3)) t3 <- max(t,na.rm=TRUE)
-  }
-  if (t1==t3) STOP("'t1' cannot equal 't3'.")
-  if (t1>t3) {
-    WARN("'t1' was greater than 't3'; values reversed.")
-    tmp <- t3
-    t3 <- t1
-    t1 <- tmp
-  }
-  ## check L1 and L3
-  if (L1>L3) stop ("'L1' cannot be greater than 'L3'")
-  ## Compute values based on case
-  switch(case,
-         "1"={ val <- ((L1^b)+((L3^b)-(L1^b))*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))^(1/b) },
-         "2"={ val <- L1*exp(log(L3/L1)*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1))))) },
-         "3"={ val <- ((L1^b)+((L3^b)-(L1^b))*((t-t1)/(t3-t1)))^(1/b) },
-         "4"={ val <- L1*exp(log(L3/L1)*((t-t1)/(t3-t1))) }
-  )
-  val
-}
-
-
-#' @title The five-parameter growth function from Schnute and Richards (1990).
-#'
-#' @description The five-parameter growth function from Schnute and Richards (1990). Note that this function is slightly modified (a \sQuote{+} was changed to a \sQuote{-} so that the \sQuote{a} parameter will be positive) from the original in Schnute and Richards (1990)
-#'
-#' @param t A numeric vector of ages over which to model growth.
-#' @param Linf Mean asymptotic length.
-#' @param k The "growth coefficient" with units of (year^(-c)).
-#' @param a A dimensionless parameter
-#' @param b A dimensionless parameter.
-#' @param c A dimensionless parameter.
-#' 
-#' @return \code{SchnuteRichards} returns a predicted size given the provided parameter values.
-#' 
-#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
-#'
-#' @section IFAR Chapter: None specifically, but 12-Individual Growth is related.
-#'
-#' @seealso See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{RichardsFuns}}, \code{\link{logisticFuns}}, and \code{\link{Schnute}} for similar functionality for other models.
-#'
-#' @references Schnute, J.T. and L.J. Richards. 1990. A unified approach to the analysis of fish growth, maturity, and survivorship data. Canadian Journal of Fisheries and Aquatic Sciences. 47:24-40.
-#' 
-#' @keywords manip
-#'
-#' @examples
-#' ## See the formulae
-#' growthFunShow("SchnuteRichards",plot=TRUE)
-#' 
-#' ## Simple examples
-#' ages <- 1:15
-#' s1 <- SchnuteRichards(ages,Linf=100,k=0.03,a=0.01,b=0.005,c=2)
-#' plot(s1~ages,type="l",lwd=2)
-#' 
-#' @rdname SchnuteRichards
-#' @export
-SchnuteRichards <- function(t,Linf=NULL,k=NULL,a=NULL,b=NULL,c=NULL) {
-  if (length(Linf)==5) {
-    k <- Linf[[2]]
-    a <- Linf[[3]]
-    b <- Linf[[4]]
-    c <- Linf[[5]]
-    Linf <- Linf[[1]]
-  }
-  Linf*(1-a*exp(-k*t^c))^(1/b)
-}
-
-
 #' @rdname growthModels
 #' @export
 growthFunShow <- function(type=c("vonBertalanffy","Gompertz","Richards",
                                  "Logistic","Schnute","SchnuteRichards"),
                           param=NULL,case=param,plot=FALSE,...) {
+
+  ## make note of deprecation
+  .Deprecated("showGrowthFun",msg="'growthFunShow()' is deprecated as of v0.10.0. All of the growth model functions were updated such that 'growthFunShow()' is now out-of-date. Updates (current and future) are represented in the new 'showGrowthFun()'.")
+  
   type <- match.arg(type)
   switch(type,
-         vonBertalanffy = { expr <- iSGF_VB(param) },
-         Gompertz = { expr <- iSGF_GOMP(param) },
-         Richards = { expr <- iSGF_RICHARDS(param) },
-         Logistic = { expr <- iSGF_LOGISTIC(param) },
-         Schnute = { expr <- iSGF_SCHNUTE(case) },
-         SchnuteRichards = { expr <- iSGF_SCHNUTERICHARDS()})
+         vonBertalanffy = { expr <- iSGF_VB_OLD(param) },
+         Gompertz = { expr <- iSGF_GOMP_OLD(param) },
+         Richards = { expr <- iSGF_RICHARDS_OLD(param) },
+         Logistic = { expr <- iSGF_LOGISTIC_OLD(param) },
+         Schnute = { expr <- iSGF_SCHNUTE_OLD(case) },
+         SchnuteRichards = { expr <- iSGF_SCHNUTERICHARDS_OLD()})
   if (plot) {
     withr::local_par(list(mar=c(0.1,0.1,0.1,0.1)))
     graphics::plot(0,type="n",ylim=c(0,1),xlim=c(0,1),xaxt="n",yaxt="n",
@@ -1170,7 +934,7 @@ growthFunShow <- function(type=c("vonBertalanffy","Gompertz","Richards",
 ################################################################################
 ## Internal functions for growth model expressions
 ################################################################################
-iSGF_VB <- function(param=c("Original","original","vonBertalanffy",
+iSGF_VB_OLD <- function(param=c("Original","original","vonBertalanffy",
                             "Typical","typical","Traditional","traditional","BevertonHolt",
                             "GallucciQuinn","GQ","Mooij","Weisberg","Ogle",
                             "Schnute","Francis","Laslett","Polacheck",
@@ -1240,7 +1004,7 @@ iSGF_VB <- function(param=c("Original","original","vonBertalanffy",
   expr
 }
 
-iSGF_GOMP <- function(param=c("Original","original","Ricker1","Ricker2","Ricker3",
+iSGF_GOMP_OLD <- function(param=c("Original","original","Ricker1","Ricker2","Ricker3",
                               "QuinnDeriso1","QuinnDeriso2","QuinnDeriso3","QD1","QD2","QD3",
                               "Troynikov1","Troynikov2")) {
   if(!is.character(param)) STOP("'param' must be a character string.")
@@ -1259,7 +1023,7 @@ iSGF_GOMP <- function(param=c("Original","original","Ricker1","Ricker2","Ricker3
            expr <- expression(E(L[t])==L[infinity]*~e^{-a*~e^{-g[i]*t}})
          },
          QuinnDeriso3=,QD3= {
-           expr <- expression(E(L[t])==L[infinity]*~e^{-~frac(1,g[i])*~e^{-g[i]*~(~t~-~t^{plain("*")})}})
+           expr <- expression(E(L[t])==L[infinity]*~e^{-~frac(1,g[i])*~e^{-g[i]*~(~t~-~t[0])}})
          },
          Troynikov1= {
            expr <- expression(E(L[r]-L[m])==L[infinity]*~bgroup("(",frac(L[m],L[infinity]),")")^{e^{-g[i]*Delta*t}}-L[m])
@@ -1270,7 +1034,7 @@ iSGF_GOMP <- function(param=c("Original","original","Ricker1","Ricker2","Ricker3
   expr
 }
 
-iSGF_RICHARDS <- function(param=1:6) {
+iSGF_RICHARDS_OLD <- function(param=1:6) {
   if (!is.numeric(param)) STOP("'param' must be numeric when type='Richards'.")
   if (!param %in% 1:6) STOP("'param' must be from 1-6 when type='Richards'.")
   if(param==1){
@@ -1289,7 +1053,7 @@ iSGF_RICHARDS <- function(param=1:6) {
   expr
 }
 
-iSGF_LOGISTIC <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","CampanaJones2")) {
+iSGF_LOGISTIC_OLD <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","CampanaJones2")) {
   if(!is.character(param)) STOP("'param' must be a character string.")
   param <- match.arg(param)
   switch(param,
@@ -1308,7 +1072,7 @@ iSGF_LOGISTIC <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1"
   expr
 }
 
-iSGF_SCHNUTE <- function(case=1:4) {
+iSGF_SCHNUTE_OLD <- function(case=1:4) {
   if (!is.numeric(case)) STOP("'case' must be numeric when type='Schnute'.")
   if (!case %in% 1:4) STOP("'case' must be from 1-4 when type='Schnute'.")
   if(case==1){
@@ -1323,7 +1087,7 @@ iSGF_SCHNUTE <- function(case=1:4) {
   expr
 }
 
-iSGF_SCHNUTERICHARDS <- function() {
+iSGF_SCHNUTERICHARDS_OLD <- function() {
   expression(E(L[t])==L[infinity]*~bgroup("(",1-a*e^{-kt^{c}},")")^{frac(1,b)})
 }
 

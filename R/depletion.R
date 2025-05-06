@@ -317,7 +317,7 @@ confint.depletion <- function(object,parm=c("all","both","No","q","lm"),
                      "K","K_LCI","K_UCI")
     ## remove estimates if not asked for
     if (!incl.est) {
-      resm <- resm[,-which(colnames(resm)=="Est"),drop=FALSE]
+      resm <- resm[,colnames(resm)!="Est",drop=FALSE]
       resd <- resd[!names(resd) %in% c("(Intercept)","K")]
     }
     ## Return the appropriate matrix or data.frame
@@ -336,7 +336,7 @@ confint.depletion <- function(object,parm=c("all","both","No","q","lm"),
     names(resd) <- c("No","No_LCI","No_UCI","q","q_LCI","q_UCI")
     ## remove estimates if not asked for
     if (!incl.est) {
-      resm <- resm[,-which(colnames(resm)=="Est"),drop=FALSE]
+      resm <- resm[,colnames(resm)!="Est",drop=FALSE]
       resd <- resd[!names(resd) %in% c("No","q")]
     }
     ## remove unasked for parameters

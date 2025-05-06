@@ -139,7 +139,7 @@ mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),
   if (k<=2) STOP("The Jolly-Seber method requires more than 2 samples.\n")
   # Transpose method B bottom portion, delete u column, make a data.frame
   df <- data.frame(t(mb.bot))
-  df <- df[,-which(names(df)=="u")]
+  df <- df[,names(df)!="u"]
   # Append r info
   df$r <- iCalcr(mb.top)
   # Append z info
@@ -180,14 +180,14 @@ summary.mrOpen <- function(object,parm=c("N","phi","B","M"),verbose=FALSE,...) {
   }
   ## Prepare the appropriate object
   # remove the observables and CI columns
-  tmp <- object$df[,-which(names(object$df) %in% c("m","n","R","r","z"))]
+  tmp <- object$df[,!names(object$df) %in% c("m","n","R","r","z")]
   tmp <- tmp[,!grepl("lci",names(tmp))]
   tmp <- tmp[,!grepl("uci",names(tmp))]
   # include the appropriate SE columns if Jolly was used
   # interleave the SE values so they appear next to the point estimate
   if (object$type=="Jolly") parm <- as.vector(rbind(parm,paste0(parm,".se")))
   # get and return the object with column names in parm
-  tmp[,which(names(tmp) %in% parm),drop=FALSE]
+  tmp[,names(tmp) %in% parm,drop=FALSE]
 }
 
 #' @rdname mrOpen
@@ -202,7 +202,7 @@ confint.mrOpen <- function(object,parm=c("N","phi","B"),level=NULL,
   parm <- match.arg(parm,several.ok=TRUE)
   if (object$type=="Manly" & ("B" %in% parm)) {
     message("Manly did not provide a method for constructing confidence intervals for B.")
-    parm <- parm[-which(parm=="B")]
+    parm <- parm[parm!="B"]
   }
   ## Tell the method used if asked to be verbose
   if (verbose) message("The ",object$type,
@@ -210,7 +210,7 @@ confint.mrOpen <- function(object,parm=c("N","phi","B"),level=NULL,
   ## change parm to include .lci and .uci
   parm <- as.vector(rbind(paste0(parm,".lci"),paste0(parm,".uci")))
   ## get and return results to print and return
-  object$df[,which(names(object$df) %in% parm)]
+  object$df[,names(object$df) %in% parm]
 }
 
 ################################################################################
@@ -287,7 +287,8 @@ iEstN <- function(df,type,conf.level) {
   df$N <- (df$n+1)*df$M/(df$m+1)
   # make a correction if more fish were sampled then the PE
   if (any(df$N<df$n,na.rm=TRUE)) {
-    WARN("At least one population estimate is less than the sample size at time t.\n  Population estimates were set equal to sample size for those times.\n")
+    WARN("At least one population estimate is less than the sample size at time t. ",
+         "Population estimates were set equal to sample size for those times.\n")
     df$N[which(df$N<df$n)] <- df$n[which(df$N<df$n)]
   }
   switch(type,

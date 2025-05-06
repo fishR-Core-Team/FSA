@@ -9,11 +9,14 @@
 #' @format A data frame of 58 observations on the following 11 variables:
 #'  \describe{
 #'    \item{species}{Species name.}
+#'    \item{group}{Sub-group name (e.g., \code{"landlocked"} or \code{"lotic"}).}
+#'    \item{substock.in}{Zero inches.}
 #'    \item{stock.in}{Stock length in inches.}
 #'    \item{quality.in}{Quality length in inches.}
 #'    \item{preferred.in}{Preferred length in inches.}
 #'    \item{memorable.in}{Memorable length in inches.}
 #'    \item{trophy.in}{Trophy length in inches.}
+#'    \item{substock.cm}{Zero cm.}
 #'    \item{stock.cm}{Stock length in cm.}
 #'    \item{quality.cm}{Quality length in cm.}
 #'    \item{preferred.cm}{Preferred length in cm.}

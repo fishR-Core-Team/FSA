@@ -26,3 +26,6 @@ man/figures/logo.svg
 
 ^\.github$
 ^codecov\.yml$
+^vignettes/articles/\.quarto$
+^vignettes/articles/*_files$
+^vignettes/articles$

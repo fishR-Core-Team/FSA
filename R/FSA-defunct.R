@@ -80,3 +80,9 @@ residPlot <- function(...) {
 Subset <- function(...) {
   .Defunct(msg="'Subset' has been removed; use 'subset' or 'dplyr::filter' followed by 'droplevels' for the same functionality.")
 }
+
+#' @rdname FSA-defunct
+#' @export
+Schnute <- function(...) {
+  .Defunct(msg="'Schnute' has been removed; use 'Schnute <- makeGrowthFun(\"Schnute\")'.")
+}

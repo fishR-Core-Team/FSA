@@ -1,0 +1,289 @@
+---
+title: "Computing Proportional Size Distribution Metrics in FSA"
+author: "Derek H. Ogle"
+date: "`r Sys.Date()`"
+format: 
+  html: 
+    toc: true
+    toc-depth: 2
+    reference-location: margin
+    fig-cap-location: bottom
+    tbl-cap-location: top
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+# Introduction
+Summarizing the size structure of fish populations is a common practice for informing fisheries management decisions. One common method for summarizing size structures in North America is to compute the percentage of fish that have reached some minimum size that have also reached a more advanced size. These sizes have been standardized for a number of common North American game fishes and are generally called Gabelhouse lengths, after the author that first described them. The specific percentages are called *proportional size distribution* (PSD) metrics, and are described in detail in various resources, including [Ogle (2016)](https://derekogle.com/IFAR/). This article assumes you understand the basics of PSD calculations and will show how to make those calculations using functions in the `FSA` package.
+
+The following packages are used herein. Note that the `FSA` functions described here were modified after version 0.9.6 and are thus **specific to FSA >v0.9.6**.
+
+```{r}
+#| label: setup
+#| results: hide
+#| message: false
+library(FSA)
+library(dplyr)  # mutate, select, group_by, summarize
+```
+
+
+# Creating PSD-Related Length Categories
+## Gabelhouse Length Categories
+Five-cell Gabelhouse (GH) length categories have been deveoped for a number of freshwater game fish in the United States, as well as several non-game fish in the United States and some other fish from outside of the United States. These values have been collated into the `PSDlit` data.frame^[Specifics [here](https://fishr-core-team.github.io/FSA/reference/PSDlit.html).] distributed with `FSA` and are most easily accessed with `psdVal()`. For example, the GH length categories for Bluegill are retrieved below.
+
+```{r}
+psdVal("Bluegill")
+```
+
+The default is to return lengths in millimeters; however, they can be returned in centimeters or inches with `units=`
+
+```{r}
+psdVal("Bluegill",units="cm")
+psdVal("Bluegill",units="in")
+```
+
+By default, a sixth cell is included that is labeled as "substock" and will always have the value of 0. This can be useful for data that includes individuals shorter than the stock length. Use `incl.zero=FALSE` to exclude this category.
+
+```{r}
+psdVal("Bluegill",incl.zero=FALSE)
+```
+
+Use of `psdVal()` requires spelling (and capitalizing) the species name as it appears in `PSDlit`. One can see all species names available in `PSDlit` with `psdVal()` without any arguments.
+
+```{r}
+psdVal()
+```
+
+All parts of the species names in `PSDlit` are capitalized (e.g., "Brown Trout" and not "brown trout" or "Brown trout"). `psdVal()` will return an informative error message if your capitalization is not correct but the message will be less informative if your spelling is off.
+
+```{r}
+#| error: true
+psdVal("Brown trout")
+psdVal("Brwn Trout")
+```
+
+A small number of species have separate length designations for sub-groups of the species. One way to determine this is to simply try a species in `psdVal()` to see if you receive an informative error about the sub-groups.
+
+```{r}
+#| error: true
+psdVal("Brown Trout")
+```
+
+Then try again with `group=` as suggested to select a specific group.
+
+```{r}
+psdVal("Brown Trout",group="lotic")
+```
+
+## Additional Length Categories
+There may be times when you desire length categories in addition to the GH lengths. For example, suppose that the minimum length limit for Largemouth Bass is 254 mm. This length can be included as one of the categories by including a vector with the length (or lengths) to `addLens=`. If the item in the vector is named (second example below) then the value will also be named in the returned result.
+
+```{r}
+psdVal("Largemouth Bass",addLens=254)
+psdVal("Largemouth Bass",addLens=c("minLen"=254))
+```
+
+Multiple additional lengths can be included.
+
+```{r}
+psdVal("Largemouth Bass",addLens=c("minSlot"=254,"maxSlot"=356))
+```
+
+# Adding Length Category Variable for One Species
+## "Manual" Additions
+Suppose that we want to add another variable with the GH length categories to the data.frame of lengths (along with capture location) for Yellow Perch from Saginaw Bay, MI in `YPerchSB1` (distributed with the `FSAdata` package). Note here that lengths are in **centimeters**.
+
+```{r}
+data(YPerchSB1,package="FSAdata")
+peek(YPerchSB1,n=10)
+```
+
+First, save the GH length categories returned from `psdVal()` to an object (here called `ghYP`).
+
+```{r}
+( ghYP <- psdVal("Yellow Perch",units="cm") )
+```
+
+Then use `lencat()` with the length variable as the first argument and the GH length categories object in `breaks=`.^[This examples follows my preference of using `dplyr` functions. This could also be accomplished with `YPerchSB1$ghcats1 <- lencat(YPerchSB1$tl,breaks=ghYP)`.]
+
+```{r}
+YPerchSB1 <- YPerchSB1 |>
+  mutate(ghcats1=lencat(tl,breaks=ghYP))
+peek(YPerchSB1,n=10)
+```
+
+By default, `lencat()` creates a variable with the length values rather than the category names. Use `use.names=TRUE` to use category names instead.^[Added here as a second variable only for demonstration. Generally, you would use one format or the other.]
+
+```{r}
+YPerchSB1 <- YPerchSB1 |>
+  mutate(ghcats2=lencat(tl,breaks=ghYP,use.names=TRUE))
+peek(YPerchSB1,n=10)
+```
+
+A frequency table can then be used to find the number of individuals in each category.
+
+```{r}
+xtabs(~ghcats2,data=YPerchSB1)
+```
+
+The reverse cumulative sum of these values, with the substock fish removed, divided by the stock-length sum times 100 are the PSD-X values.
+
+```{r}
+( tmp <- rcumsum(xtabs(~ghcats2,data=YPerchSB1))[-1] )
+round(tmp/tmp["stock"]*100,1)
+```
+
+So, for example, `r round(tmp/tmp["stock"]*100,1)[["quality"]]`\% of fish that reach stock-size also reached quality-size (i.e., "PSD-Q").
+
+## Use the `psdAdd()` Convenience Function
+`psdAdd()` can be used to add a length categorization variable to a data.frame for **all** species in the data.frame for which the GH length categories exists. The main argument to `psdAdd()` is a formula of the form `length~species`, where `length` is the observed length variable and `species` is the name of the species variable. Again, the species must be spelled (and capitalized) as in `PSDlit`. In these data there is no variable that identified the species, likely because the data contains only one species. Thus, for this example, before `psdAdd()` can be used, a new variable with the species name must be added.
+
+```{r}
+YPerchSB1 <- YPerchSB1 |>
+  mutate(species="Yellow Perch",
+         ghcats3=psdAdd(tl~species,units="cm"))
+peek(YPerchSB1,n=10)
+```
+
+The PSD-X metrics can then be computed as before.
+
+```{r}
+( tmp <- rcumsum(xtabs(~ghcats3,data=YPerchSB1))[-1] )
+round(tmp/tmp["stock"]*100,1)
+```
+
+# Using `psdCalc()` to Compute All PSD-X and PSD-X-Y Values for One Species
+All of that (in the previous sections) is a bit tedious and, more importantly, does not compute confidence intervals for the values.^[See `psdCI()` for how to compute confidence intervals from the raw data.] `psdCalc()` provides a convenient interface for computing all of the PSD metrics, with confidence intervals, for a data.frame with one species. Before illustrating `psdCalc()`, I returned to the original `YPerchSB1` data.frame without the changes made in the previous sections.
+
+```{r}
+#| echo: false
+data(YPerchSB1,package="FSAdata")
+```
+```{r}
+peek(YPerchSB1,n=6)
+```
+```{r}
+#| echo: false
+#| results: hide
+ypres <- psdCalc(~tl,data=YPerchSB1,species="Yellow Perch",units="cm")
+```
+
+`psdCalc()` takes a formula of the form `~length` as the first argument with the appropriate data.frame in `data=`. As with `psdVal()`, `psdCalc()` requires the correctly spelled (and capitalized) species name in `species=` and units in `units=`.^[Again, `units=` defaults to `mm`.]
+
+```{r}
+psdCalc(~tl,data=YPerchSB1,species="Yellow Perch",units="cm")
+```
+
+By default, PSD metrics that are 0 are dropped from the results. They can be included by using `drop0Est=FALSE`.
+
+```{r}
+psdCalc(~tl,data=YPerchSB1,species="Yellow Perch",units="cm",drop0Est=FALSE)
+```
+
+The PSD-X (in contrast to PSD X-Y) values are referred to here as "traditional" PSD metrics as they show the percent of stock-sized fish that were also X-sized. For example, PSD-P is the percent of stock-sized fish that also reach preferred-size. In this example, `r ypres["PSD-P","Estimate"]`\% (95%CI: `r ypres["PSD-P","95% LCI"]`\%-`r ypres["PSD-P","95% UCI"]`\%) of stock-sized fish attained preferred size.
+
+Just the "traditional" metrics may be returned by including `what="traditional"`.
+
+```{r}
+psdCalc(~tl,data=YPerchSB1,species="Yellow Perch",units="cm",what="traditional")
+```
+
+The PSD X-Y values are referred to here as "incremental" PSD metrics as they show the percent of stock-sized fish that were between X- and Y-sized. For example, PSD Q-P is the percent of stock-sized fish that reached quality-size but had not reach preferred-size. In this example, `r ypres["PSD Q-P","Estimate"]`\% (95%CI: `r ypres["PSD Q-P","95% LCI"]`\%-`r ypres["PSD Q-P","95% UCI"]`\%) of stock-sized fish attained quality but not preferred size.
+
+Just the "incremental" metrics may be returned by including `what="incremental"`.
+
+```{r}
+psdCalc(~tl,data=YPerchSB1,species="Yellow Perch",units="cm",what="incremental")
+```
+
+Sometimes^[For example, when teaching.] it is useful to see the intermediate values (i.e., the numbers) that were used to calculate the PSD metrics. These values can be included in the results by including `showIntermediate=TRUE`. In each line below, the "Estimate" should be "num" divided by "stock" times 100 (and then rounded to a whole number).
+
+```{r}
+psdCalc(~tl,data=YPerchSB1,species="Yellow Perch",units="cm",
+        drop0Est=FALSE,showIntermediate=TRUE)
+```
+
+Additional lengths may be included in `psdCalc()` as described for `psdVal()`.
+
+```{r}
+psdCalc(~tl,data=YPerchSB1,species="Yellow Perch",units="cm",
+        addLens=c(17.5,27.5))
+psdCalc(~tl,data=YPerchSB1,species="Yellow Perch",units="cm",
+        addLens=c("minSlot"=17.5,"maxSlot"=27.5))
+```
+
+## Using `psdPlot()` to Visualize the PSD Metrics
+`psdPlot()` can be used to produce a histogram of lengths with different colors for substock- and stock-size fish, vertical lines depicting the GH length categories, and the "traditional" PSD metrics shown. The basic arguments to `psdPlot()` are the same as those to `psdCalc()`.
+
+```{r}
+#| fig-width: 5
+#| fig-height: 4.5
+psdPlot(~tl,data=YPerchSB1,species="Yellow Perch",units="cm")
+```
+
+There may be times where the length category lines don't fall on the breaks for the histogram bars. You may be able to ameliorate this issue by changing the width of the breaks with `w=` or where the breaks start with `startcat=`.^[While this was not an issue with these data, this code shows how to make narrower bar widths with `w=`.]
+
+```{r}
+#| fig-width: 5
+#| fig-height: 4.5
+psdPlot(~tl,data=YPerchSB1,species="Yellow Perch",units="cm",w=0.5)
+```
+
+This plot is meant to be illustrative and not of "publication-quality." However, some aspects of the plot can be modified to make some changes in appearance. See `?psdPlot` for documentation of these other arguments.
+
+# Adding a Length Category Variable for All Species
+The real value of `psdAdd()` is that it can be used to efficiently add length categories for multiple species in a single data.frame. For example, `InchLake2` distributed with `FSAdata` contains lengths for several species captured from Inch Lake. Note that lengths are in **inches** here.
+
+```{r}
+data("InchLake2",package="FSAdata")
+peek(InchLake2,n=10)
+```
+
+`psdAdd()` can be used as described previously (i.e., with a formula of the form `length~species` and `units=`) to add GH length categories for all species in the data.frame for which GH length categories exist in `PSDlit`. Note that a message will be issued identifying the species in the data.frame for which GH length categories do not exist. The new variable will be `NA` for these species.
+
+```{r}
+InchLake2 <- InchLake2 |>
+  mutate(ghcats1=psdAdd(length~species,units="in"))
+peek(InchLake2,n=10)
+```
+
+Summaries by species requires some work. First, remove all substock-sized individuals.
+
+```{r}
+Inch_mod <- InchLake2 |>
+  filter(ghcats1!="substock") |>
+  droplevels()
+```
+
+Incremental PSD metrics (i.e, PSD X-Y) are quickly computed with `xtabs()` and `prop.table()`.
+
+```{r}
+freq <- xtabs(~species+ghcats1,data=Inch_mod)
+iPSDs <- prop.table(freq,margin=1)*100
+round(iPSDs,1)
+```
+
+Traditional PSD metrics (i.e., PSD-X) can be found by `apply()`ing `rcumsum()`^[This finds reverse cumulative sums; i.e., sums from end-to-start, rather than start-to-end.] to each row (i.e., `MARGIN=1`) of the PSD X-Y values. The result from `apply()` will be oriented opposite of what is desired (i.e., species a columns rather than rows), so it should be `t()`ransposed.
+
+```{r}
+tPSDs <- t(apply(iPSDs,MARGIN=1,FUN=rcumsum))
+round(tPSDs,1)
+```
+
+Additional non-GH length categories can be used with `psdAdd()` through `addLens()` similar to what was described for `psdVal()` and `psdCalc()`. However, a named list must be given to `addLens()` that as named vectors for each species for what an additional length is added. An example for this is given in the documentation for `psdAdd()`.
+
+The use of `psdAdd()` is fairly efficient if interest is only in the point PSD-X or PSD X-Y values. If one needs confidence intervals for these values then it is probably best to use `psdCalc()` on separate data.frames for each species. This is demonstrated below for Yellow Perch and Bluegill from the Inch Lake data.
+
+```{r}
+InchYP <- InchLake2 |> filter(species=="Yellow Perch")
+psdCalc(~length,data=InchYP,species="Yellow Perch",units="in")
+```
+
+
+```{r}
+InchBG <- InchLake2 |> filter(species=="Bluegill")
+psdCalc(~length,data=InchBG,species="Bluegill",units="in")
+```
+

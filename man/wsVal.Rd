@@ -6,49 +6,97 @@
 \usage{
 wsVal(
   species = "List",
+  group = NULL,
   units = c("metric", "English"),
-  ref = 75,
+  ref = NULL,
+  method = NULL,
   simplify = FALSE
 )
 }
 \arguments{
-\item{species}{A string that contains the species name for which to find coefficients. See details.}
+\item{species}{A string that contains the species name for which to find Ws coefficients. See details.}
 
-\item{units}{A string that indicates whether the coefficients for the standard weight equation to be returned are in (\code{"metric"} (DEFAULT; mm and g) or \code{"English"} (in and lbs) units.}
+\item{group}{A string that contains the sub-group of \code{species} for which to find the Ws coefficients; e.g., things like \dQuote{lotic}, \dQuote{lentic}, \dQuote{female}, \dQuote{male}.}
+
+\item{units}{A string that indicates whether the coefficients for the standard weight equation to be returned are in \code{"metric"} (DEFAULT; mm and g) or \code{"English"} (in and lbs) units.}
 
 \item{ref}{A numeric that indicates which percentile the equation should be returned for. Note that the vast majority of equations only exist for the \code{75}th percentile (DEFAULT).}
+
+\item{method}{A string that indicates which equation-derivation method should be used (one of \code{"RLP"}, \code{"EmP"}, or \code{"Other"}). Defaults to \code{NULL} which will result in the only method available being returned or an error asking the user to choose a method for equations for which more than one method is available (which is the case for very few species).}
 
 \item{simplify}{A logical that indicates whether the \sQuote{units}, \sQuote{ref}, \sQuote{measure}, \sQuote{method}, \sQuote{comments}, and \sQuote{source} fields should be included (\code{=FALSE}) or not (\code{=TRUE}; DEFAULT). See details.}
 }
 \value{
-A one row data frame from \code{\link{WSlit}} that contains all known information about the standard weight equation for a given species, type of measurement units, and reference percentile if \code{simplify=FALSE}. If \code{simplify=TRUE} then only the species; minimum and maximum length for which the standard equation should be applied; and intercept, slope, and quadratic  coefficients for the standard weight equation. Note that the maximum length and the quadratic coefficient will not be returned if they do not exist in \code{\link{WSlit}}.
+A one row data frame from \code{\link{WSlit}} that contains all known information about the standard weight equation for a given species, type of measurement units, and reference percentile if \code{simplify=FALSE}. If \code{simplify=TRUE} then only the species; minimum and maximum length for which the standard equation should be applied; and intercept, slope, and quadratic  coefficients for the standard weight equation. Note that the maximum length and the quadratic coefficient will not be returned if they do not exist in \code{\link{WSlit}} for the species.
 
-If no arguments are given to this function, a species name is mis-spelled, or if a standard weight equation does not exist (in \code{\link{WSlit}}) for a particular species, then a warning will be issued and a list of species names will be printed.
+If no arguments are given to this function then a list of available species names in \code{\link{WSlit}} will be printed. If the species name is mis-spelled (or mis-capitalized), multiple standard weight equations exist for the species (such that \code{group}, \code{ref}, or \code{method} should be used), or if a standard weight equation does not exist for the species in \code{\link{WSlit}}, then an error will be issued.
 }
 \description{
-Returns a vector that contains all known or a subset of information about the standard weight equation for a given species, type of measurement units, and reference percentile.
+Returns a vector that contains information about the standard weight equation for a given species, including type of measurement units, reference percentile, method used to derive the equation, and literature source.
 }
 \details{
-This function extract all known information from \code{\link{WSlit}} about the following standard weight equation,
+This function extracts all known information from \code{\link{WSlit}} about the following standard weight equation,
 
 \deqn{log_{10}(Ws) = log_{10}(a) + blog_{10}(L) + blog_{10}(L)^{2}}
 
 See \code{\link{WSlit}} for more information about the meaning of each value returned.
 
-Note from above that the coefficients are returned for the TRANSFORMED model. Thus, to obtain the standard weight (Ws), the returned coefficients are used to compute the common log of Ws which must then bed raised to the power of 10 to compute the Ws.
+Note from above that the coefficients are returned for the TRANSFORMED model. Thus, to obtain the standard weight (Ws), the returned coefficients are used to compute the common log of Ws which must then be raised to the power of 10 to compute the Ws.
+
+See examples and \href{https://fishr-core-team.github.io/FSA/articles/Computing_Relative_Weights.html}{this article} for a demonstration.
 }
 \section{IFAR Chapter}{
  8-Condition.
 }
 
 \examples{
+#===== List all available Ws equations
 wsVal()
+
+#===== Find equations for Bluegill, in different formats
 wsVal("Bluegill")
 wsVal("Bluegill",units="metric")
 wsVal("Bluegill",units="English")
 wsVal("Bluegill",units="English",simplify=TRUE)
-wsVal("Ruffe",units="metric",simplify=TRUE)
+
+#===== Find equation for Cutthroat Trout, demonstrating use of group
+wsVal("Cutthroat Trout",group="lotic")
+wsVal("Cutthroat Trout",group="lentic")
+
+#===== Find equation for Ruffe, demonstrating quadratic formula
+wsVal("Ruffe",units="metric",ref=75,simplify=TRUE)
 wsVal("Ruffe",units="metric",ref=50,simplify=TRUE)
+
+#===== Add Ws & Wr values to a data frame (for one species) ... also see wrAdd()
+#----- Get Ws equation info
+wsBG <- wsVal("Bluegill",units="metric")
+wsBG
+
+#----- Get example data
+data(BluegillLM,package="FSAdata")
+str(BluegillLM)
+
+#----- Add Ws (eqn is on log10-log10 scale ... so log10 len, 10^ result)
+BluegillLM$ws <- 10^(wsBG[["int"]]+wsBG[["slope"]]*log10(BluegillLM$tl))
+
+#----- Change Ws for fish less than min.TL to NA
+BluegillLM$ws[BluegillLM$tl<wsBG[["min.TL"]]] <- NA
+
+#----- Add Wr
+BluegillLM$wr <- BluegillLM$wght/BluegillLM$ws*100
+
+#----- Examine results
+peek(BluegillLM,n=6)
+
+#----- Same as above but using dplyr
+data(BluegillLM,package="FSAdata")   # reset to original for this example
+if (require(dplyr)) {
+  BluegillLM <- BluegillLM \%>\%
+    mutate(ws=10^(wsBG[["int"]]+wsBG[["slope"]]*log10(tl)),
+           ws=ifelse(tl<wsBG[["min.TL"]],NA,ws),
+           wr=wght/ws*100)
+  peek(BluegillLM,n=6)
+}
 
 }
 \references{

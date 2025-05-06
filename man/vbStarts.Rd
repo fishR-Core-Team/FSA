@@ -13,7 +13,7 @@ vbStarts(
   type = param,
   fixed = NULL,
   meth0 = c("yngAge", "poly"),
-  methLinf = c("Walford", "oldAge", "longFish"),
+  methLinf = c("Walford", "oldAge", "longFish", "poly"),
   num4Linf = 1,
   ages2use = NULL,
   methEV = c("means", "poly"),
@@ -69,9 +69,11 @@ vbStarts(
 A list that contains reasonable starting values. Note that the parameters will be listed in the same order and with the same names as listed in \code{\link{vbFuns}}.
 }
 \description{
-Finds reasonable starting values for the parameters in a specific parameterization of the von Bertalanffy growth function.
+DEPRECATED (as of v0.10.0). Finds reasonable starting values for the parameters in a specific parameterization of the von Bertalanffy growth function.
 }
 \details{
+DEPRECATED ... use \code{\link{findGrowthStarts}} instead.
+
 This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth function. There is no guarantee that these starting values are the \sQuote{best} starting values. One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
 
 If \code{methLinf="Walford"}, then the Linf and K parameters are estimated via the concept of the Ford-Walford plot. If \code{methLinf="oldAge"} then Linf is estimated as the mean length of the \code{num4Linf} longest observed lengths.
@@ -92,31 +94,16 @@ The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \
 }
 
 \examples{
-## Simple examples of each parameterization
+## Simple examples of some parameterization
 vbStarts(tl~age,data=SpotVA1)
 vbStarts(tl~age,data=SpotVA1,type="Original")
-vbStarts(tl~age,data=SpotVA1,type="GQ")
-vbStarts(tl~age,data=SpotVA1,type="Mooij")
-vbStarts(tl~age,data=SpotVA1,type="Weisberg")
 vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5))
-vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5))
 vbStarts(tl~age,data=SpotVA1,type="Somers")
-vbStarts(tl~age,data=SpotVA1,type="Somers2")
-vbStarts(tl~age,data=SpotVA1,type="Pauly")
 vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(tr=0))
 vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(Lr=8))
 
 ## Using a different method to find Linf
 vbStarts(tl~age,data=SpotVA1,methLinf="oldAge")
-vbStarts(tl~age,data=SpotVA1,methLinf="oldAge",num4Linf=2)
-vbStarts(tl~age,data=SpotVA1,methLinf="longFish")
-vbStarts(tl~age,data=SpotVA1,methLinf="longFish",num4Linf=10)
-vbStarts(tl~age,data=SpotVA1,type="Original",methLinf="oldAge")
-vbStarts(tl~age,data=SpotVA1,type="Original",methLinf="oldAge",num4Linf=2)
-vbStarts(tl~age,data=SpotVA1,type="Original",methLinf="longFish")
-vbStarts(tl~age,data=SpotVA1,type="Original",methLinf="longFish",num4Linf=10)
-vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(tr=0),methLinf="oldAge",num4Linf=2)
-vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(Lr=8),methLinf="longFish",num4Linf=10)
 
 ## Using a different method to find t0 and L0
 vbStarts(tl~age,data=SpotVA1,meth0="yngAge")
@@ -128,25 +115,13 @@ vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5),methEV="means")
 
 ## Examples with a Plot
 vbStarts(tl~age,data=SpotVA1,plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="original",plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="GQ",plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Mooij",plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Weisberg",plot=TRUE)
 vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5),plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5),plot=TRUE)
 vbStarts(tl~age,data=SpotVA1,type="Somers",plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Somers2",plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Pauly",plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(tr=0),plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(Lr=8),plot=TRUE)
 
 ## Examples where some parameters are fixed by the user
 vbStarts(tl~age,data=SpotVA1,fixed=list(Linf=15))
-vbStarts(tl~age,data=SpotVA1,fixed=list(Linf=15,K=0.3))
-vbStarts(tl~age,data=SpotVA1,fixed=list(Linf=15,K=0.3,t0=-1))
 vbStarts(tl~age,data=SpotVA1,fixed=list(Linf=15,K=0.3,t0=-1),plot=TRUE)
 vbStarts(tl~age,data=SpotVA1,type="Pauly",fixed=list(t0=-1.5),plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(tr=2),fixed=list(Lr=10),plot=TRUE)
 
 ## See examples in vbFuns() for use of vbStarts() when fitting Von B models
 

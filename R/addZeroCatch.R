@@ -144,7 +144,7 @@ addZeroCatch <- function(df,eventvar,specvar,zerovar,na.rm=TRUE) {
     # combine the multiple variables into one
     df$speccomb <- interaction(df[,specvar])
     # remove the original variables
-    df <- df[,-which(names(df) %in% specvar)]
+    df <- df[,!names(df) %in% specvar]
     # state the new name
     specvar <- "speccomb"
   }
@@ -159,11 +159,11 @@ addZeroCatch <- function(df,eventvar,specvar,zerovar,na.rm=TRUE) {
   colnames(tmp) <- c(eventvar,specvar)
   all.combos <- paste(tmp[,eventvar],tmp[,specvar],sep=":")
   combos.in.df <- paste(df[,eventvar],df[,specvar],sep=":")
-  need0s <- tmp[which(!(all.combos %in% combos.in.df)),]
+  need0s <- tmp[!(all.combos %in% combos.in.df),]
   ## Catch if there are no need for zeros, send warning, return df
   if (nrow(need0s)==0) {
-    WARN("All 'eventvar' have all species in 'specvar'; thus, there are no",
-         "\nzeros to add. The original data.frame was returned.")
+    WARN("All 'eventvar' have all species in 'specvar'; thus, there are no ",
+         "zeros to add. The original data.frame was returned.")
     df
   } else { ## Process because some zeros need to be added
     ## creates vector of names not in eventvar, specvar, or zerovar
@@ -207,12 +207,12 @@ addZeroCatch <- function(df,eventvar,specvar,zerovar,na.rm=TRUE) {
       df <- cbind(df,do.call(rbind,lapply(strsplit(as.character(df$speccomb),
                                                    "\\."),rbind)))
       names(df)[(ncol(df)-(length(ospecvar)-1)):ncol(df)] <- specvar
-      df <- df[,-which(names(df)=="speccomb")]
+      df <- df[,!names(df)=="speccomb"]
       if (length(specvar)==2) {
-        if (!is.null(lvls1)) df[,specvar[1]] <- factor(df[,specvar[1]],
-                                                       levels=lvls1)
-        if (!is.null(lvls2)) df[,specvar[2]] <- factor(df[,specvar[2]],
-                                                       levels=lvls2)
+        if (!is.null(lvls1))
+          df[,specvar[1]] <- factor(df[,specvar[1]],levels=lvls1)
+        if (!is.null(lvls2))
+          df[,specvar[2]] <- factor(df[,specvar[2]],levels=lvls2)
       }
 
     }
