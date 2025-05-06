@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.6.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,9 +69,9 @@
       <img src="../logo.png" class="logo" alt=""><h1>Fitting Growth Functions in FSA</h1>
 
       <p class="author">Derek H. Ogle</p>
-      <p class="date">2025-05-02</p>
+      <p class="date">2025-05-06</p>
 
-      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/dev/vignettes/articles/Fitting_Growth_Functions.qmd" class="external-link"><code>vignettes/articles/Fitting_Growth_Functions.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.0/vignettes/articles/Fitting_Growth_Functions.qmd" class="external-link"><code>vignettes/articles/Fitting_Growth_Functions.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -131,7 +131,7 @@
 <span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;     Linf * (1 - exp(-K * (t - t0)))</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x555866095908&gt;</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x55adcddbc908&gt;</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:FSA&gt;</span></span></code></pre></div>
 </div>
 <p>The same <code>vb1()</code> function can be used to predict mean lengths for a number of ages (e.g., ages 2 to 12 below).</p>
@@ -404,7 +404,7 @@
 <span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;     (Linf - Lm) * (1 - exp(-K * dt))</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x55586830b648&gt;</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x55add0031660&gt;</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:FSA&gt;</span></span></code></pre></div>
 </div>
 <p>For example, the predicted change in length for times-at-large of 1, 2, and 3 years and a length-at-marking of 300 mm (and assuming <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>∞</mi></msub><annotation encoding="application/x-tex">L_\infty</annotation></semantics></math>=450 and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>=0.3) is obtained with the following.</p>

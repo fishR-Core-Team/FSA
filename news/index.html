@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.6.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,14 +38,15 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/dev/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.9.6.9000" id="fsa-0969000">FSA 0.9.6.9000<a class="anchor" aria-label="anchor" href="#fsa-0969000"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.10.0" id="fsa-0100">FSA 0.10.0<a class="anchor" aria-label="anchor" href="#fsa-0100"></a></h2>
 <ul><li><p>Updated <code>test-coverage.yaml</code> and moved a <code># nocov start</code> and <code># nocov end</code> in <code>bootstrap.r</code> to address the errors with <code>test-coverage.yaml</code>. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/118" class="external-link">#118</a>.</p></li>
 <li><p>Removed <code>DescTools</code>, <code>plyr</code>, <code>psych</code> from Suggests (and all their uses in tests and linked code in documentation). Removed <code>ggplot2</code>, <code>marked</code>, <code>rcapture</code>, and <code>tibble</code> from Suggests (and use in examples was put in a <code>\dontrun()</code>).</p></li>
 <li><p>Added <code>FlexParamCurve</code> to Imports for use of <code>modpar()</code> in <code>findGrowthStarts(param="Richards")</code> and <code>purrr</code> for use of <code>map2_chr()</code> in <code><a href="../reference/showGrowthFun.html">showGrowthFun()</a></code>.</p></li>
+<li><p>Removed my ORCID from DESCRIPTION to alleviate note on WinBuilder for R4.4.3.</p></li>
 <li>
 <p>Added the following “articles”.</p>
 <ul><li>Show growth equations.</li>
@@ -58,6 +59,7 @@
 <li><p>internals: Modified <code><a href="../reference/FSA-internals.html">STOP()</a></code> and <code><a href="../reference/FSA-internals.html">WARN()</a></code> to use <code><a href="https://rdrr.io/r/base/strwrap.html" class="external-link">strwrap()</a></code> rather than hard-coded line breaks. Added <code>MESSAGE()</code>. Added <code>iStrCollapse()</code>, largely for use with <code><a href="../reference/FSA-internals.html">STOP()</a></code>, <code><a href="../reference/FSA-internals.html">WARN()</a></code>, and <code>MESSAGE()</code>.</p></li>
 <li><p>throughout: Changed many <code>df[-which(CONDITION),]</code> constructs to <code>df[!CONDITION]</code> as suggested <a href="https://stackoverflow.com/a/5236518" class="external-link">here</a>.</p></li>
 <li><p><code><a href="../reference/findGrowthStarts.html">findGrowthStarts()</a></code>: Added. This replaces <code><a href="../reference/vbStarts.html">vbStarts()</a></code> and includes starting values for Gompertz, logistic, and Richards functions, and seasonal and tag-recapture von Bertalanffy parameterizations. Note that <code>constvals=</code> and <code>fixed=</code> must now be numeric vectors (and not lists) and that the returned starting values are in a numeric vector.</p></li>
+<li><p><code><a href="../reference/fishR.html">fishR()</a></code>: Modified. Added link to teaching resources.</p></li>
 <li><p><code><a href="../reference/growthModels.html">GompertzFuns()</a></code>: Deprecated (replaced with <code><a href="../reference/makeGrowthFun.html">makeGrowthFun()</a></code>).</p></li>
 <li><p><code>GrowthData1</code>, <code>GrowthData2</code>, <code>GrowthData3</code>: Added for testing growth functions.</p></li>
 <li><p><code><a href="../reference/growthModels.html">growthFunShow()</a></code>: Deprecated (replaced with <code><a href="../reference/showGrowthFun.html">showGrowthFun()</a></code>). But also fixed expression for QuinnDeriso3 parameterization of the Gompertz function (i.e., erroneous t* changed to t0 … related to fixing <a href="https://github.com/fishR-Core-Team/FSA/issues/113" class="external-link">#113</a>). Also changed a parameter to b in Ricker2 and QuinnDeriso1, and a to c in Ricker3 and QuinnDeriso2, to distinguish it from a in the Original parameterization. Will be deleted in future versions.</p></li>
@@ -2282,7 +2284,7 @@
 <h2 class="pkg-version" data-toc-text="0.4.11" id="fsa-0411">FSA 0.4.11<a class="anchor" aria-label="anchor" href="#fsa-0411"></a></h2>
 <ul><li><p><strong>Date:</strong> May14</p></li>
 <li><p>Removed Roxygen directives in DESCRIPTION (with changes to roxygen2 4.0.1).</p></li>
-<li><p>Changed <code>@S3method</code> and <code>@method</code> to <code>@export</code> in the following files according to changes in ROxygen2 as <a href="https://stackoverflow.com/questions/7198758/roxygen2-how-to-properly-document-s3-methods/7199577/" class="external-link">described here</a>, among several other places: <code>ageBias</code>, <code>agePrecision</code>, <code>bootCase</code>, <code>catchCurve</code>, <code>chapmanRobson</code>, <code>confint.nlsboot</code>, <code>depletion</code>, <code>dietOverlap</code>, <code>fitPlot</code>, <code>hist.formula</code>, <code>htest.nlsBoot</code>, <code>ks2d1</code>, <code>ks2d1p</code>, <code>ks2d2</code>, <code>ks2d2p</code>, <code>ksTest</code>, <code>lencat</code>, <code>mrClosed</code>, <code>mrOpen</code>, <code>plotBinResp</code>, <code>predict.nlsBoot</code>, <code>removal</code>, <code>residPlot</code>, <code>srStarts</code>, <code>Subset</code>, <code>Summarize</code>, <code>sumTable</code>, <code>vbStarts</code>, and <code>walfordChapmanPlot</code>.</p></li>
+<li><p>Changed <code>@S3method</code> and <code>@method</code> to <code>@export</code> in the following files according to changes in ROxygen2 as described at stackoverflow.com/questions/7198758/, among several other places: <code>ageBias</code>, <code>agePrecision</code>, <code>bootCase</code>, <code>catchCurve</code>, <code>chapmanRobson</code>, <code>confint.nlsboot</code>, <code>depletion</code>, <code>dietOverlap</code>, <code>fitPlot</code>, <code>hist.formula</code>, <code>htest.nlsBoot</code>, <code>ks2d1</code>, <code>ks2d1p</code>, <code>ks2d2</code>, <code>ks2d2p</code>, <code>ksTest</code>, <code>lencat</code>, <code>mrClosed</code>, <code>mrOpen</code>, <code>plotBinResp</code>, <code>predict.nlsBoot</code>, <code>removal</code>, <code>residPlot</code>, <code>srStarts</code>, <code>Subset</code>, <code>Summarize</code>, <code>sumTable</code>, <code>vbStarts</code>, and <code>walfordChapmanPlot</code>.</p></li>
 <li><p><code><a href="../reference/addZeroCatch.html">addZeroCatch()</a></code>: Modified. Added a catch for the situation where no zeros need to be added to the data.frame. Cleaned-up the help file, modified the examples, and added another example. Thanks to Ben Neely for bringing this bug (handling where zeros are not needed) to my attention.</p></li>
 <li><p><code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Modified. Cleaned up the code (no changes in functionality).</p></li>
 <li><p><code>catchCurveSim()</code>: Deleted. Moved to FSAsim package.</p></li>

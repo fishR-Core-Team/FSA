@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.6.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>DEPRECATED (as of v0.10.0). Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/dev/R/growthModels.R" class="external-link"><code>R/growthModels.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.0/R/growthModels.R" class="external-link"><code>R/growthModels.R</code></a></small>
       <div class="d-none name"><code>growthModels.Rd</code></div>
     </div>
 
@@ -197,8 +197,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf * (1 - exp(-K * (t - t0)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652cc1aa828&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652ccf9cad8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5648a4169450&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648a41c9980&gt;</span>
 <span class="r-in"><span><span class="va">ages</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="fl">20</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">vb1</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">20</span>,K<span class="op">=</span><span class="fl">0.3</span>,t0<span class="op">=</span><span class="op">-</span><span class="fl">0.2</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="growthModels-1.png" alt="" width="700" height="433"></span>
@@ -219,8 +219,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     L1 + (L3 - L1) * ((1 - r^(2 * ((t - t1)/(t3 - t1))))/(1 - </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         r^2))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652cd24c060&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652ca331848&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5648a4174b20&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648a4a99450&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">vb2</span><span class="op">(</span><span class="va">ages</span>,L1<span class="op">=</span><span class="fl">10</span>,L2<span class="op">=</span><span class="fl">19</span>,L3<span class="op">=</span><span class="fl">20</span>,t1<span class="op">=</span><span class="fl">2</span>,t3<span class="op">=</span><span class="fl">18</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="growthModels-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">vb2c</span> <span class="op">&lt;-</span> <span class="fu">vbFuns</span><span class="op">(</span><span class="st">"Francis"</span>,simple<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">)</span>   <span class="co"># compare to vb2</span></span></span>
@@ -231,8 +231,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     L1 + (L3 - L1) * ((1 - r^(2 * ((t - t1)/(t3 - t1))))/(1 - </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         r^2))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652cbfab530&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652cbf89660&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5648a4176768&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648a376aee8&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Simple Examples -- Gompertz</span></span></span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">gomp1</span> <span class="op">&lt;-</span> <span class="fu">GompertzFuns</span><span class="op">(</span><span class="op">)</span> <span class="op">)</span></span></span>
@@ -246,8 +246,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf * exp(-exp(-gi * (t - ti)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652cdf01ac0&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652cdcae760&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5648a3de6248&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648a3e1f498&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">gomp1</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,gi<span class="op">=</span><span class="fl">0.5</span>,ti<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="growthModels-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">gomp2</span> <span class="op">&lt;-</span> <span class="fu">GompertzFuns</span><span class="op">(</span><span class="st">"Ricker2"</span><span class="op">)</span> <span class="op">)</span></span></span>
@@ -261,8 +261,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     L0 * exp(b * (1 - exp(-gi * t)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652cdf045e8&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652cc229228&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5648a3df1108&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648a4798378&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">gomp2</span><span class="op">(</span><span class="va">ages</span>,L0<span class="op">=</span><span class="fl">2</span>,b<span class="op">=</span><span class="fl">6</span>,gi<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="growthModels-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">gomp2c</span> <span class="op">&lt;-</span> <span class="fu">GompertzFuns</span><span class="op">(</span><span class="st">"Ricker2"</span>,simple<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">)</span>   <span class="co"># compare to gomp2</span></span></span>
@@ -271,8 +271,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     L0 * exp(b * (1 - exp(-gi * t)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652cdf038c8&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652cc071718&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5648a3df0420&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648a413bc20&gt;</span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">gompT</span> <span class="op">&lt;-</span> <span class="fu">GompertzFuns</span><span class="op">(</span><span class="st">"Troynikov1"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'GompertzFuns()' is deprecated as of v0.10.0. Please use 'makeGrowthFun()' instead as it will be continuously updated in the future.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (Lm, dt, Linf, gi = NULL) </span>
@@ -283,8 +283,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf * ((Lm/Linf)^exp(-gi * dt)) - Lm</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652cdf08658&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652ce7b41b0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5648a3e0a9d0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648a3f2e038&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Simple Examples -- Richards</span></span></span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">rich1</span> <span class="op">&lt;-</span> <span class="fu">RichardsFuns</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">)</span></span></span>
@@ -299,8 +299,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf/((1 + b1 * exp(-k * (t - ti)))^(1/b1))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652ce8cbfc0&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652ce8d5f50&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5648a5e41f58&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648a593c2c8&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">rich1</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,k<span class="op">=</span><span class="fl">0.5</span>,ti<span class="op">=</span><span class="fl">3</span>,b1<span class="op">=</span><span class="fl">0.15</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="growthModels-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">rich2</span> <span class="op">&lt;-</span> <span class="fu">RichardsFuns</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">)</span></span></span>
@@ -315,8 +315,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf/((1 + exp(-k * (t - t0)))^(-b2))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652ce8ce298&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652cea50200&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5648a5e44268&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648a3ca31c8&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">rich2</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,k<span class="op">=</span><span class="fl">0.5</span>,t0<span class="op">=</span><span class="op">-</span><span class="fl">1</span>,b2<span class="op">=</span><span class="fl">6</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="growthModels-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">rich3</span> <span class="op">&lt;-</span> <span class="fu">RichardsFuns</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op">)</span></span></span>
@@ -332,8 +332,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf * (1 + (((L0/Linf)^(1 - b3)) - 1) * exp(-k * t))^(1/(1 - </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         b3))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652ce8cc970&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652cebb6640&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x56489ead72a0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648a3a58ad8&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">rich3</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,k<span class="op">=</span><span class="fl">0.5</span>,L0<span class="op">=</span><span class="fl">50</span>,b3<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="growthModels-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">rich4</span> <span class="op">&lt;-</span> <span class="fu">RichardsFuns</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span> <span class="op">)</span></span></span>
@@ -348,8 +348,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf * (1 - (1/b2) * exp(-k * (t - ti)))^b2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652ce8d2228&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652cecfe510&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x56489ead8e08&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648a4e47e38&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">rich4</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,k<span class="op">=</span><span class="fl">0.5</span>,ti<span class="op">=</span><span class="fl">3</span>,b2<span class="op">=</span><span class="fl">6</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="growthModels-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">rich5</span> <span class="op">&lt;-</span> <span class="fu">RichardsFuns</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span> <span class="op">)</span></span></span>
@@ -364,8 +364,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf * (1 + (b3 - 1) * exp(-k * (t - ti)))^(1/(1 - b3))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652ce8d4538&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652cef60c90&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5648a593a8b0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648a36e5868&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">rich5</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,k<span class="op">=</span><span class="fl">0.5</span>,ti<span class="op">=</span><span class="fl">3</span>,b3<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu">rich5</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,k<span class="op">=</span><span class="fl">0.5</span>,ti<span class="op">=</span><span class="fl">3</span>,b3<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span>,col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="growthModels-9.png" alt="" width="700" height="433"></span>
@@ -375,8 +375,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf/((1 + exp(-k * (t - t0)))^(-b2))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652ce8cd1f8&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652cf1beed0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x56489ead7b28&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648a2c3a428&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Simple Examples -- Logistic</span></span></span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">log1</span> <span class="op">&lt;-</span> <span class="fu">logisticFuns</span><span class="op">(</span><span class="op">)</span> <span class="op">)</span></span></span>
@@ -390,8 +390,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf/(1 + exp(-gninf * (t - ti)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652cf8035b8&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652cf8099f8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5648a3869200&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648a4ca23b8&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">log1</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,gninf<span class="op">=</span><span class="fl">0.5</span>,ti<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="growthModels-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">log2</span> <span class="op">&lt;-</span> <span class="fu">logisticFuns</span><span class="op">(</span><span class="st">"CJ2"</span><span class="op">)</span> <span class="op">)</span></span></span>
@@ -405,8 +405,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf/(1 + a * exp(-gninf * t))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652cf8020b8&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652cfd46af0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5648a0321938&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x56489a0847d0&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,gninf<span class="op">=</span><span class="fl">0.5</span>,a<span class="op">=</span><span class="fl">10</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="growthModels-11.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">log2c</span> <span class="op">&lt;-</span> <span class="fu">logisticFuns</span><span class="op">(</span><span class="st">"CJ2"</span>,simple<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">)</span> <span class="co"># compare to log2</span></span></span>
@@ -415,8 +415,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf/(1 + a * exp(-gninf * t))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652cf805270&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652d01341d8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5648a4508778&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x564895741d50&gt;</span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">log3</span> <span class="op">&lt;-</span> <span class="fu">logisticFuns</span><span class="op">(</span><span class="st">"Karkach"</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'logisticFuns()' is deprecated as of v0.10.0. Please use 'makeGrowthFun()' instead as it will be continuously updated in the future.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (t, Linf, L0 = NULL, gninf = NULL) </span>
@@ -428,8 +428,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     L0 * Linf/(L0 + (Linf - L0) * exp(-gninf * t))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652cf804cc0&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652d0215c70&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5648a3b45550&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648956a5850&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">log3</span><span class="op">(</span><span class="va">ages</span>,L0<span class="op">=</span><span class="fl">10</span>,Linf<span class="op">=</span><span class="fl">800</span>,gninf<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="growthModels-12.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">log4</span> <span class="op">&lt;-</span> <span class="fu">logisticFuns</span><span class="op">(</span><span class="st">"Haddon"</span><span class="op">)</span> <span class="op">)</span></span></span>
@@ -443,8 +443,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dLmax/(1 + exp(log(19) * ((Lm - L50)/(L95 - L50))))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652cf807510&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652d0a73b08&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5648a4ca2150&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5648947bde80&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">###########################################################</span></span></span>
