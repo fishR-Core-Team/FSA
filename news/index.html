@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,11 +38,33 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.10.0" id="fsa-0100">FSA 0.10.0<a class="anchor" aria-label="anchor" href="#fsa-0100"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.10.1" id="fsa-0101">FSA 0.10.1<a class="anchor" aria-label="anchor" href="#fsa-0101"></a></h2>
+<ul><li>Updated the PSD and Relative Weight computation articles to reflect the changes to <code><a href="../reference/psdVal.html">psdVal()</a></code>, <code><a href="../reference/psdAdd.html">psdAdd()</a></code>, <code><a href="../reference/wsVal.html">wsVal()</a></code>, and <code><a href="../reference/wrAdd.html">wrAdd()</a></code>.</li>
+<li>
+<code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Added catch for when n+T&lt;1 and n+T&lt;2. This addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/131" class="external-link">#131</a>).</li>
+<li>
+<code><a href="../reference/metaM.html">metaM()</a></code>: Added <code>method="HamelCope"</code> to address <a href="https://github.com/fishR-Core-Team/FSA/issues/133" class="external-link">#133</a>. A few minor edits to documentation.</li>
+<li>
+<code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Addressed bugs as described in <a href="https://github.com/fishR-Core-Team/FSA/issues/136" class="external-link">#136</a>) and <a href="https://github.com/fishR-Core-Team/FSA/issues/137" class="external-link">#137</a>. Added <code>thesaurus</code> functionality. Reworked examples in documentation. Reworked testing framework. Thanks to Dave Glover.</li>
+<li>
+<code>PSDlit</code>: Added info for Flier and Longear Sunfish to address <a href="https://github.com/fishR-Core-Team/FSA/issues/122" class="external-link">#122</a>) and Northern Pikeminnow. Also updated information for Alabama Bass and Spotted Bass. Duplicated lines that combine <code>species</code> and <code>group</code> to partially address <a href="https://github.com/fishR-Core-Team/FSA/issues/137" class="external-link">#137</a>.</li>
+<li>
+<code><a href="../reference/psdVal.html">psdVal()</a></code>: Added <code>dat=</code> to allow more flexibility when called from <code><a href="../reference/psdAdd.html">psdAdd()</a></code>.</li>
+<li>
+<code>PSDWRTest</code>: Added for testing PSD and relative weight functions.</li>
+<li>
+<code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Addressed bugs similar to those for <code><a href="../reference/psdAdd.html">psdAdd()</a></code>. Added <code>thesaurus</code> functionality. Reworked examples in documentation. Reworked testing framework (especially expanded validation of results with hand-calculations).</li>
+<li>
+<code>wSlit</code>: Added info for Flier and Longear Sunfish to address <a href="https://github.com/fishR-Core-Team/FSA/issues/122" class="external-link">#122</a>). Also updated information for Alabama Bass (further removed Spotted Bass (Alabama subspecies)), Spotted Bass, and Northern Pikeminnow (further removed Northern Squawfish (synonym of Northern Pikeminnow that is no longer used)). Duplicated lines that combine <code>species</code> and <code>group</code> to partially address <a href="https://github.com/fishR-Core-Team/FSA/issues/137" class="external-link">#137</a>.</li>
+<li>
+<code><a href="../reference/wsVal.html">wsVal()</a></code>: Added <code>dat=</code> to allow more flexibility when called from <code><a href="../reference/wrAdd.html">wrAdd()</a></code>.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.10.0" id="fsa-0100">FSA 0.10.0<a class="anchor" aria-label="anchor" href="#fsa-0100"></a></h2><p class="text-muted">CRAN release: 2025-05-06</p>
 <ul><li><p>Updated <code>test-coverage.yaml</code> and moved a <code># nocov start</code> and <code># nocov end</code> in <code>bootstrap.r</code> to address the errors with <code>test-coverage.yaml</code>. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/118" class="external-link">#118</a>.</p></li>
 <li><p>Removed <code>DescTools</code>, <code>plyr</code>, <code>psych</code> from Suggests (and all their uses in tests and linked code in documentation). Removed <code>ggplot2</code>, <code>marked</code>, <code>rcapture</code>, and <code>tibble</code> from Suggests (and use in examples was put in a <code>\dontrun()</code>).</p></li>
 <li><p>Added <code>FlexParamCurve</code> to Imports for use of <code>modpar()</code> in <code>findGrowthStarts(param="Richards")</code> and <code>purrr</code> for use of <code>map2_chr()</code> in <code><a href="../reference/showGrowthFun.html">showGrowthFun()</a></code>.</p></li>
@@ -198,7 +220,7 @@
 <li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed the way <code>PSDlit</code> was loaded into the function environment so that <code><a href="../reference/psdAdd.html">FSA::psdAdd()</a></code> will work. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/85" class="external-link">#85</a>.</li>
 <li>
-<code>PSDLit</code>: Modified. Added info for Utah Chub (from <a href="https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf" class="external-link">here</a>; address <a href="https://github.com/fishR-Core-Team/FSA/issues/84" class="external-link">#84</a>).</li>
+<code>PSDLit</code>: Modified. Added info for Utah Chub (from <a href="https://www.usgs.gov/publications/proposed-standard-weight-ws-equation-and-length-categories-utah-chub" class="external-link">here</a>; address <a href="https://github.com/fishR-Core-Team/FSA/issues/84" class="external-link">#84</a>).</li>
 <li>
 <code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Changed the way <code>PSDlit</code> was loaded into the function environment so that <code><a href="../reference/psdVal.html">FSA::psdVal()</a></code> will work. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/85" class="external-link">#85</a>.</li>
 <li>
@@ -206,7 +228,7 @@
 <li>
 <code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed the way <code>WSlit</code> was loaded into the function environment so that <code><a href="../reference/wrAdd.html">FSA::wrAdd()</a></code> will work. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/85" class="external-link">#85</a>.</li>
 <li>
-<code>WSLit</code>: Modified. Added info for Utah Chub (from <a href="https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf" class="external-link">here</a>; address <a href="https://github.com/fishR-Core-Team/FSA/issues/84" class="external-link">#84</a>).</li>
+<code>WSLit</code>: Modified. Added info for Utah Chub (from <a href="https://www.usgs.gov/publications/proposed-standard-weight-ws-equation-and-length-categories-utah-chub" class="external-link">here</a>; address <a href="https://github.com/fishR-Core-Team/FSA/issues/84" class="external-link">#84</a>).</li>
 <li>
 <code><a href="../reference/wsVal.html">wsVal()</a></code>: Modified. Changed the way <code>WSlit</code> was loaded into the function environment so that <code><a href="../reference/wsVal.html">FSA::wsVal()</a></code> will work. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/85" class="external-link">#85</a>.</li>
 </ul></div>
@@ -1936,7 +1958,7 @@
 <li>
 <code><a href="../reference/tictactoe.html">tictactoe()</a></code>: Modfied.</li>
 <li>
-<code>tictactoeAdd()</code>: Removed. Directed user to use <code><a href="https://rdrr.io/pkg/plotrix/man/plotCI.html" class="external-link">plotCI()</a></code> from <code>plotrix</code> instead.</li>
+<code>tictactoeAdd()</code>: Removed. Directed user to use <code><a href="https://plotrix.github.io/plotrix/reference/plotCI.html" class="external-link">plotCI()</a></code> from <code>plotrix</code> instead.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.25" id="fsa-0425">FSA 0.4.25<a class="anchor" aria-label="anchor" href="#fsa-0425"></a></h2>
@@ -2107,7 +2129,7 @@
 <li>
 <code>lwPredsComp()</code>: Modified. Changed <code>mdl=</code> to <code>object=</code>. Added use of internal <code><a href="../reference/FSA-internals.html">iHndlFormula()</a></code> and moved two internal functions outside the main function. Changed default for intervals from <code>both</code> to <code>confidence</code> and changed so that if only the confidence or prediction intervals are plotted they will be black with <code>lwd=</code> width (if both are plotted the CI is now black and the PI is now blue). Added a <code>show.preds</code> argument. Changed <code>connect.means=</code> to <code>connect.preds=</code>. Changed default <code>lwd=</code> value and how it is used for CIs, PIs, and the connection lines. Added <code>col.connect=</code> argument. Removed <code>mar</code> and <code>mgp</code> from <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par()</a></code> call (left <code>mfrow</code>). Added more examples. Added tests for error messages.</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Added <code>inclHist=</code> argument. Corrected a bug around the use of <code><a href="https://rdrr.io/pkg/plotrix/man/thigmophobe.html" class="external-link">thigmophobe()</a></code> in <code>iAddOutlierTest()</code>. Changed default for <code>student=</code> to <code>FALSE</code>. Modified and added more examples.</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Added <code>inclHist=</code> argument. Corrected a bug around the use of <code><a href="https://plotrix.github.io/plotrix/reference/thigmophobe.html" class="external-link">thigmophobe()</a></code> in <code>iAddOutlierTest()</code>. Changed default for <code>student=</code> to <code>FALSE</code>. Modified and added more examples.</li>
 <li>
 <code>SMBassWB</code>: Modified. Added a seealso.</li>
 </ul></div>
@@ -2359,7 +2381,7 @@
 <h2 class="pkg-version" data-toc-text="0.4.6" id="fsa-046">FSA 0.4.6<a class="anchor" aria-label="anchor" href="#fsa-046"></a></h2>
 <ul><li><p><strong>Date:</strong> Apr14</p></li>
 <li><p>Changed to compiling under R 3.1.0</p></li>
-<li><p>Imported <code><a href="https://rdrr.io/pkg/plotrix/man/stackpoly.html" class="external-link">stackpoly()</a></code> from plotrix for use in <code>ageKeyPlot()</code>.</p></li>
+<li><p>Imported <code><a href="https://plotrix.github.io/plotrix/reference/stackpoly.html" class="external-link">stackpoly()</a></code> from plotrix for use in <code>ageKeyPlot()</code>.</p></li>
 <li><p>Added concepts (that largely match those in the FSAdata pacakge) to most of the data files.</p></li>
 <li><p>Made some grammatical changes and added author sections to Rd files.</p></li>
 <li><p><code>ageKeyPlot()</code>: Added.</p></li>
@@ -2520,7 +2542,7 @@
 <li><p><code>dietOverlap()</code>: Modified. Changed the “Morista” option to “Morisita” to be consistent with the correct spelling of the name.</p></li>
 <li><p><code>Garvey1</code>: Added. Used in examples in <code>ks2d1()</code>.</p></li>
 <li><p><code>Garvey4a</code>: Added. Used in examples in <code>ks2d1()</code>.</p></li>
-<li><p><code><a href="https://rdrr.io/pkg/plotrix/man/histStack.html" class="external-link">histStack()</a></code>: Deleted, moved to plotrix package. Arguments were changed there.</p></li>
+<li><p><code><a href="https://plotrix.github.io/plotrix/reference/histStack.html" class="external-link">histStack()</a></code>: Deleted, moved to plotrix package. Arguments were changed there.</p></li>
 <li><p><code>ks2d()</code>: Deleted, changed to <code>ks2d2()</code>.</p></li>
 <li><p><code>ks2d1()</code>: Added.</p></li>
 <li><p><code>ks2d2()</code>: Added, was <code>ks2d()</code>.</p></li>
@@ -2528,7 +2550,7 @@
 <li><p><code>ks2d2p()</code>: Added, was <code>ks2dp()</code>.</p></li>
 <li><p><code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Changed all “messages” using <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat()</a></code> to using <code><a href="https://rdrr.io/r/base/message.html" class="external-link">message()</a></code> so that they can be suppressed with <code>suppressMessage()</code> or <code>message=FALSE</code> in knitr. See “One comment on messages” at <a href="http://yihui.name/knitr/demo/output/" class="external-link uri">http://yihui.name/knitr/demo/output/</a>.</p></li>
 <li><p><code>pkolgomorov1x()</code>: Added to FSAinternals (from <code>ks2d()</code>).</p></li>
-<li><p><code><a href="https://rdrr.io/pkg/plotrix/man/plotH.html" class="external-link">plotH()</a></code>: Deleted, moved to plotrix package.</p></li>
+<li><p><code><a href="https://plotrix.github.io/plotrix/reference/plotH.html" class="external-link">plotH()</a></code>: Deleted, moved to plotrix package.</p></li>
 <li><p><code>quad_dens()</code>: Added to FSAinternals (from <code>ks2d()</code>).</p></li>
 </ul></div>
     <div class="section level2">
@@ -2550,7 +2572,7 @@
 <li><p><code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified by adding the Hoenig et al. (1983) bias correction formula for the estimate of Z as the default option.</p></li>
 <li><p><code><a href="../reference/nlsBoot.html">confint.nlsBoot()</a></code>: Removed use of %nin%.</p></li>
 <li><p><code>discharge()</code>: Deleted, moved to NCStats (to reduce overhead here).</p></li>
-<li><p><code><a href="https://rdrr.io/pkg/plotrix/man/histStack.html" class="external-link">histStack()</a></code>: Modified by adding a formula method (<code>histStack.formula()</code>) which required adding a default method (<code>histStack.default()</code>).</p></li>
+<li><p><code><a href="https://plotrix.github.io/plotrix/reference/histStack.html" class="external-link">histStack()</a></code>: Modified by adding a formula method (<code>histStack.formula()</code>) which required adding a default method (<code>histStack.default()</code>).</p></li>
 <li><p><code><a href="../reference/nlsBoot.html">htest.nlsBoot()</a></code>: Removed use of %nin%.</p></li>
 <li><p><code><a href="../reference/lencat.html">lencat()</a></code>: Modified by changing to using a formula notation and a <code>data=</code> argument. This means that the <code>df=</code> and <code>cl=</code> arguments are no longer used. In addition, the warning about fish larger than the larger category has been turned off. The method to handle this was not changed, the warning was just turned off.</p></li>
 <li><p><code>lencatOLD()</code>: Added as an internal file to temporarily allow me not to change all functions that were affected by the changes to <code><a href="../reference/lencat.html">lencat()</a></code>. The functions that required this are <code>emp()</code> and <code>wsValidate()</code>.</p></li>
@@ -2694,7 +2716,7 @@
 <li><p><code>emp()</code>: modified class names to “empXX” from “EMPxx”.</p></li>
 <li><p><code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: added from NCStats.</p></li>
 <li><p><code>FroeseWs()</code>: modified class name to “FroeseWs” from “FROESE”.</p></li>
-<li><p><code><a href="https://rdrr.io/pkg/plotrix/man/histStack.html" class="external-link">histStack()</a></code>: added.</p></li>
+<li><p><code><a href="https://plotrix.github.io/plotrix/reference/histStack.html" class="external-link">histStack()</a></code>: added.</p></li>
 <li><p><code><a href="../reference/FSA-defunct.html">hoCoef()</a></code>: added from NCStats.</p></li>
 <li><p><code>ks2d()</code>: modified class name to “ks2d” from “ks2d”.</p></li>
 <li><p><code>ks2dp()</code>: modified class name to “ks2dp” from “ks2dp”.</p></li>
@@ -2702,7 +2724,7 @@
 <li><p><code><a href="../reference/mrClosed.html">mrClosed()</a></code>: modified by moving the two internal functions – mrc1() and mrc2() – to inside mrClosed, moving the two internal functions – ci.mrc1() and ci.mrc2() – to inside confint.mrClosed(), removed the “MRC1” and “MRC2” classes, changed the “MRC” class name to “mrClosed”, and added a catch to plot.mrClosed() to stop if the user tries to plot with single-census data.</p></li>
 <li><p><code><a href="../reference/mrOpen.html">mrOpen()</a></code>: modified class name to “mrOpen” from “MRO”.</p></li>
 <li><p><code><a href="../reference/FSA-defunct.html">plotBinResp()</a></code>: added from NCStats.</p></li>
-<li><p><code><a href="https://rdrr.io/pkg/plotrix/man/plotH.html" class="external-link">plotH()</a></code>: minor modifications to the Rd file.</p></li>
+<li><p><code><a href="https://plotrix.github.io/plotrix/reference/plotH.html" class="external-link">plotH()</a></code>: minor modifications to the Rd file.</p></li>
 <li><p><code>pos2adj()</code>: modified the labels for the positions by including full names for all directions, eliminating the single letters for the four main directions, but also leaving the four “off” directions as abbreviations.</p></li>
 <li><p><code>psdVal(), rsdVal(), rsdCalc(), rsdPlot()</code>: modified to use capFirst so that the user does not need to focus on capitalization of the species name.</p></li>
 <li><p><code><a href="../reference/removal.html">removal()</a></code>: modified class name to “removal” from “Removal”.</p></li>
@@ -2736,7 +2758,7 @@
 <li><p><code><a href="../reference/lagratio.html">lagratio()</a></code>: moved from NCStats.</p></li>
 <li><p>`lsmean(), and related internals: moved from NCStats.</p></li>
 <li><p><code><a href="../reference/mrClosed.html">mrClosed()</a></code>: modified so as not to depend on ci.t() from NCStats.</p></li>
-<li><p><code><a href="https://rdrr.io/pkg/plotrix/man/plotH.html" class="external-link">plotH()</a></code>: moved from NCStats.</p></li>
+<li><p><code><a href="https://plotrix.github.io/plotrix/reference/plotH.html" class="external-link">plotH()</a></code>: moved from NCStats.</p></li>
 <li><p><code><a href="../reference/poiCI.html">poiCI()</a></code>: moved from NCStats.</p></li>
 <li><p><code>popSizesPlot()</code>: moved from NCStats.</p></li>
 <li><p><code>pos2adj()</code>: moved from NCStats.</p></li>
@@ -3223,7 +3245,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
 </div>
 
     </footer></div>

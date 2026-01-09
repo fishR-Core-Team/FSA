@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Finds Gabelhouse lengths (for PSD calculations) for a species.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.0/R/psdVal.R" class="external-link"><code>R/psdVal.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.1/R/psdVal.R" class="external-link"><code>R/psdVal.R</code></a></small>
       <div class="d-none name"><code>psdVal.Rd</code></div>
     </div>
 
@@ -55,7 +55,8 @@
 <span>  addLens <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  addNames <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  incl.zero <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  showJustSource <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  showJustSource <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  dat <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -90,6 +91,10 @@
 <dt id="arg-showjustsource">showJustSource<a class="anchor" aria-label="anchor" href="#arg-showjustsource"></a></dt>
 <dd><p>A logical that indicates whether just the literature source information should be returned (<code>TRUE</code>) or not. If <code>TRUE</code> this will NOT return any of the Gabelhouse length information.</p></dd>
 
+
+<dt id="arg-dat">dat<a class="anchor" aria-label="anchor" href="#arg-dat"></a></dt>
+<dd><p>Data.frame of Gabelhouse length categories for all species. Defaults to `PSDlit` and is generally not used by the user (this simplifies use of this function in <code>psdAdd</code>).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -98,6 +103,7 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Finds the Gabelhouse lengths from <code>data(PSDlit)</code> for the species given in <code>species</code>. The species name must be spelled exactly (including capitalization) as it appears in <code>data(PSDlit)</code>. Type <code>psdVal()</code> to see the list of species and how they are spelled.</p>
+<p>Some species have length categories separated by sub-group. For example, length categories exist for both lentic and lotic populations of Brown Trout. The length values for a sub-group may be obtained by either including the species name in <code>species</code> and the sub-group name in <code>group</code> or by using the combined species and sub-group name, with the sub-group name in parentheses, in <code>species</code>. Both methods are demonstrated in the examples. Note that an error is returned if a species has sub-groups but neither method is used to define the sub-group.#'</p>
 <p>A zero is included in the first position of the returned vector if <code>incl.zero=TRUE</code>. This is useful when computing PSD values with a data.frame that contains fish smaller than the stock length.</p>
 <p>Additional lengths may be added to the returned vector with <code>addLens</code>. Names for these lengths can be included as names in <code>addLens</code> or separately in <code>addNames</code>. If <code>addNames</code> is NULL and <code>addLens</code> is not named then the default category names will be the lengths from <code>addLens</code>. The <code>addLens</code> argument is useful for calculating PSD values that are different from the Gabelhouse lengths.</p>
 <p>See examples and <a href="https://fishr-core-team.github.io/FSA/articles/Computing_PSDs.html">this article</a> for a demonstration.</p>
@@ -128,40 +134,53 @@
 <span class="r-in"><span><span class="fu">psdVal</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Species name must be one of following. Be careful of spelling and capitalization.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Arctic Grayling"           "Bighead Carp"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "Bigmouth Buffalo"          "Black Bullhead"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "Black Carp"                "Black Crappie"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "Blue Catfish"              "Bluegill"                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "Brook Trout"               "Brown Bullhead"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "Brown Trout"               "Bull Trout"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "Burbot"                    "Chain Pickerel"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "Channel Catfish"           "Chinook Salmon"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "Common Carp"               "Cutthroat Trout"          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "Flathead Catfish"          "Freshwater Drum"          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "Gizzard Shad"              "Golden Trout"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "Goldeye"                   "Grass Carp"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "Green Sunfish"             "Kokanee"                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [27] "Lake Chubsucker"           "Lake Trout"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [29] "Largemouth Bass"           "Longnose Gar"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "Muskellunge"               "Northern Pike"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [33] "Northern Snakehead"        "Paddlefish"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [35] "Pallid Sturgeon"           "Palmetto Bass"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "Pumpkinseed"               "Rainbow Trout"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [39] "Redbreast Sunfish"         "Redear Sunfish"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [41] "River Carpsucker"          "Rock Bass"                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "Ruffe"                     "Sauger"                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [45] "Saugeye"                   "Shoal Bass"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [47] "Shorthead Redhorse"        "Silver Carp"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "Smallmouth Bass"           "Smallmouth Buffalo "      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [51] "Splake"                    "Spotted Bass"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [53] "Spotted Gar"               "Spotted Sunfish"          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "Striped Bass"              "Striped Bass X White Bass"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [57] "Suwannee Bass"             "Utah Chub"                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [59] "Walleye"                   "Warmouth"                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [61] "White Bass"                "White Catfish"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [63] "White Crappie"             "White Perch"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [65] "White Sucker"              "Yellow Bass"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [67] "Yellow Bullhead"           "Yellow Perch"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Alabama Bass"                "Arctic Grayling"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "Bighead Carp"                "Bigmouth Buffalo"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "Black Bullhead"              "Black Carp"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "Black Crappie"               "Blue Catfish"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "Bluegill"                    "Brook Trout"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "Brook Trout (lentic)"        "Brook Trout (lotic)"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "Brook Trout (overall)"       "Brown Bullhead"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "Brown Trout"                 "Brown Trout (lentic)"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "Brown Trout (lotic)"         "Bull Trout"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "Burbot"                      "Chain Pickerel"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "Channel Catfish"             "Chinook Salmon"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "Chinook Salmon (landlocked)" "Common Carp"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "Cutthroat Trout"             "Cutthroat Trout (lentic)"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [27] "Cutthroat Trout (lotic)"     "Flathead Catfish"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [29] "Flier"                       "Freshwater Drum"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "Gizzard Shad"                "Golden Trout"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [33] "Goldeye"                     "Grass Carp"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [35] "Green Sunfish"               "Kokanee"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "Lake Chubsucker"             "Lake Trout"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [39] "Largemouth Bass"             "Longear Sunfish"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [41] "Longnose Gar"                "Muskellunge"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "Muskellunge (female)"        "Muskellunge (male)"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [45] "Muskellunge (overall)"       "Northern Pike"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [47] "Northern Pikeminnow"         "Northern Snakehead"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "Paddlefish"                  "Paddlefish (female)"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [51] "Paddlefish (male)"           "Paddlefish (overall)"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [53] "Pallid Sturgeon"             "Palmetto Bass"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "Palmetto Bass (original)"    "Pumpkinseed"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [57] "Rainbow Trout"               "Rainbow Trout (lentic)"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [59] "Rainbow Trout (lotic)"       "Redbreast Sunfish"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [61] "Redear Sunfish"              "River Carpsucker"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [63] "Rock Bass"                   "Ruffe"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [65] "Sauger"                      "Saugeye"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [67] "Shoal Bass"                  "Shorthead Redhorse"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [69] "Silver Carp"                 "Smallmouth Bass"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [71] "Smallmouth Buffalo "         "Splake"                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [73] "Spotted Bass"                "Spotted Bass (original)"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [75] "Spotted Gar"                 "Spotted Sunfish"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [77] "Striped Bass"                "Striped Bass (landlocked)"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [79] "Striped Bass X White Bass"   "Suwannee Bass"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [81] "Utah Chub"                   "Walleye"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [83] "Walleye (30-149 mm)"         "Walleye (overall)"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [85] "Warmouth"                    "White Bass"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [87] "White Catfish"               "White Crappie"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [89] "White Perch"                 "White Sucker"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [91] "Yellow Bass"                 "Yellow Bullhead"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [93] "Yellow Perch"               </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#===== Typical usages</span></span></span>
 <span class="r-in"><span><span class="fu">psdVal</span><span class="op">(</span><span class="st">"Bluegill"</span><span class="op">)</span></span></span>
@@ -175,19 +194,26 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>         3         6         8        10        12 </span>
 <span class="r-in"><span><span class="fu">psdVal</span><span class="op">(</span><span class="st">"Bluegill"</span>,showJustSource<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    species             source</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 Bluegill Gabelhouse (1984a)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9 Bluegill Gabelhouse (1984a)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#===== For species that have sub-groups</span></span></span>
+<span class="r-in"><span><span class="co">#-----   using group= argument</span></span></span>
 <span class="r-in"><span><span class="fu">psdVal</span><span class="op">(</span><span class="st">"Brown Trout"</span>,group<span class="op">=</span><span class="st">"lentic"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  substock     stock   quality preferred memorable    trophy </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         0       200       300       400       500       600 </span>
 <span class="r-in"><span><span class="fu">psdVal</span><span class="op">(</span><span class="st">"Brown Trout"</span>,group<span class="op">=</span><span class="st">"lotic"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  substock     stock   quality preferred memorable    trophy </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         0       150       230       300       380       460 </span>
-<span class="r-in"><span><span class="fu">psdVal</span><span class="op">(</span><span class="st">"Palmetto Bass"</span>,group<span class="op">=</span><span class="st">"revised"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#-----   group combined in species name, so no group= use</span></span></span>
+<span class="r-in"><span><span class="fu">psdVal</span><span class="op">(</span><span class="st">"Brown Trout (lentic)"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  substock     stock   quality preferred memorable    trophy </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         0       200       300       400       500       600 </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#===== For species with revised values</span></span></span>
+<span class="r-in"><span><span class="fu">psdVal</span><span class="op">(</span><span class="st">"Palmetto Bass"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  substock     stock   quality preferred memorable    trophy </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         0       250       410       510       610       710 </span>
-<span class="r-in"><span><span class="fu">psdVal</span><span class="op">(</span><span class="st">"Palmetto Bass"</span>,group<span class="op">=</span><span class="st">"original"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">psdVal</span><span class="op">(</span><span class="st">"Palmetto Bass (original)"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  substock     stock   quality preferred memorable    trophy </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         0       200       300       380       510       630 </span>
 <span class="r-in"><span></span></span>
@@ -221,7 +247,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
 </div>
 
     </footer></div>

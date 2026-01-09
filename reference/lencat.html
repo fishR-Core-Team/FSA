@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Constructs length class/category variable.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.0/R/lencat.R" class="external-link"><code>R/lencat.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.1/R/lencat.R" class="external-link"><code>R/lencat.R</code></a></small>
       <div class="d-none name"><code>lencat.Rd</code></div>
     </div>
 
@@ -163,35 +163,35 @@
 <span class="r-in"><span><span class="va">df1</span><span class="op">$</span><span class="va">LCat1</span> <span class="op">&lt;-</span> <span class="fu">lencat</span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">len</span>,w<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">LCat1</span>,data<span class="op">=</span><span class="va">df1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LCat1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.2 0.9 1.3 1.5 1.6 1.7 2.1 2.8 2.9   3 3.3 3.8 4.1 4.2 4.4 4.5 4.6 4.9 5.1 5.7 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1   1   2   1   1   2   1   1   2   2   1   1   1   1   1   2   1   1   2   1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6.2 6.3 6.4 7.1 7.2 7.3 7.6 7.7 7.9 8.3 8.6 8.7 9.3 9.8 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1   2   1   2   1   2   1   1   1   5   2   2   1   2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.2 0.9   1 1.3 1.6 1.7 2.1 2.8 2.9   3 3.3 3.8 4.1 4.2 4.5 4.9 5.1 5.3 5.7 6.2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1   1   1   1   1   1   1   1   2   4   1   2   1   1   1   1   1   1   1   1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6.3 6.4 7.1 7.3 7.6 7.7 7.9 8.3 8.6 8.7 9.2 9.3 9.7 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2   1   2   1   2   3   2   4   2   3   1   1   1 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># length categories by 0.2 units</span></span></span>
 <span class="r-in"><span><span class="va">df1</span><span class="op">$</span><span class="va">LCat2</span> <span class="op">&lt;-</span> <span class="fu">lencat</span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">len</span>,w<span class="op">=</span><span class="fl">0.2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">LCat2</span>,data<span class="op">=</span><span class="va">df1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LCat2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.2 0.8 1.2 1.4 1.6   2 2.8   3 3.2 3.8   4 4.2 4.4 4.6 4.8   5 5.6 6.2 6.4   7 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1   1   2   1   3   1   3   2   1   1   1   1   3   1   1   2   1   3   1   2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7.2 7.6 7.8 8.2 8.6 9.2 9.8 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3   2   1   5   4   1   2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.2 0.8   1 1.2 1.6   2 2.8   3 3.2 3.8   4 4.2 4.4 4.8   5 5.2 5.6 6.2 6.4   7 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1   1   1   1   2   1   3   4   1   2   1   1   1   1   1   1   1   3   1   2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7.2 7.6 7.8 8.2 8.6 9.2 9.6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1   5   2   4   5   2   1 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># length categories by 0.2 units starting at 0.1</span></span></span>
 <span class="r-in"><span><span class="va">df1</span><span class="op">$</span><span class="va">LCat3</span> <span class="op">&lt;-</span> <span class="fu">lencat</span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">len</span>,w<span class="op">=</span><span class="fl">0.2</span>,startcat<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">LCat3</span>,data<span class="op">=</span><span class="va">df1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LCat3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1 0.9 1.3 1.5 1.7 2.1 2.7 2.9 3.3 3.7 4.1 4.3 4.5 4.9 5.1 5.7 6.1 6.3 7.1 7.3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1   1   2   2   2   1   1   4   1   1   2   1   3   1   2   1   1   3   3   2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7.5 7.7 7.9 8.3 8.5 8.7 9.3 9.7 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1   1   1   5   2   2   1   2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1 0.9 1.3 1.5 1.7 2.1 2.7 2.9 3.3 3.7 4.1 4.5 4.9 5.1 5.3 5.7 6.1 6.3 7.1 7.3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1   2   1   1   1   1   1   6   1   2   2   1   1   1   1   1   1   3   2   1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7.5 7.7 7.9 8.3 8.5 8.7 9.1 9.3 9.7 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2   3   2   4   2   3   1   1   1 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># length categories as set by breaks</span></span></span>
 <span class="r-in"><span><span class="va">df1</span><span class="op">$</span><span class="va">LCat4</span> <span class="op">&lt;-</span> <span class="fu">lencat</span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">len</span>,breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">7</span>,<span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">LCat4</span>,data<span class="op">=</span><span class="va">df1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LCat4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0  2  4  7 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8  8 14 20 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6 11 11 22 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## A Second example</span></span></span>
 <span class="r-in"><span><span class="co"># random lengths measured to nearest unit</span></span></span>
@@ -201,38 +201,38 @@
 <span class="r-in"><span><span class="va">df2</span><span class="op">$</span><span class="va">LCat1</span> <span class="op">&lt;-</span> <span class="fu">lencat</span><span class="op">(</span><span class="va">df2</span><span class="op">$</span><span class="va">len</span>,w<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">LCat1</span>,data<span class="op">=</span><span class="va">df2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LCat1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  10  15  20  25  30  35  40  45  50  65  70  75  80  85  90  95 100 105 110 115 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3   4   3   2   1   1   2   2   4   3   2   1   2   2   3   4   2   4   4   1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  10  15  20  25  30  35  45  50  65  70  75  80  85  95 100 105 110 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4   5   2   2   1   2   4   4   3   3   1   2   3   5   2   3   4 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># length categories by 5 units starting at 7</span></span></span>
 <span class="r-in"><span><span class="va">df2</span><span class="op">$</span><span class="va">LCat2</span> <span class="op">&lt;-</span> <span class="fu">lencat</span><span class="op">(</span><span class="va">df2</span><span class="op">$</span><span class="va">len</span>,w<span class="op">=</span><span class="fl">5</span>,startcat<span class="op">=</span><span class="fl">7</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">LCat2</span>,data<span class="op">=</span><span class="va">df2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LCat2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   7  12  17  22  27  32  37  42  47  52  62  67  72  77  82  87  92  97 102 107 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2   2   5   1   2   1   1   3   3   2   2   1   2   1   3   1   5   2   3   6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3   2   5   1   2   1   2   1   4   3   1   2   3   1   3   2   1   5   2   5 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 112 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># length categories by 10 units</span></span></span>
 <span class="r-in"><span><span class="va">df2</span><span class="op">$</span><span class="va">LCat3</span> <span class="op">&lt;-</span> <span class="fu">lencat</span><span class="op">(</span><span class="va">df2</span><span class="op">$</span><span class="va">len</span>,w<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">LCat3</span>,data<span class="op">=</span><span class="va">df2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LCat3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  10  20  30  40  50  60  70  80  90 100 110 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   7   5   2   4   4   3   3   4   7   6   5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   9   4   3   4   4   3   4   5   5   5   4 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># length categories by 10 units starting at 5</span></span></span>
 <span class="r-in"><span><span class="va">df2</span><span class="op">$</span><span class="va">LCat4</span> <span class="op">&lt;-</span> <span class="fu">lencat</span><span class="op">(</span><span class="va">df2</span><span class="op">$</span><span class="va">len</span>,w<span class="op">=</span><span class="fl">10</span>,startcat<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">LCat4</span>,data<span class="op">=</span><span class="va">df2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LCat4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5  15  25  35  45  65  75  85  95 105 115 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3   7   3   3   6   5   3   5   6   8   1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5  15  25  35  45  65  75  85  95 105 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4   7   3   2   8   6   3   3   7   7 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># length categories as set by breaks</span></span></span>
 <span class="r-in"><span><span class="va">df2</span><span class="op">$</span><span class="va">LCat5</span> <span class="op">&lt;-</span> <span class="fu">lencat</span><span class="op">(</span><span class="va">df2</span><span class="op">$</span><span class="va">len</span>,breaks<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">50</span>,<span class="fl">75</span>,<span class="fl">150</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">LCat5</span>,data<span class="op">=</span><span class="va">df2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LCat5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  5 50 75 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18  9 23 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 10 20 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## A Third example</span></span></span>
 <span class="r-in"><span><span class="co"># random lengths measured to nearest 0.1 unit</span></span></span>
@@ -242,8 +242,8 @@
 <span class="r-in"><span><span class="va">df3</span><span class="op">$</span><span class="va">LCat1</span> <span class="op">&lt;-</span> <span class="fu">lencat</span><span class="op">(</span><span class="va">df3</span><span class="op">$</span><span class="va">len</span>,w<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">LCat1</span>,data<span class="op">=</span><span class="va">df3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LCat1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  10  15  20  25  30  35  40  45  50  55  60  65  70  75  80  85  90  95 100 105 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1   1   1   1   1   2   6   3   1   1   7   3   3   2   2   5   1   5   1   3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  20  25  30  35  40  45  50  55  60  65  70  75  80  85  90  95 105 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2   1   1   2   7   1   3   3   8   2   2   3   3   4   1   4   3 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## A Fourth example</span></span></span>
 <span class="r-in"><span><span class="co"># random lengths measured to nearest 0.01 unit</span></span></span>
@@ -253,32 +253,32 @@
 <span class="r-in"><span><span class="va">df4</span><span class="op">$</span><span class="va">LCat1</span> <span class="op">&lt;-</span> <span class="fu">lencat</span><span class="op">(</span><span class="va">df4</span><span class="op">$</span><span class="va">len</span>,w<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">LCat1</span>,data<span class="op">=</span><span class="va">df4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LCat1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1 0.7 1.2 1.8   2 2.2 2.3 2.7 2.9   3 3.1 3.2 3.3 3.4 3.6 3.9   4 4.2 4.3 4.4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1   1   2   1   1   1   1   2   1   1   1   1   1   2   1   3   1   1   2   1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4.5 4.7 4.8   5 5.1 5.3 5.6 6.1 6.4 6.6 6.7 6.8 7.4 7.7 8.2 8.4 8.8 8.9 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2   2   1   1   1   1   3   1   1   1   2   1   1   1   1   1   2   1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1 0.7 0.8 1.2 1.8 1.9   2 2.1 2.2 2.3 2.5 2.7 2.9 3.1 3.2 3.3 3.4 3.6   4 4.3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1   1   1   1   1   1   1   1   1   1   1   1   1   1   2   1   2   1   1   2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4.4 4.5 4.7 4.8   5 5.1 5.3 5.6 6.2 6.4 6.7 6.8 7.4 7.7 8.4 8.8 8.9   9 9.6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1   2   1   1   1   2   1   3   1   1   2   1   1   1   1   4   1   1   1 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># length categories by 0.1 unit, but without missing categories</span></span></span>
 <span class="r-in"><span><span class="va">df4</span><span class="op">$</span><span class="va">LCat2</span> <span class="op">&lt;-</span> <span class="fu">lencat</span><span class="op">(</span><span class="va">df4</span><span class="op">$</span><span class="va">len</span>,w<span class="op">=</span><span class="fl">0.1</span>,as.fact<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">LCat2</span>,data<span class="op">=</span><span class="va">df4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LCat2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9   1 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9   2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1   0   0   0   0   0   1   0   0   0   0   2   0   0   0   0   0   1   0   1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1   0   0   0   0   0   1   1   0   0   0   1   0   0   0   0   0   1   1   1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2.1 2.2 2.3 2.4 2.5 2.6 2.7 2.8 2.9   3 3.1 3.2 3.3 3.4 3.5 3.6 3.7 3.8 3.9   4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0   1   1   0   0   0   2   0   1   1   1   1   1   2   0   1   0   0   3   1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1   1   1   0   1   0   1   0   1   0   1   2   1   2   0   1   0   0   0   1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4.1 4.2 4.3 4.4 4.5 4.6 4.7 4.8 4.9   5 5.1 5.2 5.3 5.4 5.5 5.6 5.7 5.8 5.9   6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0   1   2   1   2   0   2   1   0   1   1   0   1   0   0   3   0   0   0   0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0   0   2   1   2   0   1   1   0   1   2   0   1   0   0   3   0   0   0   0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6.1 6.2 6.3 6.4 6.5 6.6 6.7 6.8 6.9   7 7.1 7.2 7.3 7.4 7.5 7.6 7.7 7.8 7.9   8 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1   0   0   1   0   1   2   1   0   0   0   0   0   1   0   0   1   0   0   0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8.1 8.2 8.3 8.4 8.5 8.6 8.7 8.8 8.9 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0   1   0   1   0   0   0   2   1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0   1   0   1   0   0   2   1   0   0   0   0   0   1   0   0   1   0   0   0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8.1 8.2 8.3 8.4 8.5 8.6 8.7 8.8 8.9   9 9.1 9.2 9.3 9.4 9.5 9.6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0   0   0   1   0   0   0   4   1   1   0   0   0   0   0   1 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># length categories by 2 unit</span></span></span>
 <span class="r-in"><span><span class="va">df4</span><span class="op">$</span><span class="va">LCat3</span> <span class="op">&lt;-</span> <span class="fu">lencat</span><span class="op">(</span><span class="va">df4</span><span class="op">$</span><span class="va">len</span>,w<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">LCat3</span>,data<span class="op">=</span><span class="va">df4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> LCat3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0  2  4  6  8 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5 16 16  8  5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6 14 15  7  8 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## A Fifth example -- with real data</span></span></span>
 <span class="r-in"><span><span class="co"># remove variables with "anu" and "radcap" just for simplicity</span></span></span>
@@ -524,7 +524,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
 </div>
 
     </footer></div>

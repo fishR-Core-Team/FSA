@@ -1,0 +1,357 @@
+# Package index
+
+## Age Comparisons
+
+Summarize and visualize bias and precision among multiple estimates of
+age for individual fish.
+
+- [`ageBias()`](https://fishr-core-team.github.io/FSA/reference/ageBias.md)
+  [`summary(`*`<ageBias>`*`)`](https://fishr-core-team.github.io/FSA/reference/ageBias.md)
+  [`plot(`*`<ageBias>`*`)`](https://fishr-core-team.github.io/FSA/reference/ageBias.md)
+  : Compute and view possible differences between paired sets of ages.
+- [`agePrecision()`](https://fishr-core-team.github.io/FSA/reference/agePrecision.md)
+  [`summary(`*`<agePrec>`*`)`](https://fishr-core-team.github.io/FSA/reference/agePrecision.md)
+  : Compute measures of precision among sets of ages.
+- [`plotAB()`](https://fishr-core-team.github.io/FSA/reference/plotAB.md)
+  : Construct traditional (Campana-like) age-bias plots.
+
+## Age-Length Keys
+
+Process age-length keys including assigning ages to indvidual fish and
+visualizing a key.
+
+- [`alkIndivAge()`](https://fishr-core-team.github.io/FSA/reference/alkIndivAge.md)
+  : Use an age-length key to assign age to individuals in the unaged
+  sample.
+- [`alkPlot()`](https://fishr-core-team.github.io/FSA/reference/alkPlot.md)
+  : Plots to visualize age-length keys.
+- [`alkAgeDist()`](https://fishr-core-team.github.io/FSA/reference/alkAgeDist.md)
+  : Proportions-at-age from an age-length key
+- [`alkMeanVar()`](https://fishr-core-team.github.io/FSA/reference/alkMeanVar.md)
+  : Mean Values-at-age from an age-length key
+
+## Size Structure
+
+Efficiently calculate and summarize proportional size distribution (PSD)
+data.
+
+- [`PSDlit`](https://fishr-core-team.github.io/FSA/reference/PSDlit.md)
+  : Gabelhouse five-cell length categories for various species.
+- [`psdVal()`](https://fishr-core-team.github.io/FSA/reference/psdVal.md)
+  : Finds Gabelhouse lengths (for PSD calculations) for a species.
+- [`psdPlot()`](https://fishr-core-team.github.io/FSA/reference/psdPlot.md)
+  : Length-frequency histogram with Gabelhouse lengths highlighted.
+- [`psdCalc()`](https://fishr-core-team.github.io/FSA/reference/psdCalc.md)
+  : Convenience function for calculating PSD-X and PSD X-Y values.
+- [`psdCI()`](https://fishr-core-team.github.io/FSA/reference/psdCI.md)
+  : Compute confidence intervals for PSD-X and PSD X-Y values.
+- [`psdAdd()`](https://fishr-core-team.github.io/FSA/reference/psdAdd.md)
+  : Creates a vector of Gabelhouse lengths for each species in an entire
+  data frame.
+- [`tictactoe()`](https://fishr-core-team.github.io/FSA/reference/tictactoe.md)
+  : Construct a base tic-tac-toe plot for presenting predator-prey PSD
+  values.
+
+## Condition and Weight-Length
+
+Efficiently calculate and summarize relative weight and visualize
+weight-length data among groups with different slopes.
+
+- [`WSlit`](https://fishr-core-team.github.io/FSA/reference/WSlit.md) :
+  All known standard weight equations.
+- [`wsVal()`](https://fishr-core-team.github.io/FSA/reference/wsVal.md)
+  : Finds standard weight equation coefficients for a particular
+  species.
+- [`wrAdd()`](https://fishr-core-team.github.io/FSA/reference/wrAdd.md)
+  : Computes a vector of relative weights specific to a species in an
+  entire data frame.
+- [`lwCompPreds()`](https://fishr-core-team.github.io/FSA/reference/lwCompPreds.md)
+  : Constructs plots of predicted weights at given lengths among
+  different groups.
+
+## Abundance (Capture-Recapture)
+
+Estimate abundance with capture-recapture data, including handling and
+summarizing data in a capture history format.
+
+- [`mrClosed()`](https://fishr-core-team.github.io/FSA/reference/mrClosed.md)
+  [`summary(`*`<mrClosed1>`*`)`](https://fishr-core-team.github.io/FSA/reference/mrClosed.md)
+  [`confint(`*`<mrClosed1>`*`)`](https://fishr-core-team.github.io/FSA/reference/mrClosed.md)
+  [`summary(`*`<mrClosed2>`*`)`](https://fishr-core-team.github.io/FSA/reference/mrClosed.md)
+  [`confint(`*`<mrClosed2>`*`)`](https://fishr-core-team.github.io/FSA/reference/mrClosed.md)
+  [`plot(`*`<mrClosed2>`*`)`](https://fishr-core-team.github.io/FSA/reference/mrClosed.md)
+  : Estimate initial population size for single or multiple census
+  mark-recapture data.
+- [`jolly()`](https://fishr-core-team.github.io/FSA/reference/mrOpen.md)
+  [`mrOpen()`](https://fishr-core-team.github.io/FSA/reference/mrOpen.md)
+  [`summary(`*`<mrOpen>`*`)`](https://fishr-core-team.github.io/FSA/reference/mrOpen.md)
+  [`confint(`*`<mrOpen>`*`)`](https://fishr-core-team.github.io/FSA/reference/mrOpen.md)
+  : Jolly-Seber analysis from multiple mark-recapture events from an
+  open population.
+- [`capHistConvert()`](https://fishr-core-team.github.io/FSA/reference/capHistConvert.md)
+  : Convert between capture history data.frame formats.
+- [`capHistSum()`](https://fishr-core-team.github.io/FSA/reference/capHistSum.md)
+  [`is.CapHist()`](https://fishr-core-team.github.io/FSA/reference/capHistSum.md)
+  [`plot(`*`<CapHist>`*`)`](https://fishr-core-team.github.io/FSA/reference/capHistSum.md)
+  : Summarize capture histories in individual fish format.
+
+## Abundance (Depletion)
+
+Estimate abundance with depletion and removal data.
+
+- [`depletion()`](https://fishr-core-team.github.io/FSA/reference/depletion.md)
+  [`summary(`*`<depletion>`*`)`](https://fishr-core-team.github.io/FSA/reference/depletion.md)
+  [`coef(`*`<depletion>`*`)`](https://fishr-core-team.github.io/FSA/reference/depletion.md)
+  [`confint(`*`<depletion>`*`)`](https://fishr-core-team.github.io/FSA/reference/depletion.md)
+  [`anova(`*`<depletion>`*`)`](https://fishr-core-team.github.io/FSA/reference/depletion.md)
+  [`rSquared(`*`<depletion>`*`)`](https://fishr-core-team.github.io/FSA/reference/depletion.md)
+  [`plot(`*`<depletion>`*`)`](https://fishr-core-team.github.io/FSA/reference/depletion.md)
+  : Computes the Leslie or DeLury population estimate from catch and
+  effort data.
+- [`removal()`](https://fishr-core-team.github.io/FSA/reference/removal.md)
+  [`coef(`*`<removal>`*`)`](https://fishr-core-team.github.io/FSA/reference/removal.md)
+  [`confint(`*`<removal>`*`)`](https://fishr-core-team.github.io/FSA/reference/removal.md)
+  [`summary(`*`<removal>`*`)`](https://fishr-core-team.github.io/FSA/reference/removal.md)
+  : Population estimates for k-, 3-, or 2-pass removal data.
+
+## Individual Growth
+
+Fit various growth models (von Bertalanffy, Gompertz, logistic,
+Richards, Schnute) to individual fish.
+
+- [`makeGrowthFun()`](https://fishr-core-team.github.io/FSA/reference/makeGrowthFun.md)
+  : Creates a function for a specific parameterization of the von
+  Bertalanffy and other common growth functions.
+- [`showGrowthFun()`](https://fishr-core-team.github.io/FSA/reference/showGrowthFun.md)
+  : Creates a string or an expression for a specific growth function.
+- [`findGrowthStarts()`](https://fishr-core-team.github.io/FSA/reference/findGrowthStarts.md)
+  : Find reasonable starting values for common fish growth functions.
+
+## Mortality Rates
+
+Estimate mortality rates from catch curve data and empirical models.
+
+- [`catchCurve()`](https://fishr-core-team.github.io/FSA/reference/catchCurve.md)
+  [`summary(`*`<catchCurve>`*`)`](https://fishr-core-team.github.io/FSA/reference/catchCurve.md)
+  [`coef(`*`<catchCurve>`*`)`](https://fishr-core-team.github.io/FSA/reference/catchCurve.md)
+  [`anova(`*`<catchCurve>`*`)`](https://fishr-core-team.github.io/FSA/reference/catchCurve.md)
+  [`confint(`*`<catchCurve>`*`)`](https://fishr-core-team.github.io/FSA/reference/catchCurve.md)
+  [`rSquared(`*`<catchCurve>`*`)`](https://fishr-core-team.github.io/FSA/reference/catchCurve.md)
+  [`plot(`*`<catchCurve>`*`)`](https://fishr-core-team.github.io/FSA/reference/catchCurve.md)
+  : Mortality estimates from the descending limb of a catch curve.
+- [`chapmanRobson()`](https://fishr-core-team.github.io/FSA/reference/chapmanRobson.md)
+  [`summary(`*`<chapmanRobson>`*`)`](https://fishr-core-team.github.io/FSA/reference/chapmanRobson.md)
+  [`coef(`*`<chapmanRobson>`*`)`](https://fishr-core-team.github.io/FSA/reference/chapmanRobson.md)
+  [`confint(`*`<chapmanRobson>`*`)`](https://fishr-core-team.github.io/FSA/reference/chapmanRobson.md)
+  [`plot(`*`<chapmanRobson>`*`)`](https://fishr-core-team.github.io/FSA/reference/chapmanRobson.md)
+  : Computes Chapman-Robson estimates of S and Z.
+- [`Mmethods()`](https://fishr-core-team.github.io/FSA/reference/metaM.md)
+  [`metaM()`](https://fishr-core-team.github.io/FSA/reference/metaM.md)
+  : Estimate natural mortality from a variety of empirical methods.
+
+## Stock-Recruiment
+
+Fit various (Beverton-Holt, Ricker, Shepherd) stock-recruitment
+functions.
+
+- [`srFuns()`](https://fishr-core-team.github.io/FSA/reference/srFuns.md)
+  [`srFunShow()`](https://fishr-core-team.github.io/FSA/reference/srFuns.md)
+  : Creates a function for a specific parameterization of a common
+  stock-recruitment function .
+- [`srStarts()`](https://fishr-core-team.github.io/FSA/reference/srStarts.md)
+  : Finds reasonable starting values for parameters in specific
+  parameterizations of common stock-recruitment models.
+
+## Utilities (Fisheries-Specific)
+
+Utilities that are likely useful only to fisheries scientists.
+
+- [`addZeroCatch()`](https://fishr-core-team.github.io/FSA/reference/addZeroCatch.md)
+  : Adds zeros for catches of species not collected in some sampling
+  events.
+- [`expandCounts()`](https://fishr-core-team.github.io/FSA/reference/expandCounts.md)
+  : Repeat individual fish data (including lengths) from tallied counts.
+- [`expandLenFreq()`](https://fishr-core-team.github.io/FSA/reference/expandLenFreq.md)
+  : Expands a length frequency based on a subsample.
+- [`lencat()`](https://fishr-core-team.github.io/FSA/reference/lencat.md)
+  : Constructs length class/category variable.
+
+## Utilities (General Statistics)
+
+Utilities of a statistical nature that are likely to be useful to a
+fisheries scientist.
+
+- [`binCI()`](https://fishr-core-team.github.io/FSA/reference/binCI.md)
+  : Confidence intervals for binomial probability of success.
+- [`hyperCI()`](https://fishr-core-team.github.io/FSA/reference/hyperCI.md)
+  : Confidence interval for population size (N) in hypergeometric
+  distribution.
+- [`poiCI()`](https://fishr-core-team.github.io/FSA/reference/poiCI.md)
+  : Confidence interval for Poisson counts.
+- [`confint(`*`<boot>`*`)`](https://fishr-core-team.github.io/FSA/reference/boot.md)
+  [`htest(`*`<boot>`*`)`](https://fishr-core-team.github.io/FSA/reference/boot.md)
+  [`predict(`*`<boot>`*`)`](https://fishr-core-team.github.io/FSA/reference/boot.md)
+  [`hist(`*`<boot>`*`)`](https://fishr-core-team.github.io/FSA/reference/boot.md)
+  : Associated S3 methods for bootstrap results from car::Boot.
+- [`dunnTest()`](https://fishr-core-team.github.io/FSA/reference/dunnTest.md)
+  [`print(`*`<dunnTest>`*`)`](https://fishr-core-team.github.io/FSA/reference/dunnTest.md)
+  : Dunn's Kruskal-Wallis Multiple Comparisons.
+- [`lrt()`](https://fishr-core-team.github.io/FSA/reference/extraTests.md)
+  [`extraSS()`](https://fishr-core-team.github.io/FSA/reference/extraTests.md)
+  [`print(`*`<extraTest>`*`)`](https://fishr-core-team.github.io/FSA/reference/extraTests.md)
+  : Likelihood ratio and extra sum-of-squares tests.
+- [`geomean()`](https://fishr-core-team.github.io/FSA/reference/geomean.md)
+  [`geosd()`](https://fishr-core-team.github.io/FSA/reference/geomean.md)
+  : Calculates the geometric mean or geometric standard deviation.
+- [`hist(`*`<formula>`*`)`](https://fishr-core-team.github.io/FSA/reference/hist.formula.md)
+  : Creates separate histograms by levels.
+- [`histFromSum()`](https://fishr-core-team.github.io/FSA/reference/histFromSum.md)
+  : Create a histogram from a frequency table.
+- [`confint(`*`<nlsBoot>`*`)`](https://fishr-core-team.github.io/FSA/reference/nlsBoot.md)
+  [`predict(`*`<nlsBoot>`*`)`](https://fishr-core-team.github.io/FSA/reference/nlsBoot.md)
+  [`htest()`](https://fishr-core-team.github.io/FSA/reference/nlsBoot.md)
+  : Associated S3 methods for nlsBoot from nlstools.
+- [`ksTest()`](https://fishr-core-team.github.io/FSA/reference/ksTest.md)
+  : Kolmogorov-Smirnov Tests.
+- [`logbtcf()`](https://fishr-core-team.github.io/FSA/reference/logbtcf.md)
+  : Constructs the correction-factor used when back-transforming
+  log-transformed values.
+- [`nlsTracePlot()`](https://fishr-core-team.github.io/FSA/reference/nlsTracePlot.md)
+  : Adds model fits from nls iterations to active plot.
+- [`rcumsum()`](https://fishr-core-team.github.io/FSA/reference/rcumsum.md)
+  [`pcumsum()`](https://fishr-core-team.github.io/FSA/reference/rcumsum.md)
+  : Computes the prior to or reverse cumulative sum of a vector.
+- [`rSquared()`](https://fishr-core-team.github.io/FSA/reference/rSquared.md)
+  : Extract the coefficient of determination from a linear model object.
+- [`se()`](https://fishr-core-team.github.io/FSA/reference/se.md) :
+  Computes standard error of the mean.
+- [`Summarize()`](https://fishr-core-team.github.io/FSA/reference/Summarize.md)
+  : Summary statistics for a numeric variable.
+- [`sumTable()`](https://fishr-core-team.github.io/FSA/reference/sumTable.md)
+  : Creates a one- or two-way table of summary statistics.
+
+## Utilities (Other)
+
+Miscellaneous utilities.
+
+- [`FSA-package`](https://fishr-core-team.github.io/FSA/reference/FSA.md)
+  [`FSA`](https://fishr-core-team.github.io/FSA/reference/FSA.md) :
+  Fisheries stock assessment methods and data.
+- [`capFirst()`](https://fishr-core-team.github.io/FSA/reference/capFirst.md)
+  : Capitalizes the first letter of first or all words in a string.
+- [`col2rgbt()`](https://fishr-core-team.github.io/FSA/reference/col2rgbt.md)
+  : Converts an R color to RGB (red/green/blue) including a transparency
+  (alpha channel).
+- [`fact2num()`](https://fishr-core-team.github.io/FSA/reference/fact2num.md)
+  : Converts "numeric" factor levels to numeric values.
+- [`fishR()`](https://fishr-core-team.github.io/FSA/reference/fishR.md)
+  : Opens web pages associated with the fishR website.
+- [`headtail()`](https://fishr-core-team.github.io/FSA/reference/headtail.md)
+  : Shows rows from the head and tail of a data frame or matrix.
+- [`is.odd()`](https://fishr-core-team.github.io/FSA/reference/is.odd.md)
+  [`is.even()`](https://fishr-core-team.github.io/FSA/reference/is.odd.md)
+  : Determine if a number is odd or even.
+- [`kCounts()`](https://fishr-core-team.github.io/FSA/reference/knitUtil.md)
+  [`kPvalue()`](https://fishr-core-team.github.io/FSA/reference/knitUtil.md)
+  [`purl2()`](https://fishr-core-team.github.io/FSA/reference/knitUtil.md)
+  [`reproInfo()`](https://fishr-core-team.github.io/FSA/reference/knitUtil.md)
+  : Specific utilities for use in a knitr document.
+- [`lagratio()`](https://fishr-core-team.github.io/FSA/reference/lagratio.md)
+  : Ratio of lagged observations.
+- [`perc()`](https://fishr-core-team.github.io/FSA/reference/perc.md) :
+  Computes the percentage of values in a vector less than or greater
+  than (and equal to) some value.
+- [`peek()`](https://fishr-core-team.github.io/FSA/reference/peek.md) :
+  Peek into (show a subset of) a data frame or matrix.
+- [`repeatedRows2Keep()`](https://fishr-core-team.github.io/FSA/reference/repeatedRows2Keep.md)
+  : Find non-repeated consecutive rows in a data.frame.
+- [`validn()`](https://fishr-core-team.github.io/FSA/reference/validn.md)
+  : Finds the number of valid (non-NA) values in a vector.
+
+## Data
+
+Data files.
+
+- [`BluegillJL`](https://fishr-core-team.github.io/FSA/reference/BluegillJL.md)
+  : Capture histories (2 samples) of Bluegill from Jewett Lake, MI.
+- [`BrookTroutTH`](https://fishr-core-team.github.io/FSA/reference/BrookTroutTH.md)
+  : Catch-at-age for Tobin Harbor, Isle Royale Brook Trout.
+- [`ChinookArg`](https://fishr-core-team.github.io/FSA/reference/ChinookArg.md)
+  : Lengths and weights for Chinook Salmon from three locations in
+  Argentina.
+- [`CodNorwegian`](https://fishr-core-team.github.io/FSA/reference/CodNorwegian.md)
+  : Stock and recruitment data for Norwegian cod, 1937-1960.
+- [`CutthroatAL`](https://fishr-core-team.github.io/FSA/reference/CutthroatAL.md)
+  : Capture histories (9 samples) of Cutthroat Trout from Auke Lake.
+- [`Ecoli`](https://fishr-core-team.github.io/FSA/reference/Ecoli.md) :
+  Population growth of Escherichia coli.
+- [`GrowthData1`](https://fishr-core-team.github.io/FSA/reference/GrowthData1.md)
+  : Hypothetical growth data for testing
+- [`GrowthData2`](https://fishr-core-team.github.io/FSA/reference/GrowthData2.md)
+  : Hypothetical growth data for testing seasonal age models.
+- [`GrowthData3`](https://fishr-core-team.github.io/FSA/reference/GrowthData3.md)
+  : Hypothetical growth data for testing
+- [`Mirex`](https://fishr-core-team.github.io/FSA/reference/Mirex.md) :
+  Mirex concentration, weight, capture year, and species of Lake Ontario
+  salmon.
+- [`PikeNY`](https://fishr-core-team.github.io/FSA/reference/PikeNY.md)
+  : Summarized multiple mark-recapture data for all Northern Pike from
+  Buckhorn Marsh, NY.
+- [`PikeNYPartial1`](https://fishr-core-team.github.io/FSA/reference/PikeNYPartial1.md)
+  : Capture histories (4 samples), in capture history format, of a
+  subset of Northern Pike from Buckhorn Marsh, NY.
+- [`PSDlit`](https://fishr-core-team.github.io/FSA/reference/PSDlit.md)
+  : Gabelhouse five-cell length categories for various species.
+- [`PSDWRtest`](https://fishr-core-team.github.io/FSA/reference/PSDWRtest.md)
+  : Hypothetical weight-length data for testing PSD and relative weight
+  functions
+- [`SMBassLS`](https://fishr-core-team.github.io/FSA/reference/SMBassLS.md)
+  : Catch-effort data for Little Silver Lake (Ont) Smallmouth Bass.
+- [`SMBassWB`](https://fishr-core-team.github.io/FSA/reference/SMBassWB.md)
+  : Growth increment data for West Bearskin Lake, MN, Smallmouth Bass.
+- [`SpotVA1`](https://fishr-core-team.github.io/FSA/reference/SpotVA1.md)
+  : Age and length of spot.
+- [`WhitefishLC`](https://fishr-core-team.github.io/FSA/reference/WhitefishLC.md)
+  : Assigned ages from two readers on three structures for Lake
+  Whitefish from Lake Champlain.
+- [`WR79`](https://fishr-core-team.github.io/FSA/reference/WR79.md) :
+  Ages and lengths for a hypothetical sample from Westerheim and Ricker
+  (1979).
+- [`WSlit`](https://fishr-core-team.github.io/FSA/reference/WSlit.md) :
+  All known standard weight equations.
+
+## Defunct
+
+Defunct functions.
+
+- [`bootCase()`](https://fishr-core-team.github.io/FSA/reference/FSA-defunct.md)
+  [`chooseColors()`](https://fishr-core-team.github.io/FSA/reference/FSA-defunct.md)
+  [`compIntercepts()`](https://fishr-core-team.github.io/FSA/reference/FSA-defunct.md)
+  [`compSlopes()`](https://fishr-core-team.github.io/FSA/reference/FSA-defunct.md)
+  [`diags()`](https://fishr-core-team.github.io/FSA/reference/FSA-defunct.md)
+  [`filterD()`](https://fishr-core-team.github.io/FSA/reference/FSA-defunct.md)
+  [`fitPlot()`](https://fishr-core-team.github.io/FSA/reference/FSA-defunct.md)
+  [`fsaNews()`](https://fishr-core-team.github.io/FSA/reference/FSA-defunct.md)
+  [`hoCoef()`](https://fishr-core-team.github.io/FSA/reference/FSA-defunct.md)
+  [`mapvalues()`](https://fishr-core-team.github.io/FSA/reference/FSA-defunct.md)
+  [`plotBinResp()`](https://fishr-core-team.github.io/FSA/reference/FSA-defunct.md)
+  [`residPlot()`](https://fishr-core-team.github.io/FSA/reference/FSA-defunct.md)
+  [`Subset()`](https://fishr-core-team.github.io/FSA/reference/FSA-defunct.md)
+  [`Schnute()`](https://fishr-core-team.github.io/FSA/reference/FSA-defunct.md)
+  : DEFUNCT functions.
+
+## Deprecated
+
+Deprecated functions.
+
+- [`vbFuns()`](https://fishr-core-team.github.io/FSA/reference/growthModels.md)
+  [`GompertzFuns()`](https://fishr-core-team.github.io/FSA/reference/growthModels.md)
+  [`RichardsFuns()`](https://fishr-core-team.github.io/FSA/reference/growthModels.md)
+  [`logisticFuns()`](https://fishr-core-team.github.io/FSA/reference/growthModels.md)
+  [`growthFunShow()`](https://fishr-core-team.github.io/FSA/reference/growthModels.md)
+  : DEPRECATED (as of v0.10.0). Creates a function for a specific
+  parameterization of the von Bertalanffy, Gompertz, Richards, and
+  logistic growth functions.
+- [`vbStarts()`](https://fishr-core-team.github.io/FSA/reference/vbStarts.md)
+  : Find reasonable starting values for a von Bertalanffy growth
+  function.

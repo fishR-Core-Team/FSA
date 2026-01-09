@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,9 +69,9 @@
       <img src="../logo.png" class="logo" alt=""><h1>Computing Proportional Size Distribution Metrics in FSA</h1>
 
       <p class="author">Derek H. Ogle</p>
-      <p class="date">2025-05-06</p>
+      <p class="date">2026-01-09</p>
 
-      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.0/vignettes/articles/Computing_PSDs.qmd" class="external-link"><code>vignettes/articles/Computing_PSDs.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.1/vignettes/articles/Computing_PSDs.qmd" class="external-link"><code>vignettes/articles/Computing_PSDs.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -87,9 +87,9 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://fishr-core-team.github.io/FSA/">FSA</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>  <span class="co"># mutate, select, group_by, summarize</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>  <span class="co"># mutate, select, filter, case_when</span></span></code></pre></div>
 </div>
-</section><section class="section level2"><h2 id="creating-psd-related-length-categories">Creating PSD-Related Length Categories<a class="anchor" aria-label="anchor" href="#creating-psd-related-length-categories"></a>
+</section><section class="section level2"><h2 id="looking-up-psd-related-lengths">Looking-Up PSD-Related Lengths<a class="anchor" aria-label="anchor" href="#looking-up-psd-related-lengths"></a>
 </h2>
 <section class="level2"><h3 id="gabelhouse-length-categories">Gabelhouse Length Categories<a class="anchor" aria-label="anchor" href="#gabelhouse-length-categories"></a>
 </h3>
@@ -100,7 +100,7 @@
 <span><span class="co">#&gt;  substock     stock   quality preferred memorable    trophy </span></span>
 <span><span class="co">#&gt;         0        80       150       200       250       300</span></span></code></pre></div>
 </div>
-<p>The default is to return lengths in millimeters; however, they can be returned in centimeters or inches with <code>units=</code></p>
+<p>The default is to return lengths in millimeters; however, they can be returned in centimeters or inches with <code>units=</code>.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;A few species do not have define English unit lengths.&lt;/p&gt;"><sup>2</sup></a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Bluegill"</span>,units<span class="op">=</span><span class="st">"cm"</span><span class="op">)</span></span>
@@ -110,7 +110,7 @@
 <span><span class="co">#&gt;  substock     stock   quality preferred memorable    trophy </span></span>
 <span><span class="co">#&gt;         0         3         6         8        10        12</span></span></code></pre></div>
 </div>
-<p>By default, a sixth cell is included that is labeled as “substock” and will always have the value of 0. This can be useful for data that includes individuals shorter than the stock length. Use <code>incl.zero=FALSE</code> to exclude this category.</p>
+<p>By default, a sixth cell is included that is labeled as “substock” and will always have the value of 0. This can be useful for some analyses with data that includes individuals shorter than the stock length. Use <code>incl.zero=FALSE</code> to exclude this category.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Bluegill"</span>,incl.zero<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
@@ -123,71 +123,121 @@
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Species name must be one of following. Be careful of spelling and capitalization.</span></span>
-<span><span class="co">#&gt;  [1] "Arctic Grayling"           "Bighead Carp"             </span></span>
-<span><span class="co">#&gt;  [3] "Bigmouth Buffalo"          "Black Bullhead"           </span></span>
-<span><span class="co">#&gt;  [5] "Black Carp"                "Black Crappie"            </span></span>
-<span><span class="co">#&gt;  [7] "Blue Catfish"              "Bluegill"                 </span></span>
-<span><span class="co">#&gt;  [9] "Brook Trout"               "Brown Bullhead"           </span></span>
-<span><span class="co">#&gt; [11] "Brown Trout"               "Bull Trout"               </span></span>
-<span><span class="co">#&gt; [13] "Burbot"                    "Chain Pickerel"           </span></span>
-<span><span class="co">#&gt; [15] "Channel Catfish"           "Chinook Salmon"           </span></span>
-<span><span class="co">#&gt; [17] "Common Carp"               "Cutthroat Trout"          </span></span>
-<span><span class="co">#&gt; [19] "Flathead Catfish"          "Freshwater Drum"          </span></span>
-<span><span class="co">#&gt; [21] "Gizzard Shad"              "Golden Trout"             </span></span>
-<span><span class="co">#&gt; [23] "Goldeye"                   "Grass Carp"               </span></span>
-<span><span class="co">#&gt; [25] "Green Sunfish"             "Kokanee"                  </span></span>
-<span><span class="co">#&gt; [27] "Lake Chubsucker"           "Lake Trout"               </span></span>
-<span><span class="co">#&gt; [29] "Largemouth Bass"           "Longnose Gar"             </span></span>
-<span><span class="co">#&gt; [31] "Muskellunge"               "Northern Pike"            </span></span>
-<span><span class="co">#&gt; [33] "Northern Snakehead"        "Paddlefish"               </span></span>
-<span><span class="co">#&gt; [35] "Pallid Sturgeon"           "Palmetto Bass"            </span></span>
-<span><span class="co">#&gt; [37] "Pumpkinseed"               "Rainbow Trout"            </span></span>
-<span><span class="co">#&gt; [39] "Redbreast Sunfish"         "Redear Sunfish"           </span></span>
-<span><span class="co">#&gt; [41] "River Carpsucker"          "Rock Bass"                </span></span>
-<span><span class="co">#&gt; [43] "Ruffe"                     "Sauger"                   </span></span>
-<span><span class="co">#&gt; [45] "Saugeye"                   "Shoal Bass"               </span></span>
-<span><span class="co">#&gt; [47] "Shorthead Redhorse"        "Silver Carp"              </span></span>
-<span><span class="co">#&gt; [49] "Smallmouth Bass"           "Smallmouth Buffalo "      </span></span>
-<span><span class="co">#&gt; [51] "Splake"                    "Spotted Bass"             </span></span>
-<span><span class="co">#&gt; [53] "Spotted Gar"               "Spotted Sunfish"          </span></span>
-<span><span class="co">#&gt; [55] "Striped Bass"              "Striped Bass X White Bass"</span></span>
-<span><span class="co">#&gt; [57] "Suwannee Bass"             "Utah Chub"                </span></span>
-<span><span class="co">#&gt; [59] "Walleye"                   "Warmouth"                 </span></span>
-<span><span class="co">#&gt; [61] "White Bass"                "White Catfish"            </span></span>
-<span><span class="co">#&gt; [63] "White Crappie"             "White Perch"              </span></span>
-<span><span class="co">#&gt; [65] "White Sucker"              "Yellow Bass"              </span></span>
-<span><span class="co">#&gt; [67] "Yellow Bullhead"           "Yellow Perch"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "Alabama Bass"                "Arctic Grayling"            </span></span>
+<span><span class="co">#&gt;  [3] "Bighead Carp"                "Bigmouth Buffalo"           </span></span>
+<span><span class="co">#&gt;  [5] "Black Bullhead"              "Black Carp"                 </span></span>
+<span><span class="co">#&gt;  [7] "Black Crappie"               "Blue Catfish"               </span></span>
+<span><span class="co">#&gt;  [9] "Bluegill"                    "Brook Trout"                </span></span>
+<span><span class="co">#&gt; [11] "Brook Trout (lentic)"        "Brook Trout (lotic)"        </span></span>
+<span><span class="co">#&gt; [13] "Brook Trout (overall)"       "Brown Bullhead"             </span></span>
+<span><span class="co">#&gt; [15] "Brown Trout"                 "Brown Trout (lentic)"       </span></span>
+<span><span class="co">#&gt; [17] "Brown Trout (lotic)"         "Bull Trout"                 </span></span>
+<span><span class="co">#&gt; [19] "Burbot"                      "Chain Pickerel"             </span></span>
+<span><span class="co">#&gt; [21] "Channel Catfish"             "Chinook Salmon"             </span></span>
+<span><span class="co">#&gt; [23] "Chinook Salmon (landlocked)" "Common Carp"                </span></span>
+<span><span class="co">#&gt; [25] "Cutthroat Trout"             "Cutthroat Trout (lentic)"   </span></span>
+<span><span class="co">#&gt; [27] "Cutthroat Trout (lotic)"     "Flathead Catfish"           </span></span>
+<span><span class="co">#&gt; [29] "Flier"                       "Freshwater Drum"            </span></span>
+<span><span class="co">#&gt; [31] "Gizzard Shad"                "Golden Trout"               </span></span>
+<span><span class="co">#&gt; [33] "Goldeye"                     "Grass Carp"                 </span></span>
+<span><span class="co">#&gt; [35] "Green Sunfish"               "Kokanee"                    </span></span>
+<span><span class="co">#&gt; [37] "Lake Chubsucker"             "Lake Trout"                 </span></span>
+<span><span class="co">#&gt; [39] "Largemouth Bass"             "Longear Sunfish"            </span></span>
+<span><span class="co">#&gt; [41] "Longnose Gar"                "Muskellunge"                </span></span>
+<span><span class="co">#&gt; [43] "Muskellunge (female)"        "Muskellunge (male)"         </span></span>
+<span><span class="co">#&gt; [45] "Muskellunge (overall)"       "Northern Pike"              </span></span>
+<span><span class="co">#&gt; [47] "Northern Pikeminnow"         "Northern Snakehead"         </span></span>
+<span><span class="co">#&gt; [49] "Paddlefish"                  "Paddlefish (female)"        </span></span>
+<span><span class="co">#&gt; [51] "Paddlefish (male)"           "Paddlefish (overall)"       </span></span>
+<span><span class="co">#&gt; [53] "Pallid Sturgeon"             "Palmetto Bass"              </span></span>
+<span><span class="co">#&gt; [55] "Palmetto Bass (original)"    "Pumpkinseed"                </span></span>
+<span><span class="co">#&gt; [57] "Rainbow Trout"               "Rainbow Trout (lentic)"     </span></span>
+<span><span class="co">#&gt; [59] "Rainbow Trout (lotic)"       "Redbreast Sunfish"          </span></span>
+<span><span class="co">#&gt; [61] "Redear Sunfish"              "River Carpsucker"           </span></span>
+<span><span class="co">#&gt; [63] "Rock Bass"                   "Ruffe"                      </span></span>
+<span><span class="co">#&gt; [65] "Sauger"                      "Saugeye"                    </span></span>
+<span><span class="co">#&gt; [67] "Shoal Bass"                  "Shorthead Redhorse"         </span></span>
+<span><span class="co">#&gt; [69] "Silver Carp"                 "Smallmouth Bass"            </span></span>
+<span><span class="co">#&gt; [71] "Smallmouth Buffalo "         "Splake"                     </span></span>
+<span><span class="co">#&gt; [73] "Spotted Bass"                "Spotted Bass (original)"    </span></span>
+<span><span class="co">#&gt; [75] "Spotted Gar"                 "Spotted Sunfish"            </span></span>
+<span><span class="co">#&gt; [77] "Striped Bass"                "Striped Bass (landlocked)"  </span></span>
+<span><span class="co">#&gt; [79] "Striped Bass X White Bass"   "Suwannee Bass"              </span></span>
+<span><span class="co">#&gt; [81] "Utah Chub"                   "Walleye"                    </span></span>
+<span><span class="co">#&gt; [83] "Walleye (30-149 mm)"         "Walleye (overall)"          </span></span>
+<span><span class="co">#&gt; [85] "Warmouth"                    "White Bass"                 </span></span>
+<span><span class="co">#&gt; [87] "White Catfish"               "White Crappie"              </span></span>
+<span><span class="co">#&gt; [89] "White Perch"                 "White Sucker"               </span></span>
+<span><span class="co">#&gt; [91] "Yellow Bass"                 "Yellow Bullhead"            </span></span>
+<span><span class="co">#&gt; [93] "Yellow Perch"</span></span></code></pre></div>
 </div>
 <p>All parts of the species names in <code>PSDlit</code> are capitalized (e.g., “Brown Trout” and not “brown trout” or “Brown trout”). <code><a href="../reference/psdVal.html">psdVal()</a></code> will return an informative error message if your capitalization is not correct but the message will be less informative if your spelling is off.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Brown trout"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error: There are no Gablehouse lengths in 'PSDlit' for "Brown trout". However,</span></span>
+<span><span class="co">#&gt; Error:</span></span>
+<span><span class="co">#&gt; ! There are no Gablehouse lengths in 'PSDlit' for "Brown trout". However,</span></span>
 <span><span class="co">#&gt;   there is an entry for "Brown Trout" (note spelling, including</span></span>
 <span><span class="co">#&gt;   capitalization).</span></span>
 <span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Brwn Trout"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error: There are no Gablehouse lengths in 'PSDlit' for "Brwn Trout". Type</span></span>
+<span><span class="co">#&gt; Error:</span></span>
+<span><span class="co">#&gt; ! There are no Gablehouse lengths in 'PSDlit' for "Brwn Trout". Type</span></span>
 <span><span class="co">#&gt;   'psdVal()' to see a list of available species.</span></span></code></pre></div>
 </div>
 <p>A small number of species have separate length designations for sub-groups of the species. One way to determine this is to simply try a species in <code><a href="../reference/psdVal.html">psdVal()</a></code> to see if you receive an informative error about the sub-groups.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Brown Trout"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error: "Brown Trout" has Gabelhouse categories for these sub-groups: "lentic"</span></span>
+<span><span class="co">#&gt; Error:</span></span>
+<span><span class="co">#&gt; ! "Brown Trout" has Gabelhouse categories for these sub-groups: "lentic"</span></span>
 <span><span class="co">#&gt;   and "lotic". Please use 'group=' to select one of these groups.</span></span></code></pre></div>
 </div>
-<p>Then try again with <code>group=</code> as suggested to select a specific group.</p>
+<p>Then try again with <code>group=</code> to select a specific group as suggested.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Brown Trout"</span>,group<span class="op">=</span><span class="st">"lotic"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  substock     stock   quality preferred memorable    trophy </span></span>
 <span><span class="co">#&gt;         0       150       230       300       380       460</span></span></code></pre></div>
 </div>
+<p>These same species and sub-group combinations can also be accessed by combining the species name and lower-case sub-group name (in parenthesis) into the first argument (and then not using <code>group=</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Brown Trout (lotic)"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  substock     stock   quality preferred memorable    trophy </span></span>
+<span><span class="co">#&gt;         0       150       230       300       380       460</span></span></code></pre></div>
+</div>
+<p>Thus, species with sub-group designations can be identified by scanning the list of names returned by <code><a href="../reference/psdVal.html">psdVal()</a></code> for parentheses. This has some limitations as there are a few species that appear to have a sub-group but the name with parentheses is only used here (in <code>PSDlit</code>) to facilitate use when calculating PSD and relative weight metrics<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;As described in &lt;a href="https://fishr-core-team.github.io/FSA/articles/Computing_Relative_Weights.html"&gt;this vignette&lt;/a&gt;.&lt;/p&gt;'><sup>3</sup></a> with the same data.frame. Muskellunge is an example of this where there is only one set of GH length categories but they are repeated for separate sub-groups because separate standard weight equations exist for these sub-groups.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Muskellunge"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  substock     stock   quality preferred memorable    trophy </span></span>
+<span><span class="co">#&gt;         0       510       760       970      1070      1270</span></span>
+<span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Muskellunge (overall)"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  substock     stock   quality preferred memorable    trophy </span></span>
+<span><span class="co">#&gt;         0       510       760       970      1070      1270</span></span>
+<span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Muskellunge (female)"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  substock     stock   quality preferred memorable    trophy </span></span>
+<span><span class="co">#&gt;         0       510       760       970      1070      1270</span></span>
+<span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Muskellunge (male)"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  substock     stock   quality preferred memorable    trophy </span></span>
+<span><span class="co">#&gt;         0       510       760       970      1070      1270</span></span></code></pre></div>
+</div>
+<p>There are also a few species where an original definition of GH length categories has been revised in the literature. The original and revised definitions are available in <code>PSDlit</code> with the revised definitions accessed by using just the species name and the original definitions accessed by appending “(original)” to the species name.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Spotted Bass"</span><span class="op">)</span>             <span class="co"># revised definitions</span></span>
+<span><span class="co">#&gt;  substock     stock   quality preferred memorable    trophy </span></span>
+<span><span class="co">#&gt;         0       150       230       300       350       440</span></span>
+<span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Spotted Bass (original)"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  substock     stock   quality preferred memorable    trophy </span></span>
+<span><span class="co">#&gt;         0       180       280       350       430       510</span></span></code></pre></div>
+</div>
+<p>We strongly urge you to have a good understanding of the GH length categories for your species’ of interest and make sure that <code><a href="../reference/psdVal.html">psdVal()</a></code> is returning the values that you expect (i.e., correct species, sub-group (if appropriate), units, etc.).</p>
 </section><section class="level2"><h3 id="additional-length-categories">Additional Length Categories<a class="anchor" aria-label="anchor" href="#additional-length-categories"></a>
 </h3>
 <p>There may be times when you desire length categories in addition to the GH lengths. For example, suppose that the minimum length limit for Largemouth Bass is 254 mm. This length can be included as one of the categories by including a vector with the length (or lengths) to <code>addLens=</code>. If the item in the vector is named (second example below) then the value will also be named in the returned result.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Largemouth Bass"</span>,addLens<span class="op">=</span><span class="fl">254</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  substock     stock       254   quality preferred memorable    trophy </span></span>
 <span><span class="co">#&gt;         0       200       254       300       380       510       630</span></span>
@@ -197,19 +247,19 @@
 </div>
 <p>Multiple additional lengths can be included.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Largemouth Bass"</span>,addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"minSlot"</span><span class="op">=</span><span class="fl">254</span>,<span class="st">"maxSlot"</span><span class="op">=</span><span class="fl">356</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  substock     stock   minSlot   quality   maxSlot preferred memorable    trophy </span></span>
 <span><span class="co">#&gt;         0       200       254       300       356       380       510       630</span></span></code></pre></div>
 </div>
-</section></section><section class="section level2"><h2 id="adding-length-category-variable-for-one-species">Adding Length Category Variable for One Species<a class="anchor" aria-label="anchor" href="#adding-length-category-variable-for-one-species"></a>
+</section></section><section class="section level2"><h2 id="add-length-categories-for-one-species">Add Length Categories for One Species<a class="anchor" aria-label="anchor" href="#add-length-categories-for-one-species"></a>
 </h2>
 <section class="level2"><h3 id="manual-additions">“Manual” Additions<a class="anchor" aria-label="anchor" href="#manual-additions"></a>
 </h3>
-<p>Suppose that we want to add another variable with the GH length categories to the data.frame of lengths (along with capture location) for Yellow Perch from Saginaw Bay, MI in <code>YPerchSB1</code> (distributed with the <code>FSAdata</code> package). Note here that lengths are in <strong>centimeters</strong>.</p>
+<p>Suppose that we want to add a variable with the GH length categories to the data.frame of lengths (along with capture location) for Yellow Perch from Saginaw Bay, MI in <code>YPerchSB1</code> (distributed with the <code>FSAdata</code> package). Note here that lengths are in <strong>centimeters</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">YPerchSB1</span>,package<span class="op">=</span><span class="st">"FSAdata"</span><span class="op">)</span></span>
+<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">YPerchSB1</span>,package<span class="op">=</span><span class="st">"FSAdata"</span><span class="op">)</span>  <span class="co"># retrieve the data.frame</span></span>
 <span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">YPerchSB1</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        tl   loc</span></span>
 <span><span class="co">#&gt; 1     7.4 inner</span></span>
@@ -225,14 +275,14 @@
 </div>
 <p>First, save the GH length categories returned from <code><a href="../reference/psdVal.html">psdVal()</a></code> to an object (here called <code>ghYP</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span> <span class="va">ghYP</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psdVal.html">psdVal</a></span><span class="op">(</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"cm"</span><span class="op">)</span> <span class="op">)</span></span>
 <span><span class="co">#&gt;  substock     stock   quality preferred memorable    trophy </span></span>
 <span><span class="co">#&gt;         0        13        20        25        30        38</span></span></code></pre></div>
 </div>
-<p>Then use <code><a href="../reference/lencat.html">lencat()</a></code> with the length variable as the first argument and the GH length categories object in <code>breaks=</code>.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;This examples follows my preference of using &lt;code&gt;dplyr&lt;/code&gt; functions. This could also be accomplished with &lt;code&gt;YPerchSB1$ghcats1 &amp;lt;- lencat(YPerchSB1$tl,breaks=ghYP)&lt;/code&gt;.&lt;/p&gt;"><sup>2</sup></a></p>
+<p>Then use <code><a href="../reference/lencat.html">lencat()</a></code> with the length variable as the first argument and the GH length categories object in <code>breaks=</code>.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;This examples follows my preference of using &lt;code&gt;dplyr&lt;/code&gt; functions. This could also be accomplished with &lt;code&gt;YPerchSB1$ghcats1 &amp;lt;- lencat(YPerchSB1$tl,breaks=ghYP)&lt;/code&gt;.&lt;/p&gt;"><sup>4</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">YPerchSB1</span> <span class="op">&lt;-</span> <span class="va">YPerchSB1</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ghcats1<span class="op">=</span><span class="fu"><a href="../reference/lencat.html">lencat</a></span><span class="op">(</span><span class="va">tl</span>,breaks<span class="op">=</span><span class="va">ghYP</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">YPerchSB1</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
@@ -248,9 +298,9 @@
 <span><span class="co">#&gt; 1844 21.8 outer      20</span></span>
 <span><span class="co">#&gt; 2074 29.9 outer      25</span></span></code></pre></div>
 </div>
-<p>By default, <code><a href="../reference/lencat.html">lencat()</a></code> creates a variable with the length values rather than the category names. Use <code>use.names=TRUE</code> to use category names instead.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Added here as a second variable only for demonstration. Generally, you would use one format or the other.&lt;/p&gt;"><sup>3</sup></a></p>
+<p>By default, <code><a href="../reference/lencat.html">lencat()</a></code> creates a variable with the length values rather than the category names. Use <code>use.names=TRUE</code> to use category names instead.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Added here as a second variable only for demonstration. Generally, you would use one format or the other.&lt;/p&gt;"><sup>5</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">YPerchSB1</span> <span class="op">&lt;-</span> <span class="va">YPerchSB1</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ghcats2<span class="op">=</span><span class="fu"><a href="../reference/lencat.html">lencat</a></span><span class="op">(</span><span class="va">tl</span>,breaks<span class="op">=</span><span class="va">ghYP</span>,use.names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">YPerchSB1</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
@@ -266,73 +316,315 @@
 <span><span class="co">#&gt; 1844 21.8 outer      20   quality</span></span>
 <span><span class="co">#&gt; 2074 29.9 outer      25 preferred</span></span></code></pre></div>
 </div>
-<p>A frequency table can then be used to find the number of individuals in each category.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">ghcats2</span>,data<span class="op">=</span><span class="va">YPerchSB1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; ghcats2</span></span>
-<span><span class="co">#&gt;  substock     stock   quality preferred memorable    trophy </span></span>
-<span><span class="co">#&gt;       448      1267       268        91         0         0</span></span></code></pre></div>
-</div>
-<p>The reverse cumulative sum of these values, with the substock fish removed, divided by the stock-length sum times 100 are the PSD-X values.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span> <span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rcumsum.html">rcumsum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">ghcats2</span>,data<span class="op">=</span><span class="va">YPerchSB1</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span> <span class="op">)</span></span>
-<span><span class="co">#&gt;     stock   quality preferred memorable    trophy </span></span>
-<span><span class="co">#&gt;      1626       359        91         0         0</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">/</span><span class="va">tmp</span><span class="op">[</span><span class="st">"stock"</span><span class="op">]</span><span class="op">*</span><span class="fl">100</span>,<span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt;     stock   quality preferred memorable    trophy </span></span>
-<span><span class="co">#&gt;     100.0      22.1       5.6       0.0       0.0</span></span></code></pre></div>
-</div>
-<p>So, for example, 22.1% of fish that reach stock-size also reached quality-size (i.e., “PSD-Q”).</p>
 </section><section class="level2"><h3 id="use-the-psdadd-convenience-function">Use the <code>psdAdd()</code> Convenience Function<a class="anchor" aria-label="anchor" href="#use-the-psdadd-convenience-function"></a>
 </h3>
-<p><code><a href="../reference/psdAdd.html">psdAdd()</a></code> can be used to add a length categorization variable to a data.frame for <strong>all</strong> species in the data.frame for which the GH length categories exists. The main argument to <code><a href="../reference/psdAdd.html">psdAdd()</a></code> is a formula of the form <code>length~species</code>, where <code>length</code> is the observed length variable and <code>species</code> is the name of the species variable. Again, the species must be spelled (and capitalized) as in <code>PSDlit</code>. In these data there is no variable that identified the species, likely because the data contains only one species. Thus, for this example, before <code><a href="../reference/psdAdd.html">psdAdd()</a></code> can be used, a new variable with the species name must be added.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">YPerchSB1</span> <span class="op">&lt;-</span> <span class="va">YPerchSB1</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>species<span class="op">=</span><span class="st">"Yellow Perch"</span>,</span>
-<span>         ghcats3<span class="op">=</span><span class="fu"><a href="../reference/psdAdd.html">psdAdd</a></span><span class="op">(</span><span class="va">tl</span><span class="op">~</span><span class="va">species</span>,units<span class="op">=</span><span class="st">"cm"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">YPerchSB1</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
-<span><span class="co">#&gt;        tl   loc ghcats1   ghcats2      species   ghcats3</span></span>
-<span><span class="co">#&gt; 1     7.4 inner       0  substock Yellow Perch  substock</span></span>
-<span><span class="co">#&gt; 230  10.8 inner       0  substock Yellow Perch  substock</span></span>
-<span><span class="co">#&gt; 461  13.9 inner      13     stock Yellow Perch     stock</span></span>
-<span><span class="co">#&gt; 691  15.4 inner      13     stock Yellow Perch     stock</span></span>
-<span><span class="co">#&gt; 922  18.1 inner      13     stock Yellow Perch     stock</span></span>
-<span><span class="co">#&gt; 1152 21.1 inner      20   quality Yellow Perch   quality</span></span>
-<span><span class="co">#&gt; 1383 14.6 outer      13     stock Yellow Perch     stock</span></span>
-<span><span class="co">#&gt; 1613 18.0 outer      13     stock Yellow Perch     stock</span></span>
-<span><span class="co">#&gt; 1844 21.8 outer      20   quality Yellow Perch   quality</span></span>
-<span><span class="co">#&gt; 2074 29.9 outer      25 preferred Yellow Perch preferred</span></span></code></pre></div>
-</div>
-<p>The PSD-X metrics can then be computed as before.</p>
+<p><code><a href="../reference/psdAdd.html">psdAdd()</a></code> can be used to add a length categorization variable to a data.frame for <strong>all</strong> species in the data.frame for which the GH length categories exists.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Here, however, it is being applied to a data.frame with only one species.&lt;/p&gt;"><sup>6</sup></a> The main argument to <code><a href="../reference/psdAdd.html">psdAdd()</a></code> is a formula of the form <code>length~species</code>, where <code>length</code> is the name of the observed length variable and <code>species</code> is the name of the species variable. In these data there is no variable that identified the species, likely because the data contains only one species. Thus, before <code><a href="../reference/psdAdd.html">psdAdd()</a></code> can be used in this example, a new variable with the species name was added.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;&lt;code&gt;YperchSB1&lt;/code&gt; was loaded again to start without the modifications performed previously.&lt;/p&gt;"><sup>7</sup></a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span> <span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rcumsum.html">rcumsum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">ghcats3</span>,data<span class="op">=</span><span class="va">YPerchSB1</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span> <span class="op">)</span></span>
-<span><span class="co">#&gt;     stock   quality preferred memorable    trophy </span></span>
-<span><span class="co">#&gt;      1626       359        91         0         0</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">/</span><span class="va">tmp</span><span class="op">[</span><span class="st">"stock"</span><span class="op">]</span><span class="op">*</span><span class="fl">100</span>,<span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt;     stock   quality preferred memorable    trophy </span></span>
-<span><span class="co">#&gt;     100.0      22.1       5.6       0.0       0.0</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">YPerchSB1</span>,package<span class="op">=</span><span class="st">"FSAdata"</span><span class="op">)</span></span>
+<span><span class="va">YPerchSB1</span> <span class="op">&lt;-</span> <span class="va">YPerchSB1</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>spec<span class="op">=</span><span class="st">"Yellow Perch"</span>,</span>
+<span>         ghcats1<span class="op">=</span><span class="fu"><a href="../reference/psdAdd.html">psdAdd</a></span><span class="op">(</span><span class="va">tl</span><span class="op">~</span><span class="va">spec</span>,units<span class="op">=</span><span class="st">"cm"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">YPerchSB1</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;        tl   loc         spec   ghcats1</span></span>
+<span><span class="co">#&gt; 1     7.4 inner Yellow Perch  substock</span></span>
+<span><span class="co">#&gt; 230  10.8 inner Yellow Perch  substock</span></span>
+<span><span class="co">#&gt; 461  13.9 inner Yellow Perch     stock</span></span>
+<span><span class="co">#&gt; 691  15.4 inner Yellow Perch     stock</span></span>
+<span><span class="co">#&gt; 922  18.1 inner Yellow Perch     stock</span></span>
+<span><span class="co">#&gt; 1152 21.1 inner Yellow Perch   quality</span></span>
+<span><span class="co">#&gt; 1383 14.6 outer Yellow Perch     stock</span></span>
+<span><span class="co">#&gt; 1613 18.0 outer Yellow Perch     stock</span></span>
+<span><span class="co">#&gt; 1844 21.8 outer Yellow Perch   quality</span></span>
+<span><span class="co">#&gt; 2074 29.9 outer Yellow Perch preferred</span></span></code></pre></div>
 </div>
-</section></section><section class="section level2"><h2 id="using-psdcalc-to-compute-all-psd-x-and-psd-x-y-values-for-one-species">Using <code>psdCalc()</code> to Compute All PSD-X and PSD-X-Y Values for One Species<a class="anchor" aria-label="anchor" href="#using-psdcalc-to-compute-all-psd-x-and-psd-x-y-values-for-one-species"></a>
-</h2>
-<p>All of that (in the previous sections) is a bit tedious and, more importantly, does not compute confidence intervals for the values.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;See &lt;code&gt;&lt;a href="../reference/psdCI.html"&gt;psdCI()&lt;/a&gt;&lt;/code&gt; for how to compute confidence intervals from the raw data.&lt;/p&gt;'><sup>4</sup></a> <code><a href="../reference/psdCalc.html">psdCalc()</a></code> provides a convenient interface for computing all of the PSD metrics, with confidence intervals, for a data.frame with one species. Before illustrating <code><a href="../reference/psdCalc.html">psdCalc()</a></code>, I returned to the original <code>YPerchSB1</code> data.frame without the changes made in the previous sections.</p>
+<p><code><a href="../reference/psdAdd.html">psdAdd()</a></code> requires that the species variable have the species names in the spelling and capitalization used by <code>PSDlit</code>. So, for example, suppose that the <code>YPerchSB1</code> species names used the abbreviation <code>yep</code> rather than <code>Yellow Perch</code>.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Note that &lt;code&gt;YPerchSB1&lt;/code&gt; is loaded again to start over and the new abbreviation is added for this example.&lt;/p&gt;"><sup>8</sup></a> A named list or vector can be given to <code>thesaurus=</code> that defines how the original species names (i.e., the items to the right of the <code>=</code> in the vector) relate to the species names required by <code>PSDlit</code> (i.e., the names to the left of the <code>=</code> in the vector). <code><a href="../reference/psdAdd.html">psdAdd()</a></code> will match the two names appropriately while creating the GH length categories.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">YPerchSB1</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span>
-<span><span class="co">#&gt;        tl   loc</span></span>
-<span><span class="co">#&gt; 1     7.4 inner</span></span>
-<span><span class="co">#&gt; 415  14.9 inner</span></span>
-<span><span class="co">#&gt; 830  16.3 inner</span></span>
-<span><span class="co">#&gt; 1244  7.6 outer</span></span>
-<span><span class="co">#&gt; 1659 18.5 outer</span></span>
-<span><span class="co">#&gt; 2074 29.9 outer</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">YPerchSB1</span>,package<span class="op">=</span><span class="st">"FSAdata"</span><span class="op">)</span></span>
+<span><span class="va">YPerchSB1</span> <span class="op">&lt;-</span> <span class="va">YPerchSB1</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>spec<span class="op">=</span><span class="st">"yep"</span>,</span>
+<span>         ghcats1<span class="op">=</span><span class="fu"><a href="../reference/psdAdd.html">psdAdd</a></span><span class="op">(</span><span class="va">tl</span><span class="op">~</span><span class="va">spec</span>,units<span class="op">=</span><span class="st">"cm"</span>,thesaurus<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Yellow Perch"</span><span class="op">=</span><span class="st">"yep"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">YPerchSB1</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;        tl   loc spec   ghcats1</span></span>
+<span><span class="co">#&gt; 1     7.4 inner  yep  substock</span></span>
+<span><span class="co">#&gt; 230  10.8 inner  yep  substock</span></span>
+<span><span class="co">#&gt; 461  13.9 inner  yep     stock</span></span>
+<span><span class="co">#&gt; 691  15.4 inner  yep     stock</span></span>
+<span><span class="co">#&gt; 922  18.1 inner  yep     stock</span></span>
+<span><span class="co">#&gt; 1152 21.1 inner  yep   quality</span></span>
+<span><span class="co">#&gt; 1383 14.6 outer  yep     stock</span></span>
+<span><span class="co">#&gt; 1613 18.0 outer  yep     stock</span></span>
+<span><span class="co">#&gt; 1844 21.8 outer  yep   quality</span></span>
+<span><span class="co">#&gt; 2074 29.9 outer  yep preferred</span></span></code></pre></div>
 </div>
-<p><code><a href="../reference/psdCalc.html">psdCalc()</a></code> takes a formula of the form <code>~length</code> as the first argument with the appropriate data.frame in <code>data=</code>. As with <code><a href="../reference/psdVal.html">psdVal()</a></code>, <code><a href="../reference/psdCalc.html">psdCalc()</a></code> requires the correctly spelled (and capitalized) species name in <code>species=</code> and units in <code>units=</code>.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Again, &lt;code&gt;units=&lt;/code&gt; defaults to &lt;code&gt;mm&lt;/code&gt;.&lt;/p&gt;"><sup>5</sup></a></p>
+</section></section><section class="section level2"><h2 id="add-length-categories-for-multiple-species">Add Length Categories for Multiple Species<a class="anchor" aria-label="anchor" href="#add-length-categories-for-multiple-species"></a>
+</h2>
+<p>The real value of <code><a href="../reference/psdAdd.html">psdAdd()</a></code> is that it can be used to efficiently add length categories for multiple species in a single data.frame. This is illustrated below for a variety of scenarios.</p>
+<section class="level2"><h3 id="good-names-and-no-groups">“Good” Names and No Groups<a class="anchor" aria-label="anchor" href="#good-names-and-no-groups"></a>
+</h3>
+<p><code>InchLake2</code> distributed with <code>FSAdata</code> contains lengths for several species captured from Inch Lake. These data provide a simple example for using <code><a href="../reference/psdAdd.html">psdAdd()</a></code> because all species names are spelled and capitalized as required (i.e., same as in `PSDlit1) and none of the species have sub-groups.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;See the next section for how to deal with these issues.&lt;/p&gt;"><sup>9</sup></a> Note that lengths are in <strong>inches</strong> here.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"InchLake2"</span>,package<span class="op">=</span><span class="st">"FSAdata"</span><span class="op">)</span>  <span class="co"># retrieve the data.frame</span></span>
+<span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">InchLake2</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     netID fishID          species length weight year</span></span>
+<span><span class="co">#&gt; 1     206    501         Bluegill    1.5    0.7 2008</span></span>
+<span><span class="co">#&gt; 57     16    208    Black Crappie   11.6  380.0 2007</span></span>
+<span><span class="co">#&gt; 115   101    583         Bluegill    5.5   48.0 2008</span></span>
+<span><span class="co">#&gt; 172   102    642 Bluntnose Minnow    2.1    1.3 2008</span></span>
+<span><span class="co">#&gt; 229   116    760  Largemouth Bass    2.8    2.0 2008</span></span>
+<span><span class="co">#&gt; 287   109    843  Largemouth Bass   13.1  460.0 2008</span></span>
+<span><span class="co">#&gt; 344   130    902  Largemouth Bass   10.1  173.0 2008</span></span>
+<span><span class="co">#&gt; 401     6    178         Bluegill    6.2   62.0 2007</span></span>
+<span><span class="co">#&gt; 459    12     45 Bluntnose Minnow    2.7    6.0 2007</span></span>
+<span><span class="co">#&gt; 516     4    127         Bluegill    6.6   90.0 2007</span></span></code></pre></div>
+</div>
+<p><code><a href="../reference/psdAdd.html">psdAdd()</a></code> can be used as described previously (i.e., with a formula of the form <code>length~species</code> and <code>units=</code>) to add GH length categories for all species in the data.frame for which GH length categories exist in <code>PSDlit</code>. A message will be issued identifying the species in the data.frame for which GH length categories do not exist. The new variable will show <code>&lt;NA&gt;</code> for those species.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">InchLake2</span> <span class="op">&lt;-</span> <span class="va">InchLake2</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ghcats1<span class="op">=</span><span class="fu"><a href="../reference/psdAdd.html">psdAdd</a></span><span class="op">(</span><span class="va">length</span><span class="op">~</span><span class="va">species</span>,units<span class="op">=</span><span class="st">"in"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Species in the data with no Gabelhouse (PSD) lengths in `PSDlit`: "Iowa</span></span>
+<span><span class="co">#&gt;   Darter", "Bluntnose Minnow", "Tadpole Madtom", and "Fathead Minnow".</span></span>
+<span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">InchLake2</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     netID fishID          species length weight year   ghcats1</span></span>
+<span><span class="co">#&gt; 1     206    501         Bluegill    1.5    0.7 2008  substock</span></span>
+<span><span class="co">#&gt; 57     16    208    Black Crappie   11.6  380.0 2007 preferred</span></span>
+<span><span class="co">#&gt; 115   101    583         Bluegill    5.5   48.0 2008     stock</span></span>
+<span><span class="co">#&gt; 172   102    642 Bluntnose Minnow    2.1    1.3 2008      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 229   116    760  Largemouth Bass    2.8    2.0 2008  substock</span></span>
+<span><span class="co">#&gt; 287   109    843  Largemouth Bass   13.1  460.0 2008   quality</span></span>
+<span><span class="co">#&gt; 344   130    902  Largemouth Bass   10.1  173.0 2008     stock</span></span>
+<span><span class="co">#&gt; 401     6    178         Bluegill    6.2   62.0 2007   quality</span></span>
+<span><span class="co">#&gt; 459    12     45 Bluntnose Minnow    2.7    6.0 2007      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 516     4    127         Bluegill    6.6   90.0 2007   quality</span></span></code></pre></div>
+</div>
+<p>Additional non-GH length categories can be used with <code><a href="../reference/psdAdd.html">psdAdd()</a></code> through <code>addLens()</code> similar to what was described for <code><a href="../reference/psdVal.html">psdVal()</a></code>. However, a named list must be given to <code>addLens()</code> that has named vectors for each species for the additional lengths to be added. An example for this is given in <a href="https://fishr-core-team.github.io/FSA/reference/psdAdd.html">the documentation</a> for <code><a href="../reference/psdAdd.html">psdAdd()</a></code>.</p>
+</section><section class="level2"><h3 id="bad-names-and-no-groups">“Bad” Names and No Groups<a class="anchor" aria-label="anchor" href="#bad-names-and-no-groups"></a>
+</h3>
+<p>Now consider the <code>Herman</code> data.frame (distributed with the <code>FSAdata</code> package) that has the lengths (cm) of four species – Walleye, Yellow Perch, Black Crappie, and Black Bullhead – from Lake Herman, SD. These four species do not have sub-groups defined in <code>PSDlit</code>. However, observing the data below<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;And &lt;a href="https://fishr-core-team.github.io/FSAdata/reference/Herman.html"&gt;the documentation&lt;/a&gt;.&lt;/p&gt;'><sup>10</sup></a> shows that the species variable (<code>spec</code>) contains codes for the species names rather than the names required by <code>PSDlit</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Herman</span>,package<span class="op">=</span><span class="st">"FSAdata"</span><span class="op">)</span>  <span class="co"># retrieve the data.frame</span></span>
+<span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">Herman</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;        tl spec   yr</span></span>
+<span><span class="co">#&gt; 1    16.6  wae 1999</span></span>
+<span><span class="co">#&gt; 659  23.0  bkc 2003</span></span>
+<span><span class="co">#&gt; 1318 22.7  bbh 2003</span></span>
+<span><span class="co">#&gt; 1977 23.1  bbh 2003</span></span>
+<span><span class="co">#&gt; 2636 24.6  bbh 2003</span></span>
+<span><span class="co">#&gt; 3295 24.5  bbh 2003</span></span>
+<span><span class="co">#&gt; 3954 25.6  bbh 2003</span></span>
+<span><span class="co">#&gt; 4613 25.2  bbh 2003</span></span>
+<span><span class="co">#&gt; 5272 26.1  bbh 2003</span></span>
+<span><span class="co">#&gt; 5931 34.8  bbh 2005</span></span></code></pre></div>
+</div>
+<p>One way to deal with the issue of “bad” species names is to use a named list or vector that defines how the names from <code>PSDlit</code> should be matched to the names in the data.frame. As before, the species names in <code>PSDlit</code> are the names in the vector (i.e., before the <code>=</code>) and the species names in the data.frame are the items in the vector (i.e., after the <code>=</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">thes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Walleye"</span><span class="op">=</span><span class="st">"wae"</span>,<span class="st">"Yellow Perch"</span><span class="op">=</span><span class="st">"yep"</span>,</span>
+<span>          <span class="st">"Black Crappie"</span><span class="op">=</span><span class="st">"bkc"</span>,<span class="st">"Black Bullhead"</span><span class="op">=</span><span class="st">"bbh"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<p>This list/vector is then given to <code>thesaurus=</code> in <code><a href="../reference/psdAdd.html">psdAdd()</a></code> which will perform the name matching while creating the GH length categories.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Herman</span> <span class="op">&lt;-</span> <span class="va">Herman</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ghcats1<span class="op">=</span><span class="fu"><a href="../reference/psdAdd.html">psdAdd</a></span><span class="op">(</span><span class="va">tl</span><span class="op">~</span><span class="va">spec</span>,units<span class="op">=</span><span class="st">"cm"</span>,thesaurus<span class="op">=</span><span class="va">thes</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">Herman</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;        tl spec   yr   ghcats1</span></span>
+<span><span class="co">#&gt; 1    16.6  wae 1999  substock</span></span>
+<span><span class="co">#&gt; 659  23.0  bkc 2003   quality</span></span>
+<span><span class="co">#&gt; 1318 22.7  bbh 2003     stock</span></span>
+<span><span class="co">#&gt; 1977 23.1  bbh 2003   quality</span></span>
+<span><span class="co">#&gt; 2636 24.6  bbh 2003   quality</span></span>
+<span><span class="co">#&gt; 3295 24.5  bbh 2003   quality</span></span>
+<span><span class="co">#&gt; 3954 25.6  bbh 2003   quality</span></span>
+<span><span class="co">#&gt; 4613 25.2  bbh 2003   quality</span></span>
+<span><span class="co">#&gt; 5272 26.1  bbh 2003   quality</span></span>
+<span><span class="co">#&gt; 5931 34.8  bbh 2005 preferred</span></span></code></pre></div>
+</div>
+<p><code>thesaurus=</code> can be used even if only some of the species names are non-“standard.” Additionally, the named list/vector in <code>thesaurus=</code> can contain names that don’t exist in the original data.frame. Thus, a global thesaurus containing all species that <em>could</em> be encountered could be created, for example as an agency-wide definition, and used with a variety of specific data.frames.</p>
+</section><section class="level2"><h3 id="bad-names-and-groups">“Bad” Names and Groups<a class="anchor" aria-label="anchor" href="#bad-names-and-groups"></a>
+</h3>
+<p>The use of <code><a href="../reference/psdAdd.html">psdAdd()</a></code> can become complicated for data.frames with species names other than what <code>PSDlit</code> expects and species for which GH lengths exist for sub-groups, especially if more than one sub-group is in the data. The hypothetical data set <code>PSDWRtest</code> distributed with <code>FSA</code> can be used to illustrate how to handle these “issues”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">PSDWRtest</span>,n<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span>
+<span><span class="co">#&gt;               species     location  len      wt  sex</span></span>
+<span><span class="co">#&gt; 1    Bluegill Sunfish    Bass Lake  107    25.8 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 53   Bluegill Sunfish    Bass Lake  116    34.8 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 107  Bluegill Sunfish    Bass Lake  191   138.3 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 160       Brook Trout   Trout Lake  291      NA &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 214       Brown Trout   Trout Lake  151    45.4 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 267       Brown Trout   Trout Lake  190    86.3 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 321       Brown Trout Brushy Creek  318   198.4    M</span></span>
+<span><span class="co">#&gt; 374       Brown Trout Brushy Creek  446   533.4    F</span></span>
+<span><span class="co">#&gt; 428   Largemouth Bass    Bass Lake  199    70.1 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 481   Largemouth Bass    Bass Lake  306   311.9 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 535   Lean Lake Trout   Trout Lake  529  1480.0    F</span></span>
+<span><span class="co">#&gt; 588   Lean Lake Trout   Trout Lake  809  5448.1    F</span></span>
+<span><span class="co">#&gt; 642       Muskellunge    Long Lake 1097 11376.4    U</span></span>
+<span><span class="co">#&gt; 695           Walleye    Bass Lake   72     3.5 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 749           Walleye    Bass Lake  307   273.6    M</span></span>
+<span><span class="co">#&gt; 802           Walleye    Bass Lake  345   429.8    F</span></span>
+<span><span class="co">#&gt; 856      Yellow Perch    Bass Lake  165    59.4    F</span></span>
+<span><span class="co">#&gt; 909      Yellow Perch    Bass Lake  150    40.2    F</span></span>
+<span><span class="co">#&gt; 963      Yellow Perch    Bass Lake  241   187.9    F</span></span>
+<span><span class="co">#&gt; 1016     Yellow Perch    Bass Lake  322   520.0    F</span></span></code></pre></div>
+</div>
+<p><code><a href="../reference/psdAdd.html">psdAdd()</a></code> will produce some informative error messages, but it is best that you have a full understanding of the issues that may arise with your data by carefully examining your data and understanding the GH length categories for the species in your data. The “issues” that need to be addressed with the <code>PSDWRtest</code> data are as follows:</p>
+<ul>
+<li>“Bluegill Sunfish” was used rather than “Bluegill”.</li>
+<li>“Lean Lake Trout” was used rather than “Lake Trout”.</li>
+<li>Brook Trout were sampled from a lotic (“Trout Lake”) system, for which there are sub-groups for GH length categories.</li>
+<li>Brown Trout were sampled from a lotic (“Trout Lake”) and lentic (“Brush Creek”) system, for which there are sub-groups for GH length categories.</li>
+</ul>
+<p>The easiest way to deal with all of these “issues” is to create a new “species” variable (i.e., <code>species2</code> below) that appends the specific groups in parentheses to the species name. There are a variety of ways to do this and which way (is best or works) may depend on the specifics of the situation. Here, <code><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when()</a></code> from <code>dplyr</code> is used with a series of statements that begin with a “condition” to the left of the <code>~</code> and a new species “name” for that condition to the right of the <code>~</code>. The <code>.default=species</code> at the end will put the name from <code>species</code> into <code>species2</code> for all situations where none of the conditions above it are met (e.g., if <code>species</code> is “Yellow Perch” then <code>species2</code> will be “Yellow Perch”).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">PSDWRtest</span> <span class="op">&lt;-</span> <span class="va">PSDWRtest</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>species2<span class="op">=</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
+<span>           <span class="va">species</span><span class="op">==</span><span class="st">"Bluegill Sunfish"</span> <span class="op">~</span> <span class="st">"Bluegill"</span>,</span>
+<span>           <span class="va">species</span><span class="op">==</span><span class="st">"Lean Lake Trout"</span> <span class="op">~</span> <span class="st">"Lake Trout"</span>,</span>
+<span>           <span class="va">species</span><span class="op">==</span><span class="st">"Brown Trout"</span> <span class="op">&amp;</span> <span class="va">location</span><span class="op">==</span><span class="st">"Trout Lake"</span> <span class="op">~</span>  <span class="st">"Brown Trout (lotic)"</span>,</span>
+<span>           <span class="va">species</span><span class="op">==</span><span class="st">"Brown Trout"</span> <span class="op">&amp;</span> <span class="va">location</span><span class="op">==</span><span class="st">"Brushy Creek"</span> <span class="op">~</span>  <span class="st">"Brown Trout (lentic)"</span>,</span>
+<span>           <span class="va">species</span><span class="op">==</span><span class="st">"Brook Trout"</span> <span class="op">&amp;</span> <span class="va">location</span><span class="op">==</span><span class="st">"Trout Lake"</span> <span class="op">~</span>  <span class="st">"Brook Trout (lotic)"</span>,</span>
+<span>           .default<span class="op">=</span><span class="va">species</span></span>
+<span>         <span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">PSDWRtest</span>,n<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span>
+<span><span class="co">#&gt;               species     location  len      wt  sex             species2</span></span>
+<span><span class="co">#&gt; 1    Bluegill Sunfish    Bass Lake  107    25.8 &lt;NA&gt;             Bluegill</span></span>
+<span><span class="co">#&gt; 53   Bluegill Sunfish    Bass Lake  116    34.8 &lt;NA&gt;             Bluegill</span></span>
+<span><span class="co">#&gt; 107  Bluegill Sunfish    Bass Lake  191   138.3 &lt;NA&gt;             Bluegill</span></span>
+<span><span class="co">#&gt; 160       Brook Trout   Trout Lake  291      NA &lt;NA&gt;  Brook Trout (lotic)</span></span>
+<span><span class="co">#&gt; 214       Brown Trout   Trout Lake  151    45.4 &lt;NA&gt;  Brown Trout (lotic)</span></span>
+<span><span class="co">#&gt; 267       Brown Trout   Trout Lake  190    86.3 &lt;NA&gt;  Brown Trout (lotic)</span></span>
+<span><span class="co">#&gt; 321       Brown Trout Brushy Creek  318   198.4    M Brown Trout (lentic)</span></span>
+<span><span class="co">#&gt; 374       Brown Trout Brushy Creek  446   533.4    F Brown Trout (lentic)</span></span>
+<span><span class="co">#&gt; 428   Largemouth Bass    Bass Lake  199    70.1 &lt;NA&gt;      Largemouth Bass</span></span>
+<span><span class="co">#&gt; 481   Largemouth Bass    Bass Lake  306   311.9 &lt;NA&gt;      Largemouth Bass</span></span>
+<span><span class="co">#&gt; 535   Lean Lake Trout   Trout Lake  529  1480.0    F           Lake Trout</span></span>
+<span><span class="co">#&gt; 588   Lean Lake Trout   Trout Lake  809  5448.1    F           Lake Trout</span></span>
+<span><span class="co">#&gt; 642       Muskellunge    Long Lake 1097 11376.4    U          Muskellunge</span></span>
+<span><span class="co">#&gt; 695           Walleye    Bass Lake   72     3.5 &lt;NA&gt;              Walleye</span></span>
+<span><span class="co">#&gt; 749           Walleye    Bass Lake  307   273.6    M              Walleye</span></span>
+<span><span class="co">#&gt; 802           Walleye    Bass Lake  345   429.8    F              Walleye</span></span>
+<span><span class="co">#&gt; 856      Yellow Perch    Bass Lake  165    59.4    F         Yellow Perch</span></span>
+<span><span class="co">#&gt; 909      Yellow Perch    Bass Lake  150    40.2    F         Yellow Perch</span></span>
+<span><span class="co">#&gt; 963      Yellow Perch    Bass Lake  241   187.9    F         Yellow Perch</span></span>
+<span><span class="co">#&gt; 1016     Yellow Perch    Bass Lake  322   520.0    F         Yellow Perch</span></span></code></pre></div>
+</div>
+<p>The GH length categories are added to this data.frame with <code><a href="../reference/psdAdd.html">psdAdd()</a></code>, specifically noting the use of the new <code>species2</code> variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">PSDWRtest</span><span class="op">$</span><span class="va">psd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/psdAdd.html">psdAdd</a></span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">species2</span>,data<span class="op">=</span><span class="va">PSDWRtest</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Species in the data with no Gabelhouse (PSD) lengths in `PSDlit`: "Iowa</span></span>
+<span><span class="co">#&gt;   Darter".</span></span>
+<span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">PSDWRtest</span>,n<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span>
+<span><span class="co">#&gt;               species     location  len      wt  sex             species2</span></span>
+<span><span class="co">#&gt; 1    Bluegill Sunfish    Bass Lake  107    25.8 &lt;NA&gt;             Bluegill</span></span>
+<span><span class="co">#&gt; 53   Bluegill Sunfish    Bass Lake  116    34.8 &lt;NA&gt;             Bluegill</span></span>
+<span><span class="co">#&gt; 107  Bluegill Sunfish    Bass Lake  191   138.3 &lt;NA&gt;             Bluegill</span></span>
+<span><span class="co">#&gt; 160       Brook Trout   Trout Lake  291      NA &lt;NA&gt;  Brook Trout (lotic)</span></span>
+<span><span class="co">#&gt; 214       Brown Trout   Trout Lake  151    45.4 &lt;NA&gt;  Brown Trout (lotic)</span></span>
+<span><span class="co">#&gt; 267       Brown Trout   Trout Lake  190    86.3 &lt;NA&gt;  Brown Trout (lotic)</span></span>
+<span><span class="co">#&gt; 321       Brown Trout Brushy Creek  318   198.4    M Brown Trout (lentic)</span></span>
+<span><span class="co">#&gt; 374       Brown Trout Brushy Creek  446   533.4    F Brown Trout (lentic)</span></span>
+<span><span class="co">#&gt; 428   Largemouth Bass    Bass Lake  199    70.1 &lt;NA&gt;      Largemouth Bass</span></span>
+<span><span class="co">#&gt; 481   Largemouth Bass    Bass Lake  306   311.9 &lt;NA&gt;      Largemouth Bass</span></span>
+<span><span class="co">#&gt; 535   Lean Lake Trout   Trout Lake  529  1480.0    F           Lake Trout</span></span>
+<span><span class="co">#&gt; 588   Lean Lake Trout   Trout Lake  809  5448.1    F           Lake Trout</span></span>
+<span><span class="co">#&gt; 642       Muskellunge    Long Lake 1097 11376.4    U          Muskellunge</span></span>
+<span><span class="co">#&gt; 695           Walleye    Bass Lake   72     3.5 &lt;NA&gt;              Walleye</span></span>
+<span><span class="co">#&gt; 749           Walleye    Bass Lake  307   273.6    M              Walleye</span></span>
+<span><span class="co">#&gt; 802           Walleye    Bass Lake  345   429.8    F              Walleye</span></span>
+<span><span class="co">#&gt; 856      Yellow Perch    Bass Lake  165    59.4    F         Yellow Perch</span></span>
+<span><span class="co">#&gt; 909      Yellow Perch    Bass Lake  150    40.2    F         Yellow Perch</span></span>
+<span><span class="co">#&gt; 963      Yellow Perch    Bass Lake  241   187.9    F         Yellow Perch</span></span>
+<span><span class="co">#&gt; 1016     Yellow Perch    Bass Lake  322   520.0    F         Yellow Perch</span></span>
+<span><span class="co">#&gt;            psd</span></span>
+<span><span class="co">#&gt; 1        stock</span></span>
+<span><span class="co">#&gt; 53       stock</span></span>
+<span><span class="co">#&gt; 107    quality</span></span>
+<span><span class="co">#&gt; 160    quality</span></span>
+<span><span class="co">#&gt; 214      stock</span></span>
+<span><span class="co">#&gt; 267      stock</span></span>
+<span><span class="co">#&gt; 321    quality</span></span>
+<span><span class="co">#&gt; 374  preferred</span></span>
+<span><span class="co">#&gt; 428   substock</span></span>
+<span><span class="co">#&gt; 481    quality</span></span>
+<span><span class="co">#&gt; 535    quality</span></span>
+<span><span class="co">#&gt; 588  memorable</span></span>
+<span><span class="co">#&gt; 642  memorable</span></span>
+<span><span class="co">#&gt; 695   substock</span></span>
+<span><span class="co">#&gt; 749      stock</span></span>
+<span><span class="co">#&gt; 802      stock</span></span>
+<span><span class="co">#&gt; 856      stock</span></span>
+<span><span class="co">#&gt; 909      stock</span></span>
+<span><span class="co">#&gt; 963    quality</span></span>
+<span><span class="co">#&gt; 1016 memorable</span></span></code></pre></div>
+</div>
+<p>Handling these types of “issues” in conjunction with computing relative weights is illustrated in <a href="https://fishr-core-team.github.io/FSA/articles/Computing_PSDs_and_RelativeWeights.html">this companion vignette</a>.</p>
+</section></section><section class="section level2"><h2 id="computing-psd-summaries">Computing PSD Summaries<a class="anchor" aria-label="anchor" href="#computing-psd-summaries"></a>
+</h2>
+<section class="level2"><h3 id="for-one-species-from-length-category-variable">For One Species from Length Category Variable<a class="anchor" aria-label="anchor" href="#for-one-species-from-length-category-variable"></a>
+</h3>
+<p>PSD summaries for a single species from the GH length category variable will be illustrated with the <code>YPerchSB1</code> data.frame created above.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">YPerchSB1</span>,package<span class="op">=</span><span class="st">"FSAdata"</span><span class="op">)</span></span>
+<span><span class="va">YPerchSB1</span> <span class="op">&lt;-</span> <span class="va">YPerchSB1</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>species<span class="op">=</span><span class="st">"Yellow Perch"</span>,</span>
+<span>         ghcats1<span class="op">=</span><span class="fu"><a href="../reference/psdAdd.html">psdAdd</a></span><span class="op">(</span><span class="va">tl</span><span class="op">~</span><span class="va">species</span>,units<span class="op">=</span><span class="st">"cm"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">YPerchSB1</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;        tl   loc      species   ghcats1</span></span>
+<span><span class="co">#&gt; 1     7.4 inner Yellow Perch  substock</span></span>
+<span><span class="co">#&gt; 230  10.8 inner Yellow Perch  substock</span></span>
+<span><span class="co">#&gt; 461  13.9 inner Yellow Perch     stock</span></span>
+<span><span class="co">#&gt; 691  15.4 inner Yellow Perch     stock</span></span>
+<span><span class="co">#&gt; 922  18.1 inner Yellow Perch     stock</span></span>
+<span><span class="co">#&gt; 1152 21.1 inner Yellow Perch   quality</span></span>
+<span><span class="co">#&gt; 1383 14.6 outer Yellow Perch     stock</span></span>
+<span><span class="co">#&gt; 1613 18.0 outer Yellow Perch     stock</span></span>
+<span><span class="co">#&gt; 1844 21.8 outer Yellow Perch   quality</span></span>
+<span><span class="co">#&gt; 2074 29.9 outer Yellow Perch preferred</span></span></code></pre></div>
+</div>
+<p>A frequency table is used to find the number of individuals in each category. The substock-sized fish are immediately dropped (if they are present).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span> <span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">ghcats1</span>,data<span class="op">=</span><span class="va">YPerchSB1</span><span class="op">)</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; ghcats1</span></span>
+<span><span class="co">#&gt;  substock     stock   quality preferred memorable    trophy </span></span>
+<span><span class="co">#&gt;       448      1267       268        91         0         0</span></span>
+<span><span class="op">(</span> <span class="va">tmp</span> <span class="op">&lt;-</span> <span class="va">tmp</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; ghcats1</span></span>
+<span><span class="co">#&gt;     stock   quality preferred memorable    trophy </span></span>
+<span><span class="co">#&gt;      1267       268        91         0         0</span></span></code></pre></div>
+</div>
+<p>The PSD X-Y (i.e., incremental PSD) values are computed by dividing each value in the frequency table that excludes the sub-stock fish by the sum of that frequency table multiplied by 100, which is easily accomplished with <code><a href="https://rdrr.io/r/base/proportions.html" class="external-link">prop.table()</a></code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span> <span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proportions.html" class="external-link">prop.table</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; ghcats1</span></span>
+<span><span class="co">#&gt;     stock   quality preferred memorable    trophy </span></span>
+<span><span class="co">#&gt; 77.921279 16.482165  5.596556  0.000000  0.000000</span></span></code></pre></div>
+</div>
+<p>Thus, for example, 78% of fish that reached stock-size were between stock- and quality-sized (i.e,. “PSD S-Q”).</p>
+<p>The PSD-X (i.e., traditional PSD) values are computed by the reverse cumulative sum (i.e., accumulating from right-to-left) on the <code><a href="https://rdrr.io/r/base/proportions.html" class="external-link">prop.table()</a></code> results (and dropping the results for the stock-sized fish which will always be 100).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span> <span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rcumsum.html">rcumsum</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span> <span class="op">)</span></span>
+<span><span class="co">#&gt;   quality preferred memorable    trophy </span></span>
+<span><span class="co">#&gt; 22.078721  5.596556  0.000000  0.000000</span></span></code></pre></div>
+</div>
+<p>So, for example, 22.1% of fish that reach stock-size also reached quality-size (i.e., “PSD-Q”).</p>
+</section><section class="level2"><h3 id="using-psdcalc-for-one-species">Using <code>psdCalc()</code> for One Species<a class="anchor" aria-label="anchor" href="#using-psdcalc-for-one-species"></a>
+</h3>
+<p>The calculations in the previous section are a bit tedious and, more importantly, do not compute confidence intervals for the values.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;See &lt;code&gt;&lt;a href="../reference/psdCI.html"&gt;psdCI()&lt;/a&gt;&lt;/code&gt; for how to compute confidence intervals from the raw data.&lt;/p&gt;'><sup>11</sup></a> <code><a href="../reference/psdCalc.html">psdCalc()</a></code> provides a convenient interface for computing all of the PSD metrics, with confidence intervals, for a data.frame with <strong>one</strong> species.</p>
+<p><code><a href="../reference/psdCalc.html">psdCalc()</a></code> takes a formula of the form <code>~length</code> as the first argument with the appropriate data.frame in <code>data=</code>. As with <code><a href="../reference/psdVal.html">psdVal()</a></code>, <code><a href="../reference/psdCalc.html">psdCalc()</a></code> requires the correctly spelled (and capitalized) species name in <code>species=</code> and units in <code>units=</code>.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Again, &lt;code&gt;units=&lt;/code&gt; defaults to &lt;code&gt;mm&lt;/code&gt;.&lt;/p&gt;"><sup>12</sup></a> Note in the use below that the GH length category variable is not needed (thus, the calculations below do <strong>not</strong> need to follow <code><a href="../reference/psdAdd.html">psdAdd()</a></code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/psdCalc.html">psdCalc</a></span><span class="op">(</span><span class="op">~</span><span class="va">tl</span>,data<span class="op">=</span><span class="va">YPerchSB1</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"cm"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         Estimate 95% LCI 95% UCI</span></span>
 <span><span class="co">#&gt; PSD-Q         22      20      25</span></span>
@@ -343,7 +635,7 @@
 </div>
 <p>By default, PSD metrics that are 0 are dropped from the results. They can be included by using <code>drop0Est=FALSE</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/psdCalc.html">psdCalc</a></span><span class="op">(</span><span class="op">~</span><span class="va">tl</span>,data<span class="op">=</span><span class="va">YPerchSB1</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"cm"</span>,drop0Est<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         Estimate 95% LCI 95% UCI</span></span>
 <span><span class="co">#&gt; PSD-Q         22      20      25</span></span>
@@ -355,28 +647,26 @@
 <span><span class="co">#&gt; PSD P-M        6       4       7</span></span>
 <span><span class="co">#&gt; PSD M-T        0      NA      NA</span></span></code></pre></div>
 </div>
-<p>The PSD-X (in contrast to PSD X-Y) values are referred to here as “traditional” PSD metrics as they show the percent of stock-sized fish that were also X-sized. For example, PSD-P is the percent of stock-sized fish that also reach preferred-size. In this example, 6% (95%CI: 4%-7%) of stock-sized fish attained preferred size.</p>
-<p>Just the “traditional” metrics may be returned by including <code>what="traditional"</code>.</p>
+<p>The PSD-X (in contrast to PSD X-Y) values are referred to here as “traditional” PSD metrics as they show the percent of stock-sized fish that were also X-sized. For example, PSD-P is the percent of stock-sized fish that also reached preferred-size. In this example, 6% (95%CI: 4%-7%) of stock-sized fish attained preferred size. Just the “traditional” metrics may be returned by including <code>what="traditional"</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/psdCalc.html">psdCalc</a></span><span class="op">(</span><span class="op">~</span><span class="va">tl</span>,data<span class="op">=</span><span class="va">YPerchSB1</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"cm"</span>,what<span class="op">=</span><span class="st">"traditional"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       Estimate 95% LCI 95% UCI</span></span>
 <span><span class="co">#&gt; PSD-Q       22      20      25</span></span>
 <span><span class="co">#&gt; PSD-P        6       4       7</span></span></code></pre></div>
 </div>
-<p>The PSD X-Y values are referred to here as “incremental” PSD metrics as they show the percent of stock-sized fish that were between X- and Y-sized. For example, PSD Q-P is the percent of stock-sized fish that reached quality-size but had not reach preferred-size. In this example, 16% (95%CI: 14%-19%) of stock-sized fish attained quality but not preferred size.</p>
-<p>Just the “incremental” metrics may be returned by including <code>what="incremental"</code>.</p>
+<p>The PSD X-Y values are referred to here as “incremental” PSD metrics as they show the percent of stock-sized fish that were between X- and Y-sized. For example, PSD Q-P is the percent of stock-sized fish that reached quality-size but had not reach preferred-size. In this example, 16% (95%CI: 14%-19%) of stock-sized fish attained quality but not preferred size. Just the “incremental” metrics may be returned by including <code>what="incremental"</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/psdCalc.html">psdCalc</a></span><span class="op">(</span><span class="op">~</span><span class="va">tl</span>,data<span class="op">=</span><span class="va">YPerchSB1</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"cm"</span>,what<span class="op">=</span><span class="st">"incremental"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         Estimate 95% LCI 95% UCI</span></span>
 <span><span class="co">#&gt; PSD S-Q       78      75      80</span></span>
 <span><span class="co">#&gt; PSD Q-P       16      14      19</span></span>
 <span><span class="co">#&gt; PSD P-M        6       4       7</span></span></code></pre></div>
 </div>
-<p>Sometimes<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;For example, when teaching.&lt;/p&gt;"><sup>6</sup></a> it is useful to see the intermediate values (i.e., the numbers) that were used to calculate the PSD metrics. These values can be included in the results by including <code>showIntermediate=TRUE</code>. In each line below, the “Estimate” should be “num” divided by “stock” times 100 (and then rounded to a whole number).</p>
+<p>Sometimes<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;For example, when teaching.&lt;/p&gt;"><sup>13</sup></a> it is useful to see the intermediate values (i.e., the numbers) that were used to calculate the PSD metrics. These values can be included in the results by including <code>showIntermediate=TRUE</code>. In each line below, the “Estimate” should be “num” divided by “stock” times 100 (and then rounded to a whole number).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/psdCalc.html">psdCalc</a></span><span class="op">(</span><span class="op">~</span><span class="va">tl</span>,data<span class="op">=</span><span class="va">YPerchSB1</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"cm"</span>,</span>
 <span>        drop0Est<span class="op">=</span><span class="cn">FALSE</span>,showIntermediate<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt;          num stock Estimate 95% LCI 95% UCI</span></span>
@@ -391,7 +681,7 @@
 </div>
 <p>Additional lengths may be included in <code><a href="../reference/psdCalc.html">psdCalc()</a></code> as described for <code><a href="../reference/psdVal.html">psdVal()</a></code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/psdCalc.html">psdCalc</a></span><span class="op">(</span><span class="op">~</span><span class="va">tl</span>,data<span class="op">=</span><span class="va">YPerchSB1</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"cm"</span>,</span>
 <span>        addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">17.5</span>,<span class="fl">27.5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;            Estimate 95% LCI 95% UCI</span></span>
@@ -417,54 +707,13 @@
 <span><span class="co">#&gt; PSD P-maxSlot        4       2       5</span></span>
 <span><span class="co">#&gt; PSD maxSlot-M        2       1       3</span></span></code></pre></div>
 </div>
-<section class="level2"><h3 id="using-psdplot-to-visualize-the-psd-metrics">Using <code>psdPlot()</code> to Visualize the PSD Metrics<a class="anchor" aria-label="anchor" href="#using-psdplot-to-visualize-the-psd-metrics"></a>
+</section><section class="level2"><h3 id="for-multiple-species-from-length-category-variable">For Multiple Species from Length Category Variable<a class="anchor" aria-label="anchor" href="#for-multiple-species-from-length-category-variable"></a>
 </h3>
-<p><code><a href="../reference/psdPlot.html">psdPlot()</a></code> can be used to produce a histogram of lengths with different colors for substock- and stock-size fish, vertical lines depicting the GH length categories, and the “traditional” PSD metrics shown. The basic arguments to <code><a href="../reference/psdPlot.html">psdPlot()</a></code> are the same as those to <code><a href="../reference/psdCalc.html">psdCalc()</a></code>.</p>
+<p>PSD-X and PSD X-Y summaries for multiple species requires more work as will be demonstrated below with the <code>InchLake2</code> data.frame from previous. Note here that <code><a href="../reference/psdAdd.html">psdAdd()</a></code> is used to add the GH length categories in <code>ghcats1</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/psdPlot.html">psdPlot</a></span><span class="op">(</span><span class="op">~</span><span class="va">tl</span>,data<span class="op">=</span><span class="va">YPerchSB1</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"cm"</span><span class="op">)</span></span></code></pre></div>
-<div class="cell-output-display">
-<div>
-<figure><p><img src="Computing_PSDs_files/figure-html/unnamed-chunk-27-1.png" width="480"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>There may be times where the length category lines don’t fall on the breaks for the histogram bars. You may be able to ameliorate this issue by changing the width of the breaks with <code>w=</code> or where the breaks start with <code>startcat=</code>.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;While this was not an issue with these data, this code shows how to make narrower bar widths with &lt;code&gt;w=&lt;/code&gt;.&lt;/p&gt;"><sup>7</sup></a></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/psdPlot.html">psdPlot</a></span><span class="op">(</span><span class="op">~</span><span class="va">tl</span>,data<span class="op">=</span><span class="va">YPerchSB1</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"cm"</span>,w<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
-<div class="cell-output-display">
-<div>
-<figure><p><img src="Computing_PSDs_files/figure-html/unnamed-chunk-28-1.png" width="480"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>This plot is meant to be illustrative and not of “publication-quality.” However, some aspects of the plot can be modified to make some changes in appearance. See <code><a href="../reference/psdPlot.html">?psdPlot</a></code> for documentation of these other arguments.</p>
-</section></section><section class="section level2"><h2 id="adding-a-length-category-variable-for-all-species">Adding a Length Category Variable for All Species<a class="anchor" aria-label="anchor" href="#adding-a-length-category-variable-for-all-species"></a>
-</h2>
-<p>The real value of <code><a href="../reference/psdAdd.html">psdAdd()</a></code> is that it can be used to efficiently add length categories for multiple species in a single data.frame. For example, <code>InchLake2</code> distributed with <code>FSAdata</code> contains lengths for several species captured from Inch Lake. Note that lengths are in <strong>inches</strong> here.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"InchLake2"</span>,package<span class="op">=</span><span class="st">"FSAdata"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/peek.html">peek</a></span><span class="op">(</span><span class="va">InchLake2</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
-<span><span class="co">#&gt;     netID fishID          species length weight year</span></span>
-<span><span class="co">#&gt; 1     206    501         Bluegill    1.5    0.7 2008</span></span>
-<span><span class="co">#&gt; 57     16    208    Black Crappie   11.6  380.0 2007</span></span>
-<span><span class="co">#&gt; 115   101    583         Bluegill    5.5   48.0 2008</span></span>
-<span><span class="co">#&gt; 172   102    642 Bluntnose Minnow    2.1    1.3 2008</span></span>
-<span><span class="co">#&gt; 229   116    760  Largemouth Bass    2.8    2.0 2008</span></span>
-<span><span class="co">#&gt; 287   109    843  Largemouth Bass   13.1  460.0 2008</span></span>
-<span><span class="co">#&gt; 344   130    902  Largemouth Bass   10.1  173.0 2008</span></span>
-<span><span class="co">#&gt; 401     6    178         Bluegill    6.2   62.0 2007</span></span>
-<span><span class="co">#&gt; 459    12     45 Bluntnose Minnow    2.7    6.0 2007</span></span>
-<span><span class="co">#&gt; 516     4    127         Bluegill    6.6   90.0 2007</span></span></code></pre></div>
-</div>
-<p><code><a href="../reference/psdAdd.html">psdAdd()</a></code> can be used as described previously (i.e., with a formula of the form <code>length~species</code> and <code>units=</code>) to add GH length categories for all species in the data.frame for which GH length categories exist in <code>PSDlit</code>. Note that a message will be issued identifying the species in the data.frame for which GH length categories do not exist. The new variable will be <code>NA</code> for these species.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">InchLake2</span> <span class="op">&lt;-</span> <span class="va">InchLake2</span> <span class="op">|&gt;</span></span>
+<span><span class="va">InchLake2</span> <span class="op">&lt;-</span> <span class="va">InchLake2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ghcats1<span class="op">=</span><span class="fu"><a href="../reference/psdAdd.html">psdAdd</a></span><span class="op">(</span><span class="va">length</span><span class="op">~</span><span class="va">species</span>,units<span class="op">=</span><span class="st">"in"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Species in the data with no Gabelhouse (PSD) lengths in `PSDlit`: "Iowa</span></span>
 <span><span class="co">#&gt;   Darter", "Bluntnose Minnow", "Tadpole Madtom", and "Fathead Minnow".</span></span>
@@ -481,17 +730,24 @@
 <span><span class="co">#&gt; 459    12     45 Bluntnose Minnow    2.7    6.0 2007      &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 516     4    127         Bluegill    6.6   90.0 2007   quality</span></span></code></pre></div>
 </div>
-<p>Summaries by species requires some work. First, remove all substock-sized individuals.</p>
+<p>First, remove all substock-sized individuals.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Inch_mod</span> <span class="op">&lt;-</span> <span class="va">InchLake2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ghcats1</span><span class="op">!=</span><span class="st">"substock"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-<p>Incremental PSD metrics (i.e, PSD X-Y) are quickly computed with <code><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs()</a></code> and <code><a href="https://rdrr.io/r/base/proportions.html" class="external-link">prop.table()</a></code>.</p>
+<p>Incremental PSD metrics (i.e, PSD X-Y) are then computed with <code><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs()</a></code> and <code><a href="https://rdrr.io/r/base/proportions.html" class="external-link">prop.table()</a></code>, similar to before except that <code>margin=1</code> must be used in <code><a href="https://rdrr.io/r/base/proportions.html" class="external-link">prop.table()</a></code> so that the proportions are computed from the row totals.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">+</span><span class="va">ghcats1</span>,data<span class="op">=</span><span class="va">Inch_mod</span><span class="op">)</span></span>
+<div class="sourceCode cell-code" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span> <span class="va">freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">species</span><span class="op">+</span><span class="va">ghcats1</span>,data<span class="op">=</span><span class="va">Inch_mod</span><span class="op">)</span> <span class="op">)</span></span>
+<span><span class="co">#&gt;                  ghcats1</span></span>
+<span><span class="co">#&gt; species           stock quality preferred memorable</span></span>
+<span><span class="co">#&gt;   Black Crappie       5       0         8        12</span></span>
+<span><span class="co">#&gt;   Bluegill           49      71        41         0</span></span>
+<span><span class="co">#&gt;   Largemouth Bass    27      49         6         0</span></span>
+<span><span class="co">#&gt;   Pumpkinseed         1       6         1         0</span></span>
+<span><span class="co">#&gt;   Yellow Perch        0      12        10         1</span></span>
 <span><span class="va">iPSDs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proportions.html" class="external-link">prop.table</a></span><span class="op">(</span><span class="va">freq</span>,margin<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">iPSDs</span>,<span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                  ghcats1</span></span>
@@ -502,9 +758,9 @@
 <span><span class="co">#&gt;   Pumpkinseed      12.5    75.0      12.5       0.0</span></span>
 <span><span class="co">#&gt;   Yellow Perch      0.0    52.2      43.5       4.3</span></span></code></pre></div>
 </div>
-<p>Traditional PSD metrics (i.e., PSD-X) can be found by <code><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply()</a></code>ing <code><a href="../reference/rcumsum.html">rcumsum()</a></code><a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;This finds reverse cumulative sums; i.e., sums from end-to-start, rather than start-to-end.&lt;/p&gt;"><sup>8</sup></a> to each row (i.e., <code>MARGIN=1</code>) of the PSD X-Y values. The result from <code><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply()</a></code> will be oriented opposite of what is desired (i.e., species a columns rather than rows), so it should be <code><a href="https://rdrr.io/r/base/t.html" class="external-link">t()</a></code>ransposed.</p>
+<p>Traditional PSD metrics (i.e., PSD-X) are found by <code><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply()</a></code>ing <code><a href="../reference/rcumsum.html">rcumsum()</a></code><a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;This finds reverse cumulative sums; i.e., sums from end-to-start, rather than start-to-end.&lt;/p&gt;"><sup>14</sup></a> to each row (i.e., <code>MARGIN=1</code>) of the PSD X-Y values. The result from <code><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply()</a></code> will be oriented opposite of what is desired (i.e., species in columns rather than rows), so it should be transposed with <code><a href="https://rdrr.io/r/base/t.html" class="external-link">t()</a></code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tPSDs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">iPSDs</span>,MARGIN<span class="op">=</span><span class="fl">1</span>,FUN<span class="op">=</span><span class="va">rcumsum</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">tPSDs</span>,<span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                  ghcats1</span></span>
@@ -515,10 +771,9 @@
 <span><span class="co">#&gt;   Pumpkinseed       100    87.5      12.5       0.0</span></span>
 <span><span class="co">#&gt;   Yellow Perch      100   100.0      47.8       4.3</span></span></code></pre></div>
 </div>
-<p>Additional non-GH length categories can be used with <code><a href="../reference/psdAdd.html">psdAdd()</a></code> through <code>addLens()</code> similar to what was described for <code><a href="../reference/psdVal.html">psdVal()</a></code> and <code><a href="../reference/psdCalc.html">psdCalc()</a></code>. However, a named list must be given to <code>addLens()</code> that as named vectors for each species for what an additional length is added. An example for this is given in the documentation for <code><a href="../reference/psdAdd.html">psdAdd()</a></code>.</p>
 <p>The use of <code><a href="../reference/psdAdd.html">psdAdd()</a></code> is fairly efficient if interest is only in the point PSD-X or PSD X-Y values. If one needs confidence intervals for these values then it is probably best to use <code><a href="../reference/psdCalc.html">psdCalc()</a></code> on separate data.frames for each species. This is demonstrated below for Yellow Perch and Bluegill from the Inch Lake data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">InchYP</span> <span class="op">&lt;-</span> <span class="va">InchLake2</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">species</span><span class="op">==</span><span class="st">"Yellow Perch"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/psdCalc.html">psdCalc</a></span><span class="op">(</span><span class="op">~</span><span class="va">length</span>,data<span class="op">=</span><span class="va">InchYP</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"in"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Some category sample size &lt;20, some CI coverage may be lower than 95%.</span></span>
@@ -531,7 +786,7 @@
 <span><span class="co">#&gt; PSD M-T        4       0      15</span></span></code></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode cell-code" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">InchBG</span> <span class="op">&lt;-</span> <span class="va">InchLake2</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">species</span><span class="op">==</span><span class="st">"Bluegill"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/psdCalc.html">psdCalc</a></span><span class="op">(</span><span class="op">~</span><span class="va">length</span>,data<span class="op">=</span><span class="va">InchBG</span>,species<span class="op">=</span><span class="st">"Bluegill"</span>,units<span class="op">=</span><span class="st">"in"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         Estimate 95% LCI 95% UCI</span></span>
@@ -541,7 +796,32 @@
 <span><span class="co">#&gt; PSD Q-P       44      35      54</span></span>
 <span><span class="co">#&gt; PSD P-M       25      17      34</span></span></code></pre></div>
 </div>
-</section><script id="quarto-html-after-body" type="application/javascript">
+</section><section class="level2"><h3 id="using-psdplot-to-visualize-the-psd-metrics">Using <code>psdPlot()</code> to Visualize the PSD Metrics<a class="anchor" aria-label="anchor" href="#using-psdplot-to-visualize-the-psd-metrics"></a>
+</h3>
+<p><code><a href="../reference/psdPlot.html">psdPlot()</a></code> can be used to produce a histogram of lengths with different colors for substock- and stock-size fish, vertical lines depicting the GH length categories, and the “traditional” PSD metrics shown. The basic arguments to <code><a href="../reference/psdPlot.html">psdPlot()</a></code> are the same as those to <code><a href="../reference/psdCalc.html">psdCalc()</a></code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/psdPlot.html">psdPlot</a></span><span class="op">(</span><span class="op">~</span><span class="va">tl</span>,data<span class="op">=</span><span class="va">YPerchSB1</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"cm"</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="Computing_PSDs_files/figure-html/unnamed-chunk-44-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There may be times where the length category lines don’t fall on the breaks for the histogram bars. You may be able to ameliorate this issue by changing the width of the breaks with <code>w=</code> or where the breaks start with <code>startcat=</code>.<a class="footnote-ref" role="doc-noteref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;While this was not an issue with these data, this code shows how to make narrower bar widths with &lt;code&gt;w=&lt;/code&gt;.&lt;/p&gt;"><sup>15</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/psdPlot.html">psdPlot</a></span><span class="op">(</span><span class="op">~</span><span class="va">tl</span>,data<span class="op">=</span><span class="va">YPerchSB1</span>,species<span class="op">=</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"cm"</span>,w<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="Computing_PSDs_files/figure-html/unnamed-chunk-45-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This plot is meant to be illustrative and not of “publication-quality.” However, some aspects of the plot can be modified to make some changes in appearance. See <code><a href="../reference/psdPlot.html">?psdPlot</a></code> for documentation of these other arguments.</p>
+</section></section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -634,7 +914,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
 </div>
 
     </footer>

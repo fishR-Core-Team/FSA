@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Finds standard weight equation coefficients for a particular species.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.0/R/wsVal.R" class="external-link"><code>R/wsVal.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.1/R/wsVal.R" class="external-link"><code>R/wsVal.R</code></a></small>
       <div class="d-none name"><code>wsVal.Rd</code></div>
     </div>
 
@@ -54,7 +54,8 @@
 <span>  units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"metric"</span>, <span class="st">"English"</span><span class="op">)</span>,</span>
 <span>  ref <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  method <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  simplify <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  simplify <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  dat <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -85,6 +86,10 @@
 <dt id="arg-simplify">simplify<a class="anchor" aria-label="anchor" href="#arg-simplify"></a></dt>
 <dd><p>A logical that indicates whether the ‘units’, ‘ref’, ‘measure’, ‘method’, ‘comments’, and ‘source’ fields should be included (<code>=FALSE</code>) or not (<code>=TRUE</code>; DEFAULT). See details.</p></dd>
 
+
+<dt id="arg-dat">dat<a class="anchor" aria-label="anchor" href="#arg-dat"></a></dt>
+<dd><p>Data.frame of Gabelhouse length categories for all species. Defaults to `WSlit` and is generally not used by the user (this simplifies use of this function in <code>wrAdd</code>).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -97,6 +102,7 @@
 <p>$$log_{10}(Ws) = log_{10}(a) + blog_{10}(L) + blog_{10}(L)^{2}$$</p>
 <p>See <code><a href="WSlit.html">WSlit</a></code> for more information about the meaning of each value returned.</p>
 <p>Note from above that the coefficients are returned for the TRANSFORMED model. Thus, to obtain the standard weight (Ws), the returned coefficients are used to compute the common log of Ws which must then be raised to the power of 10 to compute the Ws.</p>
+<p>Some species have length categories separated by sub-group. For example, length categories exist for both lentic and lotic populations of Brown Trout. The length values for a sub-group may be obtained by either including the species name in <code>species</code> and the sub-group name in <code>group</code> or by using the combined species and sub-group name, with the sub-group name in parentheses, in <code>species</code>. Both methods are demonstrated in the examples. Note that an error is returned if a species has sub-groups but neither method is used to define the sub-group.</p>
 <p>See examples and <a href="https://fishr-core-team.github.io/FSA/articles/Computing_Relative_Weights.html">this article</a> for a demonstration.</p>
     </div>
     <div class="section level2">
@@ -122,144 +128,173 @@
 <span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Species name must be one of following. Be careful of spelling and capitalization.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "Aegean Chub"                "African Sharptooth Catfish"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [3] "Alabama Bass"               "Ankara Nase"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [5] "Arctic Grayling"            "Bighead Carp"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [7] "Bigmouth Buffalo"           "Bigmouth Sleepers"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [9] "Black Bullhead"             "Black Crappie"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [11] "Blacktail Redhorse"         "Blue Catfish"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] "Blue Sucker"                "Bluegill"                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [15] "Bridgelip Sucker"           "Brook Chub"                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [17] "Brook Trout"                "Brown Bullhead"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [19] "Brown Trout"                "Bull Trout"                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [21] "Burbot"                     "Cavedano Chub"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [23] "Chain Pickerel"             "Channel Catfish"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] "Chinook Salmon"             "Cisco"                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [27] "Common Carp"                "Cutthroat Trout"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [29] "European Chub"              "European Perch"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [31] "Flannelmouth Sucker"        "Flathead Catfish"          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [33] "Fourbarbel Scraper"         "Freshwater Drum"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [35] "Gizzard Shad"               "Golden Shiner"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] "Golden Trout"               "Goldeye"                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [39] "Green Sunfish"              "Horse Barbel"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [41] "Humpback Chub"              "Kokanee"                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [43] "Lake Chubsucker"            "Lake Herring"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [45] "Lake Trout"                 "Largemouth Bass"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [47] "Largescale Sucker"          "Longnose Gar"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] "Marble Trout"               "Mountain Mullet"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [51] "Mountain Whitefish"         "Muskellunge"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [53] "Nile Tilapia"               "Nipple-Lip Scraper"        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [55] "Northern Pike"              "Northern Pikeminnow"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [57] "Northern Snakehead"         "Northern Squawfish"        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [59] "Paddlefish"                 "Palmetto Bass"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] "Pejerrey"                   "Pumpkinseed"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [63] "Pursak Chub"                "Rainbow Trout"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [65] "Razorback Sucker"           "Redbreast Sunfish"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [67] "Redear Sunfish"             "Riffle Dace"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [69] "River Carpsucker"           "River Goby"                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [71] "Rock Bass"                  "Roundtail Chub"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] "Ruffe"                      "Sardine"                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [75] "Sauger"                     "Saugeye"                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [77] "Shoal Bass"                 "Shorthead Redhorse"        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [79] "Shovelnose Sturgeon"        "Silver Carp"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [81] "Smallmouth Bass"            "Smallmouth Buffalo"        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [83] "South European Roach"       "Spotted Bass"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] "Spotted Gar"                "Spotted Sunfish"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [87] "Striped Bass"               "Striped Bass X White Bass" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [89] "Suwannee Bass"              "Tiger Muskellunge"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [91] "Utah Chub"                  "Walleye"                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [93] "Warmouth"                   "White Bass"                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [95] "White Catfish"              "White Crappie"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] "White Perch"                "White Sturgeon"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [99] "White Sucker"               "Yellow Bass"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [101] "Yellow Bullhead"            "Yellow Perch"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "Aegean Chub"                    "African Sharptooth Catfish"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3] "Alabama Bass"                   "Alabama Bass (original)"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5] "Ankara Nase"                    "Arctic Grayling"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [7] "Bighead Carp"                   "Bigmouth Buffalo"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [9] "Bigmouth Sleepers"              "Bigmouth Sleepers (lotic)"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [11] "Bigmouth Sleepers (overall)"    "Black Bullhead"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] "Black Crappie"                  "Blacktail Redhorse"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [15] "Blue Catfish"                   "Blue Sucker"                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [17] "Bluegill"                       "Bridgelip Sucker"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [19] "Brook Chub"                     "Brook Trout"                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [21] "Brook Trout (Appalachia)"       "Brook Trout (lentic)"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [23] "Brook Trout (lotic)"            "Brook Trout (overall)"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] "Brown Bullhead"                 "Brown Trout"                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [27] "Brown Trout (lentic)"           "Brown Trout (lotic)"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [29] "Bull Trout"                     "Burbot"                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [31] "Cavedano Chub"                  "Chain Pickerel"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [33] "Channel Catfish"                "Chinook Salmon"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [35] "Chinook Salmon (landlocked)"    "Cisco"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] "Common Carp"                    "Cutthroat Trout"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [39] "Cutthroat Trout (lentic)"       "Cutthroat Trout (lotic)"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [41] "European Chub"                  "European Perch"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [43] "Flannelmouth Sucker"            "Flathead Catfish"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [45] "Flier"                          "Fourbarbel Scraper"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [47] "Freshwater Drum"                "Gizzard Shad"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] "Golden Shiner"                  "Golden Trout"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [51] "Goldeye"                        "Green Sunfish"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [53] "Horse Barbel"                   "Humpback Chub"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [55] "Kokanee"                        "Lake Chubsucker"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [57] "Lake Herring"                   "Lake Trout"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [59] "Largemouth Bass"                "Largescale Sucker"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] "Longear Sunfish"                "Longnose Gar"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [63] "Marble Trout"                   "Mountain Mullet"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [65] "Mountain Whitefish"             "Muskellunge"                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [67] "Muskellunge (female)"           "Muskellunge (male)"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [69] "Muskellunge (overall)"          "Nile Tilapia"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [71] "Nipple-Lip Scraper"             "Northern Pike"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] "Northern Pikeminnow"            "Northern Pikeminnow (original)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [75] "Northern Snakehead"             "Paddlefish"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [77] "Paddlefish (female)"            "Paddlefish (male)"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [79] "Paddlefish (overall)"           "Palmetto Bass"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [81] "Pejerrey"                       "Pumpkinseed"                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [83] "Pursak Chub"                    "Rainbow Trout"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] "Rainbow Trout (lentic)"         "Rainbow Trout (lotic)"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [87] "Razorback Sucker"               "Redbreast Sunfish"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [89] "Redear Sunfish"                 "Riffle Dace"                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [91] "River Carpsucker"               "River Goby"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [93] "Rock Bass"                      "Roundtail Chub"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [95] "Ruffe"                          "Sardine"                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] "Sauger"                         "Saugeye"                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [99] "Shoal Bass"                     "Shorthead Redhorse"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [101] "Shovelnose Sturgeon"            "Silver Carp"                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [103] "Smallmouth Bass"                "Smallmouth Buffalo"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [105] "South European Roach"           "Spotted Bass"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [107] "Spotted Bass (original)"        "Spotted Gar"                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [109] "Spotted Sunfish"                "Striped Bass"                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [111] "Striped Bass (landlocked)"      "Striped Bass X White Bass"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [113] "Suwannee Bass"                  "Tiger Muskellunge"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [115] "Utah Chub"                      "Walleye"                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [117] "Walleye (30-149 mm)"            "Walleye (overall)"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [119] "Warmouth"                       "White Bass"                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [121] "White Catfish"                  "White Crappie"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [123] "White Perch"                    "White Sturgeon"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [125] "White Sucker"                   "Yellow Bass"                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [127] "Yellow Bullhead"                "Yellow Perch"                  </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#===== Find equations for Bluegill, in different formats</span></span></span>
-<span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Bluegill"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     species measure  units ref method min.TL    int slope         source</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 Bluegill      TL metric  75  Other     80 -5.374 3.316 Hillman (1982)</span>
-<span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Bluegill"</span>,units<span class="op">=</span><span class="st">"metric"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     species measure  units ref method min.TL    int slope         source</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 Bluegill      TL metric  75  Other     80 -5.374 3.316 Hillman (1982)</span>
-<span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Bluegill"</span>,units<span class="op">=</span><span class="st">"English"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     species measure   units ref method min.TL    int slope         source</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 Bluegill      TL English  75  Other      3 -3.371 3.316 Hillman (1982)</span>
-<span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Bluegill"</span>,units<span class="op">=</span><span class="st">"English"</span>,simplify<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     species min.TL    int slope</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 Bluegill      3 -3.371 3.316</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#===== Find equation for Cutthroat Trout, demonstrating use of group</span></span></span>
-<span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Cutthroat Trout"</span>,group<span class="op">=</span><span class="st">"lotic"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            species group measure  units ref method min.TL    int slope</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57 Cutthroat Trout lotic      TL metric  75    RLP    130 -5.189 3.099</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     source</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57 Kruse and Hubert (1997)</span>
-<span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Cutthroat Trout"</span>,group<span class="op">=</span><span class="st">"lentic"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            species  group measure  units ref method min.TL    int slope</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55 Cutthroat Trout lentic      TL metric  75    RLP    130 -5.192 3.086</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     source</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55 Kruse and Hubert (1997)</span>
+<span class="r-in"><span><span class="co">#===== Find equations for Yellow Perch, in different formats</span></span></span>
+<span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Yellow Perch"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          species measure  units ref method min.TL    int slope</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 257 Yellow Perch      TL metric  75    RLP    100 -5.386  3.23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   source</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 257 Willis et al. (1991)</span>
+<span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"metric"</span><span class="op">)</span>   <span class="co"># same as default</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          species measure  units ref method min.TL    int slope</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 257 Yellow Perch      TL metric  75    RLP    100 -5.386  3.23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   source</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 257 Willis et al. (1991)</span>
+<span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"English"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          species measure   units ref method min.TL    int slope</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 256 Yellow Perch      TL English  75    RLP      4 -3.506  3.23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   source</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 256 Willis et al. (1991)</span>
+<span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"English"</span>,simplify<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          species min.TL    int slope</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 256 Yellow Perch      4 -3.506  3.23</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#===== Find equation for Ruffe, demonstrating quadratic formula</span></span></span>
 <span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Ruffe"</span>,units<span class="op">=</span><span class="st">"metric"</span>,ref<span class="op">=</span><span class="fl">75</span>,simplify<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     species min.TL max.TL   int slope   quad</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 148   Ruffe     55    205 -2.58 0.621 0.6073</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 191   Ruffe     55    205 -2.58 0.621 0.6073</span>
 <span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Ruffe"</span>,units<span class="op">=</span><span class="st">"metric"</span>,ref<span class="op">=</span><span class="fl">50</span>,simplify<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     species min.TL max.TL     int  slope   quad</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 147   Ruffe     55    205 -3.3524 1.3969 0.4054</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 190   Ruffe     55    205 -3.3524 1.3969 0.4054</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#===== Find equation for Brown Trout, which has equations for sub-groups</span></span></span>
+<span class="r-in"><span><span class="co">#-----   demonstrating use of group= argument</span></span></span>
+<span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Brown Trout"</span>,group<span class="op">=</span><span class="st">"lotic"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        species group measure  units ref method min.TL    int slope</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53 Brown Trout lotic      TL metric  75    RLP    140 -4.867  2.96</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       source</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53 Milewski and Brown (1994)</span>
+<span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Brown Trout"</span>,group<span class="op">=</span><span class="st">"lentic"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        species  group measure  units ref method min.TL    int slope</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51 Brown Trout lentic      TL metric  75    RLP    140 -5.422 3.194</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      source</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51 Hyatt and Hubert (2001b)</span>
+<span class="r-in"><span><span class="co">#-----   demonstrating group combined in species name, so no group= arg</span></span></span>
+<span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Brown Trout (lotic)"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                species measure  units ref method min.TL    int slope</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57 Brown Trout (lotic)      TL metric  75    RLP    140 -4.867  2.96</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       source</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57 Milewski and Brown (1994)</span>
+<span class="r-in"><span><span class="fu">wsVal</span><span class="op">(</span><span class="st">"Brown Trout (lentic)"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 species measure  units ref method min.TL    int slope</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55 Brown Trout (lentic)      TL metric  75    RLP    140 -5.422 3.194</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      source</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55 Hyatt and Hubert (2001b)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#===== Add Ws &amp; Wr values to a data frame (for one species) ... also see wrAdd()</span></span></span>
+<span class="r-in"><span><span class="co">#----- Example data from PSDWRtest, simplify variables for this example</span></span></span>
+<span class="r-in"><span><span class="va">yepdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">PSDWRtest</span>,<span class="va">species</span><span class="op">==</span><span class="st">"Yellow Perch"</span>,select<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span>,<span class="st">"len"</span>,<span class="st">"wt"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">yepdf</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	170 obs. of  3 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ species: chr  "Yellow Perch" "Yellow Perch" "Yellow Perch" "Yellow Perch" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ len    : num  140 128 133 123 158 146 125 104 127 165 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ wt     : num  37.5 22.6 26.9 26.8 NA 37.2 28.2 12.5 23.7 59.4 ...</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#----- Get Ws equation info</span></span></span>
-<span class="r-in"><span><span class="va">wsBG</span> <span class="op">&lt;-</span> <span class="fu">wsVal</span><span class="op">(</span><span class="st">"Bluegill"</span>,units<span class="op">=</span><span class="st">"metric"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">wsBG</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     species measure  units ref method min.TL    int slope         source</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 Bluegill      TL metric  75  Other     80 -5.374 3.316 Hillman (1982)</span>
+<span class="r-in"><span><span class="op">(</span> <span class="va">wsYEP</span> <span class="op">&lt;-</span> <span class="fu">wsVal</span><span class="op">(</span><span class="st">"Yellow Perch"</span>,units<span class="op">=</span><span class="st">"metric"</span><span class="op">)</span> <span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          species measure  units ref method min.TL    int slope</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 257 Yellow Perch      TL metric  75    RLP    100 -5.386  3.23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   source</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 257 Willis et al. (1991)</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#----- Get example data</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BluegillLM</span>,package<span class="op">=</span><span class="st">"FSAdata"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">BluegillLM</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	100 obs. of  5 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ sernum: int  100 110 120 130 140 150 160 170 180 190 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ sl    : int  126 124 118 136 191 121 105 123 123 120 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ fl    : int  152 150 140 163 144 149 128 151 148 148 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ tl    : int  157 153 149 172 150 155 134 157 155 154 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ wght  : int  92 88 77 130 86 90 53 90 79 83 ...</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#----- Add Ws (eqn is on log10-log10 scale ... so log10 len, 10^ result)</span></span></span>
-<span class="r-in"><span><span class="va">BluegillLM</span><span class="op">$</span><span class="va">ws</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="va">wsBG</span><span class="op">[[</span><span class="st">"int"</span><span class="op">]</span><span class="op">]</span><span class="op">+</span><span class="va">wsBG</span><span class="op">[[</span><span class="st">"slope"</span><span class="op">]</span><span class="op">]</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">BluegillLM</span><span class="op">$</span><span class="va">tl</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#----- Add Ws (eqn is on log10-log10 scale ... so log10 length, 10^ result)</span></span></span>
+<span class="r-in"><span><span class="va">yepdf</span><span class="op">$</span><span class="va">ws</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="va">wsYEP</span><span class="op">[[</span><span class="st">"int"</span><span class="op">]</span><span class="op">]</span><span class="op">+</span><span class="va">wsYEP</span><span class="op">[[</span><span class="st">"slope"</span><span class="op">]</span><span class="op">]</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">yepdf</span><span class="op">$</span><span class="va">len</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#----- Change Ws for fish less than min.TL to NA</span></span></span>
-<span class="r-in"><span><span class="va">BluegillLM</span><span class="op">$</span><span class="va">ws</span><span class="op">[</span><span class="va">BluegillLM</span><span class="op">$</span><span class="va">tl</span><span class="op">&lt;</span><span class="va">wsBG</span><span class="op">[[</span><span class="st">"min.TL"</span><span class="op">]</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
+<span class="r-in"><span><span class="va">yepdf</span><span class="op">$</span><span class="va">ws</span><span class="op">[</span><span class="va">yepdf</span><span class="op">$</span><span class="va">len</span><span class="op">&lt;</span><span class="va">wsYEP</span><span class="op">[[</span><span class="st">"min.TL"</span><span class="op">]</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#----- Add Wr</span></span></span>
-<span class="r-in"><span><span class="va">BluegillLM</span><span class="op">$</span><span class="va">wr</span> <span class="op">&lt;-</span> <span class="va">BluegillLM</span><span class="op">$</span><span class="va">wght</span><span class="op">/</span><span class="va">BluegillLM</span><span class="op">$</span><span class="va">ws</span><span class="op">*</span><span class="fl">100</span></span></span>
+<span class="r-in"><span><span class="va">yepdf</span><span class="op">$</span><span class="va">wr</span> <span class="op">&lt;-</span> <span class="va">yepdf</span><span class="op">$</span><span class="va">wt</span><span class="op">/</span><span class="va">yepdf</span><span class="op">$</span><span class="va">ws</span><span class="op">*</span><span class="fl">100</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#----- Examine results</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">BluegillLM</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     sernum  sl  fl  tl wght        ws        wr</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      100 126 152 157   92  80.83571 113.81109</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20     290 124 148 153   86  74.20562 115.89419</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40     490 169 201 210  236 212.06997 111.28402</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60     690 175 215 221  277 251.19141 110.27447</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80     890  90 110 115   27  28.79215  93.77557</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 100   1090 105 128 133   49  46.63286 105.07612</span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">yepdf</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           species len    wt        ws        wr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 847  Yellow Perch 140  37.5  35.15552 106.66887</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 880  Yellow Perch 146  42.8  40.25870 106.31243</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 914  Yellow Perch 186 101.2  88.00894 114.98831</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 948  Yellow Perch 203 122.5 116.73799 104.93585</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 982  Yellow Perch 215 125.6 140.53232  89.37446</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1016 Yellow Perch 322 520.0 518.05333 100.37577</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#----- Same as above but using dplyr</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BluegillLM</span>,package<span class="op">=</span><span class="st">"FSAdata"</span><span class="op">)</span>   <span class="co"># reset to original for this example</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="va">BluegillLM</span> <span class="op">&lt;-</span> <span class="va">BluegillLM</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ws<span class="op">=</span><span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="va">wsBG</span><span class="op">[[</span><span class="st">"int"</span><span class="op">]</span><span class="op">]</span><span class="op">+</span><span class="va">wsBG</span><span class="op">[[</span><span class="st">"slope"</span><span class="op">]</span><span class="op">]</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">tl</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>           ws<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">tl</span><span class="op">&lt;</span><span class="va">wsBG</span><span class="op">[[</span><span class="st">"min.TL"</span><span class="op">]</span><span class="op">]</span>,<span class="cn">NA</span>,<span class="va">ws</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>           wr<span class="op">=</span><span class="va">wght</span><span class="op">/</span><span class="va">ws</span><span class="op">*</span><span class="fl">100</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">BluegillLM</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">yepdf</span> <span class="op">&lt;-</span> <span class="va">PSDWRtest</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">species</span><span class="op">==</span><span class="st">"Yellow Perch"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">species</span>,<span class="va">len</span>,<span class="va">wt</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ws<span class="op">=</span><span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="va">wsYEP</span><span class="op">[[</span><span class="st">"int"</span><span class="op">]</span><span class="op">]</span><span class="op">+</span><span class="va">wsYEP</span><span class="op">[[</span><span class="st">"slope"</span><span class="op">]</span><span class="op">]</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">len</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           ws<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">len</span><span class="op">&lt;</span><span class="va">wsYEP</span><span class="op">[[</span><span class="st">"min.TL"</span><span class="op">]</span><span class="op">]</span>,<span class="cn">NA</span>,<span class="va">ws</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           wr<span class="op">=</span><span class="va">wt</span><span class="op">/</span><span class="va">ws</span><span class="op">*</span><span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">yepdf</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     sernum  sl  fl  tl wght        ws        wr</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      100 126 152 157   92  80.83571 113.81109</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20     290 124 148 153   86  74.20562 115.89419</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40     490 169 201 210  236 212.06997 111.28402</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60     690 175 215 221  277 251.19141 110.27447</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80     890  90 110 115   27  28.79215  93.77557</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 100   1090 105 128 133   49  46.63286 105.07612</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          species len    wt        ws        wr</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Yellow Perch 140  37.5  35.15552 106.66887</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34  Yellow Perch 146  42.8  40.25870 106.31243</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68  Yellow Perch 186 101.2  88.00894 114.98831</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102 Yellow Perch 203 122.5 116.73799 104.93585</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 136 Yellow Perch 215 125.6 140.53232  89.37446</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 170 Yellow Perch 322 520.0 518.05333 100.37577</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -272,7 +307,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
 </div>
 
     </footer></div>

@@ -1,0 +1,198 @@
+# Compute confidence intervals for PSD-X and PSD X-Y values.
+
+Compute confidence intervals for (traditional) PSD-X and (incremental)
+PSD X-Y values as requested by the user.
+
+## Usage
+
+``` r
+psdCI(
+  indvec,
+  ptbl,
+  n,
+  method = c("binomial", "multinomial"),
+  bin.type = c("wilson", "exact", "asymptotic"),
+  conf.level = 0.95,
+  label = NULL,
+  digits = 1
+)
+```
+
+## Arguments
+
+- indvec:
+
+  A numeric vector of 0s and 1s that identify the linear combination of
+  proportions from `ptbl` that the user is interested in. See details.
+
+- ptbl:
+
+  A numeric vector or array that contains the proportion or percentage
+  of all individuals in each length category. See details.
+
+- n:
+
+  A single numeric of the number of fish used to construct `ptbl`.
+
+- method:
+
+  A string that identifies the confidence interval method to use. See
+  details.
+
+- bin.type:
+
+  A string that identifies the type of method to use for calculation of
+  the confidence intervals when `method="binomial"`. See details of
+  [`binCI`](https://fishr-core-team.github.io/FSA/reference/binCI.md).
+
+- conf.level:
+
+  A number that indicates the level of confidence to use for
+  constructing confidence intervals (default is `0.95`).
+
+- label:
+
+  A single string that can be used to label the row of the output
+  matrix.
+
+- digits:
+
+  A numeric that indicates the number of decimals to round the result
+  to.
+
+## Value
+
+A matrix with columns that contain the computed PSD-X or PSD X-Y value
+and the associated confidence interval. The confidence interval values
+were set to zero or 100 if the computed value was negative or greater
+than 100, respectively.
+
+## Details
+
+Computes confidence intervals for (traditional) PSD-X and (incremental)
+PSD X-Y values. Two methods can be used as chosen with `method=`. If
+`method="binomial"` then the binomial distribution (via
+[`binCI()`](https://fishr-core-team.github.io/FSA/reference/binCI.md))
+is used. If `method="multinomial"` then the multinomial method described
+by Brenden *et al.* (2008) is used. This function is defined to compute
+one confidence interval so `method="binomial"` is the default. See
+examples and
+[`psdCalc`](https://fishr-core-team.github.io/FSA/reference/psdCalc.md)
+for computing several simultaneous confidence intervals.
+
+A table of proportions within each length category is given in `ptbl`.
+If `ptbl` has any values greater than 1 then it is assumed that a table
+of percentages was supplied and the entire table will be divided by 100
+to continue. The proportions must sum to 1 (with some allowance for
+rounding).
+
+A vector of length equal to the length of `ptbl` is given in `indvec`
+which contains zeros and ones to identify the linear combination of
+values in `ptbl` to use to construct the confidence intervals. For
+example, if `ptbl` has four proportions then `indvec=c(1,0,0,0)` would
+be used to construct a confidence interval for the population proportion
+in the first category. Alternatively, `indvec=c(0,0,1,1)` would be used
+to construct a confidence interval for the population proportion in the
+last two categories. This vector must not contain all zeros or all ones.
+
+## Testing
+
+The multinomial results match the results given in Brenden *et al.*
+(2008).
+
+## IFAR Chapter
+
+6-Size Structure.
+
+## References
+
+Ogle, D.H. 2016. [Introductory Fisheries Analyses with
+R](https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r).
+Chapman & Hall/CRC, Boca Raton, FL.
+
+Brenden, T.O., T. Wagner, and B.R. Murphy. 2008. Novel tools for
+analyzing proportional size distribution index data. North American
+Journal of Fisheries Management 28:1233-1242. \[Was (is?) from
+http://qfc.fw.msu.edu/Publications/Publication%20List/2008/Novel%20Tools%20for%20Analyzing%20Proportional%20Size%20Distribution_Brenden.pdf.\]
+
+## See also
+
+See
+[`psdVal`](https://fishr-core-team.github.io/FSA/reference/psdVal.md),
+[`psdPlot`](https://fishr-core-team.github.io/FSA/reference/psdPlot.md),
+[`psdAdd`](https://fishr-core-team.github.io/FSA/reference/psdAdd.md),
+[`PSDlit`](https://fishr-core-team.github.io/FSA/reference/PSDlit.md),
+[`tictactoe`](https://fishr-core-team.github.io/FSA/reference/tictactoe.md),
+[`lencat`](https://fishr-core-team.github.io/FSA/reference/lencat.md),
+and
+[`rcumsum`](https://fishr-core-team.github.io/FSA/reference/rcumsum.md)
+for related functionality.
+
+## Author
+
+Derek H. Ogle, <DerekOgle51@gmail.com>
+
+## Examples
+
+``` r
+## similar to Brenden et al. (2008)
+n <- 997
+ipsd <- c(130,491,253,123)/n
+
+## single binomial
+psdCI(c(0,0,1,1),ipsd,n=n)
+#>      Estimate 95% LCI 95% UCI
+#> [1,]     37.7    34.8    40.8
+psdCI(c(1,0,0,0),ipsd,n=n,label="PSD S-Q")
+#>         Estimate 95% LCI 95% UCI
+#> PSD S-Q       13    11.1    15.3
+
+## single multinomial
+psdCI(c(0,0,1,1),ipsd,n=n,method="multinomial")
+#>      Estimate 95% LCI 95% UCI
+#> [1,]     37.7    33.4      42
+psdCI(c(1,0,0,0),ipsd,n=n,method="multinomial",label="PSD S-Q")
+#>         Estimate 95% LCI 95% UCI
+#> PSD S-Q       13    10.1      16
+
+## multiple multinomials (but see psdCalc())
+lbls <- c("PSD S-Q","PSD Q-P","PSD P-M","PSD M-T","PSD","PSD-P")
+imat <- matrix(c(1,0,0,0,
+                 0,1,0,0,
+                 0,0,1,0,
+                 0,0,0,1,
+                 0,1,1,1,
+                 0,0,1,1),nrow=6,byrow=TRUE)
+rownames(imat) <- lbls
+imat
+#>         [,1] [,2] [,3] [,4]
+#> PSD S-Q    1    0    0    0
+#> PSD Q-P    0    1    0    0
+#> PSD P-M    0    0    1    0
+#> PSD M-T    0    0    0    1
+#> PSD        0    1    1    1
+#> PSD-P      0    0    1    1
+
+mcis <- t(apply(imat,MARGIN=1,FUN=psdCI,ptbl=ipsd,n=n,method="multinomial"))
+colnames(mcis) <- c("Estimate","95% LCI","95% UCI")
+mcis
+#>         Estimate 95% LCI 95% UCI
+#> PSD S-Q     13.0    10.1    16.0
+#> PSD Q-P     49.2    44.8    53.7
+#> PSD P-M     25.4    21.5    29.2
+#> PSD M-T     12.3     9.4    15.2
+#> PSD         87.0    84.0    89.9
+#> PSD-P       37.7    33.4    42.0
+
+## Multiple "Bonferroni-corrected" (for six comparisons) binomial method
+bcis <- t(apply(imat,MARGIN=1,FUN=psdCI,ptbl=ipsd,n=n,conf.level=1-0.05/6))
+colnames(bcis) <- c("Estimate","95% LCI","95% UCI")
+bcis
+#>         Estimate 95% LCI 95% UCI
+#> PSD S-Q     13.0    10.5    16.1
+#> PSD Q-P     49.2    45.1    53.4
+#> PSD P-M     25.4    21.9    29.2
+#> PSD M-T     12.3     9.8    15.3
+#> PSD         87.0    83.9    89.5
+#> PSD-P       37.7    33.8    41.8
+```

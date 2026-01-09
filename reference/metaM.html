@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Estimate natural mortality from a variety of empirical methods.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.0/R/metaM.R" class="external-link"><code>R/metaM.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.1/R/metaM.R" class="external-link"><code>R/metaM.R</code></a></small>
       <div class="d-none name"><code>metaM.Rd</code></div>
     </div>
 
@@ -138,6 +138,7 @@
 <li><p><code>method="HoenigLM"</code>: The “modified Hoenig equation derived with a linear model” as described in Then <em>et al.</em> (2015) on the second line of Table 3. Requires only <code>tmax</code>.</p></li>
 <li><p><code>method="HewittHoenig"</code>: The “Hewitt and Hoenig (2005) equation” from their equation 8. Requires only <code>tmax</code>.</p></li>
 <li><p><code>method="tmax1"</code>: The “one-parameter tmax equation” from the first line of Table 3 in Then <em>et al.</em> (2015). Requires only <code>tmax</code>.</p></li>
+<li><p><code>method="HamelCope"</code>: The equation 7 from Hamel and Cope (2022). Requires only <code>tmax</code>.</p></li>
 <li><p><code>method="K1"</code>:  The “one-parameter K equation” from the fourth line of Table 3 in Then <em>et al.</em> (2015). Requires only <code>K</code>.</p></li>
 <li><p><code>method="K2"</code>: The “two-parameter K equation” from the fifth line of Table 3 in Then <em>et al.</em> (2015). Requires only <code>K</code>.</p></li>
 <li><p><code>method="JensenK1"</code>: The “Jensen (1996) one-parameter K equation”. Requires only <code>K</code>.</p></li>
@@ -155,8 +156,8 @@
     </div>
     <div class="section level2">
     <h2 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a></h2>
-    <p>Kenchington (2014) provided life history parameters for several stocks and used many models to estimate M. I checked the calculations for the <code>PaulyL</code>, <code>PaulyW</code>, <code>HoenigO</code>, <code>HoenigOF</code>, <code>HoenigO2</code>, <code>HoenigO2F</code>, <code>"JensenK1"</code>, <code>"Gislason"</code>, <code>"AlversonCarney"</code>, <code>"Charnov"</code>, <code>"ZhangMegrey"</code>, <code>"RikhterEfanov1"</code>, and <code>"RikhterEfanov2"</code> methods for three stocks. All results perfectly matched Kenchington's results for Chesapeake Bay Anchovy and Rio Formosa Seahorse. For the Norwegian Fjord Lanternfish, all results perfectly matched Kenchington's results except for <code>HoenigOF</code> and <code>HoenigO2F</code>.</p>
-<p>Results for the Rio Formosa Seahorse data were also tested against results from <code><a href="https://rdrr.io/pkg/fishmethods/man/M.empirical.html" class="external-link">M.empirical</a></code> from <span class="pkg">fishmethods</span> for the <code>PaulyL</code>, <code>PaulyW</code>, <code>HoenigO</code>, <code>HoenigOF</code>, <code>"Gislason"</code>, and <code>"AlversonCarney"</code> methods (the only methods in common between the two packages). All results matched perfectly.</p>
+    <p>Kenchington (2014) provided life history parameters for several stocks and used many models to estimate M. I checked the calculations for the <code>"PaulyL"</code>, <code>"PaulyW"</code>, <code>"HoenigO"</code>, <code>"HoenigOF"</code>, <code>"HoenigO2"</code>, <code>"HoenigO2F"</code>, <code>"JensenK1"</code>, <code>"Gislason"</code>, <code>"AlversonCarney"</code>, <code>"Charnov"</code>, <code>"ZhangMegrey"</code>, <code>"RikhterEfanov1"</code>, and <code>"RikhterEfanov2"</code> methods for three stocks. All results perfectly matched Kenchington's results for Chesapeake Bay Anchovy and Rio Formosa Seahorse. For the Norwegian Fjord Lanternfish, all results perfectly matched Kenchington's results except for <code>"HoenigOF"</code> and <code>"HoenigO2F"</code>.</p>
+<p>Results for the Rio Formosa Seahorse data were also tested against results from <code><a href="https://rdrr.io/pkg/fishmethods/man/M.empirical.html" class="external-link">M.empirical</a></code> from <span class="pkg">fishmethods</span> for the <code>"PaulyL"</code>, <code>"PaulyW"</code>, <code>"HoenigO"</code>, <code>"HoenigOF"</code>, <code>"Gislason"</code>, and <code>"AlversonCarney"</code> methods (the only methods in common between the two packages). All results matched perfectly.</p>
     </div>
     <div class="section level2">
     <h2 id="ifar-chapter">IFAR Chapter<a class="anchor" aria-label="anchor" href="#ifar-chapter"></a></h2>
@@ -169,6 +170,7 @@
 <p>Chen, S. and S. Watanabe. 1989. Age dependence of natural mortality coefficient in fish population dynamics. Nippon Suisan Gakkaishi 55:205-208.</p>
 <p>Charnov, E.L., H. Gislason, and J.G. Pope. 2013. Evolutionary assembly rules for fish life histories. Fish and Fisheries. 14:213-224.</p>
 <p>Gislason, H., N. Daan, J.C. Rice, and J.G. Pope. 2010. Size, growth, temperature and the natural mortality of marine fish. Fish and Fisheries 11:149-158.</p>
+<p>Hamel, O. and J. M. Cope. 2022. Development and considerations for application of a longevity-based prior for the natural mortality rate. Fisheries Research 256:106477 [Was (is? from https://www.researchgate.net/publication/363595336_Development_and_considerations_for_application_of_a_longevity-based_prior_for_the_natural_mortality_rate).]</p>
 <p>Hewitt, D.A. and J.M. Hoenig. 2005. Comparison of two approaches for estimating natural mortality based on longevity. Fishery Bulletin. 103:433-437. [Was (is?) from http://fishbull.noaa.gov/1032/hewitt.pdf.]</p>
 <p>Hoenig, J.M. 1983. Empirical use of longevity data to estimate mortality rates. Fishery Bulletin. 82:898-903. [Was (is?) from http://www.afsc.noaa.gov/REFM/age/Docs/Hoenig_EmpiricalUseOfLongevityData.pdf.]</p>
 <p>Jensen, A.L. 1996. Beverton and Holt life history invariants result from optimal trade-off of reproduction and survival. Canadian Journal of Fisheries and Aquatic Sciences. 53:820-822. [Was (is?) from .]</p>
@@ -184,7 +186,7 @@
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>See <code><a href="https://rdrr.io/pkg/fishmethods/man/M.empirical.html" class="external-link">M.empirical</a></code> in <span class="pkg">fishmethods</span> for similar functionality.</p></div>
+    <div class="dont-index"><p>See <code><a href="https://rdrr.io/pkg/fishmethods/man/M.empirical.html" class="external-link">M.empirical</a></code> in <span class="pkg">fishmethods</span> for similar functionality and the "Natural Mortality Tool" Shiny app on-line.</p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -199,21 +201,21 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "HoenigOM"           "HoenigOC"           "HoenigO2"          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "HoenigO2F"          "HoenigO2M"          "HoenigO2C"         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [10] "HoenigLM"           "HewittHoenig"       "tmax1"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "PaulyLNoT"          "PaulyL"             "PaulyW"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "K1"                 "K2"                 "JensenK1"          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "JensenK2"           "Gislason"           "AlversonCarney"    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "Charnov"            "ZhangMegreyD"       "ZhangMegreyP"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "RikhterEfanov1"     "RikhterEfanov2"     "QuinnDeriso"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "ChenWatanabe"       "PetersonWroblewski"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "HamelCope"          "PaulyLNoT"          "PaulyL"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "PaulyW"             "K1"                 "K2"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "JensenK1"           "JensenK2"           "Gislason"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "AlversonCarney"     "Charnov"            "ZhangMegreyD"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "ZhangMegreyP"       "RikhterEfanov1"     "RikhterEfanov2"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "QuinnDeriso"        "ChenWatanabe"       "PetersonWroblewski"</span>
 <span class="r-in"><span><span class="fu">Mmethods</span><span class="op">(</span><span class="st">"tmax"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "tmax1"        "HoenigNLS"    "HoenigO"      "HoenigOF"     "HoenigOM"    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "HoenigOC"     "HoenigO2"     "HoenigO2F"    "HoenigO2M"    "HoenigO2C"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "HoenigLM"     "HewittHoenig"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "HamelCope"    "tmax1"        "HoenigNLS"    "HoenigO"      "HoenigOF"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "HoenigOM"     "HoenigOC"     "HoenigO2"     "HoenigO2F"    "HoenigO2M"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "HoenigO2C"    "HoenigLM"     "HewittHoenig"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Simple Examples</span></span></span>
-<span class="r-in"><span><span class="fu">metaM</span><span class="op">(</span><span class="st">"tmax"</span>,tmax<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         M        cm method                             name  givens</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.25545 0.2254321  tmax1 Then et al. (2015) tmax equation tmax=20</span>
+<span class="r-in"><span><span class="fu">metaM</span><span class="op">(</span><span class="st">"HamelCope"</span>,tmax<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      M        cm    method                                name  givens</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.27 0.2366205 HamelCope Hamel and Cope (2022) tmax equation tmax=20</span>
 <span class="r-in"><span><span class="fu">metaM</span><span class="op">(</span><span class="st">"HoenigNLS"</span>,tmax<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           M        cm    method                                     name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.3150387 0.2702394 HoenigNLS Then et al. (2015) Hoenig (NLS) equation</span>
@@ -280,7 +282,7 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Example of multiple methods using Mmethods</span></span></span>
 <span class="r-in"><span><span class="co"># select some methods</span></span></span>
-<span class="r-in"><span><span class="fu">metaM</span><span class="op">(</span><span class="fu">Mmethods</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15</span>,<span class="fl">20</span>,<span class="fl">22</span><span class="op">:</span><span class="fl">24</span>,<span class="fl">26</span><span class="op">:</span><span class="fl">29</span><span class="op">)</span><span class="op">]</span>,K<span class="op">=</span><span class="va">K</span>,Linf<span class="op">=</span><span class="va">Linf</span>,Temp<span class="op">=</span><span class="va">Temp</span>,tmax<span class="op">=</span><span class="va">tmax</span>,t50<span class="op">=</span><span class="va">t50</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">metaM</span><span class="op">(</span><span class="fu">Mmethods</span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">16</span>,<span class="fl">21</span>,<span class="fl">23</span><span class="op">:</span><span class="fl">25</span>,<span class="fl">27</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span><span class="op">]</span>,K<span class="op">=</span><span class="va">K</span>,Linf<span class="op">=</span><span class="va">Linf</span>,Temp<span class="op">=</span><span class="va">Temp</span>,tmax<span class="op">=</span><span class="va">tmax</span>,t50<span class="op">=</span><span class="va">t50</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            M        cm         method</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.6028619 0.7986805      HoenigNLS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.2741252 0.7203245        HoenigO</span>
@@ -294,14 +296,15 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.6243510 0.8029605       HoenigLM</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11 1.2462517 0.7124193   HewittHoenig</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 1.5087915 0.7788229          tmax1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 1.3304645 0.7356455      PaulyLNoT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 1.1405804 0.6803665         PaulyL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 1.3197600 0.7328006             K1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 1.3070000 0.7293693             K2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 1.1700000 0.6896331       JensenK1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 1.3566000 0.7424651       JensenK2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 1.3539801 0.7417895 AlversonCarney</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 1.0500095 0.6500656 RikhterEfanov1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 1.5947297 0.7970366      HamelCope</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 1.3304645 0.7356455      PaulyLNoT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 1.1405804 0.6803665         PaulyL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 1.3197600 0.7328006             K1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 1.3070000 0.7293693             K2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 1.1700000 0.6896331       JensenK1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 1.3566000 0.7424651       JensenK2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 1.3539801 0.7417895 AlversonCarney</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 1.0500095 0.6500656 RikhterEfanov1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                           name                      givens</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     Then et al. (2015) Hoenig (NLS) equation              tmax=3.3861538</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2        Hoenig (1983) combined equation (OLS)              tmax=3.3861538</span>
@@ -315,14 +318,15 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10     Then et al. (2015) Hoenig (LM) equation              tmax=3.3861538</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11        Hewitt &amp; Hoenig (2005) tmax equation              tmax=3.3861538</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12            Then et al. (2015) tmax equation              tmax=3.3861538</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13     Then et al. (2015) Pauly_NLS-T equation          K=0.78, Linf=17.71</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14                Pauly (1980) length equation K=0.78, Linf=17.71, Temp=11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Then et al. (2015) one-parameter K equation                      K=0.78</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 Then et al. (2015) two-parameter K equation                      K=0.78</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17      Jensen (1996) one parameter K equation                      K=0.78</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18      Jensen (2001) two parameter K equation                      K=0.78</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19           Alverson &amp; Carney (1975) equation      tmax=3.3861538, K=0.78</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20         Richter &amp; Evanov (1976) equation #1               t50=1.3818805</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13         Hamel and Cope (2022) tmax equation              tmax=3.3861538</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14     Then et al. (2015) Pauly_NLS-T equation          K=0.78, Linf=17.71</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                Pauly (1980) length equation K=0.78, Linf=17.71, Temp=11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 Then et al. (2015) one-parameter K equation                      K=0.78</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 Then et al. (2015) two-parameter K equation                      K=0.78</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18      Jensen (1996) one parameter K equation                      K=0.78</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19      Jensen (2001) two parameter K equation                      K=0.78</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20           Alverson &amp; Carney (1975) equation      tmax=3.3861538, K=0.78</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21         Richter &amp; Evanov (1976) equation #1               t50=1.3818805</span>
 <span class="r-in"><span><span class="co"># select just the Hoenig methods</span></span></span>
 <span class="r-in"><span><span class="fu">metaM</span><span class="op">(</span><span class="fu">Mmethods</span><span class="op">(</span><span class="st">"Hoenig"</span><span class="op">)</span>,K<span class="op">=</span><span class="va">K</span>,Linf<span class="op">=</span><span class="va">Linf</span>,Temp<span class="op">=</span><span class="va">Temp</span>,tmax<span class="op">=</span><span class="va">tmax</span>,t50<span class="op">=</span><span class="va">t50</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            M        cm       method                                     name</span>
@@ -384,7 +388,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
 </div>
 
     </footer></div>

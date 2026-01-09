@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Gabelhouse five-cell length categories for various species.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.0/R/PSDlit.R" class="external-link"><code>R/PSDlit.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.1/R/PSDlit.R" class="external-link"><code>R/PSDlit.R</code></a></small>
       <div class="d-none name"><code>PSDlit.Rd</code></div>
     </div>
 
@@ -101,6 +101,10 @@
     <p>Original summary table from Dr. Michael Hansen, University of Wisconsin-Stevens Point. Additional species have been added by the package author from the literature.</p>
     </div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Entries for some species (e.g., “Muskellunge” and “Walleye”) have been duplicated for sub-groups to facilitate use with relative weight calculations. For example, entries for “Muskellunge (overall)”, “Muskellunge (female)”, and “Muskellunge (male)” are duplicates of the entry for “Muskellunge”; i.e., these entries in <code>PSDlit</code> are not necessarily just for those sub-groups but this allows for seamless similar computations of relative weights for these sub-groups.</p>
+    </div>
+    <div class="section level2">
     <h2 id="topic-s-">Topic(s)<a class="anchor" aria-label="anchor" href="#topic-s-"></a></h2>
 
 
@@ -125,44 +129,44 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">PSDlit</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	72 obs. of  15 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ species     : chr  "Arctic Grayling" "Bighead Carp" "Bigmouth Buffalo" "Black Bullhead" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	96 obs. of  15 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ species     : chr  "Alabama Bass" "Arctic Grayling" "Bighead Carp" "Bigmouth Buffalo" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ group       : chr  NA NA NA NA ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ substock.in : int  0 0 0 0 0 0 0 0 0 0 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ stock.in    : num  8 11.8 11 6 15.8 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ quality.in  : num  12 21.2 18 9 28.2 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ preferred.in: num  16 26.8 24 12 35.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ memorable.in: num  20 35 30 15 46.5 12 35 10 20 NA ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ trophy.in   : num  22 43.8 37 18 58.2 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ stock.in    : num  7 8 11.8 11 6 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ quality.in  : num  11 12 21.2 18 9 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ preferred.in: num  14 16 26.8 24 12 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ memorable.in: num  17 20 35 30 15 46.5 12 35 10 20 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ trophy.in   : num  20 22 43.8 37 18 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ substock.cm : int  0 0 0 0 0 0 0 0 0 0 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ stock.cm    : num  20 30 28 15 40 13 30 8 20 20 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ quality.cm  : int  30 54 46 23 72 20 51 15 30 33 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ preferred.cm: int  40 68 61 30 90 25 76 20 40 NA ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ memorable.cm: int  50 89 76 39 118 30 89 25 50 NA ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ trophy.cm   : num  55 111 94 46 148 38 114 30 60 NA ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ source      : chr  "Hyatt (2000)" "Phelps and Willis (2013)" "Bister et al. (2000)" "Gabelhouse (1984a)" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ stock.cm    : num  18 20 30 28 15 40 13 30 8 20 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ quality.cm  : int  28 30 54 46 23 72 20 51 15 30 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ preferred.cm: int  35 40 68 61 30 90 25 76 20 40 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ memorable.cm: int  43 50 89 76 39 118 30 89 25 50 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ trophy.cm   : num  51 55 111 94 46 148 38 114 30 60 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ source      : chr  "Sammons et al. (2025)" "Hyatt (2000)" "Phelps and Willis (2013)" "Bister et al. (2000)" ...</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">PSDlit</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            species group substock.in stock.in quality.in preferred.in</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Arctic Grayling  &lt;NA&gt;           0     8.00      12.00        16.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Bighead Carp  &lt;NA&gt;           0    11.75      21.25        26.75</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Bigmouth Buffalo  &lt;NA&gt;           0    11.00      18.00        24.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   Black Bullhead  &lt;NA&gt;           0     6.00       9.00        12.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       Black Carp  &lt;NA&gt;           0    15.75      28.25        35.50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    Black Crappie  &lt;NA&gt;           0     5.00       8.00        10.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     Alabama Bass  &lt;NA&gt;           0     7.00      11.00        14.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Arctic Grayling  &lt;NA&gt;           0     8.00      12.00        16.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     Bighead Carp  &lt;NA&gt;           0    11.75      21.25        26.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Bigmouth Buffalo  &lt;NA&gt;           0    11.00      18.00        24.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   Black Bullhead  &lt;NA&gt;           0     6.00       9.00        12.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       Black Carp  &lt;NA&gt;           0    15.75      28.25        35.50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   memorable.in trophy.in substock.cm stock.cm quality.cm preferred.cm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         20.0     22.00           0       20         30           40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2         35.0     43.75           0       30         54           68</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3         30.0     37.00           0       28         46           61</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         15.0     18.00           0       15         23           30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5         46.5     58.25           0       40         72           90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6         12.0     15.00           0       13         20           25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         17.0     20.00           0       18         28           35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         20.0     22.00           0       20         30           40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         35.0     43.75           0       30         54           68</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         30.0     37.00           0       28         46           61</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         15.0     18.00           0       15         23           30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         46.5     58.25           0       40         72           90</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   memorable.cm trophy.cm                   source</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1           50        55             Hyatt (2000)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2           89       111 Phelps and Willis (2013)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3           76        94     Bister et al. (2000)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4           39        46       Gabelhouse (1984a)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          118       148 Phelps and Willis (2013)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6           30        38       Gabelhouse (1984a)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1           43        51    Sammons et al. (2025)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2           50        55             Hyatt (2000)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3           89       111 Phelps and Willis (2013)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4           76        94     Bister et al. (2000)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5           39        46       Gabelhouse (1984a)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          118       148 Phelps and Willis (2013)</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -175,7 +179,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
 </div>
 
     </footer></div>

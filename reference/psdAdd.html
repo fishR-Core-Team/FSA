@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Creates a vector of Gabelhouse lengths for each species in an entire data frame.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.0/R/psdAdd.R" class="external-link"><code>R/psdAdd.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/v0.10.1/R/psdAdd.R" class="external-link"><code>R/psdAdd.R</code></a></small>
       <div class="d-none name"><code>psdAdd.Rd</code></div>
     </div>
 
@@ -54,6 +54,7 @@
 <span><span class="fu">psdAdd</span><span class="op">(</span></span>
 <span>  <span class="va">len</span>,</span>
 <span>  <span class="va">species</span>,</span>
+<span>  thesaurus <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mm"</span>, <span class="st">"cm"</span>, <span class="st">"in"</span><span class="op">)</span>,</span>
 <span>  use.names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -67,6 +68,7 @@
 <span><span class="fu">psdAdd</span><span class="op">(</span></span>
 <span>  <span class="va">len</span>,</span>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  thesaurus <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mm"</span>, <span class="st">"cm"</span>, <span class="st">"in"</span><span class="op">)</span>,</span>
 <span>  use.names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -91,6 +93,10 @@
 
 <dt id="arg-species">species<a class="anchor" aria-label="anchor" href="#arg-species"></a></dt>
 <dd><p>A character or factor vector that contains the species names. Ignored if <code>len</code> is a formula.</p></dd>
+
+
+<dt id="arg-thesaurus">thesaurus<a class="anchor" aria-label="anchor" href="#arg-thesaurus"></a></dt>
+<dd><p>A named list for providing alternative species names (the values in the list) that correspond to specific names in <code>PSDlit</code> (the names in the list). See details and examples.</p></dd>
 
 
 <dt id="arg-group">group<a class="anchor" aria-label="anchor" href="#arg-group"></a></dt>
@@ -128,7 +134,8 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This computes a vector that contains the Gabelhouse lengths specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the Gabelhouse lengths for each individual. The Gabelhouse length value will be <code>NA</code> for each individual for which Gabelhouse length definitions do not exist in <code><a href="PSDlit.html">PSDlit</a></code>. Species names in the data.frame must be the same as those used in <code><a href="PSDlit.html">PSDlit</a></code> (i.e., same spelling and capitalization; use <code><a href="psdVal.html">psdVal()</a></code> to see the list of species).</p>
-<p>Some species have Gabelhouse lengths for sub-groups (e.g., “lentic” vs “lotic”). For these species, choose which sub-group to use with <code>group</code>.</p>
+<p>The <code>thesaurus</code> argument may be used to relate alternate species names to the species names used in <code>PSDlit</code>. For example, you (or your data) may use “Bluegill Sunfish”, but “Bluegill” is used in <code>PSDlit</code>. The alternate species name can be used here if it is defined in a named vector (or list) given to <code>thesarus=</code>. The alternate species name is the value and the species name in <code>PSDlit</code> is the name in this vector/list - e.g., <code>c("Bluegill"="Bluegill Sunfish")</code>. See the examples for a demonstration.</p>
+<p>Some species have length categories separated by sub-group. For example, length categories exist for both lentic and lotic populations of Brown Trout. The length values for a sub-group may be obtained by either including the species name in <code>species</code> and the sub-group name in <code>group</code> or by using the combined species and sub-group name, with the sub-group name in parentheses, in <code>species</code>. Both methods are demonstrated in the examples. Note that an error is returned if a species has sub-groups but neither method is used to define the sub-group.#'</p>
 <p>Individuals shorter than “stock” length will be listed as <code>substock</code> if <code>use.names=TRUE</code> or <code>0</code> if <code>use.names=FALSE</code>.</p>
 <p>Additional lengths to be used for a species may be included by giving a named list with vectors of additional lengths in <code>addLens</code>. Note, however, that <code>as.fact</code> will be reset to <code>FALSE</code> if <code>addLens</code> are specified, as there is no way to order the names (i.e., factor levels) for all species when additional lengths are used.</p>
 <p>See examples and <a href="https://fishr-core-team.github.io/FSA/articles/Computing_PSDs.html">this article</a> for a demonstration.</p>
@@ -155,151 +162,260 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#===== Create random data for three species</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">345234534</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dbg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>species<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Bluegill"</span><span class="op">)</span>,<span class="fl">30</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                  tl<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span>,<span class="fl">130</span>,<span class="fl">50</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dlb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>species<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Largemouth Bass"</span><span class="op">)</span>,<span class="fl">30</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                  tl<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span>,<span class="fl">350</span>,<span class="fl">60</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dbt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>species<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Bluefin Tuna"</span><span class="op">)</span>,<span class="fl">30</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                  tl<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span>,<span class="fl">1900</span>,<span class="fl">300</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">dbg</span>,<span class="va">dlb</span>,<span class="va">dbt</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#===== Simple examples -- 2 species, no groups, names as in PSDlit</span></span></span>
+<span class="r-in"><span><span class="co">#----- Isolate simple data from PSDWRtest</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">PSDWRtest</span>,</span></span>
+<span class="r-in"><span>              <span class="va">species</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Yellow Perch"</span>,<span class="st">"Largemouth Bass"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              select<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span>,<span class="st">"len"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">tmp</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              species len</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 412  Largemouth Bass 183</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 463  Largemouth Bass 319</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 860     Yellow Perch 180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 912     Yellow Perch 170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 964     Yellow Perch 266</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1016    Yellow Perch 322</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#===== Simple examples</span></span></span>
 <span class="r-in"><span><span class="co">#----- Add variable using category names -- non-formula notation</span></span></span>
-<span class="r-in"><span><span class="va">df</span><span class="op">$</span><span class="va">PSD</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">tl</span>,<span class="va">df</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Species in the data with no Gabelhouse (PSD) lengths in `PSDlit`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   "Bluefin Tuna".</span>
-<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">df</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            species   tl       PSD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         Bluegill   42  substock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18        Bluegill  120     stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36 Largemouth Bass  491 preferred</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54 Largemouth Bass  293     stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72    Bluefin Tuna 2476      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 90    Bluefin Tuna 1551      &lt;NA&gt;</span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">PSD</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">tmp</span><span class="op">$</span><span class="va">len</span>,<span class="va">tmp</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">tmp</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              species len       PSD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 412  Largemouth Bass 183  substock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 463  Largemouth Bass 319   quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 860     Yellow Perch 180     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 912     Yellow Perch 170     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 964     Yellow Perch 266 preferred</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1016    Yellow Perch 322 memorable</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#----- Add variable using category names -- formula notation</span></span></span>
-<span class="r-in"><span><span class="va">df</span><span class="op">$</span><span class="va">PSD1</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">tl</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">df</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Species in the data with no Gabelhouse (PSD) lengths in `PSDlit`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   "Bluefin Tuna".</span>
-<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">df</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            species   tl       PSD      PSD1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         Bluegill   42  substock  substock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18        Bluegill  120     stock     stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36 Largemouth Bass  491 preferred preferred</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54 Largemouth Bass  293     stock     stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72    Bluefin Tuna 2476      &lt;NA&gt;      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 90    Bluefin Tuna 1551      &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">PSD1</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">tmp</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">tmp</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              species len       PSD      PSD1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 412  Largemouth Bass 183  substock  substock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 463  Largemouth Bass 319   quality   quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 860     Yellow Perch 180     stock     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 912     Yellow Perch 170     stock     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 964     Yellow Perch 266 preferred preferred</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1016    Yellow Perch 322 memorable memorable</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#----- Add variable using length values as names</span></span></span>
-<span class="r-in"><span><span class="co">#      Also turned off messaging of fish not in PSDlit</span></span></span>
-<span class="r-in"><span><span class="va">df</span><span class="op">$</span><span class="va">PSD2</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">tl</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">df</span>,use.names<span class="op">=</span><span class="cn">FALSE</span>,verbose<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">df</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            species   tl       PSD      PSD1 PSD2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         Bluegill   42  substock  substock    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18        Bluegill  120     stock     stock   80</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36 Largemouth Bass  491 preferred preferred  380</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54 Largemouth Bass  293     stock     stock  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72    Bluefin Tuna 2476      &lt;NA&gt;      &lt;NA&gt;   NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 90    Bluefin Tuna 1551      &lt;NA&gt;      &lt;NA&gt;   NA</span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">PSD2</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">tmp</span>,use.names<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">tmp</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              species len       PSD      PSD1 PSD2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 412  Largemouth Bass 183  substock  substock    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 463  Largemouth Bass 319   quality   quality  300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 860     Yellow Perch 180     stock     stock  130</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 912     Yellow Perch 170     stock     stock  130</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 964     Yellow Perch 266 preferred preferred  250</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1016    Yellow Perch 322 memorable memorable  300</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#----- Same as above but using dplyr</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="va">df</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>PSD1A<span class="op">=</span><span class="fu">psdAdd</span><span class="op">(</span><span class="va">tl</span>,<span class="va">species</span>,verbose<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>           PSD2A<span class="op">=</span><span class="fu">psdAdd</span><span class="op">(</span><span class="va">tl</span>,<span class="va">species</span>,use.names<span class="op">=</span><span class="cn">FALSE</span>,verbose<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">df</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">tmp</span> <span class="op">&lt;-</span> <span class="va">tmp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>PSD1A<span class="op">=</span><span class="fu">psdAdd</span><span class="op">(</span><span class="va">len</span>,<span class="va">species</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           PSD2A<span class="op">=</span><span class="fu">psdAdd</span><span class="op">(</span><span class="va">len</span>,<span class="va">species</span>,use.names<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">tmp</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            species   tl       PSD      PSD1 PSD2     PSD1A PSD2A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         Bluegill   42  substock  substock    0  substock     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18        Bluegill  120     stock     stock   80     stock    80</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36 Largemouth Bass  491 preferred preferred  380 preferred   380</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54 Largemouth Bass  293     stock     stock  200     stock   200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72    Bluefin Tuna 2476      &lt;NA&gt;      &lt;NA&gt;   NA      &lt;NA&gt;    NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 90    Bluefin Tuna 1551      &lt;NA&gt;      &lt;NA&gt;   NA      &lt;NA&gt;    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              species len       PSD      PSD1 PSD2     PSD1A PSD2A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 412  Largemouth Bass 183  substock  substock    0  substock     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 463  Largemouth Bass 319   quality   quality  300   quality   300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 860     Yellow Perch 180     stock     stock  130     stock   130</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 912     Yellow Perch 170     stock     stock  130     stock   130</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 964     Yellow Perch 266 preferred preferred  250 preferred   250</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1016    Yellow Perch 322 memorable memorable  300 memorable   300</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#===== Adding lengths besides the Gabelhouse lengths</span></span></span>
-<span class="r-in"><span><span class="co">#----- Add a "minimum length" for Bluegill</span></span></span>
-<span class="r-in"><span><span class="va">df</span><span class="op">$</span><span class="va">PSD3</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">tl</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">df</span>,verbose<span class="op">=</span><span class="cn">FALSE</span>,</span></span>
-<span class="r-in"><span>                  addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Bluegill"</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"minLen"</span><span class="op">=</span><span class="fl">175</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">df</span><span class="op">$</span><span class="va">PSD3A</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">tl</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">df</span>,verbose<span class="op">=</span><span class="cn">FALSE</span>,</span></span>
-<span class="r-in"><span>                   addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Bluegill"</span><span class="op">=</span><span class="fl">175</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">df</span><span class="op">$</span><span class="va">PSD3B</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">tl</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">df</span>,verbose<span class="op">=</span><span class="cn">FALSE</span>,</span></span>
-<span class="r-in"><span>                   addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Bluegill"</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"minLen"</span><span class="op">=</span><span class="fl">175</span><span class="op">)</span><span class="op">)</span>,use.names<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    species  tl      PSD     PSD1 PSD2    PSD1A PSD2A     PSD3    PSD3A PSD3B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Bluegill  42 substock substock    0 substock     0 substock substock     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Bluegill  73 substock substock    0 substock     0 substock substock     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Bluegill 152  quality  quality  150  quality   150  quality  quality   150</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Bluegill 184  quality  quality  150  quality   150   minLen      175   175</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Bluegill 167  quality  quality  150  quality   150  quality  quality   150</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 Bluegill  94    stock    stock   80    stock    80    stock    stock    80</span>
+<span class="r-in"><span><span class="co">#===== Add lengths besides Gabelhouse lengths (start over with same simple data)</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">PSDWRtest</span>,</span></span>
+<span class="r-in"><span>              <span class="va">species</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Yellow Perch"</span>,<span class="st">"Largemouth Bass"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              select<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span>,<span class="st">"len"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#----- Add add'l lengths and names for Bluegill and Largemouth Bass</span></span></span>
-<span class="r-in"><span><span class="va">df</span><span class="op">$</span><span class="va">psd4</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">tl</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">df</span>,verbose<span class="op">=</span><span class="cn">FALSE</span>,</span></span>
-<span class="r-in"><span>                  addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Bluegill"</span><span class="op">=</span><span class="fl">175</span>,</span></span>
-<span class="r-in"><span>                               <span class="st">"Largemouth Bass"</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">254</span>,<span class="fl">356</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">df</span>,n<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            species   tl       PSD      PSD1 PSD2     PSD1A PSD2A      PSD3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         Bluegill   42  substock  substock    0  substock     0  substock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5         Bluegill  167   quality   quality  150   quality   150   quality</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9         Bluegill   86     stock     stock   80     stock    80     stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14        Bluegill  124     stock     stock   80     stock    80     stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19        Bluegill  155   quality   quality  150   quality   150   quality</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24        Bluegill  108     stock     stock   80     stock    80     stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28        Bluegill   94     stock     stock   80     stock    80     stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33 Largemouth Bass  433 preferred preferred  380 preferred   380 preferred</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38 Largemouth Bass  293     stock     stock  200     stock   200     stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43 Largemouth Bass  396 preferred preferred  380 preferred   380 preferred</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47 Largemouth Bass  268     stock     stock  200     stock   200     stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52 Largemouth Bass  279     stock     stock  200     stock   200     stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57 Largemouth Bass  345   quality   quality  300   quality   300   quality</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62    Bluefin Tuna 2064      &lt;NA&gt;      &lt;NA&gt;   NA      &lt;NA&gt;    NA      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66    Bluefin Tuna 2273      &lt;NA&gt;      &lt;NA&gt;   NA      &lt;NA&gt;    NA      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71    Bluefin Tuna 1785      &lt;NA&gt;      &lt;NA&gt;   NA      &lt;NA&gt;    NA      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76    Bluefin Tuna 1596      &lt;NA&gt;      &lt;NA&gt;   NA      &lt;NA&gt;    NA      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 81    Bluefin Tuna 1692      &lt;NA&gt;      &lt;NA&gt;   NA      &lt;NA&gt;    NA      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 85    Bluefin Tuna 1997      &lt;NA&gt;      &lt;NA&gt;   NA      &lt;NA&gt;    NA      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 90    Bluefin Tuna 1551      &lt;NA&gt;      &lt;NA&gt;   NA      &lt;NA&gt;    NA      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PSD3A PSD3B      psd4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   substock     0  substock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    quality   150   quality</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9      stock    80     stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14     stock    80     stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19   quality   150   quality</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24     stock    80     stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28     stock    80     stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33 preferred   380 preferred</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38     stock   200       254</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43 preferred   380 preferred</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47     stock   200       254</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52     stock   200       254</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57   quality   300   quality</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62      &lt;NA&gt;    NA      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66      &lt;NA&gt;    NA      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71      &lt;NA&gt;    NA      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76      &lt;NA&gt;    NA      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 81      &lt;NA&gt;    NA      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 85      &lt;NA&gt;    NA      &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 90      &lt;NA&gt;    NA      &lt;NA&gt;</span>
+<span class="r-in"><span><span class="co">#----- Add a "minimum length" for one species</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">PSD3</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">tmp</span>,</span></span>
+<span class="r-in"><span>                   addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Yellow Perch"</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"minLen"</span><span class="op">=</span><span class="fl">225</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">PSD3A</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">tmp</span>,</span></span>
+<span class="r-in"><span>                    addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Yellow Perch"</span><span class="op">=</span><span class="fl">225</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">PSD3B</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">tmp</span>,</span></span>
+<span class="r-in"><span>                    addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Yellow Perch"</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"minLen"</span><span class="op">=</span><span class="fl">225</span><span class="op">)</span><span class="op">)</span>,use.names<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tmp</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             species len     PSD3    PSD3A PSD3B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 412 Largemouth Bass 183 substock substock     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 413 Largemouth Bass 208    stock    stock   200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 414 Largemouth Bass 200    stock    stock   200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 415 Largemouth Bass 200    stock    stock   200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 416 Largemouth Bass 191 substock substock     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 417 Largemouth Bass 207    stock    stock   200</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#===== Example for a species with sub-groups</span></span></span>
-<span class="r-in"><span><span class="va">dbt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>species<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Brown Trout"</span><span class="op">)</span>,<span class="fl">30</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                  tl<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span>,<span class="fl">230</span>,<span class="fl">50</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dlt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>species<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lake Trout"</span><span class="op">)</span>,<span class="fl">30</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                  tl<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span>,<span class="fl">550</span>,<span class="fl">60</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">dbt</span>,<span class="va">dlt</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#----- Add add'l lengths and names for multiple species</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">psd4</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">tmp</span>,</span></span>
+<span class="r-in"><span>                   addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Yellow Perch"</span><span class="op">=</span><span class="fl">175</span>,</span></span>
+<span class="r-in"><span>                                <span class="st">"Largemouth Bass"</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">254</span>,<span class="fl">306</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">tmp</span>,n<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              species len      PSD3     PSD3A PSD3B      psd4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 412  Largemouth Bass 183  substock  substock     0  substock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 425  Largemouth Bass 202     stock     stock   200     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 438  Largemouth Bass 213     stock     stock   200     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 452  Largemouth Bass 296     stock     stock   200       254</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 466  Largemouth Bass 295     stock     stock   200       254</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 479  Largemouth Bass 316   quality   quality   300       306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 493  Largemouth Bass 335   quality   quality   300       306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 852     Yellow Perch 146     stock     stock   130     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 865     Yellow Perch 170     stock     stock   130     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 879     Yellow Perch 182     stock     stock   130       175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 893     Yellow Perch 172     stock     stock   130     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 907     Yellow Perch 148     stock     stock   130     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 920     Yellow Perch 135     stock     stock   130     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 934     Yellow Perch 141     stock     stock   130     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 948     Yellow Perch 203   quality   quality   200   quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 961     Yellow Perch 244    minLen       225   225   quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 975     Yellow Perch 249    minLen       225   225   quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 989     Yellow Perch 228    minLen       225   225   quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1002    Yellow Perch 306 memorable memorable   300 memorable</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1016    Yellow Perch 322 memorable memorable   300 memorable</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">df2</span><span class="op">$</span><span class="va">psd</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">tl</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">df2</span>,group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Brown Trout"</span><span class="op">=</span><span class="st">"lentic"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">df2</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        species  tl      psd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Brown Trout 194 substock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Brown Trout 215    stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 Brown Trout 241    stock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36  Lake Trout 629  quality</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48  Lake Trout 536  quality</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60  Lake Trout 571  quality</span>
+<span class="r-in"><span><span class="co">#===== Handle additional species in PSDlit but named differently</span></span></span>
+<span class="r-in"><span><span class="co">#----- Isolate different species data from PSDWRtest</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">PSDWRtest</span>,</span></span>
+<span class="r-in"><span>              <span class="va">species</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Bluegill Sunfish"</span>,<span class="st">"Lean Lake Trout"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              select<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span>,<span class="st">"len"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#----- No "Bluegill Sunfish" in PSDlit, use thesaurus to note this is "Bluegill"</span></span></span>
+<span class="r-in"><span><span class="co">#        Note: "Lean Lake Trout" not processed as not in PSDlit</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">psd5</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">tmp</span>,</span></span>
+<span class="r-in"><span>                   thesaurus<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Bluegill"</span><span class="op">=</span><span class="st">"Bluegill Sunfish"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Species in the data with no Gabelhouse (PSD) lengths in `PSDlit`: "Lean</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   Lake Trout".</span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">tmp</span>,n<span class="op">=</span><span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              species len    psd5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Bluegill Sunfish 107   stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44  Bluegill Sunfish 154 quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88  Bluegill Sunfish 172 quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 513  Lean Lake Trout 500    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 557  Lean Lake Trout 478    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 601  Lean Lake Trout 829    &lt;NA&gt;</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#----- Process multiple species in PSDlit with different names</span></span></span>
+<span class="r-in"><span><span class="co">#        Note: Can still use addLens=, but with original name</span></span></span>
+<span class="r-in"><span><span class="va">thes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Bluegill"</span><span class="op">=</span><span class="st">"Bluegill Sunfish"</span>,<span class="st">"Lake Trout"</span><span class="op">=</span><span class="st">"Lean Lake Trout"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">psd6</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">tmp</span>,thesaurus<span class="op">=</span><span class="va">thes</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">psd7</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">tmp</span>,thesaurus<span class="op">=</span><span class="va">thes</span>,</span></span>
+<span class="r-in"><span>                   addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Bluegill Sunfish"</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"minLen"</span><span class="op">=</span><span class="fl">175</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">tmp</span>,n<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              species len      psd5      psd6      psd7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Bluegill Sunfish 107     stock     stock     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  Bluegill Sunfish 108     stock     stock     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23  Bluegill Sunfish  85     stock     stock     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35  Bluegill Sunfish 136     stock     stock     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46  Bluegill Sunfish 167   quality   quality   quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58  Bluegill Sunfish 165   quality   quality   quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69  Bluegill Sunfish 164   quality   quality   quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81  Bluegill Sunfish 144     stock     stock     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93  Bluegill Sunfish 103     stock     stock     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104 Bluegill Sunfish 156   quality   quality   quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 116 Bluegill Sunfish 215 preferred preferred preferred</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 508  Lean Lake Trout 274      &lt;NA&gt;  substock  substock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 520  Lean Lake Trout 448      &lt;NA&gt;     stock     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 532  Lean Lake Trout 487      &lt;NA&gt;     stock     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 543  Lean Lake Trout 512      &lt;NA&gt;   quality   quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 555  Lean Lake Trout 521      &lt;NA&gt;   quality   quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 566  Lean Lake Trout 503      &lt;NA&gt;   quality   quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 578  Lean Lake Trout 781      &lt;NA&gt; preferred preferred</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 589  Lean Lake Trout 770      &lt;NA&gt; preferred preferred</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 601  Lean Lake Trout 829      &lt;NA&gt; memorable memorable</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#===== Example for a species with sub-groups but only one sub-group in data</span></span></span>
+<span class="r-in"><span><span class="co">#----- Isolate species data from PSDWRtest ... only Brook Trout has sub-group</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">PSDWRtest</span>,</span></span>
+<span class="r-in"><span>              <span class="va">species</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Yellow Perch"</span>,<span class="st">"Brook Trout"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              select<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span>,<span class="st">"len"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#----- This will err as Brook Trout has sub-groups in PSDlit (as message notes)</span></span></span>
+<span class="r-in"><span><span class="co"># tmp$psd8 &lt;- psdAdd(len~species,data=tmp)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#----- Can choose "overall" sub-group with group=</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">psd8</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">species</span>,data<span class="op">=</span><span class="va">tmp</span>,</span></span>
+<span class="r-in"><span>                   group<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Brook Trout"</span><span class="op">=</span><span class="st">"overall"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">tmp</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           species len      psd8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 121   Brook Trout 147  substock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 148   Brook Trout 241     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 176   Brook Trout 250     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 849  Yellow Perch 133     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 877  Yellow Perch 101  substock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 905  Yellow Perch 123  substock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 933  Yellow Perch 141     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 960  Yellow Perch 277 preferred</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 988  Yellow Perch 257 preferred</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1016 Yellow Perch 322 memorable</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#----- Or can create species name with sub-group name in parentheses</span></span></span>
+<span class="r-in"><span><span class="co">#        Note: this is more useful in next examples</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">species2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">$</span><span class="va">species</span><span class="op">==</span><span class="st">"Brook Trout"</span>,<span class="st">"Brook Trout (overall)"</span>,</span></span>
+<span class="r-in"><span>                       <span class="va">tmp</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">psd8A</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">species2</span>,data<span class="op">=</span><span class="va">tmp</span><span class="op">)</span> <span class="co"># note use of species2</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">tmp</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           species len      psd8              species2     psd8A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 121   Brook Trout 147  substock Brook Trout (overall)  substock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 148   Brook Trout 241     stock Brook Trout (overall)     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 176   Brook Trout 250     stock Brook Trout (overall)     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 849  Yellow Perch 133     stock          Yellow Perch     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 877  Yellow Perch 101  substock          Yellow Perch  substock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 905  Yellow Perch 123  substock          Yellow Perch  substock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 933  Yellow Perch 141     stock          Yellow Perch     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 960  Yellow Perch 277 preferred          Yellow Perch preferred</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 988  Yellow Perch 257 preferred          Yellow Perch preferred</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1016 Yellow Perch 322 memorable          Yellow Perch memorable</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#===== Example for species with more than one sub-group in data</span></span></span>
+<span class="r-in"><span><span class="co">#----- Isolate species data from PSDWRtest ... Brown Trout has two sub-groups</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">PSDWRtest</span>,</span></span>
+<span class="r-in"><span>              <span class="va">species</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Yellow Perch"</span>,<span class="st">"Largemouth Bass"</span>,<span class="st">"Brown Trout"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              select<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span>,<span class="st">"len"</span>,<span class="st">"location"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">tmp</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              species len     location</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 201      Brown Trout 128   Trout Lake</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 249      Brown Trout 269   Trout Lake</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 298      Brown Trout 207 Brushy Creek</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 346      Brown Trout 298 Brushy Creek</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 427  Largemouth Bass 198    Bass Lake</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 476  Largemouth Bass 285    Bass Lake</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 870     Yellow Perch 190    Bass Lake</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 918     Yellow Perch 197    Bass Lake</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 967     Yellow Perch 239    Bass Lake</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1016    Yellow Perch 322    Bass Lake</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#----- Must create a species name variable with sub-groups in parentheses</span></span></span>
+<span class="r-in"><span><span class="co">#        Note: there are likely many ways to do this specific to each use-case</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">species2</span> <span class="op">&lt;-</span> <span class="va">tmp</span><span class="op">$</span><span class="va">species</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">species2</span><span class="op">[</span><span class="va">tmp</span><span class="op">$</span><span class="va">species</span><span class="op">==</span><span class="st">"Brown Trout"</span> <span class="op">&amp;</span> </span></span>
+<span class="r-in"><span>             <span class="va">tmp</span><span class="op">$</span><span class="va">location</span><span class="op">==</span><span class="st">"Trout Lake"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Brown Trout (lotic)"</span></span></span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">species2</span><span class="op">[</span><span class="va">tmp</span><span class="op">$</span><span class="va">species</span><span class="op">==</span><span class="st">"Brown Trout"</span> <span class="op">&amp;</span> </span></span>
+<span class="r-in"><span>             <span class="va">tmp</span><span class="op">$</span><span class="va">location</span><span class="op">==</span><span class="st">"Brushy Creek"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Brown Trout (lentic)"</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">tmp</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              species len     location             species2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 201      Brown Trout 128   Trout Lake  Brown Trout (lotic)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 249      Brown Trout 269   Trout Lake  Brown Trout (lotic)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 298      Brown Trout 207 Brushy Creek Brown Trout (lentic)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 346      Brown Trout 298 Brushy Creek Brown Trout (lentic)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 427  Largemouth Bass 198    Bass Lake      Largemouth Bass</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 476  Largemouth Bass 285    Bass Lake      Largemouth Bass</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 870     Yellow Perch 190    Bass Lake         Yellow Perch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 918     Yellow Perch 197    Bass Lake         Yellow Perch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 967     Yellow Perch 239    Bass Lake         Yellow Perch</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1016    Yellow Perch 322    Bass Lake         Yellow Perch</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tmp</span><span class="op">$</span><span class="va">psd9</span> <span class="op">&lt;-</span> <span class="fu">psdAdd</span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">species2</span>,data<span class="op">=</span><span class="va">tmp</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="peek.html">peek</a></span><span class="op">(</span><span class="va">tmp</span>,n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              species len     location             species2      psd9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 201      Brown Trout 128   Trout Lake  Brown Trout (lotic)  substock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 249      Brown Trout 269   Trout Lake  Brown Trout (lotic)   quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 298      Brown Trout 207 Brushy Creek Brown Trout (lentic)     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 346      Brown Trout 298 Brushy Creek Brown Trout (lentic)     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 427  Largemouth Bass 198    Bass Lake      Largemouth Bass  substock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 476  Largemouth Bass 285    Bass Lake      Largemouth Bass     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 870     Yellow Perch 190    Bass Lake         Yellow Perch     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 918     Yellow Perch 197    Bass Lake         Yellow Perch     stock</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 967     Yellow Perch 239    Bass Lake         Yellow Perch   quality</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1016    Yellow Perch 322    Bass Lake         Yellow Perch memorable</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -312,7 +428,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
 </div>
 
     </footer></div>
