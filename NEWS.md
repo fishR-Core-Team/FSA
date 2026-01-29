@@ -1,4 +1,5 @@
 # FSA 0.10.1.9000
+* metaM(): Expanded some error messages to increase clarity.
 
 # FSA 0.10.1
 * Updated the PSD and Relative Weight computation articles to reflect the changes to `psdVal()`, `psdAdd()`, `wsVal()`, and `wrAdd()`.
