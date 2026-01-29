@@ -5,10 +5,10 @@
 \alias{metaM}
 \title{Estimate natural mortality from a variety of empirical methods.}
 \usage{
-Mmethods(method = c("all", "tmax", "K", "Hoenig", "Pauly", "FAMS"))
+Mmethods(method = NULL)
 
 metaM(
-  method = Mmethods(),
+  method = NULL,
   tmax = NULL,
   K = NULL,
   Linf = NULL,
@@ -103,8 +103,7 @@ Results for the Rio Formosa Seahorse data were also tested against results from 
 }
 
 \examples{
-## List names for available methods
-Mmethods()
+## List methods in a group of methods
 Mmethods("tmax")
 
 ## Simple Examples

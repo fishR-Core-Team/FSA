@@ -106,8 +106,7 @@
 #' @aliases metaM Mmethods
 #' 
 #' @examples
-#' ## List names for available methods
-#' Mmethods()
+#' ## List methods in a group of methods
 #' Mmethods("tmax")
 #' 
 #' ## Simple Examples
@@ -149,8 +148,8 @@
 #' 
 #' @rdname metaM
 #' @export
-Mmethods <- function(method=c("all","tmax","K","Hoenig","Pauly","FAMS")) {
-  method <- match.arg(method)
+Mmethods <- function(method=NULL) {
+  # list all available methods
   all_meth <- c("HoenigNLS","HoenigO","HoenigOF","HoenigOM","HoenigOC",
                 "HoenigO2","HoenigO2F","HoenigO2M","HoenigO2C",
                 "HoenigLM","HewittHoenig","tmax1","HamelCope",
@@ -160,28 +159,50 @@ Mmethods <- function(method=c("all","tmax","K","Hoenig","Pauly","FAMS")) {
                 "ZhangMegreyD","ZhangMegreyP",
                 "RikhterEfanov1","RikhterEfanov2",
                 "QuinnDeriso","ChenWatanabe","PetersonWroblewski")
+  # extract the Hoenig methods from all methods
   H_meth <- all_meth[grep("Hoenig",all_meth)]
-  P_meth <- 
-  switch(method,
-         all    = { meths <- all_meth },
-         tmax   = { meths <- c("HamelCope","tmax1",H_meth)},
-         K      = { meths <- c("K1","K2","JensenK1","JensenK2")},
-         Hoenig = { meths <- H_meth},
-         Pauly  = { meths <- all_meth[grep("Pauly",all_meth)] },
-         FAMS   = { meths <- c("QuinnDeriso","HoenigOF","JensenK1",
-                               "PetersonWroblewski","PaulyL","ChenWatanabe")}
-         )
+  # list groups of methods
+  grp_meth <- c("tmax","K","Hoenig","Pauly","FAMS")
+
+  #
+  if (is.null(method)) method <- "all"
+  if (length(method)==1) {
+    if (method %in% all_meth) meths <- method
+    else if (method %in% c("all",grp_meth)) {
+      switch(method,
+             all    = { meths <- all_meth },
+             tmax   = { meths <- c("HamelCope","tmax1",H_meth)},
+             K      = { meths <- c("K1","K2","JensenK1","JensenK2")},
+             Hoenig = { meths <- H_meth},
+             Pauly  = { meths <- all_meth[grep("Pauly",all_meth)] },
+             FAMS   = { meths <- c("QuinnDeriso","HoenigOF","JensenK1",
+                                   "PetersonWroblewski","PaulyL",
+                                   "ChenWatanabe")}
+      )
+    } else STOP("'method' must be one of ",
+                paste(grp_meth,collapse=", ")," or one or more of ",
+                paste(all_meth,collapse=", "))
+  } else {
+    tmp <- method %in% grp_meth
+    if (any(tmp)) STOP("'method' cannot be more than one group of methods ",
+                       "or a group of methods and a specific method.")
+    tmp <- method %in% all_meth
+    if (!all(tmp)) STOP("'method' included the following incorrect choices: ",
+                        paste(method[!tmp],collapse=", "))
+    meths <- method
+  }
   meths
 }
 
 #' @rdname metaM
 #' @export
-metaM <- function(method=Mmethods(),
+metaM <- function(method=NULL,
                   tmax=NULL,K=NULL,Linf=NULL,t0=NULL,b=NULL,
                   L=NULL,Temp=NULL,t50=NULL,Winf=NULL,PS=NULL,
                   verbose=TRUE) {
   ## Get method or methods
-  method <- match.arg(method,several.ok=TRUE)
+  if (is.null(method)) STOP("A 'method' must be specified; see ?metaM.")
+  method <- Mmethods(method)
   ## Use apply to run all methods at once (even if only one)
   res <- lapply(method,metaM1,tmax,K,Linf,t0,b,L,Temp,t50,Winf,PS)
   ## Put together as a data.frame to return
@@ -196,146 +217,146 @@ metaM1 <- function(method,tmax,K,Linf,t0,b,L,Temp,t50,Winf,PS,...) {
   switch(method,
          HamelCope = { ## from Hamel & Cope (2022), Equation 7
            name <- "Hamel and Cope (2022) tmax equation"
-           iCheck_tmax(tmax)
+           iCheck_tmax(tmax,method)
            givens <- c(tmax=tmax)
            M <- 5.40/tmax },
          tmax1 = { ## from Then et al. (2015), Table 3, 1st line
            name <- "Then et al. (2015) tmax equation"
-           iCheck_tmax(tmax)
+           iCheck_tmax(tmax,method)
            givens <- c(tmax=tmax)
            M <- 5.109/tmax },
          PaulyLNoT = { ## from Then et al. (2015), Table 3, 6th line
            name <- "Then et al. (2015) Pauly_NLS-T equation"
-           iCheck_K(K)
-           iCheck_Linf(Linf)
+           iCheck_K(K,method)
+           iCheck_Linf(Linf,method)
            givens <- c(K=K,Linf=Linf)
            M <- 4.118*(K^(0.73))*(Linf^(-0.33)) },
          PaulyL = { ## from Pauly (1980) Equation 11
            name <- "Pauly (1980) length equation"
-           iCheck_K(K)
-           iCheck_Linf(Linf)
-           iCheck_Temp(Temp)
+           iCheck_K(K,method)
+           iCheck_Linf(Linf,method)
+           iCheck_Temp(Temp,method)
            givens <- c(K=K,Linf=Linf,Temp=Temp)
            M <- 10^(-0.0066-0.279*log10(Linf)+0.6543*log10(K)+0.4634*log10(Temp)) },
          PaulyW         = { ## from Pauly (1980) Equation 10
-           iCheck_K(K)
-           iCheck_Winf(Winf)
-           iCheck_Temp(Temp)
+           iCheck_K(K,method)
+           iCheck_Winf(Winf,method)
+           iCheck_Temp(Temp,method)
            name <- "Pauly (1980) weight equation"
            givens <- c(K=K,Winf=Winf,Temp=Temp)
            M <- 10^(-0.2107-0.0824*log10(Winf)+0.6757*log10(K)+0.4627*log10(Temp)) },
          HoenigO = { ## from Hoenig (1983), 4th line, 2nd column, page 899
            name <- "Hoenig (1983) combined equation (OLS)"
-           iCheck_tmax(tmax)
+           iCheck_tmax(tmax,method)
            givens <- c(tmax=tmax)
            M <- exp(1.44-0.982*log(tmax)) },
          HoenigOF = { ## from Hoenig (1983), 2nd line, 2nd column, page 899
            name <- "Hoenig (1983) fish equation (OLS)"
-           iCheck_tmax(tmax)
+           iCheck_tmax(tmax,method)
            givens <- c(tmax=tmax)
            M <- exp(1.46-1.01*log(tmax)) },
          HoenigOM = { ## from Hoenig (1983), 1st line, 2nd column, page 899
            name <- "Hoenig (1983) mollusk equation (OLS)"
-           iCheck_tmax(tmax)
+           iCheck_tmax(tmax,method)
            givens <- c(tmax=tmax)
            M <- exp(1.23-0.832*log(tmax)) },
          HoenigOC = { ## from Hoenig (1983), 3rd line, 2nd column, page 899
            name <- "Hoenig (1983) cetacean equation (OLS)"
-           iCheck_tmax(tmax)
+           iCheck_tmax(tmax,method)
            givens <- c(tmax=tmax)
            M <- exp(0.941-0.873*log(tmax)) },
          HoenigO2 = { ## from Kenchington (2014) p.537 2nd column
            name <- "Hoenig (1983) combined equation (GM)"
-           iCheck_tmax(tmax)
+           iCheck_tmax(tmax,method)
            givens <- c(tmax=tmax)
            M <- 5.52*tmax^(-1.08) },
          HoenigO2F = { ## from Kenchington (2014) p.537 2nd column
            name <- "Hoenig (1983) fish equation (GM)"
-           iCheck_tmax(tmax)
+           iCheck_tmax(tmax,method)
            givens <- c(tmax=tmax)
            M <- 6.99*tmax^(-1.22) },
          HoenigO2M = {## from Kenchington (2014) p.537 2nd column
            name <- "Hoenig (1983) mollusk equation (GM)"
-           iCheck_tmax(tmax)
+           iCheck_tmax(tmax,method)
            givens <- c(tmax=tmax)
            M <- 4.49*tmax^(-0.94) },
          HoenigO2C = { ## from Kenchington (2014) p.537 2nd column
            name <- "Hoenig (1983) cetacean equation (GM)"
-           iCheck_tmax(tmax)
+           iCheck_tmax(tmax,method)
            givens <- c(tmax=tmax)
            M <- 5.20*tmax^(-1.04) },        
          HoenigLM = { ## from Then et al. (2015), Table 3, 2nd line
-           iCheck_tmax(tmax)
+           iCheck_tmax(tmax,method)
            name <- "Then et al. (2015) Hoenig (LM) equation"
            givens <- c(tmax=tmax)
            M <- exp(1.717-1.01*log(tmax)) },
          HoenigNLS = { ## from Then et al. (2015), Table 3, 3rd line
-           iCheck_tmax(tmax)
+           iCheck_tmax(tmax,method)
            name <- "Then et al. (2015) Hoenig (NLS) equation"
            givens <- c(tmax=tmax)
            M <- 4.899*tmax^(-0.916) },
          HewittHoenig = { ## from Hewitt and Hoenig (2005) equation 8
-           iCheck_tmax(tmax)
+           iCheck_tmax(tmax,method)
            name <- "Hewitt & Hoenig (2005) tmax equation"
            givens <- c(tmax=tmax)
            M <- 4.22/tmax},
          K1 = { ## from Then et al. (2015), Table 3, 4th line
-           iCheck_K(K)
+           iCheck_K(K,method)
            name <- "Then et al. (2015) one-parameter K equation"
            givens <- c(K=K)
            M <- 1.692*K },
          K2 = { ## from Then et al. (2015), Table 3, 5th line
-           iCheck_K(K)
+           iCheck_K(K,method)
            name <- "Then et al. (2015) two-parameter K equation"
            givens <- c(K=K)
            M <- 0.098+1.55*K },
          JensenK1 = { ## from Jensen (1996), Kensington's "Jensen's Second Estimator"
-           iCheck_K(K)
+           iCheck_K(K,method)
            name <- "Jensen (1996) one parameter K equation"
            givens <- c(K=K)
            M <- 1.5*K },
          JensenK2 = { ## from Jensen (2001) equation 8
-           iCheck_K(K)
+           iCheck_K(K,method)
            name <- "Jensen (2001) two parameter K equation"
            givens <- c(K=K)
            M <- 0.21+1.47*K},         
          Gislason = { ## from Gislason et al. (2010) equation 2
-           iCheck_K(K)
-           iCheck_Linf(Linf)
-           iCheck_L(L)
+           iCheck_K(K,method)
+           iCheck_Linf(Linf,method)
+           iCheck_L(L,method)
            name <- "Gislason et al. (2010) equation"
            givens <- c(K=K,Linf=Linf,L=L)
            M <- exp(0.55-1.61*log(L)+1.44*log(Linf)+log(K)) },
          AlversonCarney = {
            ## from Alverson and Carney (1975), eqn 10 in Zhang & Megrey (2006)
-           iCheck_K(K)
-           iCheck_tmax(tmax)
+           iCheck_K(K,method)
+           iCheck_tmax(tmax,method)
            name <- "Alverson & Carney (1975) equation"
            givens <- c(tmax=tmax,K=K)
            M <- (3*K)/(exp(K*(0.38*tmax))-1)},
          Charnov = {
            ## from Charnov et al. (2013) given on p. 545,
            ##   2nd column of Kenchington (2014)
-           iCheck_K(K)
-           iCheck_Linf(Linf)
-           iCheck_L(L)
+           iCheck_K(K,method)
+           iCheck_Linf(Linf,method)
+           iCheck_L(L,method)
            name <- "Charnov et al. (2013) equation"
            givens <- c(K=K,Linf=Linf,L=L)
            M <- K*((Linf/L)^1.5)},
          ZhangMegreyD = { ## from Zhang and Megrey (2006) equation 8
            name <- "Zhang & Megrey (2006) Demersal equation"
-           iCheck_K(K)
-           iCheck_t0(t0)
-           iCheck_tmax(tmax)
+           iCheck_K(K,method)
+           iCheck_t0(t0,method)
+           iCheck_tmax(tmax,method)
            iCheck_b(b)
            Ci <- 0.302
            givens <- c(tmax=tmax,t0=t0,K=K,b=b,Ci=Ci)
            M <- (b*K)/(exp(K*(Ci*tmax-t0))-1)},
          ZhangMegreyP = { ## from Zhang and Megrey (2006) equation 8
            name <- "Zhang & Megrey (2006) Pelagic equation"
-           iCheck_K(K)
-           iCheck_t0(t0)
-           iCheck_tmax(tmax)
+           iCheck_K(K,method)
+           iCheck_t0(t0,method)
+           iCheck_tmax(tmax,method)
            iCheck_b(b)
            Ci <- 0.44
            givens <- c(tmax=tmax,t0=t0,K=K,b=b,Ci=Ci)
@@ -344,24 +365,24 @@ metaM1 <- function(method,tmax,K,Linf,t0,b,L,Temp,t50,Winf,PS,...) {
            ## from Richter and Efanov (1976) as given on p. 541,
            ##   2nd column of Kenchington (2014) and in Table 6.4
            ##   of Miranda and Bettoli (2007)
-           iCheck_t50(t50)
+           iCheck_t50(t50,method)
            name <- "Richter & Evanov (1976) equation #1"
            givens <- c(t50=t50)
            M <- (1.521/(t50^0.720))-0.155 },
          RikhterEfanov2 = {
            ## from Richter and Efanov (1976) as given on p. 541,
            ##   1st column of Kenchington (2014)
-           iCheck_K(K)
-           iCheck_t50(t50)
-           iCheck_b(b)
-           iCheck_t0(t0)
+           iCheck_K(K,method)
+           iCheck_t50(t50,method)
+           iCheck_b(b,method)
+           iCheck_t0(t0,method)
            name <- "Richter & Evanov (1976) equation #2"
            givens <- c(K=K,t0=t0,t50=t50,b=b)
            M <- (b*K)/(exp(K*(t50-t0))-1) },
          QuinnDeriso = {
            ## from Quinn & Deriso (1990) as described in FAMS manual
            ##   equation 4:18 in FAMS manual
-           iCheck_PS(PS)
+           iCheck_PS(PS,method)
            name <- "Quinn & Deriso (1999) from FAMS"
            givens <- c(PS=PS,tmax=tmax)
            M <- -log(PS)/tmax
@@ -372,9 +393,9 @@ metaM1 <- function(method,tmax,K,Linf,t0,b,L,Temp,t50,Winf,PS,...) {
            ##   here followed FAMS notes and used ti=1 and tf=tmax
            ti <- 1    # initial age
            tf <- tmax # final age
-           iCheck_K(K)
-           iCheck_t0(t0)
-           iCheck_tmax(tmax)
+           iCheck_K(K,method)
+           iCheck_t0(t0,method)
+           iCheck_tmax(tmax,method)
            name <- "Chen & Watanabe (1989) from FAMS"
            givens <- c(tmax=tmax,K=K,t0=t0)
            M <- (1/(tf-ti))*log((exp(-K*tf)-exp(-K*t0))/(exp(-K*ti)-exp(-K*t0)))
@@ -384,7 +405,7 @@ metaM1 <- function(method,tmax,K,Linf,t0,b,L,Temp,t50,Winf,PS,...) {
            ##   equation 4:22 in FAMS manual
            ##   here followed FAMS notes and used W=Winf
            W <- Winf
-           iCheck_Winf(Winf)
+           iCheck_Winf(Winf,method)
            name <- "Peterson & Watanabe (1984) from FAMS"
            givens <- c(Winf=Winf)
            M <- 1.92*(W^(-0.25))
@@ -406,57 +427,67 @@ metaM1 <- function(method,tmax,K,Linf,t0,b,L,Temp,t50,Winf,PS,...) {
 # ############################################################
 # Internal methods
 # ############################################################
-iCheck_tmax <- function(tmax) {
-  if (is.null(tmax)) STOP("A value must be given to 'tmax'.")  
+iCheck_tmax <- function(tmax,method) {
+  if (is.null(tmax)) STOP("A value must be given to 'tmax' ",
+                          "when using the '",method,"' method.")  
   if (tmax <= 0) STOP("'tmax' must be positive.")
   if (tmax > 100) WARN("'tmax' value seems unreasonable.")
 }
 
-iCheck_K <- function(K) {
-  if (is.null(K)) STOP("A value must be given to 'K'.")  
+iCheck_K <- function(K,method) {
+  if (is.null(K)) STOP("A value must be given to 'K' ",
+                       "when using the '",method,"' method.")  
   if (K <= 0) STOP("'K' must be positive.")
   if (K > 3) WARN("'K' value seems unreasonable.")
 }
 
-iCheck_Linf <- function(Linf) {
-  if (is.null(Linf)) STOP("A value must be given to 'Linf'.")  
+iCheck_Linf <- function(Linf,method) {
+  if (is.null(Linf)) STOP("A value must be given to 'Linf' ",
+                          "when using the '",method,"' method.")  
   if (Linf <= 0) STOP("'Linf' must be positive.")
   if (Linf > 200) WARN("'Linf' value seems unreasonable. Make sure value is in centimeters.")
 }
 
-iCheck_L <- function(L) {
-  if (is.null(L)) STOP("A value must be given to 'L'.")  
+iCheck_L <- function(L,method) {
+  if (is.null(L)) STOP("A value must be given to 'L' ",
+                       "when using the '",method,"' method.")  
   if (L <= 0) STOP("'L' must be positive.")
   if (L > 200) WARN("'L' value seems unreasonable. Make sure value is in centimeters.")
 }
 
-iCheck_Winf <- function(Winf) {
-  if (is.null(Winf)) STOP("A value must be given to 'Winf'.")  
+iCheck_Winf <- function(Winf,method) {
+  if (is.null(Winf)) STOP("A value must be given to 'Winf' ",
+                          "when using the '",method,"' method.")  
   if (Winf <= 0) STOP("'Winf' must be positive.")
 }
 
-iCheck_t0 <- function(t0) {
-  if (is.null(t0)) STOP("A value must be given to 't0'.")  
+iCheck_t0 <- function(t0,method) {
+  if (is.null(t0)) STOP("A value must be given to 't0' ",
+                        "when using the '",method,"' method.")  
 }
 
-iCheck_Temp <- function(Temp) {
-  if (is.null(Temp)) STOP("A value must be given to 'Temp'.")  
+iCheck_Temp <- function(Temp,method) {
+  if (is.null(Temp)) STOP("A value must be given to 'Temp' ",
+                          "when using the '",method,"' method.")  
   if (Temp < 0 || Temp > 30) WARN("'Temp' value seems unreasonable. Make sure value is in celsius.")
 }
 
-iCheck_t50 <- function(t50) {
-  if (is.null(t50)) STOP("A value must be given to 't50'.")  
+iCheck_t50 <- function(t50,method) {
+  if (is.null(t50)) STOP("A value must be given to 't50' ",
+                         "when using the '",method,"' method.")  
   if (t50 <= 0) STOP("'t50' must be positive.")
   if (t50 > 100) WARN("'t50' value seems unreasonable.")
 }
 
-iCheck_b <- function(b) {
-  if (is.null(b)) STOP("A value must be given to 'b'.")  
+iCheck_b <- function(b,method) {
+  if (is.null(b)) STOP("A value must be given to 'b' ",
+                       "when using the '",method,"' method.")  
   if (b<1 || b>5) WARN("'b' value seems unreasonable.")
 }
 
-iCheck_PS <- function(PS) {
-  if (is.null(PS)) STOP("A value must be given to 'PS'.")
+iCheck_PS <- function(PS,method) {
+  if (is.null(PS)) STOP("A value must be given to 'PS' ",
+                        "when using the '",method,"' method.")
   if (PS<0) STOP("'PS' must be greater than 0.")
   if (PS>1) STOP("'PS' should be proportion (e.g., 0.01).")
   if (PS>0.1) WARN("'PS' value seems unreasonable (FAMS suggests 0.01 or 0.05).")

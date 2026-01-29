@@ -1,4 +1,6 @@
 # FSA 0.10.1.9000
+* `metaM()`: Expanded some error messages to increase clarity. Disallowed `method` to be missing or `null` (this reduced chances that all methods are selected, the previous default, which was unlikely to work as all parameters would need to be provided).
+* `Mmethods()`: Changed how methods are selected to provide better error checking.
 
 # FSA 0.10.1
 * Updated the PSD and Relative Weight computation articles to reflect the changes to `psdVal()`, `psdAdd()`, `wsVal()`, and `wrAdd()`.
