@@ -163,6 +163,10 @@ navbar:
       href: reference/index.html
     - text: Demonstrations
       menu:
+      - text: Computing Age Comparison Graphs and Metrics
+        href: articles/Age_Comparisons.html
+      - text: Computing, Viewing, and Using Age-Length Keys
+        href: articles/Age_Length_Keys.html
       - text: Computing Proportional Size Distribution Metrics
         href: articles/Computing_PSDs.html
       - text: Computing Relative Weights

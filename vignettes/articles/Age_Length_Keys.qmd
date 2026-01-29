@@ -1,0 +1,235 @@
+---
+title: "Age-Length Keys in FSA"
+author: "Derek H. Ogle"
+date: "`r Sys.Date()`"
+format: 
+  html: 
+    toc: true
+    toc-depth: 2
+    reference-location: margin
+    fig-cap-location: bottom
+    tbl-cap-location: top
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+    fig.width: 4
+    fig.height: 4
+
+---
+
+# Introduction
+Ages of fish are important data for understanding the dynamics of fish populations.  Estimating age for a large number of fish, however, is labor intensive. Fortunately, there is usually a strong relationship between length and age, and measuring the length of a large number of fish is relatively easy. Thus, the age structure for a large sample of fish can be reliably estimated by summarizing the relationship between age and length for a subsample of fish and then applying this summary to the entire sample. The summary of the relationship between age and length is an *age-length key* (ALK). The foundations underlying age-length keys and their application to assign ages to the larger sample are discussed elsewhere, including in [Ogle (2016)](https://derekogle.com/IFAR/). This article assumes that you have an understanding of that foundation and will thus illustrate methods in `FSA` to construct an ALK, visualize an ALK, and how to apply an ALK to estimate the age structure of the larger sample of fish. 
+
+The following packages are used herein.
+
+```{r}
+#| label: setup
+#| results: hide
+#| message: false
+library(FSA)
+library(FSAdata) # for CreekChub data
+library(dplyr)   # mutate, filter, group_by, summarize
+library(nnet)    # multinom, predict
+library(ggplot2) # for some graphing
+```
+
+# Constructing an Age-Length Key
+## Preparing the Aged Sample
+In most situations, a single data file contains the lengths of all $N$ sampled fish with corresponding ages for the $n$ fish in the aged (sub)sample and missing values (i.e., as `NA`) for the $N-n$ fish for which ages were not estimated.
+
+As an example, the total lengths (nearest mm) and ages (from scales) of Creek Chub (*Semotilus atromaculatus*) were recorded in `CreekChub` distributed in `FSAdata`. An examination of several rows of the data.frame shows fish with and without estimated ages.
+
+```{r}
+data(CreekChub,package="FSAdata")
+peek(CreekChub,n=10)
+```
+
+The [description for these data](https://fishr-core-team.github.io/FSAdata/reference/CreekChub.html) indicates that as many as 10 fish per 10-mm length interval were (sub-)sampled to assign an estimated age. Thus, before continuing, it is appropriate to append a new variable to the data.frame that contains the appropriate 10-mm length interval for each fish. This may be accomplished with `lencat()` from `FSA`, where the first argument is the name of the variable with the observed lengths and the width of the length intervals to be constructed is given to `w=`. Here, `mutate()` from `dplyr` is used to add the variable to the data.frame and `relocate()` (also from `dplyr`) is used to move the new `lcat10` variable to after the original `len` variable.^[This relocation is not necessary, I just like to have the length-related variables next to each other.]
+
+```{r}
+CreekChub <- CreekChub |>
+  mutate(lcat10=lencat(len,w=10)) |>
+  relocate(lcat10,.after=len)
+peek(CreekChub,n=10)
+```
+
+The original data.frame with all $N$ fish must be separated into one data.frame that contains the $n$ fish in the aged sample and a second data.frame that contains the $N-n$ fish not in the aged sample. This separation may be accomplished with `filter()` from `dplyr` using `is.na()` which returns `TRUE` for the positions in a vector that are `NA`. Preceding `is.na()` with `!` will return `TRUE` for the positions in a vector that are **not** `NA`. Thus the "aged" subsample of fish with ages and the "unaged" subsample of fish without ages can be constructed as below
+
+```{r}
+# Isolate fish with assigned ages ... i.e., the "aged" sample
+cc.aged <- CreekChub |>
+  filter(!is.na(age))
+peek(cc.aged,n=5)
+
+# Isolate fish without assigned ages ... i.e., the "unaged" sample
+cc.unaged <- CreekChub |>
+  filter(is.na(age))
+peek(cc.unaged,n=5)
+```
+
+The unaged sample should have all `NA` values, whereas the aged sample should not have any `NA` values for the age variable. The `all()` and `any()` functions may be used to check that these data.frames contain the fish with the expected entries for age. Specifically, `all()` returns `TRUE` if *all* items in a logical vector are `TRUE`, whereas `any()` returns `TRUE` if *any* item in a logical vector is `TRUE`.^[Use of `all` and `any` is just a check and is not required for the procedure.]
+
+```{r}
+all(is.na(cc.unaged$age))       # better be TRUE
+any(is.na(cc.aged$age))         # better be FALSE
+```
+
+The aged subsample is used to construct an ALK and the ALK will be used to assign estinated ages to those fish in the unaged sample below.
+
+# Construct ALK
+## Observed ALK
+The ALK is constructed from the **aged** sample in two steps. First, the frequency of fish in each length interval and age combination is constructed with `xtabs()` using a formula of the form `~lcat+age`, where `lcat` contains the length intervals and `age` contains the estimated ages, as the first argument, and the name of the data.frame that contains these variables in `data=`.^[The order of variables in the formula is important as age must form the columns of the ALK.]
+
+```{r}
+alk.freq <- xtabs(~lcat10+age,data=cc.aged)
+print(alk.freq,zero.print="-")              # print used for display purposes only
+```
+
+While it is not a necessary calculation, computing the sum of each row in the frequency table (obtained by submitting the `xtabs()` object to `rowSums()`) gives the number of aged fish in each length interval. This summary may indicate how the aged fish were (sub)sampled. For example, the row sums for the Creek Chub data corroborate that a fixed sample of as many as 10 fish per 10 mm length interval were sampled for age estimation.
+
+```{r}
+rowSums(alk.freq)
+```
+
+The conditional proportions that form the ALK are calculated by dividing each cell of the frequency table by the sum of the corresponding row. These row proportions are constructed by submitting the `xtabs()` object to `prop.table()` with `margin=1` to indicate that the proportions are computed by row.
+
+```{r}
+alk <- prop.table(alk.freq,margin=1)
+print(round(alk,3),zero.print="-")   # round & print used for display purposes only
+```
+
+Thus, for example, `r formatC(alk["50","0"]*100,format="f",digits=1)`\% of Creek Chubs in the 50-mm length interval were age-0 and `r formatC(alk["50","1"]*100,format="f",digits=1)`\% were age-1. Note that no fish in the 180 mm length interval were present in the aged sample.
+
+## Smoothed or Modeled Age-Length Keys
+[Ogle (2016)](https://derekogle.com/IFAR/) discussed common "issues" that may arise in ALKs constructed directly from observed lengths and ages, and how statistical models fit to the entire range of possible lengths and ages may ameliorate these issues. The multinomial logistic regression model is one such model that can be used to created a smoothered or predicted ALK.
+
+The multinomial logistic regression model is fit with `multinom()` from `nnet`, where the first argument is a formula of the form `age~lcat`, where `age` contains the estimated ages and `lcat` contains the length intervals, and the data.frame with these variables for the **aged** sample is given in `data=`. The iterative algorithm used in `multinom()` will stop, by default, after 100 iterations. More iterations may be needed with ALK data to reach a solution, so I often raise the maximum number of iterations with `maxit=`, as illustrated below.^[Note that the iteration information was suppressed from this output.]
+
+```{r}
+#| results: hide
+cc.mlr <- multinom(age~lcat10,data=cc.aged,maxit=500)
+```
+
+Predictions from the fitted model are made with `predict()` using the `multinom()` object as the first argument. The second argument is a data.frame that contains values for the explanatory variable (length intervals, in this case) at which the probabilities of each age should be predicted. This data.frame must contain a variable that is named exactly as the `lcat` variable in the `multinom()` call. The length intervals for which to make the predictions are best constructed with `seq()`, with the minimum length interval value, the maximum length interval value, and the step value for the sequence as the three arguments.^[The minimum and maximum value should at least match the range of observed length categories.] Finally, include `type="probs"` so that probabilities, rather than logit odds, are returned by `predict()`.
+
+```{r}
+lens <- seq(40,200,10)
+alk.sm <- predict(cc.mlr,data.frame(lcat10=lens),type="probs")
+row.names(alk.sm) <- lens   # change row names in result for clarity
+round(alk.sm,3)             # round used for display purposes only
+```
+
+Thus, for example, `r formatC(alk.sm["50","0"]*100,format="f",digits=1)`\% of Creek Chubs in the 50 mm length interval are predicted to be age-0 and `r formatC(alk.sm["50","1"]*100,format="f",digits=1)`\% are predicted to be age-1. Note that in this modeled ALK (as compared to the observed ALK from the previous section) no proportion is exactly 1 (or 0) and that proportions exist for the 180 mm length interval for which no fish existed in the aged sample.
+
+# Visualizing an ALK
+The ALK, whether observed or smoothed, may be displayed as a series of stacked bars, stacked areas, or connected lines over length interval labels, with different colors or shadings for each age (@fig-ALKPlotArea). These plots are constructed with `alkPlot()` from `FSA`, with the ALK object as the first argument. A stacked bar plot is the default. Stacked area and line plots are constructed by including `type="area"` or `type="line"`, respectively, in `alkPlot()`. The ages are denoted by a set of richly-contrasting colors by default, but this may be changed to shades of gray with `pal="gray"`. Finally, a legend for the colors is added to the area plot with `showLegend=TRUE`. The size of the legend may be decreased or increased from the default size by including a number less or more than 1, respectively, in `leg.cex=`.^[It may take some trial-and-error to get the value for `leg.cex=` to show the legend labels correctly.]
+
+```{r}
+#| label: fig-ALKPlotArea
+#| fig-cap: Area plot representation of the observed age-length key for Creek Chubs.
+#| fig-alt: Area plot representation of the observed age-length key for Creek Chubs.
+#| fig-width: 6
+alkPlot(alk,type="area",pal="gray",showLegend=TRUE,leg.cex=0.7,xlab="Total Length (mm)")
+```
+
+The ALK is also commonly shown as a "bubble plot," where circles with areas proportional to the number of fish in each length interval that are a given age are placed at the coordinates of the length intervals and ages (@fig-ALKPlotBubble).
+
+```{r}
+#| label: fig-ALKPlotBubble
+#| fig-cap: Bubble plot representation of the observed age-length key for Creek Chubs.  The area of each circle is proportional to the proportion of fish in a length interval that are a given age.
+#| fig-alt: Bubble plot representation of the observed age-length key for Creek Chubs.
+#| fig-width: 6
+alkPlot(alk,type="bubble",xlab="Total Length (mm)")
+```
+
+The visualizations produced by `alkPlot()` are not publication-quality and are generally used to provide a quick look to identify patterns or anomalies. Publication-quality visuals are better constructed using `ggplot2` as [described here](https://fishr-core-team.github.io/fishR/blog/posts/2025-1-5_ALKPlots_GGplot/).
+
+# Apply an ALK
+Age-length keys are typically applied to the unaged (sub)sample of fish with the goal of estimating the distribution of ages or some other biological value for each age (e.g., mean length-at-age) in the complete sample. Various methods for computing these two types of summaries are described in this section.
+
+## Assign Individual Ages and Summarize
+[Ogle (2016)](https://derekogle.com/IFAR/) describes a method where individual fish in the unaged sample are assigned an age based on an ALK; thus, all $N$ fish will then have a recorded age. The advantage of this method is that standard statistical formulae can be used to estimate variability for measures like mean length-at-age and standard statistical methods (e.g., t-tests, analysis of variance, likelihood ratio tests) can be used to compare age-based summaries among groups (e.g., compare mean lengths-at-age between sexes).
+
+The concepts behind this method, as implemented with `alkIndivAge()` from `FSA`, are described in detail in [Ogle (2016)](https://derekogle.com/IFAR/). The first argument to `alkIndivAge()`is the ALK object.  The second argument is a formula of the form `age~len`.^[If the data.frame with the unaged sample did not already contain a variable for the assigned ages, then the formula would be of the form `~len`.] The data.frame with these variables for fish in the **unaged** sample is given in `data=`. The function returns a data.frame that has the same number of rows as the data.frame given in `data=`, but each fish will have an assisned age based on the ALK. The data.frame returned by `alkIndivAge()` should be assigned to an object.^[This could be the unaged sample data.frame, but I prefer to use a new name to preserve the original unaged data.frame.]
+
+```{r}
+cc.unaged.mod <- alkIndivAge(alk,age~len,data=cc.unaged)
+peek(cc.unaged.mod,n=5)
+```
+
+The new data.frame with assigned ages may be row-bound (using `rbind()`) with the data.frame that contains the **aged** sample to form a data.frame of *all* the original fish, now with estimated ages for all fish.
+
+```{r}
+cc.fnl <- rbind(cc.aged,cc.unaged.mod)
+peek(cc.fnl,n=10)
+```
+
+This data.frame can now be summarized in a variety of ways. For example, the number of fish of each age may be computed with `xtabs()` and the proportion at each may be computed from that result with `prop.table()`.
+
+```{r}
+( ad3 <- xtabs(~age,data=cc.fnl) )
+round(prop.table(ad3),3)   # rounded for display purposes only
+```
+
+Thus, `r ad3[["1"]]` fish or `r formatC(100*prop.table(ad3)[["1"]],format="f",digits=1)`\% of all sampled fish are estimated to be age-1.
+
+The means and standard deviations of lengths-at-age may be computed using `group_by()` and `summarize()` from `dplyr`.
+
+```{r}
+cc.sumlen <- cc.fnl |>
+  group_by(age) |>
+  summarize(n=validn(len),
+            mn=mean(len,na.rm=TRUE),
+            sd=sd(len,na.rm=TRUE),
+            se=se(len,na.rm=TRUE)) |>
+  as.data.frame()
+cc.sumlen
+```
+
+Thus, the estimated mean length of age-1 Creek Chubs is `r formatC(cc.sumlen$mn[2],format="f",digits=1)` mm with a standard deviation of `r formatC(cc.sumlen$sd[2],format="f",digits=1)` mm.
+
+Finally, because ages were assigned to individuals, a plot of individual lengths-at-age with mean lengths-at-age superimposed (@fig-ALKLenAtAge) may be constructed.
+
+```{r}
+#| label: fig-ALKLenAtAge
+#| fig-cap: Length-at-age with mean length-at-age (dashed line) superimposed for the complete sample of Creek Chub.
+#| fig-alt: Length-at-age with mean length-at-age superimposed for the complete sample of Creek Chub.
+
+ggplot() +
+  geom_point(data=cc.fnl,mapping=aes(x=age,y=len),alpha=0.15) +
+  geom_line(data=cc.sumlen,mapping=aes(x=age,y=mn),linetype="dashed",linewidth=0.75) +
+  scale_x_continuous(name="Age (yrs)") +
+  scale_y_continuous(name="Total Length (mm)") +
+  theme_bw()
+```
+
+## Classical Method for Summarization
+[Ogle (2016)](https://derekogle.com/IFAR/) describes the specifics underlying "classical"^[Here "classical" means using methods without assigning actual age estimates to each fish.] methods of calculating the number and means lengths of all fish at each age (with associated measures of variability). Those methods are implemented in `alkAgeDist()` and `alkMeanVar()` from `FSA`.
+
+The proportions of all fish, with standard errors, at each age are computed with `alkAgeDist()` with the ALK object as the first argument and vectors of sample sizes in each length interval for the aged and overall samples in `lenA.n=` and `len.n=`, respectively.
+
+
+```{r}
+( lenA.n <- rowSums(alk.freq) )  # alk.freq was constructed previously
+( len.n <- xtabs(~lcat10,data=CreekChub) )
+alkAgeDist(alk,lenA.n=lenA.n,len.n=len.n)
+```
+```{r}
+#| echo: false
+tmp <- alkAgeDist(alk,lenA.n=lenA.n,len.n=len.n)
+```
+
+Thus, approximately `r formatC(tmp$prop[2]*100,format="f",digits=1)`\%, with a SE of `r formatC(tmp$se[2]*100,format="f",digits=1)`\%, of the complete sample are estimated to be age-1.
+
+The mean (and standard deviation) length-at-age of all fish are computed with `alkMeanVar()` with the ALK object as the first argument. The second argument is a formula of the form `var~lcat+age`, where `var` contains the quantitative variable of interest (e.g., length, weight), `lcat` contains the length interval for each fish (must be the same length intervals used to construct the ALK), and `age` contains the age of each fish. The data.frame that contains these variables for the **aged** sample is given in `data=`. The vector of sample sizes in each length interval for the **overall** sample is given in `len.n=`.
+
+```{r}
+alkMeanVar(alk,len~lcat10+age,data=cc.aged,len.n=len.n)
+```
+```{r}
+#| echo: false
+tmp <- alkMeanVar(alk,len~lcat10+age,data=cc.aged,len.n=len.n)
+```
+
+Thus, the estimated mean length of age-1 Creek Chubs is `r formatC(tmp$mean[2],format="f",digits=1)` mm with a standard deviation of `r formatC(tmp$sd[2],format="f",digits=1)` mm.

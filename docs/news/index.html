@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.10.1.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,9 @@
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-demonstrations" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Demonstrations</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-demonstrations"><li><a class="dropdown-item" href="../articles/Computing_PSDs.html">Computing Proportional Size Distribution Metrics</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-demonstrations"><li><a class="dropdown-item" href="../articles/Age_Comparisons.html">Computing Age Comparison Graphs and Metrics</a></li>
+    <li><a class="dropdown-item" href="../articles/Age_Length_Keys.html">Computing, Viewing, and Using Age-Length Keys</a></li>
+    <li><a class="dropdown-item" href="../articles/Computing_PSDs.html">Computing Proportional Size Distribution Metrics</a></li>
     <li><a class="dropdown-item" href="../articles/Computing_Relative_Weights.html">Computing Relative Weights</a></li>
     <li><a class="dropdown-item" href="../articles/Fitting_Growth_Functions.html">Fitting Growth Functions</a></li>
   </ul></li>
@@ -42,7 +44,10 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.10.1" id="fsa-0101">FSA 0.10.1<a class="anchor" aria-label="anchor" href="#fsa-0101"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.10.1.9000" id="fsa-01019000">FSA 0.10.1.9000<a class="anchor" aria-label="anchor" href="#fsa-01019000"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.10.1" id="fsa-0101">FSA 0.10.1<a class="anchor" aria-label="anchor" href="#fsa-0101"></a></h2><p class="text-muted">CRAN release: 2026-01-10</p>
 <ul><li>Updated the PSD and Relative Weight computation articles to reflect the changes to <code><a href="../reference/psdVal.html">psdVal()</a></code>, <code><a href="../reference/psdAdd.html">psdAdd()</a></code>, <code><a href="../reference/wsVal.html">wsVal()</a></code>, and <code><a href="../reference/wrAdd.html">wrAdd()</a></code>.</li>
 <li>
 <code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Added catch for when n+T&lt;1 and n+T&lt;2. This addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/131" class="external-link">#131</a>).</li>
@@ -220,7 +225,7 @@
 <li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed the way <code>PSDlit</code> was loaded into the function environment so that <code><a href="../reference/psdAdd.html">FSA::psdAdd()</a></code> will work. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/85" class="external-link">#85</a>.</li>
 <li>
-<code>PSDLit</code>: Modified. Added info for Utah Chub (from <a href="https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf" class="external-link">here</a>; address <a href="https://github.com/fishR-Core-Team/FSA/issues/84" class="external-link">#84</a>).</li>
+<code>PSDLit</code>: Modified. Added info for Utah Chub (from <a href="https://www.usgs.gov/publications/proposed-standard-weight-ws-equation-and-length-categories-utah-chub" class="external-link">here</a>; address <a href="https://github.com/fishR-Core-Team/FSA/issues/84" class="external-link">#84</a>).</li>
 <li>
 <code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Changed the way <code>PSDlit</code> was loaded into the function environment so that <code><a href="../reference/psdVal.html">FSA::psdVal()</a></code> will work. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/85" class="external-link">#85</a>.</li>
 <li>
@@ -228,7 +233,7 @@
 <li>
 <code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed the way <code>WSlit</code> was loaded into the function environment so that <code><a href="../reference/wrAdd.html">FSA::wrAdd()</a></code> will work. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/85" class="external-link">#85</a>.</li>
 <li>
-<code>WSLit</code>: Modified. Added info for Utah Chub (from <a href="https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf" class="external-link">here</a>; address <a href="https://github.com/fishR-Core-Team/FSA/issues/84" class="external-link">#84</a>).</li>
+<code>WSLit</code>: Modified. Added info for Utah Chub (from <a href="https://www.usgs.gov/publications/proposed-standard-weight-ws-equation-and-length-categories-utah-chub" class="external-link">here</a>; address <a href="https://github.com/fishR-Core-Team/FSA/issues/84" class="external-link">#84</a>).</li>
 <li>
 <code><a href="../reference/wsVal.html">wsVal()</a></code>: Modified. Changed the way <code>WSlit</code> was loaded into the function environment so that <code><a href="../reference/wsVal.html">FSA::wsVal()</a></code> will work. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/85" class="external-link">#85</a>.</li>
 </ul></div>
