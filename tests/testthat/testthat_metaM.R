@@ -1,13 +1,26 @@
 ## Test Messages ----
 test_that("Mmethods() messages",{
   expect_error(Mmethods("Ogle"),
-               "should be one of")
+               "must be one of")
+  expect_error(Mmethods(c("HamelCope","Ogle")),
+               "included the following incorrect choices")
+  expect_error(Mmethods(c("HamelCope","tmax")),
+               "cannot be more than one group")
+  expect_error(Mmethods(c("Hoenig","tmax")),
+               "cannot be more than one group")
+  
 })
 
 test_that("metaM() messages",{
   ## bad method
   expect_error(metaM("Ogle"),
-               "should be one of")
+               "must be one of")
+  expect_error(metaM(c("HamelCope","Ogle")),
+               "included the following incorrect")
+  expect_error(metaM(c("HamelCope","tmax")),
+               "cannot be more than one group")
+  expect_error(metaM(c("Hoenig","tmax")),
+               "cannot be more than one group")
   
   ## missing parameters
   # default tmax1 method

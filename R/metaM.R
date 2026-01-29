@@ -106,8 +106,7 @@
 #' @aliases metaM Mmethods
 #' 
 #' @examples
-#' ## List names for available methods
-#' Mmethods()
+#' ## List methods in a group of methods
 #' Mmethods("tmax")
 #' 
 #' ## Simple Examples
@@ -149,8 +148,8 @@
 #' 
 #' @rdname metaM
 #' @export
-Mmethods <- function(method=c("all","tmax","K","Hoenig","Pauly","FAMS")) {
-  method <- match.arg(method)
+Mmethods <- function(method=NULL) {
+  # list all available methods
   all_meth <- c("HoenigNLS","HoenigO","HoenigOF","HoenigOM","HoenigOC",
                 "HoenigO2","HoenigO2F","HoenigO2M","HoenigO2C",
                 "HoenigLM","HewittHoenig","tmax1","HamelCope",
@@ -160,28 +159,50 @@ Mmethods <- function(method=c("all","tmax","K","Hoenig","Pauly","FAMS")) {
                 "ZhangMegreyD","ZhangMegreyP",
                 "RikhterEfanov1","RikhterEfanov2",
                 "QuinnDeriso","ChenWatanabe","PetersonWroblewski")
+  # extract the Hoenig methods from all methods
   H_meth <- all_meth[grep("Hoenig",all_meth)]
-  P_meth <- 
-  switch(method,
-         all    = { meths <- all_meth },
-         tmax   = { meths <- c("HamelCope","tmax1",H_meth)},
-         K      = { meths <- c("K1","K2","JensenK1","JensenK2")},
-         Hoenig = { meths <- H_meth},
-         Pauly  = { meths <- all_meth[grep("Pauly",all_meth)] },
-         FAMS   = { meths <- c("QuinnDeriso","HoenigOF","JensenK1",
-                               "PetersonWroblewski","PaulyL","ChenWatanabe")}
-         )
+  # list groups of methods
+  grp_meth <- c("tmax","K","Hoenig","Pauly","FAMS")
+
+  #
+  if (is.null(method)) method <- "all"
+  if (length(method)==1) {
+    if (method %in% all_meth) meths <- method
+    else if (method %in% c("all",grp_meth)) {
+      switch(method,
+             all    = { meths <- all_meth },
+             tmax   = { meths <- c("HamelCope","tmax1",H_meth)},
+             K      = { meths <- c("K1","K2","JensenK1","JensenK2")},
+             Hoenig = { meths <- H_meth},
+             Pauly  = { meths <- all_meth[grep("Pauly",all_meth)] },
+             FAMS   = { meths <- c("QuinnDeriso","HoenigOF","JensenK1",
+                                   "PetersonWroblewski","PaulyL",
+                                   "ChenWatanabe")}
+      )
+    } else STOP("'method' must be one of ",
+                paste(grp_meth,collapse=", ")," or one or more of ",
+                paste(all_meth,collapse=", "))
+  } else {
+    tmp <- method %in% grp_meth
+    if (any(tmp)) STOP("'method' cannot be more than one group of methods ",
+                       "or a group of methods and a specific method.")
+    tmp <- method %in% all_meth
+    if (!all(tmp)) STOP("'method' included the following incorrect choices: ",
+                        paste(method[!tmp],collapse=", "))
+    meths <- method
+  }
   meths
 }
 
 #' @rdname metaM
 #' @export
-metaM <- function(method=Mmethods(),
+metaM <- function(method=NULL,
                   tmax=NULL,K=NULL,Linf=NULL,t0=NULL,b=NULL,
                   L=NULL,Temp=NULL,t50=NULL,Winf=NULL,PS=NULL,
                   verbose=TRUE) {
   ## Get method or methods
-  method <- match.arg(method,several.ok=TRUE)
+  if (is.null(method)) STOP("A 'method' must be specified; see ?metaM.")
+  method <- Mmethods(method)
   ## Use apply to run all methods at once (even if only one)
   res <- lapply(method,metaM1,tmax,K,Linf,t0,b,L,Temp,t50,Winf,PS)
   ## Put together as a data.frame to return
