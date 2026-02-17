@@ -173,6 +173,8 @@ navbar:
         href: articles/Computing_Relative_Weights.html
       - text: Fitting Growth Functions
         href: articles/Fitting_Growth_Functions.html
+      - text: Estimating Mortality Rates
+        href: articles/Mortality.html
     - text: Explanations
       menu:
       - text: Growth Function Equations

@@ -1,0 +1,235 @@
+---
+title: "Mortality Estimates in FSA"
+author: "Derek H. Ogle"
+date: "`r Sys.Date()`"
+format: 
+  html: 
+    toc: true
+    toc-depth: 2
+    reference-location: margin
+    fig-cap-location: bottom
+    tbl-cap-location: top
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+    fig.width: 4
+    fig.height: 4
+
+---
+
+# Introduction
+The objective of this article is to briefly describe how to use functions in `FSA` to estimate total and component mortality rates with methods commonly used in fisheries. It assumes that you are familiar with data and methods commonly used to estimate mortality, which are discussed in most fisheries science books including [Introductory Fisheries Analyses with R](https://derekogle.com/IFAR/).
+
+The following packages are used herein.
+
+```{r}
+#| label: setup
+#| results: hide
+#| message: false
+library(FSA)
+library(ggplot2) # for graphing
+```
+
+# Total Mortality -- Catch-Curves
+Methods that use the frequencies of fish at each age to estimate mortality rates are commonly referred to as *catch curve methods*. There are three common catch-curve methods used to estimate *instantaneous total mortality* ($Z$), which can be easily converted to *annual total mortality rate* ($A$)  -- linear regression models, Chapman-Robson method, or general linear models. Linear regression models are the most commonly used method, but recent authors have strongly suggested that they should **not be used** (see [here](https://www.researchgate.net/publication/374443277_Estimating_fish_mortality_rates_from_catch_curves_A_plea_for_the_abandonment_of_Ricker_1975's_linear_regression_method) and [here](https://www.researchgate.net/publication/262822831_Recommendations_for_Catch-Curve_Analysis)).
+
+Due to gear selectively, most catch-at-age data will have an ascending limb with fish of ages not yet fully recruited to the gear, a peak where fish are beginning to fully recruit to the gear, and a descending limb where fish are fully recruited to the gear but the frequency is declining due to the cumulative mortality over time. Catch-curve methods are applied to the descending limb only. A variety of rules have been proposed to objectively define the descending limb of a catch curve. Most commonly, the peak has been defined as the age, or one year older than the age, with the greatest catch. Several rules^[Reviewed [here](https://www.researchgate.net/publication/262822831_Recommendations_for_Catch-Curve_Analysis)] have also been used to truncate the right side of the descending limb in an attempt to reduce the bias in estimates of $Z$ associated with few fish of older ages.
+
+Catch curve methods will be demonstrated in this article with catches-at-age of Brook Trout captured in Tobin Harbor (Michigan) from 1996-1998. These data are simple and, thus, are entered directly into a data.frame  below but these data could have been entered into an external file and then loaded into R. Additionally, catch-at-age data often result from summarizing ages recorded for individuals or derived from an age-length key (see [the Age-Length Key article](https://fishr-core-team.github.io/FSA/articles/Age_Length_Keys.html)).
+
+```{r}
+bkt <- data.frame(age=0:6,
+                  ct=c(39,93,112,45,58,12,8))
+```
+
+A plot of log catch versus age (@fig-CatchCurveBrkTrt1) suggests that ages 2 through 6 define the descending limb of the catch curve for these data.
+
+```{r}
+#| label: fig-CatchCurveBrkTrt1
+#| fig-cap: Log catch-at-age of Tobin Harbor Brook Trout.
+ggplot(data=bkt,mapping=aes(x=age,y=log(ct))) +
+  geom_point(size=2) +
+  geom_line(color="gray70",linewidth=1) +
+  scale_y_continuous(name="log(Catch)") +
+  scale_x_continuous(name="Age (yrs)") +
+  theme_bw()
+```
+
+## Linear Regression Models
+Instantaneous total mortality rate ($Z$) may be estimated by the slope of the linear regression of log catch on age for the descending limb of the catch-curve. This estimate is often biased (low). An *ad hoc* weighting scheme has often been used to adjust for this bias.
+
+The unweighted linear regression method is implemented in `catchCurve()` with a first argument as a formula of the form `catch~age`, where `catch` and `age` generically represent the variables that contain the catch and age data. The data.frame that contains `catch` and `age` is given in `data=`. This data.frame does NOT have to be restricted to only ages on the descending limb of the catch curve. However, if ages are included in the data.frame that are not on the descending limb, then the ages on the descending limb must be given as a vector in `ages2use=`.^[A vector of successive ages can be created with `:` as shown in the example. However, a vector of nonsuccessive ages can be created with `c()`; e.g.,, if one wanted to use ages 2, 3, 4, and 6, then use `c(2,3,4,6)`.] The result of `catchCurve()` should be assigned to an object that can be submitted to `summary()` to extract the estimates of $Z$ and $A$ and to `confint()` for confidence intervals.^[The t test statistic and p-value (i.e., `Pr(>|t|)`) are for the test of whether $Z$ equals zero or not.] These results are column-bound together here with `cbind()` to make a succinct summary table.
+
+```{r}
+thcc <- catchCurve(ct~age,data=bkt,ages2use=2:6)
+cbind(summary(thcc),confint(thcc))
+```
+
+A quick (i.e., not publication quality) plot to illustrate the results is created by submitting the `catchCurve()` object to `plot()` (@fig-CatchCurveBrkTrt2).^[An example of more flexible plotting for publication is [here](https://fishr-core-team.github.io/fishR/blog/posts/2023-4-1_Milleretal2022_Fig4/).]
+
+```{r}
+#| label: fig-CatchCurveBrkTrt2
+#| fig-cap: Log catch-at-age for Tobin Harbor Brook Trout showing the linear regression results on the descending limb.
+#| echo: -1
+par(mar=c(4,4,0.5,0.5),mgp=c(1.9,0.3,0),tcl=-0.2,las=1)
+plot(thcc)
+```
+
+The *ad hoc* weighted linear regression method is implemented exactly as described above but by including `weighted=TRUE` in `catchCurve()`.
+
+```{r}
+thccw <- catchCurve(ct~age,data=bkt,ages2use=2:6,weighted=TRUE)
+cbind(summary(thccw),confint(thccw))
+```
+
+## Chapman-Robson Method
+The Chapman-Robson method is implemented in `chapmanRobson()` using the same arguments as used with `catchCurve()`.
+
+```{r}
+#| label: fig-CatchCurveBrkTrt3
+#| fig-cap: Catch-at-age for Tobin Harbor Brook Trout showing the descending limb and the "re-coded" ages used in the Chapman-Robson method.
+#| fig-height: 5
+#| echo: -1
+par(mar=c(4,4,0.5,0.5),mgp=c(1.9,0.3,0),tcl=-0.2,las=1)
+thcr <- chapmanRobson(ct~age,data=bkt,ages2use=2:6)
+cbind(summary(thcr),confint(thcr))
+plot(thcr)
+```
+
+The default for `chapmanRobson()` is to use the preferred bias-correction proposed by [Smith *et al.* (2012)](https://www.researchgate.net/publication/262822831_Recommendations_for_Catch-Curve_Analysis). Other less-preferred methods may be used with `zmethod=`, as described in [the `chapmanRobson()` documentation](https://fishr-core-team.github.io/FSA/reference/chapmanRobson.html).
+
+## Poisson GLM
+`FSA` does not provide any functions to assist with using general linear models to estimates $Z$. However, R code is provided in an appendix to [this useful article](https://www.researchgate.net/publication/352695018_An_improved_method_for_the_estimation_and_comparison_of_mortality_rates_in_fish_from_catch-curve_data) that thoroughly demonstrates this method, along with important diagnostic tools. Part of this method is introduced below to help one get started with the code provided in that article.
+
+Simple general linear models can be fit in R with `glm()`. In this application, the data must first be restricted to the catch of fish only at those ages on the descending limb of the catch-curve. In this example (as shown above), this was for ages 2-6, which for these data is simply all ages greater than age-2. The code below creates a new data.frame using `filter()` from `dplyr` with just those ages.^[With some data the conditioning statements in `filter()` may be more complicated (e.g., if both some young and some old ages must be excluded).]
+
+```{r}
+bkt2 <- bkt |>
+  dplyr::filter(age>=2)
+bkt2
+```
+
+The first two arguments to `glm()` are the same as for `catchCurve()` and `chapmanRobson()` -- i.e., a formula of the form `catch~age` with the data.frame given in `data=`. The Poisson regression is declared by including `family="poisson"` in `glm()`. The result of `glm()` shouled be assigned to an object.
+
+```{r}
+thpglm <- glm(ct~age,data=bkt2,family="poisson")
+```
+
+The model parameter estimates and other useful information are extracted from the `glm()` object with `summary()`. The parameter estimates only can be retained by appending `$coefficients` to the `summary()` call. Confidence intervals are extracted with `confint()`. These results are column-bound together to provide a result similar to what was returned from `catchCurve()` and `chapmanRobson()`.
+
+```{r}
+cbind(summary(thpglm)$coefficients,confint(thpglm))
+```
+
+The results returned in the `(Intercept)` row can be largely ignored. Information for $Z$ is in the second row which will be labeled with the name of your "age" variable. Note that this information is actually for $-Z$ as the $Z$ is the negative slope of the descending limb, and `glm()` is simply returning the value of that slope. Thus, the estimate of $Z$ is `r formatC(-summary(thpglm)$coefficients[2,1],format="f",digits=3)` with a 95% confidence interval of `r formatC(-confint(thpglm)[2,2],format="f",digits=3)`-`r formatC(-confint(thpglm)[2,1],format="f",digits=3)`.
+
+The fitted line (with confidence band) from the Poisson regression can be added to a `ggplot2` object with `geom_smooth()` using `method="glm"` and `method.args=list(family=poisson)` (@fig-PoissonFit).
+
+```{r}
+#| label: fig-PoissonFit
+#| fig-cap: Catch-at-age (untransformed catch-curve) for Tobin Harbor Brook Trout with the Poisson regression line and 95% confidence band shown.
+ggplot(data=bkt2,mapping=aes(x=age,y=ct)) +
+  geom_point(size=2) +
+  geom_smooth(method="glm",method.args=list(family=poisson),color="black") +
+  scale_y_continuous(name="Catch",limits=c(0,NA)) +
+  scale_x_continuous(name="Age (years)") +
+  theme_bw()
+```
+
+Properly estimating $Z$ using general linear models is more complex (but not more complicated) then what is shown here. Please consult [the article](https://www.researchgate.net/publication/352695018_An_improved_method_for_the_estimation_and_comparison_of_mortality_rates_in_fish_from_catch-curve_data) mentioned above for a more complete explanation and example of this method.
+
+# Total Mortality - Capture-Recapture
+Estimates of *apparent survival* from one time period to the next can be estimated for open populations using capture-recapture data. Traditionally, these methods used $\phi$ rather than $S$ to represent the survival rate, a convention that is also used here.
+
+These methods generally require data from individually tagged fish recorded in the *capture history format*. The same capture history data for Cutthroat Trout greater than 180 mm captured from Auke Lake (Alaska) during the summers of 1998-2006 used in [the Mark-Recapture article](https://fishr-core-team.github.io/FSA/articles/Mark_Recapture.html) are used here. These data are loaded, capture histories are summarized, and the Method B table observed as shown below.^[This code was thoroughly explained in [the Mark-Recapture article](https://fishr-core-team.github.io/FSA/articles/Mark_Recapture.html)].
+
+```{r}
+data(CutthroatAL)
+peek(CutthroatAL,n=6)
+cut.ch <- capHistSum(CutthroatAL,cols2use=-1)
+cut.ch$methodB.top
+cut.ch$methodB.bot
+```
+
+The Jolly-Seber method was introduced in [the Mark-Recapture article](https://fishr-core-team.github.io/FSA/articles/Mark_Recapture.html) as a method to estimate abundance in an open population. When three or more samples of marked fish have been collected, the Jolly-Seber method can also be used to estimate the apparent survival ($\phi_{i}$) from sampling event $i$ to $i+1$. The specifics underlying this method are described elsewhere, including in  [Introductory Fisheries Analyses with R](https://derekogle.com/IFAR/).
+
+Jolly-Seber calculations are performed by submitting the `capHistSum()` object to `mrOpen()` from `FSA`.^[It is also possible to perform the Jolly-Seber calculations by manually entering (from previously summarized results) the top and bottom portions of the Method B table into separate matrices and then supplying those matrices as the first two arguments to `mrOpen()`. See [the `mrOpen()` documentation](https://fishr-core-team.github.io/FSA/reference/mrOpen.html) for an example of this functionality.] 
+
+```{r}
+cut.mr <- mrOpen(cut.ch)
+```
+
+Estimates of $\phi$  and associated confidence intervals are extracted from the `mrOpen()` object with `summary()` and `confint()` including `parm="phi"` in both.
+
+```{r}
+cbind(summary(cut.mr,parm="phi"),confint(cut.mr,parm="phi"))
+```
+
+```{r}
+#| echo: false
+cut6 <- cut.mr$df["i=6",]
+```
+
+Thus, for 2003 (i.e., $i\!=\!6$) the apparent survival to the following year was `r cut6["phi"]` with a 95% CI from `r cut6["phi.lci"]` to `r cut6["phi.uci"]`.
+
+Methods for using log-linear models through the Cormack-Jolly-Seber method to estimate $\phi_i$ using packages other than `FSA` are described in [Introductory Fisheries Analyses with R](https://derekogle.com/IFAR/).
+
+# Natural Mortality
+Instantaneous natural mortality ($M$) is important for modeling fish populations but is notoriously difficult to estimate. A thorough review of methods to estimate $M$ is [here](https://www.researchgate.net/publication/363889470_A_review_of_estimation_methods_for_natural_mortality_and_their_performance_in_the_context_of_fishery_stock_assessment). One method described therein exploits the generally high correlation between $M$ and various life history or abiotic factors to develop simple models for predicting $M$ from these other factors. Here, these methods are collectively referred to as *meta-analysis estimator equations*. Many of these methods were also thoroughly reviewed [here]](https://www.researchgate.net/publication/264936317_Evaluating_the_predictive_performance_of_empirical_estimators_of_natural_mortality_rate_using_information_on_over_200_fish_species) with clear recommendations for their use (or not).
+
+Many of these models for estimating $M$ from life history or abiotic factors are available in `metaM()` of `FSA`. The list of potential methods that can be used and some specifics about the methods, including which life history or abiotic parameters are required for the method, are in the [documentation for `metaM()`](https://fishr-core-team.github.io/FSA/reference/metaM.html).
+
+For example, $M$ (and the directly related *conditional natural mortality* ($cm$)) can be estimated with the `"HamelCope"` method, which requires an estimate of the maximum age of fish in the population provided in `tmax=`.
+
+```{r}
+metaM("HamelCope",tmax=20)
+```
+
+Multiple methods can be used by including the method names in a vector given to `metaM()`.
+
+```{r}
+metaM(c("HamelCope","HoenigNLS"),tmax=20)
+```
+
+Methods that use different input parameters can also be calculated simultaneously as long as the required input parameters for all of the methods are included.
+
+```{r}
+metaM(c("HamelCope","AlversonCarney"),tmax=20,K=0.35)
+```
+
+Some common methods have been grouped together such that all methods in the group may be chosen by giving the "group name" as the first argument to `metaM()`.^[See the documentation for `metaM()` for a list of group names.] For example, all methods that use `tmax=` are in a group called `tmax`.
+
+```{r}
+metaM("tmax",tmax=20)
+```
+
+It may be desirable to estimate $M$ with a wide variety of methods and then compute the mean of the returned estimates to be used in further analyses.
+
+```{r}
+res <- metaM("tmax",tmax=20)
+( mnM <- mean(res$M) )
+```
+
+Finally, @fig-metaMex illustrates how one might examine multiple estimates of $M$ with the mean superimposed.
+
+```{r}
+#| label: fig-metaMex
+#| fig-cap: Multiple estimates of $M$ with the mean of all estimates shown by the dashed line.
+#| fig-width: 5.5
+ggplot(data=res,mapping=aes(x=method,y=M)) +
+  geom_bar(stat="identity") +
+  geom_hline(yintercept=mnM,linewidth=1,linetype="dashed") +
+  geom_text(mapping=aes(label=formatC(M,format="f",digits=3)),
+            vjust=-0.25,size=3) +
+  annotate(geom="text",x=0,y=mnM,
+           label=formatC(mnM,format="f",digits=3),
+           hjust=1.1,size=3) +
+  scale_y_continuous(expand=expansion(mult=c(0,0.09))) +
+  theme_bw() +
+  theme(axis.text.x=element_text(angle=90,vjust=0.5,hjust=1)) +
+  coord_cartesian(clip="off")
+```
+
+# Fishing Mortality Estimates
+`FSA` does not provide any functions that directly help estimate instantaneous fishing mortality. Several methods that do not require special purpose functions^[They either use linear regression or basic algebra.] and methods that are implemented in other packages are discussed briefly in [Introductory Fisheries Analyses with R](https://derekogle.com/IFAR/).
