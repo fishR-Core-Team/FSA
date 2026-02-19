@@ -23,7 +23,7 @@ metaM(
 )
 }
 \arguments{
-\item{method}{A string that indicates what grouping of methods to return (defaults to all methods) in \code{Mmethods()} or which methods or equations to use in \code{metaM()}. See details.}
+\item{method}{A string that indicates which method(s)/equation(s) to use in \code{metaM()} or what grouping of methods to return in \code{Mmethods()} (defaults to all methods). See details.}
 
 \item{tmax}{The maximum age for the population of fish.}
 
@@ -37,38 +37,38 @@ metaM(
 
 \item{L}{The body length of the fish (cm).}
 
-\item{Temp}{The temperature experienced by the fish (C).}
+\item{Temp}{The temperature (Celsius) experienced by the fish.}
 
 \item{t50}{The age (time) when half the fish in the population are mature.}
 
 \item{Winf}{The asymptotic mean weight (g) from the fit of the von Bertalanffy growth function.}
 
-\item{PS}{The proportion of the population that survive to \code{tmax}. Should usually be around 0.01 or 0.05.}
+\item{PS}{The proportion of the population that survives to \code{tmax}. Should usually be around 0.01 or 0.05.}
 
 \item{verbose}{Logical for whether to include method name and given inputs in resultant data.frame. Defaults to \code{TRUE}.}
 }
 \value{
 \code{Mmethods} returns a character vector with a list of methods.
 
-\code{metaM} returns a data.frame with the following items:
+\code{metaM} returns a data.frame with the following items (the last two items are not returned if \code{verbose=FALSE}):
 \itemize{
-   \item \code{M}: The estimated natural mortality rate.
+   \item \code{M}: The estimated instantaneous natural mortality rate.
    \item \code{cm}: The estimated conditional natural mortality rate (computed directly from \code{M}).
    \item \code{method}: The name for the method within the function (as given in \code{method}).
    \item \code{name}: A more descriptive name for the method.
-   \item \code{givens}: A string that contains the input values required by the method to estimate M.
+   \item \code{givens}: A string that contains the input values required by the method to estimate \code{M}.
  }
 }
 \description{
-Several methods can be used to estimated natural mortality (M) from other types of data, including parameters from the von Bertalanffy growth equation, maximum age, and temperature. These relationships have been developed from meta-analyses of a large number of populations. Several of these methods are implemented in this function.
+Implements several methods to estimate instantaneous natural mortality (M) (and the related conditional natural mortality (cm)) from other types of data, including parameters from the von Bertalanffy growth equation, maximum age, and temperature. These relationships were developed from meta-analyses of a large number of populations.
 }
 \details{
 One of several methods is chosen with \code{method}. The available methods can be seen with \code{Mmethods()} and are listed below with a brief description of where the equation came from. The sources (listed below) should be consulted for more specific information.
  \itemize{
    \item \code{method="HoenigNLS"}:  The \dQuote{modified Hoenig equation derived with a non-linear model} as described in Then \emph{et al.} (2015) on the third line of Table 3. This method was the preferred method suggested by Then \emph{et al.} (2015). Requires only \code{tmax}.
    \item \code{method="PaulyLNoT"}: The \dQuote{modified Pauly length equation} as described on the sixth line of Table 3 in Then \emph{et al.} (2015). Then \emph{et al.} (2015) suggested that this is the preferred method if maximum age (tmax) information was not available. Requires \code{K} and \code{Linf}.
-   \item \code{method="PaulyL"}: The \dQuote{Pauly (1980) equation using fish lengths} from his equation 11. This is the most commonly used method in the literature. Note that Pauly used common logarithms as used here but the model is often presented in other sources with natural logarithms. Requires \code{K}, \code{Linf}, and \code{T}.
-   \item \code{method="PaulyW"}: The \dQuote{Pauly (1980) equation for weights} from his equation 10. Requires \code{K}, \code{Winf}, and \code{T}.
+   \item \code{method="PaulyL"}: The \dQuote{Pauly (1980) equation using fish lengths} from his equation 11. This is the most commonly used method in the literature. Note that Pauly used common logarithms as used here but the model is often presented in other sources with natural logarithms. Requires \code{K}, \code{Linf}, and \code{Temp}.
+   \item \code{method="PaulyW"}: The \dQuote{Pauly (1980) equation for weights} from his equation 10. Requires \code{K}, \code{Winf}, and \code{Temp}.
    \item \code{method="HoeingO"}, \code{method="HoeingOF"}, \code{method="HoeingOM"}, \code{method="HoeingOC"}: The original \dQuote{Hoenig (1983) composite}, \dQuote{fish}, \dQuote{mollusc}, and \dQuote{cetacean} (fit with OLS) equations from the second column on page 899 of Hoenig (1983). Requires only \code{tmax}.
    \item \code{method="HoeingO2"}, \code{method="HoeingO2F"}, \code{method="HoeingO2M"}, \code{method="HoeingO2C"}: The original \dQuote{Hoenig (1983) composite}, \dQuote{fish}, \dQuote{mollusc}, and \dQuote{cetacean} (fit with Geometric Mean Regression) equations from the second column on page 537 of Kenchington (2014). Requires only \code{tmax}.
    \item \code{method="HoenigLM"}: The \dQuote{modified Hoenig equation derived with a linear model} as described in Then \emph{et al.} (2015) on the second line of Table 3. Requires only \code{tmax}.
@@ -82,15 +82,16 @@ One of several methods is chosen with \code{method}. The available methods can b
    \item \code{method="Gislason"}: The \dQuote{Gislason \emph{et al.} (2010) equation} from their equation 2. Requires \code{K}, \code{Linf}, and \code{L}.
    \item \code{method="AlversonCarney"}: The \dQuote{Alverson and Carney (1975) equation} as given in equation 10 of Zhang and Megrey (2006). Requires \code{tmax} and \code{K}.
    \item \code{method="Charnov"}: The \dQuote{Charnov \emph{et al.} (2013) equation} as given in the second column of page 545 of Kenchington (2014). Requires \code{K}, \code{Linf}, and \code{L}.
-   \item \code{method="ZhangMegreyD"}, \code{method="ZhangMegreyP"}: The \dQuote{Zhang and Megrey (2006) equation} as given in their equation 8 but modified for demersal or pelagic fish. Thus, the user must choose the fish type with \code{group}. Requires \code{tmax}, \code{K}, \code{t0}, \code{t50}, and \code{b}.
+   \item \code{method="ZhangMegreyD"}: The \dQuote{Zhang and Megrey (2006) equation} as given in their equation 8 but modified for \strong{demersal} fish. Requires \code{tmax}, \code{K}, \code{t0}, \code{t50}, and \code{b}.
+   \item \code{method="ZhangMegreyP"}: The \dQuote{Zhang and Megrey (2006) equation} as given in their equation 8 but modified for \strong{pelagic} fish. Requires \code{tmax}, \code{K}, \code{t0}, \code{t50}, and \code{b}.
    \item \code{method="RikhterEfanov1"}: The \dQuote{Rikhter and Efanov (1976) equation (#2)} as given in the second column of page 541 of Kenchington (2014) and in Table 6.4 of Miranda and Bettoli (2007). Requires only \code{t50}.
    \item \code{method="RikhterEfanov2"}: The \dQuote{Rikhter and Efanov (1976) equation (#1)} as given in the first column of page 541 of Kenchington (2014). Requires \code{t50}, \code{K}, \code{t0}, and \code{b}.
-   \item \code{method="QuinnDeriso"}: The \dQuote{Quinn & Derison (1999)} equation as given in the FAMS manual as equation 4:18. Requires \code{PS} and \code{tmax}. Included only for use with \code{rFAMS} package.
-   \item \code{method="ChenWatanabe"}: The \dQuote{Chen & Watanabe (1989)} equation as given in the FAMS manual as equation 4:24. As suggested in FAMS manual used \code{tmax} for final time and 1 as initial time. Requires \code{tmax}, \code{K}, and \code{t0}. Included only for use with \code{rFAMS} package.
-   \item \code{method="PetersonWroblewski"}: The \dQuote{Peterson & Wroblewski (1984)} equation as given in the FAMS manual as equation 4:22. As suggested in FAMS manual used \code{Winf} for weight. Requires \code{Winf}. Included only for use with \code{rFAMS} package.
+   \item \code{method="QuinnDeriso"}: The \dQuote{Quinn & Derison (1999)} equation as given in the FAMS manual as equation 4:18. Requires \code{PS} and \code{tmax}.
+   \item \code{method="ChenWatanabe"}: The \dQuote{Chen & Watanabe (1989)} equation as given in the FAMS manual as equation 4:24. As suggested in FAMS manual, code uses \code{tmax} for final time and 1 as initial time. Requires \code{tmax}, \code{K}, and \code{t0}.
+   \item \code{method="PetersonWroblewski"}: The \dQuote{Peterson & Wroblewski (1984)} equation as given in the FAMS manual as equation 4:22. As suggested in FAMS manual used \code{Winf} for weight. Requires \code{Winf}.
  } 
 
-Conditional mortality (cm) is estimated from instantaneous natural mortality (M) with 1-exp(-M). It is returned with M here simply as a courtesy for those using the \code{rFAMS} package.
+Conditional mortality (cm) is estimated from instantaneous natural mortality (M) with 1-exp(-M). It is returned with M here as a courtesy for those using the \code{rFAMS} package.
 }
 \section{Testing}{
  Kenchington (2014) provided life history parameters for several stocks and used many models to estimate M. I checked the calculations for the \code{"PaulyL"}, \code{"PaulyW"}, \code{"HoenigO"}, \code{"HoenigOF"}, \code{"HoenigO2"}, \code{"HoenigO2F"}, \code{"JensenK1"}, \code{"Gislason"}, \code{"AlversonCarney"}, \code{"Charnov"}, \code{"ZhangMegrey"}, \code{"RikhterEfanov1"}, and \code{"RikhterEfanov2"} methods for three stocks. All results perfectly matched Kenchington's results for Chesapeake Bay Anchovy and Rio Formosa Seahorse. For the Norwegian Fjord Lanternfish, all results perfectly matched Kenchington's results except for \code{"HoenigOF"} and \code{"HoenigO2F"}.
@@ -103,16 +104,16 @@ Results for the Rio Formosa Seahorse data were also tested against results from 
 }
 
 \examples{
-## List methods in a group of methods
+## List methods in a group of methods =======================================
 Mmethods("tmax")
 
-## Simple Examples
+## Simple Examples ==========================================================
 metaM("HamelCope",tmax=20)
 metaM("HoenigNLS",tmax=20)
 metaM("HoenigNLS",tmax=20,verbose=FALSE)
  
-## Example Patagonian Sprat ... from Table 2 in Cerna et al. (2014)
-## http://www.scielo.cl/pdf/lajar/v42n3/art15.pdf
+## Example Patagonian Sprat ... from Table 2 in Cerna et al. (2014) =========
+##   http://www.scielo.cl/pdf/lajar/v42n3/art15.pdf
 Temp <- 11
 Linf <- 17.71
 K <- 0.78
@@ -126,18 +127,19 @@ metaM("HoenigO",tmax=tmax)
 metaM("HewittHoenig",tmax=tmax)
 metaM("AlversonCarney",K=K,tmax=tmax)
 
-## Example of multiple calculations
+## Example of multiple calculations =========================================
 metaM(c("RikhterEfanov1","PaulyL","HoenigO","HewittHoenig","AlversonCarney"),
      K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
 
-## Example of multiple methods using Mmethods
+## Example of multiple methods using Mmethods ===============================
 # select some methods
-metaM(Mmethods()[-c(16,21,23:25,27:30)],K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
+metaM(Mmethods()[-c(16,21,23:25,27:30)],
+      K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
 # select just the Hoenig methods
 metaM(Mmethods("Hoenig"),K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
  
-## Example of computing an average M
-# select multiple models used in FAMS (example only, these are not best models)
+## Example of computing an average M ========================================
+# select multiple models used in FAMS (example only, these not best methods)
 ( res <- metaM(Mmethods("FAMS"),tmax=tmax,K=K,Linf=Linf,t0=t0,
                Temp=Temp,PS=0.01,Winf=30) )
 ( meanM <- mean(res$M) )

@@ -1,7 +1,7 @@
 # FSA 0.10.1.9000
 * Updated `readme.md` to actually point to the development version on GitHub.
 * Added articles to the website for "Age Comparisons", "Age-Length Keys", "Mortality".
-* `metaM()`: Expanded some error messages to increase clarity. Disallowed `method` to be missing or `null` (this reduced chances that all methods are selected, the previous default, which was unlikely to work as all parameters would need to be provided).
+* `metaM()`: Expanded some error messages to increase clarity. Disallowed `method` to be missing or `null` (this reduces chances that all methods are selected, the previous default, which was unlikely to work as all parameters would need to be provided). Fixed typos in documentation.
 * `Mmethods()`: Changed how methods are selected to provide better error checking.
 
 # FSA 0.10.1
