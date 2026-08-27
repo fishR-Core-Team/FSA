@@ -3,7 +3,8 @@
 * Added articles to the website for "Age Comparisons", "Age-Length Keys", "Mortality".
 * `metaM()`: Expanded some error messages to increase clarity. Disallowed `method` to be missing or `null` (this reduces chances that all methods are selected, the previous default, which was unlikely to work as all parameters would need to be provided). Fixed typos in documentation.
 * `Mmethods()`: Changed how methods are selected to provide better error checking.
-* `PSDlit`: Added info for Mountain Whitefish. Updated info for Cutthroat Trout and Rainbow Trout, moving old info to those species with "(original)" appended. Info from Quist *et al.* (2026). Addresses [#145](https://github.com/fishR-Core-Team/FSA/issues/145).
+* `PSDlit`: Added info for Mountain Whitefish. Updated info for Cutthroat Trout and Rainbow Trout, moving old info to those species with "(original)" appended. Info from Quist *et al.* (2026). Addresses [#145](https://github.com/fishR-Core-Team/FSA/issues/145). Addressed revised values for Spotted Bass and Alabama Bass as the [publication was retracted](https://academic.oup.com/najfm/advance-article-abstract/doi/10.1093/najfmt/vqaf097/8322396?redirectedFrom=fulltext).
+* `WSlit`: Addressed values for Spotted Bass and Alabama Bass as the [publication was retracted](https://academic.oup.com/najfm/advance-article-abstract/doi/10.1093/najfmt/vqaf097/8322396?redirectedFrom=fulltext).
 
 # FSA 0.10.1
 * Updated the PSD and Relative Weight computation articles to reflect the changes to `psdVal()`, `psdAdd()`, `wsVal()`, and `wrAdd()`.
