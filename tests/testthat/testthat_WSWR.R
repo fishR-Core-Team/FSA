@@ -1,4 +1,9 @@
 ## Test Messages ----
+test_that("wsVal() suggests the closest species name",{
+  withr::local_options(list(width=150))
+  expect_error(wsVal("blugill"),'Did you mean "Bluegill"?',fixed=TRUE)
+})
+
 test_that("wsVal() messages",{
   #===== bad species name
   expect_error(wsVal("Derek"),

@@ -346,6 +346,14 @@ iListSpecies <- function(d) {
   return(invisible())
 } # end internal function    
 
+iSpeciesSuggestion <- function(species,spNames) {
+  if (!length(spNames)) return("")
+  distances <- drop(utils::adist(species,spNames,ignore.case=TRUE))
+  closest <- spNames[distances==min(distances,3L)]
+  if (length(closest)) paste0(" Did you mean ",iStrCollapse(closest,last="or"),"?")
+  else ""
+}
+
 
 iMakeColor <- function(col,transp) { 
   ## Takes a color string and will make it transparent based on

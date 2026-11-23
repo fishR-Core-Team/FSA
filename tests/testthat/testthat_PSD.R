@@ -6,6 +6,13 @@ df2$psd <- factor(df2$psd,levels=c("substock","stock","quality","preferred",
                                    "memorable","trophy"))
 thes <- c("Bluegill"="Bluegill Sunfish","Lake Trout"="Lean Lake Trout")
 
+test_that("psdVal() suggests equally close species names",{
+  withr::local_options(list(width=150))
+  err <- expect_error(psdVal("Bro Trut"),"Did you mean")
+  expect_match(conditionMessage(err),"Brook Trout")
+  expect_match(conditionMessage(err),"Brown Trout")
+})
+
 ## Test Messages ----
 test_that("psdVal() messages",{
   #===== bad species name

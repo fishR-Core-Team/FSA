@@ -1,4 +1,5 @@
 # FSA 0.10.1.9000
+* `psdVal()` and `wsVal()` suggest close matches when a species name is misspelled ([#132](https://github.com/fishR-Core-Team/FSA/issues/132)).
 * Updated `readme.md` to actually point to the development version on GitHub.
 * Added articles to the website for "Age Comparisons", "Age-Length Keys", "Mortality".
 * `metaM()`: Expanded some error messages to increase clarity. Disallowed `method` to be missing or `null` (this reduces chances that all methods are selected, the previous default, which was unlikely to work as all parameters would need to be provided). Fixed typos in documentation.

@@ -101,12 +101,14 @@ wsVal <- function(species="List",group=NULL,
   else {
     #===== Make checks on species
     #----- Species given, make sure in dat/WSlit, then reduce data.frame to that species
-    if (!any(unique(dat$species)==species)) {
+    spNames <- unique(dat$species)
+    if (!any(spNames==species)) {
       tmp <- paste0("There is no Ws equation in 'WSlit' for ",iStrCollapse(species),".")
-      if (any(unique(dat$species)==capFirst(species)))
+      if (any(spNames==capFirst(species)))
         STOP(tmp," However, there is an entry for ",iStrCollapse(capFirst(species)),
              " (note spelling, including capitalization).\n\n")
-      else STOP(tmp," Type 'wsVal()' to see a list of available species.\n\n")
+      else STOP(tmp,iSpeciesSuggestion(species,spNames),
+                " Type 'wsVal()' to see a list of available species.\n\n")
     } else df <- droplevels(dat[dat$species==species,])
     
     #===== Determine if "group"s for that species and then handle
