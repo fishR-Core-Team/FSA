@@ -1,9 +1,4 @@
 ## Test Messages ----
-test_that("wsVal() suggests the closest species name",{
-  withr::local_options(list(width=150))
-  expect_error(wsVal("blugill"),'Did you mean "Bluegill"?',fixed=TRUE)
-})
-
 test_that("wsVal() messages",{
   #===== bad species name
   expect_error(wsVal("Derek"),
@@ -12,6 +7,26 @@ test_that("wsVal() messages",{
                "There is no Ws equation in 'WSlit' for \"Largemouth bass\"")
   expect_error(wsVal("bluegill"),
                "There is no Ws equation in 'WSlit' for \"bluegill\"")
+  #===== suggests reasonable alternatives
+  withr::local_options(list(width=150))
+  err <- expect_error(wsVal("Bro Trut"),"Did you mean")
+  expect_match(conditionMessage(err),"Brook Trout")
+  expect_match(conditionMessage(err),"Brown Trout")
+  
+  err <- expect_error(wsVal("Sau"),"Did you mean")
+  expect_match(conditionMessage(err),"Sauger")
+  expect_match(conditionMessage(err),"Saugeye")
+  
+  err <- expect_error(wsVal("Yell"),"Did you mean")
+  expect_match(conditionMessage(err),"Yellow Bass")
+  expect_match(conditionMessage(err),"Yellow Bullhead")
+  expect_match(conditionMessage(err),"Yellow Perch")
+  
+  ## no suggestions if there would be too many suggestions
+  err <- expect_error(wsVal("S"),
+                      "There is no Ws equation in 'WSlit'")
+  expect_false(grepl("Did you mean",conditionMessage(err)))
+  
   #===== too many species name
   expect_error(wsVal(c("Bluegill","Yellow Perch")),
                "must contain only one name")

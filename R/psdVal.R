@@ -135,7 +135,7 @@ iPSDGetSpecies <- function(dat,species,group) {
       if (any(spNames==capFirst(species)))
         STOP(tmp," However, there is an entry for ",iStrCollapse(capFirst(species)),
              " (note spelling, including capitalization).\n\n")
-      else STOP(tmp,iSpeciesSuggestion(species,spNames),
+      else STOP(tmp,iSuggestSpecies(species,spNames),
                 " Type 'psdVal()' to see a list of available species.\n\n")
     }
     
