@@ -346,6 +346,24 @@ iListSpecies <- function(d) {
   return(invisible())
 } # end internal function    
 
+iSuggestSpecies <- function(species,spNames) {
+  ## Find distance between species and names in spNames, using an algorithm that
+  ##   is best for human typos (Jaro Winkler). Scale result so minimum (i.e., 
+  ##   closest match) is =1 and then select those names in spNames where the
+  ##   re-scaled result is <1.35. Remove those species names that have
+  ##   parentheses, as it will encourage user to use group= in psdVal() and
+  ##   wsVal(). Finally, if more than 6 suggestions then don't make any
+  ##   suggestions.
+  distances <- stringdist::stringdist(species,spNames,
+                                      method="jw",p=0.2)
+  distances <- distances/min(distances)
+  closest <- spNames[distances<=1.35]
+  closest <- closest[!grepl("(",closest,fixed=TRUE)]
+  if (length(closest)>0 & length(closest)<=6)
+    paste0(" Did you mean ",iStrCollapse(closest,last="or"),"?")
+  else ""
+}
+
 
 iMakeColor <- function(col,transp) { 
   ## Takes a color string and will make it transparent based on

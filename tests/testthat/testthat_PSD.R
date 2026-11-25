@@ -6,6 +6,13 @@ df2$psd <- factor(df2$psd,levels=c("substock","stock","quality","preferred",
                                    "memorable","trophy"))
 thes <- c("Bluegill"="Bluegill Sunfish","Lake Trout"="Lean Lake Trout")
 
+test_that("psdVal() suggests equally close species names",{
+  withr::local_options(list(width=150))
+  err <- expect_error(psdVal("Bro Trut"),"Did you mean")
+  expect_match(conditionMessage(err),"Brook Trout")
+  expect_match(conditionMessage(err),"Brown Trout")
+})
+
 ## Test Messages ----
 test_that("psdVal() messages",{
   #===== bad species name
@@ -14,6 +21,26 @@ test_that("psdVal() messages",{
   expect_error(psdVal("bluegill"),
                "There are no Gablehouse lengths in 'PSDlit'")
 
+  #===== suggests reasonable alternatives
+  withr::local_options(list(width=150))
+  err <- expect_error(psdVal("Bro Trut"),"Did you mean")
+  expect_match(conditionMessage(err),"Brook Trout")
+  expect_match(conditionMessage(err),"Brown Trout")
+  
+  err <- expect_error(psdVal("Sau"),"Did you mean")
+  expect_match(conditionMessage(err),"Sauger")
+  expect_match(conditionMessage(err),"Saugeye")
+  
+  err <- expect_error(psdVal("Yell"),"Did you mean")
+  expect_match(conditionMessage(err),"Yellow Bass")
+  expect_match(conditionMessage(err),"Yellow Bullhead")
+  expect_match(conditionMessage(err),"Yellow Perch")
+  
+  ## no suggestions if there would be too many suggestions
+  err <- expect_error(psdVal("S"),
+                      "There are no Gablehouse lengths in 'PSDlit'")
+  expect_false(grepl("Did you mean",conditionMessage(err)))
+  
   #===== too many species name
   expect_error(psdVal(c("Bluegill","Yellow Perch")),
                "can have only one name")

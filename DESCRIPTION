@@ -32,6 +32,7 @@ Imports:
     lmtest,
     plotrix,
     purrr,
+    stringdist,
     withr
 Suggests:
     dplyr,
