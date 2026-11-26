@@ -124,11 +124,11 @@ wsVal("Striped Bass")
 wsVal("Striped Bass (landlocked)")
 ```
 
-There are also a few species where an original standard weight equation has been revised in  the literature. The original and revised equations are available in `WSlit` with the revised equations accessed by just using the species name and the original equations accessed by appending "(original)" to the species name.
+There are also a few species where an original standard weight equation has been revised in the literature. The original and revised equations are available in `WSlit` with the revised equations accessed by just using the species name and the original equations accessed by appending "(original)" to the species name.
 
 ```{r}
-wsVal("Spotted Bass")             # revised definitions
-wsVal("Spotted Bass (original)")
+wsVal("Northern Pikeminnow")             # revised definitions
+wsVal("Northern Pikeminnow (original)")
 ```
 
 We strongly urge you to have a good understanding of the standard weight literature for your species' of interest and make sure that `wsVal()` is returning the values that you expect.

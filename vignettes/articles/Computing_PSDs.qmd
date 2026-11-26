@@ -95,8 +95,8 @@ psdVal("Muskellunge (male)")
 There are also a few species where an original definition of GH length categories has been revised in the literature. The original and revised definitions are available in `PSDlit` with the revised definitions accessed by using just the species name and the original definitions accessed by appending "(original)" to the species name.
 
 ```{r}
-psdVal("Spotted Bass")             # revised definitions
-psdVal("Spotted Bass (original)")
+psdVal("Palmetto Bass")             # revised definitions
+psdVal("Palmetto Bass (original)")
 ```
 
 We strongly urge you to have a good understanding of the GH length categories for your species' of interest and make sure that `psdVal()` is returning the values that you expect (i.e., correct species, sub-group (if appropriate), units, etc.).

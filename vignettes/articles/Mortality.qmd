@@ -69,10 +69,14 @@ cbind(summary(thcc),confint(thcc))
 A quick (i.e., not publication quality) plot to illustrate the results is created by submitting the `catchCurve()` object to `plot()` (@fig-CatchCurveBrkTrt2).^[An example of more flexible plotting for publication is [here](https://fishr-core-team.github.io/fishR/blog/posts/2023-4-1_Milleretal2022_Fig4/).]
 
 ```{r}
+#| label: rfigure_prep
+#| echo: false
+par(mar=c(4,4,0.5,0.5),mgp=c(1.9,0.3,0),tcl=-0.2,las=1)
+```
+
+```{r}
 #| label: fig-CatchCurveBrkTrt2
 #| fig-cap: Log catch-at-age for Tobin Harbor Brook Trout showing the linear regression results on the descending limb.
-#| echo: -1
-par(mar=c(4,4,0.5,0.5),mgp=c(1.9,0.3,0),tcl=-0.2,las=1)
 plot(thcc)
 ```
 
@@ -90,8 +94,6 @@ The Chapman-Robson method is implemented in `chapmanRobson()` using the same arg
 #| label: fig-CatchCurveBrkTrt3
 #| fig-cap: Catch-at-age for Tobin Harbor Brook Trout showing the descending limb and the "re-coded" ages used in the Chapman-Robson method.
 #| fig-height: 5
-#| echo: -1
-par(mar=c(4,4,0.5,0.5),mgp=c(1.9,0.3,0),tcl=-0.2,las=1)
 thcr <- chapmanRobson(ct~age,data=bkt,ages2use=2:6)
 cbind(summary(thcr),confint(thcr))
 plot(thcr)
@@ -176,7 +178,7 @@ Thus, for 2003 (i.e., $i\!=\!6$) the apparent survival to the following year was
 Methods for using log-linear models through the Cormack-Jolly-Seber method to estimate $\phi_i$ using packages other than `FSA` are described in [Introductory Fisheries Analyses with R](https://derekogle.com/IFAR/).
 
 # Natural Mortality
-Instantaneous natural mortality ($M$) is important for modeling fish populations but is notoriously difficult to estimate. A thorough review of methods to estimate $M$ is [here](https://www.researchgate.net/publication/363889470_A_review_of_estimation_methods_for_natural_mortality_and_their_performance_in_the_context_of_fishery_stock_assessment). One method described therein exploits the generally high correlation between $M$ and various life history or abiotic factors to develop simple models for predicting $M$ from these other factors. Here, these methods are collectively referred to as *meta-analysis estimator equations*. Many of these methods were also thoroughly reviewed [here]](https://www.researchgate.net/publication/264936317_Evaluating_the_predictive_performance_of_empirical_estimators_of_natural_mortality_rate_using_information_on_over_200_fish_species) with clear recommendations for their use (or not).
+Instantaneous natural mortality ($M$) is important for modeling fish populations but is notoriously difficult to estimate. A thorough review of methods to estimate $M$ is [here](https://www.researchgate.net/publication/363889470_A_review_of_estimation_methods_for_natural_mortality_and_their_performance_in_the_context_of_fishery_stock_assessment). One method described therein exploits the generally high correlation between $M$ and various life history or abiotic factors to develop simple models for predicting $M$ from these other factors. Here, these methods are collectively referred to as *meta-analysis estimator equations*. Many of these methods were also thoroughly reviewed [here](https://www.researchgate.net/publication/264936317_Evaluating_the_predictive_performance_of_empirical_estimators_of_natural_mortality_rate_using_information_on_over_200_fish_species) with clear recommendations for their use (or not).
 
 Many of these models for estimating $M$ from life history or abiotic factors are available in `metaM()` of `FSA`. The list of potential methods that can be used and some specifics about the methods, including which life history or abiotic parameters are required for the method, are in the [documentation for `metaM()`](https://fishr-core-team.github.io/FSA/reference/metaM.html).
 
