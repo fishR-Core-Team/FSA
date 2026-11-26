@@ -133,7 +133,7 @@ for related functionality.
 ``` r
 str(WSlit)
 #> 'data.frame':    257 obs. of  13 variables:
-#>  $ species: chr  "Aegean Chub" "African Sharptooth Catfish" "Alabama Bass" "Alabama Bass" ...
+#>  $ species: chr  "Aegean Chub" "African Sharptooth Catfish" "Alabama Bass (RETRACTED)" "Alabama Bass (RETRACTED)" ...
 #>  $ group  : chr  NA NA NA NA ...
 #>  $ measure: chr  "TL" "TL" "TL" "TL" ...
 #>  $ units  : chr  "metric" "metric" "metric" "English" ...
@@ -150,9 +150,9 @@ head(WSlit)
 #>                      species group measure   units ref method min.len max.len
 #> 1                Aegean Chub  <NA>      TL  metric  75    EmP      70     220
 #> 2 African Sharptooth Catfish  <NA>      TL  metric  75    EmP     180     450
-#> 3               Alabama Bass  <NA>      TL  metric  75    EmP     150     550
-#> 4               Alabama Bass  <NA>      TL English  75    EmP       6      22
-#> 5    Alabama Bass (original)  <NA>      TL  metric  75    RLP     100      NA
+#> 3   Alabama Bass (RETRACTED)  <NA>      TL  metric  75    EmP     150     550
+#> 4   Alabama Bass (RETRACTED)  <NA>      TL English  75    EmP       6      22
+#> 5               Alabama Bass  <NA>      TL  metric  75    RLP     100      NA
 #> 6                Ankara Nase  <NA>      TL  metric  75    EmP      70     240
 #>        int  slope    quad                  source
 #> 1  -3.8010 1.7830  0.3290 Giannetto et al. (2012)
@@ -161,11 +161,11 @@ head(WSlit)
 #> 4  -3.5339 3.1750      NA   Sammons et al. (2025)
 #> 5  -5.5980 3.2904      NA   Dicenzo et al. (1995)
 #> 6 -10.0170 7.4020 -0.9710  Emiroglu et al. (2020)
-#>                                                                   comment
-#> 1                                                                    none
-#> 2                                  only from Sakarya River Basin (Turkey)
-#> 3                          RLP and EmP (quadratic) models not recommended
-#> 4                          RLP and EmP (quadratic) models not recommended
-#> 5 HAS BEEN REVISED; min.len not made clear (assumed same as Spotted Bass)
-#> 6                                                        only from Turkey
+#>                                                 comment
+#> 1                                                  none
+#> 2                only from Sakarya River Basin (Turkey)
+#> 3        RLP and EmP (quadratic) models not recommended
+#> 4        RLP and EmP (quadratic) models not recommended
+#> 5 min.len not made clear (assumed same as Spotted Bass)
+#> 6                                      only from Turkey
 ```

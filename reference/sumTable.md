@@ -87,66 +87,66 @@ sumTable(dat~g1*g2,data=d,FUN=length)       # get sample size
 #> Warning: First RHS variable was converted to a factor.
 #> Warning: Second RHS variable was converted to a factor.
 #>    A  B  C
-#> a 54 60 69
-#> b 68 79 61
-#> c 81 65 67
-#> d 52 81 63
-#> e 68 78 54
+#> a 65 66 52
+#> b 64 76 69
+#> c 72 75 65
+#> d 59 71 68
+#> e 62 74 62
 sumTable(dat~g1*g2,data=d,FUN=validn)       # get sample size (better way)
 #> Warning: First RHS variable was converted to a factor.
 #> Warning: Second RHS variable was converted to a factor.
 #>    A  B  C
-#> a 54 60 69
-#> b 68 79 61
-#> c 81 65 67
-#> d 52 81 63
-#> e 68 78 54
+#> a 65 66 52
+#> b 64 76 69
+#> c 72 75 65
+#> d 59 71 68
+#> e 62 74 62
 sumTable(dat~g1*g2,data=d,FUN=mean)         # get mean
 #> Warning: First RHS variable was converted to a factor.
 #> Warning: Second RHS variable was converted to a factor.
-#>           A          B          C
-#> a 0.0148345  0.1074480 -0.1450652
-#> b 0.1434694 -0.0873898  0.0415869
-#> c 0.0112921  0.0896951 -0.0375250
-#> d 0.1491436  0.0038763 -0.1765595
-#> e 0.0074753 -0.0459891 -0.0141507
+#>            A          B          C
+#> a -0.1381336 -0.1197033  0.1430396
+#> b  0.1027714 -0.0612817 -0.2037045
+#> c  0.0456455  0.0692026 -0.1655908
+#> d  0.2189534  0.1364768 -0.0439938
+#> e  0.0646782  0.0521127 -0.0645313
 sumTable(dat~g1*g2,data=d,FUN=sd)           # get sd
 #> Warning: First RHS variable was converted to a factor.
 #> Warning: Second RHS variable was converted to a factor.
-#>           A         B         C
-#> a 0.9763261 0.9800017 1.0292878
-#> b 1.0259764 1.1817831 1.1506830
-#> c 0.9468045 1.1092575 0.9985559
-#> d 0.9998303 0.9614649 0.8771359
-#> e 1.0735484 0.9451659 0.9453150
+#>           A        B         C
+#> a 1.0159332 1.173373 0.9374071
+#> b 0.9897397 1.023984 1.0252271
+#> c 0.8883011 1.112907 1.0591669
+#> d 0.8983995 1.015777 0.9749981
+#> e 0.9292071 1.032470 1.0652494
 sumTable(dat~g1*g2,data=d,FUN=sd,digits=1)  # show digits= argument
 #> Warning: First RHS variable was converted to a factor.
 #> Warning: Second RHS variable was converted to a factor.
 #>     A   B   C
-#> a 1.0 1.0 1.0
-#> b 1.0 1.2 1.2
-#> c 0.9 1.1 1.0
-#> d 1.0 1.0 0.9
-#> e 1.1 0.9 0.9
+#> a 1.0 1.2 0.9
+#> b 1.0 1.0 1.0
+#> c 0.9 1.1 1.1
+#> d 0.9 1.0 1.0
+#> e 0.9 1.0 1.1
 
 ## Also demonstrate use in the 1-way example -- but see Summarize()
 sumTable(dat~g1,data=d,FUN=validn)
 #> Warning: RHS variable was converted to a factor.
 #>   a   b   c   d   e 
-#> 183 208 213 196 200 
+#> 183 209 212 198 198 
 sumTable(dat~g1,data=d,FUN=mean)
 #> Warning: RHS variable was converted to a factor.
 #>          a          b          c          d          e 
-#> -0.0150905  0.0259083  0.0198623 -0.0155806 -0.0192148 
+#> -0.0515904 -0.0580653 -0.0107865  0.0990734  0.0195224 
 
 ## Example with a missing value (compare to above)
 d$dat[1] <- NA
 sumTable(dat~g1,data=d,FUN=validn)  # note use of validn
 #> Warning: RHS variable was converted to a factor.
 #>   a   b   c   d   e 
-#> 183 208 213 195 200 
+#> 183 208 212 198 198 
 sumTable(dat~g1,data=d,FUN=mean,na.rm=TRUE)
 #> Warning: RHS variable was converted to a factor.
 #>          a          b          c          d          e 
-#> -0.0150905  0.0259083  0.0198623 -0.0124307 -0.0192148 
+#> -0.0515904 -0.0637175 -0.0107865  0.0990734  0.0195224 
 ```

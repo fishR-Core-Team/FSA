@@ -178,6 +178,28 @@ ponds2 <- ponds[complete.cases(ponds),]
 
 # non-formula usage (default "holm" method)
 dunnTest(ponds2$pH,ponds2$pond)
+#>   Kruskal-Wallis rank sum test
+#> 
+#> data: x and g
+#> Kruskal-Wallis chi-squared = 11.9435, df = 3, p-value = 0.01
+#> 
+#>                       Dunn's Pairwise Comparison of x by g                      
+#>                                      (Holm)                                     
+#> 
+#> Col Mean-│
+#> Row Mean │          1          2          3
+#> ─────────┼─────────────────────────────────
+#>        2 │  -2.137006
+#>          │     0.1304 
+#>          │
+#>        3 │  -2.949348  -0.884805
+#>          │     0.0159*    1.0000 
+#>          │
+#>        4 │  -2.991808  -0.854803   0.058987
+#>          │     0.0166*    0.7853     0.9530 
+#> 
+#> FWER = 0.05
+#> Reject Ho if adjusted p ≤ FWER with stopping rule, where (unadjusted) p = Pr(|Z| ≥ |z|)
 #> Dunn (1964) Kruskal-Wallis multiple comparison
 #>   p-values adjusted with the Holm method.
 #>   Comparison           Z     P.unadj      P.adj
@@ -190,6 +212,28 @@ dunnTest(ponds2$pH,ponds2$pond)
 
 # formula usage (default "holm" method)
 dunnTest(pH~pond,data=ponds2)
+#>   Kruskal-Wallis rank sum test
+#> 
+#> data: x and g
+#> Kruskal-Wallis chi-squared = 11.9435, df = 3, p-value = 0.01
+#> 
+#>                       Dunn's Pairwise Comparison of x by g                      
+#>                                      (Holm)                                     
+#> 
+#> Col Mean-│
+#> Row Mean │          1          2          3
+#> ─────────┼─────────────────────────────────
+#>        2 │  -2.137006
+#>          │     0.1304 
+#>          │
+#>        3 │  -2.949348  -0.884805
+#>          │     0.0159*    1.0000 
+#>          │
+#>        4 │  -2.991808  -0.854803   0.058987
+#>          │     0.0166*    0.7853     0.9530 
+#> 
+#> FWER = 0.05
+#> Reject Ho if adjusted p ≤ FWER with stopping rule, where (unadjusted) p = Pr(|Z| ≥ |z|)
 #> Dunn (1964) Kruskal-Wallis multiple comparison
 #>   p-values adjusted with the Holm method.
 #>   Comparison           Z     P.unadj      P.adj
@@ -202,6 +246,28 @@ dunnTest(pH~pond,data=ponds2)
 
 # other methods
 dunnTest(pH~pond,data=ponds2,method="bonferroni")
+#>   Kruskal-Wallis rank sum test
+#> 
+#> data: x and g
+#> Kruskal-Wallis chi-squared = 11.9435, df = 3, p-value = 0.01
+#> 
+#>                       Dunn's Pairwise Comparison of x by g                      
+#>                                   (Bonferroni)                                  
+#> 
+#> Col Mean-│
+#> Row Mean │          1          2          3
+#> ─────────┼─────────────────────────────────
+#>        2 │  -2.137006
+#>          │     0.1956 
+#>          │
+#>        3 │  -2.949348  -0.884805
+#>          │     0.0191*    1.0000 
+#>          │
+#>        4 │  -2.991808  -0.854803   0.058987
+#>          │     0.0166*    1.0000     1.0000 
+#> 
+#> FWER = 0.05
+#> Reject Ho if adjusted p ≤ FWER, where (unadjusted) p = Pr(|Z| ≥ |z|)
 #> Dunn (1964) Kruskal-Wallis multiple comparison
 #>   p-values adjusted with the Bonferroni method.
 #>   Comparison           Z     P.unadj      P.adj
@@ -212,6 +278,28 @@ dunnTest(pH~pond,data=ponds2,method="bonferroni")
 #> 5      2 - 4 -0.85480252 0.392660483 1.00000000
 #> 6      3 - 4  0.05898698 0.952962480 1.00000000
 dunnTest(pH~pond,data=ponds2,method="bh")
+#>   Kruskal-Wallis rank sum test
+#> 
+#> data: x and g
+#> Kruskal-Wallis chi-squared = 11.9435, df = 3, p-value = 0.01
+#> 
+#>                       Dunn's Pairwise Comparison of x by g                      
+#>                               (Benjamini-Hochberg)                              
+#> 
+#> Col Mean-│
+#> Row Mean │          1          2          3
+#> ─────────┼─────────────────────────────────
+#>        2 │  -2.137006
+#>          │     0.0652 
+#>          │
+#>        3 │  -2.949348  -0.884805
+#>          │     0.0096*    0.5644 
+#>          │
+#>        4 │  -2.991808  -0.854803   0.058987
+#>          │     0.0166*    0.4712     0.9530 
+#> 
+#> FDR = 0.05
+#> Reject Ho if adjusted p ≤ FDR with stopping rule, where (unadjusted) p = Pr(|Z| ≥ |z|)
 #> Dunn (1964) Kruskal-Wallis multiple comparison
 #>   p-values adjusted with the Benjamini-Hochberg method.
 #>   Comparison           Z     P.unadj       P.adj
@@ -222,6 +310,28 @@ dunnTest(pH~pond,data=ponds2,method="bh")
 #> 5      2 - 4 -0.85480252 0.392660483 0.471192580
 #> 6      3 - 4  0.05898698 0.952962480 0.952962480
 dunnTest(pH~pond,data=ponds2,method="none")
+#>   Kruskal-Wallis rank sum test
+#> 
+#> data: x and g
+#> Kruskal-Wallis chi-squared = 11.9435, df = 3, p-value = 0.01
+#> 
+#>                       Dunn's Pairwise Comparison of x by g                      
+#>                                  (No adjustment)                                
+#> 
+#> Col Mean-│
+#> Row Mean │          1          2          3
+#> ─────────┼─────────────────────────────────
+#>        2 │  -2.137006
+#>          │     0.0326*
+#>          │
+#>        3 │  -2.949348  -0.884805
+#>          │     0.0032*    0.3763 
+#>          │
+#>        4 │  -2.991808  -0.854803   0.058987
+#>          │     0.0028*    0.3927     0.9530 
+#> 
+#> α = 0.05
+#> Reject Ho if p ≤ α, where p = Pr(|Z| ≥ |z|)
 #> Dunn (1964) Kruskal-Wallis multiple comparison
 #>   with no adjustment for p-values.
 #>   Comparison           Z     P.unadj       P.adj
@@ -234,6 +344,28 @@ dunnTest(pH~pond,data=ponds2,method="none")
 
 # one-sided
 dunnTest(pH~pond,data=ponds2,two.sided=FALSE)
+#>   Kruskal-Wallis rank sum test
+#> 
+#> data: x and g
+#> Kruskal-Wallis chi-squared = 11.9435, df = 3, p-value = 0.01
+#> 
+#>                       Dunn's Pairwise Comparison of x by g                      
+#>                                      (Holm)                                     
+#> 
+#> Col Mean-│
+#> Row Mean │          1          2          3
+#> ─────────┼─────────────────────────────────
+#>        2 │  -2.137006
+#>          │     0.0652 
+#>          │
+#>        3 │  -2.949348  -0.884805
+#>          │     0.0080*    0.5644 
+#>          │
+#>        4 │  -2.991808  -0.854803   0.058987
+#>          │     0.0083*    0.3927     0.4765 
+#> 
+#> FWER = 0.05
+#> Reject Ho if adjusted p ≤ FWER/2 with stopping rule, where (unadjusted) p = Pr(Z ≥ |z|)
 #> Dunn (1964) Kruskal-Wallis multiple comparison
 #>   p-values adjusted with the Holm method.
 #>   Comparison           Z     P.unadj       P.adj
@@ -247,6 +379,28 @@ dunnTest(pH~pond,data=ponds2,two.sided=FALSE)
 # warning message if incomplete cases were removed
 dunnTest(pH~pond,data=ponds)
 #> Warning: Some rows deleted from 'x' and 'g' because missing data.
+#>   Kruskal-Wallis rank sum test
+#> 
+#> data: x and g
+#> Kruskal-Wallis chi-squared = 11.9435, df = 3, p-value = 0.01
+#> 
+#>                       Dunn's Pairwise Comparison of x by g                      
+#>                                      (Holm)                                     
+#> 
+#> Col Mean-│
+#> Row Mean │          1          2          3
+#> ─────────┼─────────────────────────────────
+#>        2 │  -2.137006
+#>          │     0.1304 
+#>          │
+#>        3 │  -2.949348  -0.884805
+#>          │     0.0159*    1.0000 
+#>          │
+#>        4 │  -2.991808  -0.854803   0.058987
+#>          │     0.0166*    0.7853     0.9530 
+#> 
+#> FWER = 0.05
+#> Reject Ho if adjusted p ≤ FWER with stopping rule, where (unadjusted) p = Pr(|Z| ≥ |z|)
 #> Dunn (1964) Kruskal-Wallis multiple comparison
 #>   p-values adjusted with the Holm method.
 #>   Comparison           Z     P.unadj      P.adj
@@ -259,27 +413,28 @@ dunnTest(pH~pond,data=ponds)
 
 # print dunn.test results
 tmp <- dunnTest(pH~pond,data=ponds2)
+#>   Kruskal-Wallis rank sum test
+#> 
+#> data: x and g
+#> Kruskal-Wallis chi-squared = 11.9435, df = 3, p-value = 0.01
+#> 
+#>                       Dunn's Pairwise Comparison of x by g                      
+#>                                      (Holm)                                     
+#> 
+#> Col Mean-│
+#> Row Mean │          1          2          3
+#> ─────────┼─────────────────────────────────
+#>        2 │  -2.137006
+#>          │     0.1304 
+#>          │
+#>        3 │  -2.949348  -0.884805
+#>          │     0.0159*    1.0000 
+#>          │
+#>        4 │  -2.991808  -0.854803   0.058987
+#>          │     0.0166*    0.7853     0.9530 
+#> 
+#> FWER = 0.05
+#> Reject Ho if adjusted p ≤ FWER with stopping rule, where (unadjusted) p = Pr(|Z| ≥ |z|)
 print(tmp,dunn.test.results=TRUE)
-#>   Kruskal-Wallis rank sum test 
-#>   
-#>  data: x and g 
-#>  Kruskal-Wallis chi-squared = 11.9435, df = 3, p-value = 0.01 
-#>   
-#>   
-#>                               Comparison of x by g                               
-#>                                      (Holm)                                      
-#>  Col Mean-| 
-#>  Row Mean |          1          2          3 
-#>  ---------+--------------------------------- 
-#>         2 |  -2.137006 
-#>           |     0.1304 
-#>           | 
-#>         3 |  -2.949348  -0.884804 
-#>           |    0.0159*     1.0000 
-#>           | 
-#>         4 |  -2.991808  -0.854802   0.058986 
-#>           |    0.0166*     0.7853     0.9530 
-#>   
-#>  alpha = 0.05 
-#>  Reject Ho if p <= alpha 
+#>  
 ```

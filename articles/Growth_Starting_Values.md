@@ -28,143 +28,153 @@ here.
 ### von Bertalanffy Length-at-Age
 
 `FSA` provides a wide variety of von Bertalanffy parameterizations for
-modeling simple length-at-age data ([Table 1](#tbl-VBparams1)).[¹](#fn1)
+modeling simple length-at-age data ([Table 1](#tbl-VBparams1)).[^1]
 
-| param | Equation                                                                                                                                                                 |
-|:-----:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|   1   | $E\left( L_{t} \right) = L_{\infty}\left( 1 - e^{-K{(t - t_{0})}} \right)$                                                                                               |
-|   2   | $E\left( L_{t} \right) = L_{\infty} - \left( L_{\infty} - L_{0} \right)\ e^{-Kt}$                                                                                        |
-|   3   | $E\left( L_{t} \right) = \frac{\omega}{K}\left( 1 - e^{-K{(t - t_{0})}} \right)$                                                                                         |
-|   4   | $E\left( L_{t} \right) = L_{\infty} - \left( L_{\infty} - L_{0} \right)\ e^{-\frac{\omega}{L_{\infty}}t}$                                                                |
-|   5   | $E\left( L_{t} \right) = L_{\infty}\left( 1 - e^{-log{(2)}\frac{t - t_{0}}{t_{50} - t_{0}}} \right)$                                                                     |
-|   6   | $E\left( L_{t} \right) = L_{r} + \left( L_{\infty} - L_{r} \right)\ e^{-e^{-K{(t - t_{r})}}}$                                                                            |
-|   7   | $E\left( L_{t} \right) = L_{1} + \left( L_{3} - L_{1} \right)\frac{1 - e^{-K{(t - t_{1})}}}{1 - e^{-K{(t_{3} - t_{1})}}}$                                                |
-|   8   | $E\left( L_{t} \right) = L_{1} + \left( L_{3} - L_{1} \right)\frac{1 - r^{2\frac{t - t_{1}}{t_{3} - t_{1}}}}{1 - r^{2}}$ where $r = \frac{L_{3} - L_{2}}{L_{2} - L_{1}}$ |
+| param | Equation |
+|:--:|:---|
+| 1 | $`E(L_t) = L_\infty\left(1-e^{-K(t-t_0)}\right)`$ |
+| 2 | $`E(L_t) = L_\infty - (L_\infty-L_0)~e^{-Kt}`$ |
+| 3 | $`E(L_t) = \frac{\omega}{K}\left(1-e^{-K(t-t_0)}\right)`$ |
+| 4 | $`E(L_t) = L_\infty - (L_\infty-L_0)~e^{-\frac{\omega}{L_\infty}t}`$ |
+| 5 | $`E(L_t) = L_\infty\left(1-e^{-log(2)\frac{t-t_0}{t_{50}-t_0}}\right)`$ |
+| 6 | $`E(L_t) = L_r + (L_\infty-L_r)~e^{-e^{-K(t-t_r)}}`$ |
+| 7 | $`E(L_t) = L_1+(L_3-L_1)\frac{1-e^{-K(t-t_1)}}{1-e^{-K(t_3-t_1)}}`$ |
+| 8 | $`E(L_t) = L_1+(L_3-L_1)\frac{1-r^{2\frac{t-t_1}{t_3-t_1}}}{1-r^2}`$ where $`r=\frac{L_3-L_2}{L_2-L_1}`$ |
 
 Table 1: Parameterizations of the von Bertalanffy growth equation for
 length-at-age data available in `FSA`.
 
   
 
-The response variable, $L$, is length and the explanatory variable, $t$
-is age. Parameters in these growth functions are:
+The response variable, $`L`$, is length and the explanatory variable,
+$`t`$ is age. Parameters in these growth functions are:
 
-- $L_{\infty}$ = asymptotic mean length
-- $K$ = exponential rate of approach to $L_{\infty}$
-- $t_{0}$ = nuisance parameter that is the hypothetical time/age when
+- $`L_\infty`$ = asymptotic mean length
+- $`K`$ = exponential rate of approach to $`L_\infty`$
+- $`t_0`$ = nuisance parameter that is the hypothetical time/age when
   mean length is 0
-- $L_{0}$ = mean length at age-0 (i.e., hatching or birth)
-- $\omega$ = growth rate near $t_{0}$
-- $t_{50}$ = age when half of $L_{\infty}$ is reached
-- $t_{r}$ = mean age at $L_{r}$ (*sometimes this is a constant*)
-- $L_{r}$ = mean length at $t_{r}$ (*sometimes this is a constant*)
-- $L_{1}$ = mean length at $t_{1}$ (generally a younger age)
-- $L_{2}$ = mean length at $t_{2}$ (generally an intermediate age)
-- $L_{3}$ = mean length at $t_{3}$ (generally a older age)
+- $`L_0`$ = mean length at age-0 (i.e., hatching or birth)
+- $`\omega`$ = growth rate near $`t_0`$
+- $`t_{50}`$ = age when half of $`L_\infty`$ is reached
+- $`t_r`$ = mean age at $`L_r`$ (*sometimes this is a constant*)
+- $`L_r`$ = mean length at $`t_r`$ (*sometimes this is a constant*)
+- $`L_1`$ = mean length at $`t_1`$ (generally a younger age)
+- $`L_2`$ = mean length at $`t_2`$ (generally an intermediate age)
+- $`L_3`$ = mean length at $`t_3`$ (generally a older age)
 
 Constant values (i.e., set by the user) are:
 
-- $t_{r}$ = mean age at $L_{r}$ (*sometimes this is a parameter*)
-- $L_{r}$ = mean length at $t_{r}$ (*sometimes this is a parameter*)
-- $t_{1}$ = a younger (generally) age
-- $t_{2}$ = an age halfway between $t_{1}$ and $t_{2}$
-- $t_{3}$ = an older (generally) age
+- $`t_r`$ = mean age at $`L_r`$ (*sometimes this is a parameter*)
+- $`L_r`$ = mean length at $`t_r`$ (*sometimes this is a parameter*)
+- $`t_1`$ = a younger (generally) age
+- $`t_2`$ = an age halfway between $`t_1`$ and $`t_2`$
+- $`t_3`$ = an older (generally) age
 
   
 
 [`SSasymp()`](https://rdrr.io/r/stats/SSasymp.html) is a self-starting
-function[²](#fn2) to fit an “asymptotic regression” function to data.
-The parameterization for this function is[³](#fn3)
+function[^2] to fit an “asymptotic regression” function to data. The
+parameterization for this function is[^3]
 
-$$Y = \text{Asym} + \left( \text{R0} - \text{Asym} \right)\ e^{-e^{\text{lrc} \times \text{input}}}$$
+``` math
+ Y = \text{Asym}+(\text{R0}-\text{Asym})~e^{-e^{\text{lrc}\times\text{input}}} 
+```
 
-where $Y$ and $\text{input}$ are the response and explanatory variables,
-respectively, $\text{Asym}$ is a parameter for the horizontal (i.e.,
-$Y$) asymptote, $\text{R0}$ is a parameter related to the value of $Y$
-at $X = 0$, and $lrc$ is a “parameter representing the natural logarithm
-of the rate constant.”
+where $`Y`$ and $`\text{input}`$ are the response and explanatory
+variables, respectively, $`\text{Asym}`$ is a parameter for the
+horizontal (i.e., $`Y`$) asymptote, $`\text{R0}`$ is a parameter related
+to the value of $`Y`$ at $`X=0`$, and $`lrc`$ is a “parameter
+representing the natural logarithm of the rate constant.”
 
-In growth (in length) modeling, $Y$ is $L$ (for length); $\text{input}$
-is $t$ (for time as measured by age); $\text{Asym}$ is clearly
-$L_{\infty}$, the asympotic mean length; and $\text{R0}$ is clearly
-$L_{0}$, the mean length at $t = 0$ (i.e., the y-intercept). Thus, at
-this point, the R “asymptotic regression” function can be re-written for
-the purposes of growth modeling as
+In growth (in length) modeling, $`Y`$ is $`L`$ (for length);
+$`\text{input}`$ is $`t`$ (for time as measured by age); $`\text{Asym}`$
+is clearly $`L_{\infty}`$, the asympotic mean length; and $`\text{R0}`$
+is clearly $`L_0`$, the mean length at $`t=0`$ (i.e., the y-intercept).
+Thus, at this point, the R “asymptotic regression” function can be
+re-written for the purposes of growth modeling as
 
-$$L = L_{\infty} - \left( L_{\infty} - L_{0} \right)\ e^{-e^{\text{lrc} \times t}}$$
+``` math
+ L = L_\infty - (L_\infty-L_0)~e^{-e^{\text{lrc}\times t}} 
+```
 
-If we move $\text{lrc}$ off of the log scale by defining
-$K = e^{\text{lrc}}$, we can further write this function as
+If we move $`\text{lrc}`$ off of the log scale by defining
+$`K=e^{\text{lrc}}`$, we can further write this function as
 
-$$L = L_{\infty} - \left( L_{\infty} - L_{0} \right)\ e^{-Kt}\qquad(1)$$
+``` math
+ L = L_\infty - (L_\infty-L_0)~e^{-Kt}  \qquad(1)
+```
 
 [Equation 1](#eq-rSSasymp) is **exactly** the second parameterization of
-the von Bertalanffy growth function in `FSA`.[⁴](#fn4) Thus, the
-starting values produced by
-[`SSasymp()`](https://rdrr.io/r/stats/SSasymp.html) can be used directly
-to find starting values for the second parameterization of the von
-Bertalanffy growth function in `FSA` ([Table 2](#tbl-VBstarts1)). Indeed
-these values can be used for all parameterizations that have
-$L_{\infty}$, $L_{0}$, and $K$. Starting values for other parameters in
-other parameterizations are derived from these values as shown below.
+the von Bertalanffy growth function in `FSA`.[^4] Thus, the starting
+values produced by [`SSasymp()`](https://rdrr.io/r/stats/SSasymp.html)
+can be used directly to find starting values for the second
+parameterization of the von Bertalanffy growth function in `FSA`
+([Table 2](#tbl-VBstarts1)). Indeed these values can be used for all
+parameterizations that have $`L_\infty`$, $`L_0`$, and $`K`$. Starting
+values for other parameters in other parameterizations are derived from
+these values as shown below.
 
-A starting value for $t_{0}$, the “hypothetical time when the mean
-length is zero”, is derived by setting $L = 0$ in
-[Equation 1](#eq-rSSasymp) and solving for $t$.
+A starting value for $`t_0`$, the “hypothetical time when the mean
+length is zero”, is derived by setting $`L=0`$ in
+[Equation 1](#eq-rSSasymp) and solving for $`t`$.
 
-$$\begin{aligned}
-0 & {= L_{\infty} - \left( L_{\infty} - L_{0} \right)\ e^{-Kt}} \\
-L_{\infty} & {= \left( L_{\infty} - L_{0} \right)\ e^{-Kt}} \\
-\frac{L_{\infty}}{L_{\infty} - L_{0}} & {= e^{-Kt}} \\
-{log\left( \frac{L_{\infty}}{L_{\infty} - L_{0}} \right)} & {= -K} \\
-{-\frac{log\left( \frac{L_{\infty}}{L_{\infty} - L_{0}} \right)}{K}} & {= t}
-\end{aligned}$$
+``` math
+\begin{align}
+0 &= L_\infty - (L_\infty-L_0)~e^{-Kt}  \\
+L_\infty  &= (L_\infty-L_0)~e^{-Kt}  \\
+\frac{L_\infty}{L_\infty-L_0} &= e^{-Kt}  \\
+log\left(\frac{L_\infty}{L_\infty-L_0}\right) &= -K \\
+-\frac{log\left(\frac{L_\infty}{L_\infty-L_0}\right)}{K} &= t
+\end{align}
+```
 
-The $\omega$ parameter was introduced into the fisheries growth modeling
-literature as $\omega = KL_{\infty}$ (Gallucci and Quin 1979[⁵](#fn5)).
-Thus, a starting value for $\omega$ is simply the product of the
-starting values for $K$ and $L_{\infty}$.
+The $`\omega`$ parameter was introduced into the fisheries growth
+modeling literature as $`\omega=KL_\infty`$ (Gallucci and Quin
+1979[^5]). Thus, a starting value for $`\omega`$ is simply the product
+of the starting values for $`K`$ and $`L_\infty`$.
 
-A starting value for $t_{50}$ is derived (most easily) by solving the
-first parameterization equation for $t$ when
-$\frac{L}{L_{\infty}} = \frac{1}{2}$.
+A starting value for $`t_{50}`$ is derived (most easily) by solving the
+first parameterization equation for $`t`$ when
+$`\frac{L}{L_\infty}=\frac{1}{2}`$.
 
-$$\begin{aligned}
-L & {= L_{\infty}\left( 1 - e^{-K{(t - t_{0})}} \right)} \\
-\frac{L}{L_{\infty}} & {= 1 - e^{-K{(t - t_{0})}}} \\
-\frac{1}{2} & {= 1 - e^{-K{(t_{50} - t_{0})}}} \\
-e^{-K{(t_{50} - t_{0})}} & {= \frac{1}{2}} \\
-{-K\left( t_{50} - t_{0} \right)} & {= log\left( \frac{1}{2} \right)} \\
-{t_{50} - t_{0}} & {= \frac{log(2)}{K}} \\
-t_{50} & {= t_{0} + \frac{log(2)}{K}}
-\end{aligned}$$
+``` math
+\begin{align}
+L &= L_\infty\left(1-e^{-K(t-t_0)}\right) \\
+\frac{L}{L_\infty} &= 1-e^{-K(t-t_0)} \\
+\frac{1}{2} &= 1-e^{-K(t_{50}-t_0)} \\
+e^{-K(t_{50}-t_0)} &= \frac{1}{2} \\
+-K(t_{50}-t_0) &= log\left(\frac{1}{2}\right) \\
+t_{50}-t_0 &= \frac{log(2)}{K} \\
+t_{50} &= t_0+\frac{log(2)}{K}
+\end{align}
+```
 
-A starting value for $L_{r}$ (i.e., mean length at time $t_{r}$) can be
-found by simply plugging $t_{r}$ into any parameterization[⁶](#fn6) and
-solving for $L$. This strategy generalizes to find starting values for
-$L_{1}$, $L_{2}$, and $L_{3}$.
+A starting value for $`L_r`$ (i.e., mean length at time $`t_r`$) can be
+found by simply plugging $`t_r`$ into any parameterization[^6] and
+solving for $`L`$. This strategy generalizes to find starting values for
+$`L_1`$, $`L_2`$, and $`L_3`$.
 
-A starting value for $t_{r}$ can be found by plugging $L_{r}$ for $L$
-into any of the parameterizations and solving for $t$.
+A starting value for $`t_r`$ can be found by plugging $`L_r`$ for $`L`$
+into any of the parameterizations and solving for $`t`$.
 
   
 
-| Param | $L_{\infty}$  | $L_{0}$     | $K$              | $\omega$      | $t_{0}$                                                              | $t_{50}$                   |
-|:-----:|---------------|-------------|------------------|---------------|----------------------------------------------------------------------|----------------------------|
-|   1   | $\text{Asym}$ |             | $e^{\text{lrc}}$ |               | $-\frac{log\left( \frac{L_{\infty}}{L_{\infty} - L_{0}} \right)}{K}$ |                            |
-|   2   | $\text{Asym}$ | $\text{R0}$ | $e^{\text{lrc}}$ |               |                                                                      |                            |
-|   3   |               |             | $e^{\text{lrc}}$ | $KL_{\infty}$ | $-\frac{log\left( \frac{L_{\infty}}{L_{\infty} - L_{0}} \right)}{K}$ |                            |
-|   4   | $\text{Asym}$ | $\text{R0}$ |                  | $KL_{\infty}$ |                                                                      |                            |
-|   5   | $\text{Asym}$ |             |                  |               | $-\frac{log\left( \frac{L_{\infty}}{L_{\infty} - L_{0}} \right)}{K}$ | $t_{0} + \frac{log(2)}{K}$ |
-|   6   | $\text{Asym}$ |             | $e^{\text{lrc}}$ |               |                                                                      |                            |
-|   7   |               |             | $e^{\text{lrc}}$ |               |                                                                      |                            |
+| Param | $`L_\infty`$ | $`L_0`$ | $`K`$ | $`\omega`$ | $`t_0`$ | $`t_{50}`$ |
+|:--:|----|----|----|----|----|----|
+| 1 | $`\text{Asym}`$ |  | $`e^{\text{lrc}}`$ |  | $`-\frac{log\left(\frac{L_\infty}{L_\infty-L_0}\right)}{K}`$ |  |
+| 2 | $`\text{Asym}`$ | $`\text{R0}`$ | $`e^{\text{lrc}}`$ |  |  |  |
+| 3 |  |  | $`e^{\text{lrc}}`$ | $`KL_\infty`$ | $`-\frac{log\left(\frac{L_\infty}{L_\infty-L_0}\right)}{K}`$ |  |
+| 4 | $`\text{Asym}`$ | $`\text{R0}`$ |  | $`KL_\infty`$ |  |  |
+| 5 | $`\text{Asym}`$ |  |  |  | $`-\frac{log\left(\frac{L_\infty}{L_\infty-L_0}\right)}{K}`$ | $`t_0+\frac{log(2)}{K}`$ |
+| 6 | $`\text{Asym}`$ |  | $`e^{\text{lrc}}`$ |  |  |  |
+| 7 |  |  | $`e^{\text{lrc}}`$ |  |  |  |
 
 Table 2: Conversion from
 [`SSasymp()`](https://rdrr.io/r/stats/SSasymp.html) parameters
-($\text{Asym}$, $\text{R0}$, and $\text{lrc}$) to parameters for the
-common von Bertalanffy parameterizations used to model fish growth in
-`FSA`. Note that parameterizations 6, 7, and 8 have other parameters not
-shown in this table (but described in the main text).
+($`\text{Asym}`$, $`\text{R0}`$, and $`\text{lrc}`$) to parameters for
+the common von Bertalanffy parameterizations used to model fish growth
+in `FSA`. Note that parameterizations 6, 7, and 8 have other parameters
+not shown in this table (but described in the main text).
 
   
 
@@ -175,7 +185,7 @@ parameterizations is shown in [Figure 1](#fig-vbstarts).
 
 Figure 1: Parameterizations 1-8 of the von Bertalanffy growth functions
 evaluated at starting values derived from the parameters of `SSasymp`
-($\text{Asym}$=450, $\text{R0}$=25, and $lrc$=-1.2). The linewidth
+($`\text{Asym}`$=450, $`\text{R0}`$=25, and $`lrc`$=-1.2). The linewidth
 decreases from the first to last parameterization (and the color
 differs) to show how the curves are plotted on top of each other.
 
@@ -183,11 +193,11 @@ differs) to show how the curves are plotted on top of each other.
 
 The ninth parameterization ([Table 3](#tbl-VBparams2)) of the von
 Bertalanffy model in `FSA` is a so-called “double von Bertalanffy”
-model.[⁷](#fn7)
+model.[^7]
 
-| param | Equation                                                                                                                                                                           |
-|:-----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|   9   | $E\left( L_{t} \right) = L_{\infty}\frac{\left( 1 - e^{-K_{2}{(t - t_{0})}} \right)\left( 1 + e^{-b{(t - t_{0} - a)}} \right)}{\left( 1 + e^{ab} \right)^{-\frac{K_{2}K_{1}}{b}}}$ |
+| param | Equation |
+|:--:|:---|
+| 9 | $`E(L_t) = L_\infty\frac{\left(1-e^{-K_2(t-t_0)}\right)\left(1+e^{-b(t-t_0-a)}\right)}{\left(1+e^{ab}\right)^{-\frac{K_2K_1}{b}}}`$ |
 
 Table 3: Parameterizations of the von Bertalanffy growth equation for
 length-at-age data available in `FSA`.
@@ -207,40 +217,40 @@ recorded annually ([Table 4](#tbl-VBparams3)).
 
   
 
-| param | Equation                                                                                                                                                                                                                        |
-|:-----:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|  10   | $E\left( L_{t} \right) = L_{\infty}\left\lbrack 1 - e^{-K{(t - t_{0})} - S{(t)} + S{(t_{0})}} \right\rbrack$ where $S(t) = \frac{CK}{2\pi}sin\left( 2\pi\left( t - t_{s} \right) \right)$                                       |
-|  11   | $E\left( L_{t} \right) = L_{\infty}\left\lbrack 1 - e^{-K{(t - t_{0})} - R{(t)} + R{(t_{0})}} \right\rbrack$ where $R(t) = \frac{CK}{2\pi}sin\left( 2\pi(t - WP + 0.5) \right)$                                                 |
-|  12   | $E\left( L_{t} \right) = L_{\infty}\left( 1 - e^{-K\prime{(t\prime - t_{0})} - V{(t\prime)} + V{(t_{0})}} \right)$ where $V(t) = \frac{K\prime(1 - NGT)}{2\pi}sin\left( \frac{2\pi}{(1 - NGT)}\left( t - t_{s} \right) \right)$ |
+| param | Equation |
+|:--:|:---|
+| 10 | $`E(L_t) = L_\infty\left[1-e^{-K(t-t_0)-S(t)+S(t_0)}\right]`$ where $`S(t)=\frac{CK}{2\pi} sin(2\pi(t-t_s))`$ |
+| 11 | $`E(L_t) = L_\infty\left[1-e^{-K(t-t_0)-R(t)+R(t_0)}\right]`$ where $`R(t)=\frac{CK}{2\pi} sin(2\pi(t-WP+0.5))`$ |
+| 12 | $`E(L_t) = L_\infty(1-e^{-K'(t'-t_0)-V(t')+V(t_0)})`$ where $`V(t)= \frac{K'(1-NGT)}{2\pi}sin(\frac{2\pi}{(1-NGT)}(t-t_s))`$ |
 
 Table 4: Parameterizations of the von Bertalanffy growth equation for
 length-at-age data with a seasonal component available in `FSA`.
 
   
 
-New parameters in these growth functions are:[⁸](#fn8)
+New parameters in these growth functions are:[^8]
 
-- $C$ = proportional growth depression at “winter peak”
-- $t_{s}$ = time from $t = 0$ until first growth oscillation begins
-- $WP$ = “winter peak” (point of slowest growth)
-- $K\prime$ = exponential rate of approach to $L_{\infty}$ during the
+- $`C`$ = proportional growth depression at “winter peak”
+- $`t_s`$ = time from $`t=0`$ until first growth oscillation begins
+- $`WP`$ = “winter peak” (point of slowest growth)
+- $`K'`$ = exponential rate of approach to $`L_\infty`$ during the
   growth period
-- $NGT$ = length of “no-growth period”
+- $`NGT`$ = length of “no-growth period”
 
   
 
-Starting values for $L_{\infty}$, $K$, and $t_{0}$ are derived as if the
-data were recorded as *annual* lengths-at-age. Starting values for the
-other parameters are defined *ad hoc* as follows.
+Starting values for $`L_\infty`$, $`K`$, and $`t_0`$ are derived as if
+the data were recorded as *annual* lengths-at-age. Starting values for
+the other parameters are defined *ad hoc* as follows.
 
-- $C$ set at an intermediate value of 0.5
-- $t_{s}$ set at 0.3, a likely fraction of the year for growth to start
+- $`C`$ set at an intermediate value of 0.5
+- $`t_s`$ set at 0.3, a likely fraction of the year for growth to start
   in the northern hemisphere.
-- $WP$ set at 0.8, because $WP = t_{2} + 0.5$
-- $NGT$ set at 0.3, a likely fraction of the year for “no growth” in the
-  northern hemisphere.
-- $K\prime$ set at $\frac{K}{(1 - NGT)}$, assuming that $K$ was only
-  over the “growth period” (i.e., $1 - NGT$).
+- $`WP`$ set at 0.8, because $`WP=t_2+0.5`$
+- $`NGT`$ set at 0.3, a likely fraction of the year for “no growth” in
+  the northern hemisphere.
+- $`K'`$ set at $`\frac{K}{(1-NGT)}`$, assuming that $`K`$ was only over
+  the “growth period” (i.e., $`1-NGT`$).
 
 Starting values for the seasonal growth models are much less tested than
 those for annual growth models. Please consider them carefully.
@@ -250,36 +260,37 @@ those for annual growth models. Please consider them carefully.
 Still other parameterizations of the von Bertalanffy model are used with
 tag-recapture data ([Table 5](#tbl-VBparams4)).
 
-| param | Equation                                                                                                                                                                                                                                                                                                                                                                                                     |
-|:-----:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|  13   | $E\left( L_{r} - L_{m} \right) = \left( L_{\infty} - L_{m} \right)\left( 1 - e^{-K\delta t} \right)$                                                                                                                                                                                                                                                                                                         |
-|  14   | $E\left( L_{r} \right) = L_{m} + \left( L_{\infty} - L_{m} \right)\left( 1 - e^{-K\delta t} \right)$                                                                                                                                                                                                                                                                                                         |
-|  15   | $E\left( L_{r} - L_{m} \right) = \left( L_{\infty} + \beta\left( L_{m} - {\bar{L}}_{m} \right) - L_{m} \right)\left( 1 - e^{-K\delta t} \right)$                                                                                                                                                                                                                                                             |
-|  16   | $E\left( L_{r} - L_{m} \right) = \left( \alpha + \beta L_{m} \right)\left( 1 - e^{-K\delta t} \right)$                                                                                                                                                                                                                                                                                                       |
-|  17   | $E\left( L_{r} \right) = L_{m} + \left( \alpha + \beta L_{m} \right)\left( 1 - e^{-K\delta t} \right)$                                                                                                                                                                                                                                                                                                       |
-|  18   | $E\left( L_{r} - L_{m} \right) = \left\lbrack \frac{L_{2}g_{1} - L_{1}g_{2}}{g_{1} - g_{2}} - L_{m} \right\rbrack\left\lbrack 1 - \left( 1 + \frac{g_{1} - g_{2}}{L_{1} - L_{2}} \right)^{\delta t} \right\rbrack$                                                                                                                                                                                           |
-|  19   | $E\left( L_{r} - L_{m} \right) = \left\lbrack \frac{L_{2}g_{1} - L_{1}g_{2}}{g_{1} - g_{2}} - L_{m} \right\rbrack\left\lbrack 1 - \left( 1 + \frac{g_{1} - g_{2}}{L_{1} + L_{2}} \right)^{t_{2} - t_{1} + S_{2} - S_{1}} \right\rbrack$ with $S_{1} = u\text{sin}\left( \frac{2\pi\left( t_{1} - w \right)}{2\pi} \right)$ and $S_{2} = u\text{sin}\left( \frac{2\pi\left( t_{2} - w \right)}{2\pi} \right)$ |
+| param | Equation |
+|:--:|:---|
+| 13 | $`E(L_r-L_m)=(L_\infty-L_m)\left(1-e^{-K\delta t}\right)`$ |
+| 14 | $`E(L_r)=L_m + (L_\infty-L_m)\left(1-e^{-K\delta t}\right)`$ |
+| 15 | $`E(L_r-L_m)=(L_\infty+\beta(L_m-\bar{L}_m)-L_m)\left(1-e^{-K\delta t}\right)`$ |
+| 16 | $`E(L_r-L_m)=(\alpha+\beta L_m)\left(1-e^{-K\delta t}\right)`$ |
+| 17 | $`E(L_r)=L_m+(\alpha+\beta L_m)\left(1-e^{-K\delta t}\right)`$ |
+| 18 | $`E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1-L_2}\right)^{\delta t}\right]`$ |
+| 19 | $`E(L_r-L_m)=\left[\frac{L_2g_1-L_1g_2}{g_1-g_2}-L_m\right]\left[1-\left(1+\frac{g_1-g_2}{L_1+L_2}\right)^{t_2-t_1+S_2-S_1}\right]`$ with $`S_1=u\text{sin}\left(\frac{2\pi(t_1-w)}{2\pi}\right)`$ and $`S_2=u\text{sin}\left(\frac{2\pi(t_2-w)}{2\pi}\right)`$ |
 
 Table 5: Parameterizations of the von Bertalanffy growth equation for
 length at tag and recapture data available in `FSA`.
 
 The response variable is generally the change in length (i.e., growth
-increment) from time of tagging to time of recapture, $L_{r} - L_{m}$.
-Some models are parameterized to have $L_{m}$ on the right-hand-side
-though. The explanatory variable is the change in time between the time
-of tagging and recapture, $\delta t$.
+increment) from time of tagging to time of recapture, $`L_r-L_m`$. Some
+models are parameterized to have $`L_m`$ on the right-hand-side though.
+The explanatory variable is the change in time between the time of
+tagging and recapture, $`\delta t`$.
 
 New parameters in these growth functions are:
 
-- $\beta$ = a measure of individual fish variability.
-- $\alpha$ = a nuisance parameter related to $L_{\infty}$ and an
-  individual’s $L_{m}$.
-- $g_{1}$ = mean annual growth rate at the (relatively small) reference
-  length $L_{1}$.
-- $g_{2}$ = mean annual growth rate at the (relatively large) reference
-  length $L_{2}$.
-- $u$ = describes “the extent of seasonality” ($u$=0 is no seasonality).
-- $w$ = is the time of year when growth rates are maximum.
+- $`\beta`$ = a measure of individual fish variability.
+- $`\alpha`$ = a nuisance parameter related to $`L_\infty`$ and an
+  individual’s $`L_m`$.
+- $`g_1`$ = mean annual growth rate at the (relatively small) reference
+  length $`L_1`$.
+- $`g_2`$ = mean annual growth rate at the (relatively large) reference
+  length $`L_2`$.
+- $`u`$ = describes “the extent of seasonality” ($`u`$=0 is no
+  seasonality).
+- $`w`$ = is the time of year when growth rates are maximum.
 
   
 
@@ -287,25 +298,24 @@ Starting values for (most of) these parameters were developed with the
 following *ad hoc* procedure.
 
 - Regress (linear) observed annual growth rate (i.e.,
-  $\frac{\delta L}{\delta t}$ or $\frac{L_{r} - L_{m}}{t_{r} - t_{m}}$)
-  on observed length-at-marking (i.e., $L_{m}$).
-- Use this model to predict annual growth rates ($g_{1}$ and $g_{2}$) at
-  $L_{1}$ and $L_{2}$. \[$L_{1}$ and $L_{2}$ are chosen by the user in
+  $`\frac{\delta L}{\delta t}`$ or $`\frac{L_r-L_m}{t_r-t_m}`$) on
+  observed length-at-marking (i.e., $`L_m`$).
+- Use this model to predict annual growth rates ($`g_1`$ and $`g_2`$) at
+  $`L_1`$ and $`L_2`$. \[$`L_1`$ and $`L_2`$ are chosen by the user in
   parameterization 18, but are set in `FSA` at the 10th and 90th
-  percentiles of observed $L_{m}$ for the other parameterizations.\]
-- Use these results in
-  $L_{\infty} = \frac{L_{2}g_{1} - L_{1}g_{2}}{L1 - L2}$ and
-  $K = -log\left\lbrack 1 + \frac{g_{1} - g_{2}}{L_{1} - L_{2}} \right\rbrack$
-  from Francis (1988).
+  percentiles of observed $`L_m`$ for the other parameterizations.\]
+- Use these results in $`L_\infty=\frac{L_2g_1-L_1g_2}{L1-L2}`$ and
+  $`K=-log\left[1+\frac{g_1-g_2}{L_1-L_2}\right]`$ from Francis (1988).
 
-In the Wang models $\beta$ is 0 if there is no individual variation in
-growth. In my experience a starting value for $\beta$ near 0, but no 0,
-is usually sufficient. `FSA` defaults to use $\beta = 0.1$ as a starting
-value. A starting value for $\alpha$ of $L_{\infty} - {\bar{L}}_{m}$ is
-used by noting that if $\beta = 0$ then parameterizations 15 and 16 are
-equal when $\alpha = L_{\infty} - L_{m}$. An average $\alpha$ can be
-estimated by using ${\bar{L}}_{m}$ for $L_{m}$. These starting values
-for $\alpha$ and $\beta$ have not been rigorously tested.
+In the Wang models $`\beta`$ is 0 if there is no individual variation in
+growth. In my experience a starting value for $`\beta`$ near 0, but no
+0, is usually sufficient. `FSA` defaults to use $`\beta=0.1`$ as a
+starting value. A starting value for $`\alpha`$ of
+$`L_\infty-\bar{L}_m`$ is used by noting that if $`\beta=0`$ then
+parameterizations 15 and 16 are equal when $`\alpha=L_\infty-L_m`$. An
+average $`\alpha`$ can be estimated by using $`\bar{L}_m`$ for $`L_m`$.
+These starting values for $`\alpha`$ and $`\beta`$ have not been
+rigorously tested.
 
 > **Warning**
 >
@@ -320,137 +330,146 @@ for $\alpha$ and $\beta$ have not been rigorously tested.
 `FSA` provides several parameterizations of the Gompertz function for
 modeling simple length-at-age data ([Table 6](#tbl-Gompparams1)).
 
-| param | Equation                                                                        |
-|:-----:|:--------------------------------------------------------------------------------|
-|   1   | $E\left( L_{t} \right) = L_{\infty}e^{-e^{a_{1} - g_{i}t}}$                     |
-|   2   | $E\left( L_{t} \right) = L_{\infty}e^{-e^{-g_{i}{(t - t_{i})}}}$                |
-|   3   | $E\left( L_{t} \right) = L_{0}e^{a_{2}{(1 - e^{-g_{i}t})}}$                     |
-|   4   | $E\left( L_{t} \right) = L_{\infty}e^{-a_{2}e^{-g_{i}t}}$                       |
-|   5   | $E\left( L_{t} \right) = L_{\infty}e^{-\frac{1}{g_{i}}e^{-g_{i}{(t - t_{0})}}}$ |
+| param | Equation                                                |
+|:-----:|:--------------------------------------------------------|
+|   1   | $`E(L_t) = L_\infty e^{-e^{a_1-g_it}}`$                 |
+|   2   | $`E(L_t) = L_\infty e^{-e^{-g_i(t-t_i)}}`$              |
+|   3   | $`E(L_t) = L_0 e^{a_2(1-e^{-g_it})}`$                   |
+|   4   | $`E(L_t) = L_\infty e^{-a_2e^{-g_it}}`$                 |
+|   5   | $`E(L_t) = L_\infty e^{-\frac{1}{g_i}e^{-g_i(t-t_0)}}`$ |
 
 Table 6: Parameterizations of the Gompertz growth equation for
 length-at-age data available in `FSA`.
 
   
 
-New parameters in these growth functions are:[⁹](#fn9)
+New parameters in these growth functions are:[^9]
 
-- $t_{i}$ = age at the inflection point
-- $g_{i}$ = instantaneous growth rate at $t_{i}$, the inflection point
-- $a_{1}$, $a_{2}$ = nuisance parameters with no biological meaning
+- $`t_i`$ = age at the inflection point
+- $`g_i`$ = instantaneous growth rate at $`t_i`$, the inflection point
+- $`a_1`$, $`a_2`$ = nuisance parameters with no biological meaning
 
   
 
 [`SSgompertz()`](https://rdrr.io/r/stats/SSgompertz.html) is a
-self-starting function[¹⁰](#fn10) to fit a Gompertz function to data.
-The parameterization for this function is[¹¹](#fn11)
+self-starting function[^10] to fit a Gompertz function to data. The
+parameterization for this function is[^11]
 
-$$Y = \text{Asym}\ e^{-b_{2}b_{3}^{X}}$$
+``` math
+ Y = \text{Asym}~e^{-b_2b_3^X} 
+```
 
-where $Y$ and $X$ are the response and explanatory variables,
-respectively, $\text{Asym}$ is a parameter for the horizontal (i.e.,
-$Y$) asymptote, $b_{2}$ is a parameter related to the value of $Y$ at
-$X = 0$, and $b_{3}$ is a “parameter related to the scale of the
+where $`Y`$ and $`X`$ are the response and explanatory variables,
+respectively, $`\text{Asym}`$ is a parameter for the horizontal (i.e.,
+$`Y`$) asymptote, $`b_2`$ is a parameter related to the value of $`Y`$
+at $`X=0`$, and $`b_3`$ is a “parameter related to the scale of the
 x-axis.”
 
-In growth (in length) modeling, $Y$ is $L$ (for length), $X$ is $t$ (for
-time as measured by age), and $\text{Asym}$ is clearly $L_{\infty}$.
-Thus, at this point, the Gompertz function from
+In growth (in length) modeling, $`Y`$ is $`L`$ (for length), $`X`$ is
+$`t`$ (for time as measured by age), and $`\text{Asym}`$ is clearly
+$`L_{\infty}`$. Thus, at this point, the Gompertz function from
 [`SSgompertz()`](https://rdrr.io/r/stats/SSgompertz.html) can be
 re-written for the purposes of growth modeling as
 
-$$L = L_{\infty}e^{-b_{2}b_{3}^{t}}\qquad(2)$$
+``` math
+ L = L_\infty e^{-b_2b_3^t}  \qquad(2)
+```
 
-It is not immediately clear how $b_{2}$ and $b_{3}$ relate to parameters
+It is not immediately clear how $`b_2`$ and $`b_3`$ relate to parameters
 from common parameterizations of the Gompertz functions used to model
 fish growth. These will be explained below.
 
 The first parameterization differs from [Equation 2](#eq-rSSgomp) only
-in the exponent of $e$ (after the negative). This part of the equation
+in the exponent of $`e`$ (after the negative). This part of the equation
 for the first parameterization can be rearranged as follows
 
-$$\begin{aligned}
- & e^{(a - g_{i}t)} \\
- & {e^{a_{1}}e^{-g_{i}t)}}
-\end{aligned}$$
+``` math
+\begin{align}
+& e^{(a-g_it)} \\
+& e^{a_1}e^{-g_it)}
+\end{align}
+```
 
-If $b_{2} = e^{a_{1}}$ and $b_{3} = e^{-g_{i}}$ then this simplified
-exponent is the same as the exponent in [Equation 2](#eq-rSSgomp). Thus,
-$g_{i} = -log\left( b_{3} \right)$ and $a_{1} = log\left( b_{2} \right)$
-(and, of course, $L_{\infty} = \text{Asym}$).
+If $`b_2=e^{a_1}`$ and $`b_3=e^{-g_i}`$ then this simplified exponent is
+the same as the exponent in [Equation 2](#eq-rSSgomp). Thus,
+$`g_i=-log(b_3)`$ and $`a_1=log(b_2)`$ (and, of course,
+$`L_\infty=\text{Asym}`$).
 
 Similarly, the second parameterization also only differs from
-[Equation 2](#eq-rSSgomp) after the negative in the exponent of $e$.
+[Equation 2](#eq-rSSgomp) after the negative in the exponent of $`e`$.
 Again, simplifying this exponent gives
 
-$$\begin{aligned}
- & e^{-g_{i}{(t - t_{i})}} \\
- & e^{-g_{i}t + g_{i}t_{i}} \\
- & {e^{-g_{i}t}e^{g_{i}t_{i}}} \\
- & {e^{g_{i}t_{i}}e^{-g_{i}t}}
-\end{aligned}$$
+``` math
+\begin{align}
+& e^{-g_i(t-t_i)} \\
+& e^{-g_it+g_it_i} \\
+& e^{-g_it}e^{g_it_i} \\
+& e^{g_it_i}e^{-g_it}
+\end{align}
+```
 
-If $b_{2} = e^{g_{i}t_{i}}$ and $b_{3} = e^{-g_{i}}$ then this
-simplified exponent is the same as the exponent in
-[Equation 2](#eq-rSSgomp). Thus, $g_{i} = -log\left( b_{3} \right)$ and
-$t_{i} = \frac{log\left( b_{2} \right)}{g_{i}}$.
+If $`b_2=e^{g_it_i}`$ and $`b_3=e^{-g_i}`$ then this simplified exponent
+is the same as the exponent in [Equation 2](#eq-rSSgomp). Thus,
+$`g_i=-log(b_3)`$ and $`t_i=\frac{log(b_2)}{g_i}`$.
 
 There is no asymptote in the third parameterizations, so the entire
 function must be manipulated to show equivalence to
 [Equation 2](#eq-rSSgomp).
 
-$$\begin{aligned}
- & {L_{0}e^{a_{2}{(1 - e^{-g_{i}t})}}} \\
- & {L_{0}e^{a_{2} - a_{2}e^{-g_{i}t}}} \\
- & {L_{0}e^{a_{2}}e^{-a_{2}e^{-g_{i}t}}} \\
- & 
-\end{aligned}$$ If $L_{\infty} = L_{0}e^{a_{2}}$, $b_{2} = a_{2}$, and,
-again, $b_{3} = e^{-g_{i}}$ then the third parameterization is
-equivalent to [Equation 2](#eq-rSSgomp). Thus, $a_{2} = b_{2}$,
-$g_{i} = -log\left( b_{3} \right)$, and
-$L_{0} = \frac{L_{\infty}}{e^{a_{2}}}$.
+``` math
+\begin{align}
+& L_0 e^{a_2(1-e^{-g_it})} \\
+& L_0 e^{a_2-a_2e^{-g_it}} \\
+& L_0 e^{a_2}e^{-a_2e^{-g_it}} \\
+\end{align}
+```
+If $`L_\infty=L_0e^{a_2}`$, $`b_2=a_{2}`$, and, again, $`b_3=e^{-g_i}`$
+then the third parameterization is equivalent to
+[Equation 2](#eq-rSSgomp). Thus, $`a_2=b_2`$, $`g_i=-log(b_3)`$, and
+$`L_0=\frac{L_\infty}{e^{a_2}}`$.
 
 The fourth parameterization is equal to [Equation 2](#eq-rSSgomp) if
-$b_{2} = a_{2}$ and $b_{3} = e^{-g_{i}}$. Thus, again $a_{2} = b_{2}$
-and $g_{i} = -log\left( b_{3} \right)$ (and, of course,
-$L_{\infty} = \text{Asym}$).
+$`b_2=a_2`$ and $`b_3=e^{-g_i}`$. Thus, again $`a_2=b_2`$ and
+$`g_i=-log(b_3)`$ (and, of course, $`L_\infty=\text{Asym}`$).
 
-The fifth parameterization includes $t_{0}$ which appears to be defined,
+The fifth parameterization includes $`t_0`$ which appears to be defined,
 as in the von Bertalanffy function, as the age where the mean length is
 zero (i.e., the x-intercept). The three-parameter Gompertz function used
-here has a lower asymptote at $L = 0$ and, thus, does not have an
-x-intercept. Therefore, it is not exactly clear what $t_{0}$ is.
-However, again, the exponent of $e$ (after the negative) of the fifth
+here has a lower asymptote at $`L=0`$ and, thus, does not have an
+x-intercept. Therefore, it is not exactly clear what $`t_0`$ is.
+However, again, the exponent of $`e`$ (after the negative) of the fifth
 parameterizations can be rearranged
 
-$$\begin{aligned}
- & {\frac{1}{g_{i}}e^{-g_{i}{(t - t_{0})}}} \\
- & {\frac{1}{g_{i}}e^{-g_{i}t + g_{i}t_{0}}} \\
- & {\frac{1}{g_{i}}e^{-g_{i}t}e^{g_{i}t_{0}}} \\
- & {\frac{1}{g_{i}}e^{g_{i}t_{0}}e^{-g_{i}t}}
-\end{aligned}$$
+``` math
+\begin{align}
+& \frac{1}{g_i}e^{-g_i(t-t_0)} \\
+& \frac{1}{g_i}e^{-g_it+g_it_0} \\
+& \frac{1}{g_i}e^{-g_it}e^{g_it_0} \\
+& \frac{1}{g_i}e^{g_it_0}e^{-g_it}
+\end{align}
+```
 
-If $b_{2} = \frac{1}{g_{i}}e^{g_{i}t_{0}}$ and $b_{3} = e^{-g_{i}}$,
-then this simplified exponent is the same as the exponent in
-[Equation 2](#eq-rSSgomp). Thus, $g_{i} = -log\left( b_{3} \right)$ and
-$t_{0} = \frac{log\left( b_{2}g_{i} \right)}{g_{i}}$ (and, of course,
-$L_{\infty} = \text{Asym}$).
+If $`b_2=\frac{1}{g_i}e^{g_it_0}`$ and $`b_3=e^{-g_i}`$, then this
+simplified exponent is the same as the exponent in
+[Equation 2](#eq-rSSgomp). Thus, $`g_i=-log(b_3)`$ and
+$`t_0=\frac{log(b_2g_i)}{g_i}`$ (and, of course,
+$`L_\infty=\text{Asym}`$).
 
 These findings are summarized in [Table 7](#tbl-gompStarts).
 
   
 
-| param | $L_{\infty}$  | $L_{0}$                        | $g_{i}$                    | $t_{i}$                                 | $t_{0}$                                      | $a_{\text{\#}}$           |
-|:-----:|---------------|--------------------------------|----------------------------|-----------------------------------------|----------------------------------------------|---------------------------|
-|   1   | $\text{Asym}$ |                                | $-log\left( b_{3} \right)$ |                                         |                                              | $log\left( b_{2} \right)$ |
-|   2   | $\text{Asym}$ |                                | $-log\left( b_{3} \right)$ | $\frac{log\left( b_{2} \right)}{g_{i}}$ |                                              |                           |
-|   3   |               | $\frac{L_{\infty}}{e^{b_{2}}}$ | $-log\left( b_{3} \right)$ |                                         |                                              | $b_{2}$                   |
-|   4   | $\text{Asym}$ |                                | $-log\left( b_{3} \right)$ |                                         |                                              | $b_{2}$                   |
-|   5   | $\text{Asym}$ |                                | $-log\left( b_{3} \right)$ |                                         | $\frac{log\left( b_{2}g_{i} \right)}{g_{i}}$ |                           |
+| param | $`L_\infty`$ | $`L_0`$ | $`g_i`$ | $`t_i`$ | $`t_0`$ | $`a_{\text{\#}}`$ |
+|:--:|----|----|----|----|----|----|
+| 1 | $`\text{Asym}`$ |  | $`-log(b_3)`$ |  |  | $`log(b_2)`$ |
+| 2 | $`\text{Asym}`$ |  | $`-log(b_3)`$ | $`\frac{log(b_2)}{g_i}`$ |  |  |
+| 3 |  | $`\frac{L_\infty}{e^{b_2}}`$ | $`-log(b_3)`$ |  |  | $`b_2`$ |
+| 4 | $`\text{Asym}`$ |  | $`-log(b_3)`$ |  |  | $`b_2`$ |
+| 5 | $`\text{Asym}`$ |  | $`-log(b_3)`$ |  | $`\frac{log(b_2g_i)}{g_i}`$ |  |
 
 Table 7: Conversion from
 [`SSgompertz()`](https://rdrr.io/r/stats/SSgompertz.html) parameters
-($\text{Asym}$, $b_{2}$, and $b_{3}$) to parameters for the common
+($`\text{Asym}`$, $`b_2`$, and $`b_3`$) to parameters for the common
 Gompertz parameterizations used to model fish growth in `FSA`.
 
   
@@ -462,7 +481,7 @@ parameterizations is shown in [Figure 2](#fig-gompstarts).
 
 Figure 2: All parameterizations of the Gompertz growth functions
 evaluated at starting values derived from the parameters of `SSgompertz`
-($\text{Asym}$=450, $b_{2}$=2.5, and $b_{3}$=0.75). The linewidth
+($`\text{Asym}`$=450, $`b_2`$=2.5, and $`b_3`$=0.75). The linewidth
 decreases from the first to last parameterization (and the color
 differs) to show how the curves are plotted on top of each other.
 
@@ -473,10 +492,10 @@ differs) to show how the curves are plotted on top of each other.
 Still other parameterizations of the Gompertz model are used with
 tag-recapture data ([Table 8](#tbl-Gompparams2)).
 
-| param | Equation                                                                                                                     |
-|:-----:|:-----------------------------------------------------------------------------------------------------------------------------|
-|   6   | $E\left( L_{r} - L_{m} \right) = L_{\infty}\left\lbrack \frac{L_{m}}{L_{\infty}} \right\rbrack^{e^{-g_{i}\delta t}} - L_{m}$ |
-|   7   | $E\left( L_{r} \right) = L_{\infty}\left\lbrack \frac{L_{m}}{L_{\infty}} \right\rbrack^{e^{-g_{i}\delta t}}$                 |
+| param | Equation |
+|:--:|:---|
+| 6 | $`E(L_r-L_m)=L_{\infty}\left[\frac{L_m}{L_{\infty}}\right]^{e^{-g_i\delta t}}-L_m`$ |
+| 7 | $`E(L_r)=L_{\infty}\left[\frac{L_m}{L_{\infty}}\right]^{e^{-g_i\delta t}}`$ |
 
 Table 8: Parameterizations of the Gompertz growth equation for length at
 tag and recapture data available in `FSA`.
@@ -496,126 +515,142 @@ tag and recapture data available in `FSA`.
 `FSA` provides several parameterizations of the logistic function for
 modeling simple length-at-age data ([Table 9](#tbl-Logisparams1)).
 
-| param | Equation                                                                                                     |
-|:-----:|:-------------------------------------------------------------------------------------------------------------|
-|   1   | $E\left( L_{t} \right) = \frac{L_{\infty}}{1 + e^{-g_{-\infty}{(t - t_{i})}}}$                               |
-|   2   | $E\left( L_{t} \right) = \frac{L_{\infty}}{1 + ae^{-g_{-\infty}t}}$                                          |
-|   3   | $E\left( L_{t} \right) = \frac{L_{0}L_{\infty}}{L_{0} + \left( L_{\infty} - L_{0} \right)e^{-g_{-\infty}t}}$ |
+| param | Equation |
+|:--:|:---|
+| 1 | $`E(L_t) = \frac{L_\infty}{1+e^{-g_{-\infty}(t-t_i)}}`$ |
+| 2 | $`E(L_t) = \frac{L_\infty}{1+ae^{-g_{-\infty}t}}`$ |
+| 3 | $`E(L_t) = \frac{L_0L_\infty}{L_0+(L_\infty - L_0)e^{-g_{-\infty}t}}`$ |
 
 Table 9: Parameterizations of the logistic growth equation for
 length-at-age data available in `FSA`.
 
   
 
-The response variable, $L$, is the mean length and the explanatory
-variable, $t$ is age. Parameters in these growth functions
-are:[¹²](#fn12)
+The response variable, $`L`$, is the mean length and the explanatory
+variable, $`t`$ is age. Parameters in these growth functions are:[^12]
 
-- $g_{-\infty}$ is the instantaneous growth rate at $t = -\infty$
-- $a$ = nuisance parameters with no biological meaning
+- $`g_{-\infty}`$ is the instantaneous growth rate at $`t=-\infty`$
+- $`a`$ = nuisance parameters with no biological meaning
 
   
 
 [`SSlogis()`](https://rdrr.io/r/stats/SSlogis.html) is a self-starting
-function[¹³](#fn13) to fit a logistic function to data. The
-parameterization for this function is[¹⁴](#fn14)
+function[^13] to fit a logistic function to data. The parameterization
+for this function is[^14]
 
-$$Y = \frac{\text{Asym}}{1 + e^{\frac{\text{xmid} - \text{input}}{\text{scal}}}}$$
+``` math
+ Y = \frac{\text{Asym}}{1+e^{\frac{\text{xmid}-\text{input}}{\text{scal}}}} 
+```
 
-where $Y$ and $\text{input}$ are the response and explanatory variables,
-respectively, $\text{Asym}$ is a parameter for the horizontal (i.e.,
-$Y$) asymptote, $xmid$ is a parameter for the value of $X$ at the
-inflection point, and $scal$ is a “parameter on the input axis.”
+where $`Y`$ and $`\text{input}`$ are the response and explanatory
+variables, respectively, $`\text{Asym}`$ is a parameter for the
+horizontal (i.e., $`Y`$) asymptote, $`xmid`$ is a parameter for the
+value of $`X`$ at the inflection point, and $`scal`$ is a “parameter on
+the input axis.”
 
-In growth (in length) modeling, $Y$ is $L$ (for length), $\text{input}$
-is $t$ (for time as measured by age), and $\text{Asym}$ is clearly
-$L_{\infty}$. Most likely $xmid$ is $t_{i}$, but it is not clear at this
-point. Thus, at this point, the R logistic function can be re-written
-for the purposes of growth modeling as
+In growth (in length) modeling, $`Y`$ is $`L`$ (for length),
+$`\text{input}`$ is $`t`$ (for time as measured by age), and
+$`\text{Asym}`$ is clearly $`L_{\infty}`$. Most likely $`xmid`$ is
+$`t_i`$, but it is not clear at this point. Thus, at this point, the R
+logistic function can be re-written for the purposes of growth modeling
+as
 
-$$L = \frac{L_{\infty}}{1 + e^{\frac{\text{xmid} - t}{\text{scal}}}}\qquad(3)$$
+``` math
+ L = \frac{L_\infty}{1+e^{\frac{\text{xmid}-t}{\text{scal}}}}  \qquad(3)
+```
 
 Below I show how parameters in the common parameterizations of the
-logistic function relate to $\text{xmid}$ and $\text{scal}$ (and,
-possibly, $L_{\infty}$). It is easier to relate
+logistic function relate to $`\text{xmid}`$ and $`\text{scal}`$ (and,
+possibly, $`L_{\infty}`$). It is easier to relate
 [Equation 3](#eq-rSSlogis) to the Gompertz paramaeterizations if
 [Equation 3](#eq-rSSlogis) is presented in the more verbose form of
 
-$$\begin{aligned}
-L & {= \frac{L_{\infty}}{1 + e^{\frac{\text{xmid} - t}{\text{scal}}}}} \\
- & {= \frac{L_{\infty}}{1 + e^{\frac{\text{xmid}}{\text{scal}} - \frac{t}{\text{scal}}}}} \\
- & {= \frac{L_{\infty}}{1 + e^{\frac{\text{xmid}}{\text{scal}}}e^{-\frac{t}{\text{scal}}}}}
-\end{aligned}\qquad(4)$$
+``` math
+\begin{align}
+L &= \frac{L_\infty}{1+e^{\frac{\text{xmid}-t}{\text{scal}}}} \\
+  &= \frac{L_\infty}{1+e^{\frac{\text{xmid}}{\text{scal}}-\frac{t}{\text{scal}}}} \\
+  &= \frac{L_\infty}{1+e^{\frac{\text{xmid}}{\text{scal}}}e^{-\frac{t}{\text{scal}}}}
+\end{align}
+ \qquad(4)
+```
 
 The only difference between the first parameterization and
 [Equation 3](#eq-rSSlogis) is in the denominator after the “1+”. This
 portion of the equation for the first parameterization can be rewritten
 as
 
-$$\begin{aligned}
- & e^{-g_{-\infty}{(t - t_{i})}} \\
- & e^{-g_{-\infty}t + g_{-\infty}t_{i}} \\
- & {e^{-g_{-\infty}t}e^{g_{-\infty}t_{i}}} \\
- & {e^{g_{-\infty}t_{i}}e^{-g_{-\infty}t}}
-\end{aligned}$$
+``` math
+\begin{align}
+& e^{-g_{-\infty}(t-t_i)} \\
+& e^{-g_{-\infty}t+g_{-\infty}t_i} \\
+& e^{-g_{-\infty}t}e^{g_{-\infty}t_i} \\
+& e^{g_{-\infty}t_i}e^{-g_{-\infty}t}
+\end{align}
+```
 
 Comparing this to [Equation 4](#eq-rSSlogis1) it is apparent that
-$g_{-\infty} = \frac{1}{\text{scal}}$ and
-$g_{-\infty}t_{i} = \frac{\text{xmid}}{\text{scal}}$. The latter can be
+$`g_{-\infty}=\frac{1}{\text{scal}}`$ and
+$`g_{-\infty}t_i=\frac{\text{xmid}}{\text{scal}}`$. The latter can be
 simplified as
 
-$$\begin{aligned}
-{g_{-\infty}t_{i}} & {= \frac{\text{xmid}}{\text{scal}}} \\
-t_{i} & {= \frac{\text{xmid}}{g_{-\infty}\text{scal}}} \\
-t_{i} & {= \frac{\text{xmid}g_{-\infty}}{g_{-\infty}}} \\
-t_{i} & {= \text{xmid}}
-\end{aligned}$$
+``` math
+\begin{align}
+g_{-\infty}t_i &= \frac{\text{xmid}}{\text{scal}} \\
+t_i &= \frac{\text{xmid}}{g_{-\infty}\text{scal}} \\
+t_i &= \frac{\text{xmid}g_{-\infty}}{g_{-\infty}} \\
+t_i &= \text{xmid}
+\end{align}
+```
 
-Thus, $\text{xmid}$ is the abcissa of the inflection point. Starting
-values for the first parameterization are thus
-$L_{\infty} = \text{Asym}$, $g_{-\infty} = \frac{1}{\text{scal}}$, and
-$t_{i} = \text{xmid}$.
+Thus, $`\text{xmid}`$ is the abcissa of the inflection point. Starting
+values for the first parameterization are thus $`L_\infty=\text{Asym}`$,
+$`g_{-\infty}=\frac{1}{\text{scal}}`$, and $`t_i=\text{xmid}`$.
 
 The second paramaterization only differs from [Equation 3](#eq-rSSlogis)
 in the denominator after the “1+”, and no simplification is needed to
-notice that $g_{-\infty} = \frac{1}{\text{scal}}$ and
-$a = e^{\frac{\text{xmid}}{\text{scal}}}$.
+notice that $`g_{-\infty}=\frac{1}{\text{scal}}`$ and
+$`a=e^{\frac{\text{xmid}}{\text{scal}}}`$.
 
 The third parameterizations differs more substantively and requires more
 work. First, rewrite the whole equation by dividing both the numerator
-and denominator by $L_{0}$ to get
+and denominator by $`L_0`$ to get
 
-$$L = \frac{L_{\infty}}{1 + \frac{L_{\infty} - L_{0}}{L_{0}}e^{-g_{-\infty}t}}$$
+``` math
+ L = \frac{L_\infty}{1+\frac{L_\infty - L_0}{L_0}e^{-g_{-\infty}t}} 
+```
 
 In this form the only difference from [Equation 3](#eq-rSSlogis) is
 again in the denominator after the “1+”. Again, by comparing this to
 [Equation 4](#eq-rSSlogis1), it is apparent that
-$g_{-\infty} = \frac{1}{\text{scal}}$ and
-$\frac{L_{\infty} - L_{0}}{L_{0}} = e^{\frac{\text{xmid}}{\text{scal}}}$.
-This second value is solved for $L_{0}$ with
+$`g_{-\infty}=\frac{1}{\text{scal}}`$ and
+$`\frac{L_\infty - L_0}{L_0}=e^{\frac{\text{xmid}}{\text{scal}}}`$. This
+second value is solved for $`L_0`$ with
 
-$$\begin{aligned}
-\frac{L_{\infty} - L_{0}}{L_{0}} & {= e^{\frac{\text{xmid}}{\text{scal}}}} \\
-{L_{\infty} - L_{0}} & {= L_{0}e^{\frac{\text{xmid}}{\text{scal}}}} \\
-L_{\infty} & {= L_{0} + L_{0}e^{\frac{\text{xmid}}{\text{scal}}}} \\
-L_{\infty} & {= L_{0}\left( 1 + e^{\frac{\text{xmid}}{\text{scal}}} \right)} \\
-\frac{L_{\infty}}{1 + e^{\frac{\text{xmid}}{\text{scal}}}} & {= L_{0}}
-\end{aligned}$$
+``` math
+\begin{align}
+\frac{L_\infty - L_0}{L_0} &= e^{\frac{\text{xmid}}{\text{scal}}} \\
+L_\infty - L_0 &= L_0e^{\frac{\text{xmid}}{\text{scal}}} \\
+L_\infty &= L_0 + L_0e^{\frac{\text{xmid}}{\text{scal}}} \\
+L_\infty &= L_0\left(1+e^{\frac{\text{xmid}}{\text{scal}}}\right) \\
+\frac{L_\infty}{1+e^{\frac{\text{xmid}}{\text{scal}}}} &= L_0
+\end{align}
+```
 
 These findings are summarized in [Table 10](#tbl-logisstarts).
 
   
 
-| param | $L_{\infty}$  | $L_{0}$                                                      | $g_{-\infty}$           | $t_{i}$       | $a$                                   |
-|:-----:|---------------|--------------------------------------------------------------|-------------------------|---------------|---------------------------------------|
-|   1   | $\text{Asym}$ |                                                              | $\frac{1}{\text{scal}}$ | $\text{xmid}$ |                                       |
-|   2   | $\text{Asym}$ |                                                              | $\frac{1}{\text{scal}}$ |               | $e^{\frac{\text{xmid}}{\text{scal}}}$ |
-|   3   | $\text{Asym}$ | $\frac{L_{\infty}}{1 + e^{\frac{\text{xmid}}{\text{scal}}}}$ | $\frac{1}{\text{scal}}$ |               |                                       |
+| param | $`L_\infty`$ | $`L_0`$ | $`g_{-\infty}`$ | $`t_i`$ | $`a`$ |
+|:--:|----|----|----|----|----|
+| 1 | $`\text{Asym}`$ |  | $`\frac{1}{\text{scal}}`$ | $`\text{xmid}`$ |  |
+| 2 | $`\text{Asym}`$ |  | $`\frac{1}{\text{scal}}`$ |  | $`e^{\frac{\text{xmid}}{\text{scal}}}`$ |
+| 3 | $`\text{Asym}`$ | $`\frac{L_\infty}{1+e^{\frac{\text{xmid}}{\text{scal}}}}`$ | $`\frac{1}{\text{scal}}`$ |  |  |
 
 Table 10: Conversion from
 [`SSlogis()`](https://rdrr.io/r/stats/SSlogis.html) parameters
-($\text{Asym}$, $\text{xmid}$, and $\text{scal}$) to parameters for the
-common logistic parameterizations used to model fish growth in `FSA`.
+($`\text{Asym}`$, $`\text{xmid}`$, and $`\text{scal}`$) to parameters
+for the common logistic parameterizations used to model fish growth in
+`FSA`.
 
   
 
@@ -626,8 +661,8 @@ parameterizations is shown in [Figure 3](#fig-logisstarts).
 
 Figure 3: All parameterizations of the logistic growth functions
 evaluated at starting values derived from the parameters of `SSlogis`
-($\text{Asym}$=450, $\text{xmid}$=2.5, and $\text{scal}$=0.75). The
-linewidth decreases from the first to last parameterization (and the
+($`\text{Asym}`$=450, $`\text{xmid}`$=2.5, and $`\text{scal}`$=0.75).
+The linewidth decreases from the first to last parameterization (and the
 color differs) to show how the curves are plotted on top of each other.
 
   
@@ -637,23 +672,23 @@ color differs) to show how the curves are plotted on top of each other.
 `FSA` provides several parameterizations of the Richards function for
 modeling simple length-at-age data ([Table 11](#tbl-Richparams1)).
 
-| param | Equation                                                                                                                                               |
-|:-----:|:-------------------------------------------------------------------------------------------------------------------------------------------------------|
-|   1   | $E\left( L_{t} \right) = L_{\infty}\left\lbrack 1 - \frac{1}{b}e^{-k{(t - t_{i})}} \right\rbrack^{b}$                                                  |
-|   2   | $E\left( L_{t} \right) = L_{\infty}\left( 1 + e^{-k{(t - t_{0})}} \right)^{b}$                                                                         |
-|   3   | $E\left( L_{t} \right) = L_{\infty}\left\lbrack 1 + \left( \left( \frac{L_{0}}{L_{\infty}} \right)^{\frac{1}{b}} - 1 \right)e^{-kt} \right\rbrack^{b}$ |
+| param | Equation |
+|:--:|:---|
+| 1 | $`E(L_t) = L_\infty\left[1-\frac{1}{b}e^{-k(t-t_i)}\right]^{b}`$ |
+| 2 | $`E(L_t) = L_\infty\left(1+e^{-k(t-t_0)}\right)^{b}`$ |
+| 3 | $`E(L_t) = L_\infty\left[1+\left(\left(\frac{L_0}{L_\infty}\right)^{\frac{1}{b}}-1\right)e^{-kt}\right]^{b}`$ |
 
 Table 11: Parameterizations of the Richards growth equation for
 length-at-age data available in `FSA`.
 
   
 
-The response variable, $L$, is the mean length and the explanatory
-variable, $t$ is age. New parameters in these growth functions
-are:[¹⁵](#fn15)
+The response variable, $`L`$, is the mean length and the explanatory
+variable, $`t`$ is age. New parameters in these growth functions
+are:[^15]
 
-- $k$ = growth rate parameter
-- $b$ = nuisance parameter with no biological meaning
+- $`k`$ = growth rate parameter
+- $`b`$ = nuisance parameter with no biological meaning
 
   
 
@@ -666,65 +701,77 @@ fit a 4-parameter Richards function, a function similar to the Richards
 parameterizations in `FSA`. Their “twelfth model” (i.e., `modno=12`) can
 be written, using their R function parameters, as
 
-$$Y = \frac{\text{Asym}}{\left\lbrack 1 + Me^{-K{(X - \text{Infl})}} \right\rbrack^{\frac{1}{M}}}$$
-where $Y$ and $X$ are the response and explanatory variables,
-respectively, $\text{Asym}$ is a parameter for the horizontal (i.e.,
-$Y$) asymptote, $K$ is a “rate parameter”, $\text{Infl}$ is the
+``` math
+ Y = \frac{\text{Asym}}{\left[1+Me^{-K(X-\text{Infl})}\right]^{\frac{1}{M}}} 
+```
+where $`Y`$ and $`X`$ are the response and explanatory variables,
+respectively, $`\text{Asym}`$ is a parameter for the horizontal (i.e.,
+$`Y`$) asymptote, $`K`$ is a “rate parameter”, $`\text{Infl}`$ is the
 “inflection point” (i.e., the x-axis position of the inflection point),
-and $M$ is a “shape parameter”.
+and $`M`$ is a “shape parameter”.
 
 To better match the parameterizations in `FSA`, the `FlexParamCurve`
 function can be re-written as,
 
-$$Y = \text{Asym}\left\lbrack 1 + Me^{-K{(X - \text{Infl})}} \right\rbrack^{-\frac{1}{M}}$$
+``` math
+ Y = \text{Asym}\left[1+Me^{-K(X-\text{Infl})}\right]^{-\frac{1}{M}} 
+```
 
-In growth (in length) modeling, $Y$ is $L$ (for length), $X$ is $t$ (for
-time as measured by age). With these substitutions the (modified)
-function from `FlexParamCurve` can be re-written for the purposes of
-growth modeling as
+In growth (in length) modeling, $`Y`$ is $`L`$ (for length), $`X`$ is
+$`t`$ (for time as measured by age). With these substitutions the
+(modified) function from `FlexParamCurve` can be re-written for the
+purposes of growth modeling as
 
-$$L = L_{\infty}\left\lbrack 1 + Me^{-K{(t - \text{Infl})}} \right\rbrack^{-\frac{1}{M}}\qquad(5)$$
+``` math
+ L = L_\infty\left[1+Me^{-K(t-\text{Infl})}\right]^{-\frac{1}{M}}  \qquad(5)
+```
 
 A comparison of [Equation 5](#eq-rSSRichards) to the three
 parameterizations of the Richards function in `FSA` clearly shows that
-$L_{\infty} = \text{Asym}$ and $b = -\frac{1}{M}$ for each. Substituting
-these values, and noting that $M = -\frac{1}{b}$,
+$`L_\infty=\text{Asym}`$ and $`b=-\frac{1}{M}`$ for each. Substituting
+these values, and noting that $`M=-\frac{1}{b}`$,
 [Equation 5](#eq-rSSRichards) can be written as
 
-$$L = L_{\infty}\left\lbrack 1 - \frac{1}{b}Me^{-K{(t - \text{Infl})}} \right\rbrack^{b}$$
+``` math
+ L = L_\infty\left[1-\frac{1}{b}Me^{-K(t-\text{Infl})}\right]^{b} 
+```
 
-This is exactly the first parameterization in `FSA` if $k = K$ and
-$t_{i} = \text{Infl}$. In fact, $k = K$ and $t_{i} = \text{Infl}$ in the
+This is exactly the first parameterization in `FSA` if $`k=K`$ and
+$`t_i=\text{Infl}`$. In fact, $`k=K`$ and $`t_i=\text{Infl}`$ in the
 other parameterizations.
 
-If $t_{0}$ is the value of $t$ when $L = 0$ then plug 0 into
-[Equation 5](#eq-rSSRichards) and solve for $t$ as follows[¹⁶](#fn16)
+If $`t_0`$ is the value of $`t`$ when $`L=0`$ then plug 0 into
+[Equation 5](#eq-rSSRichards) and solve for $`t`$ as follows[^16]
 
-$$\begin{aligned}
-0 & {= L_{\infty}\left\lbrack 1 + Me^{-K{(t - \text{Infl})}} \right\rbrack^{-\frac{1}{M}}} \\
-0 & {= 1 + Me^{-K{(t - \text{Infl})}}} \\
-{-\frac{1}{M}} & {= e^{-K{(t - \text{Infl})}}} \\
-{log\left( -\frac{1}{M} \right)} & {= -K\left( t - \text{Infl} \right)} \\
-{-\frac{log\left( -\frac{1}{M} \right)}{K}} & {= t - \text{Infl}} \\
-{\text{Infl} - \frac{log\left( -\frac{1}{M} \right)}{K}} & {= t}
-\end{aligned}$$ or, alternatively, $t_{0} = t_{i} - \frac{log(b)}{k}$.
+``` math
+\begin{align}
+0 &= L_\infty\left[1+Me^{-K(t-\text{Infl})}\right]^{-\frac{1}{M}} \\
+0 &= 1+Me^{-K(t-\text{Infl})} \\
+-\frac{1}{M} &= e^{-K(t-\text{Infl})} \\
+log\left(-\frac{1}{M}\right) &= -K(t-\text{Infl}) \\
+-\frac{log\left(-\frac{1}{M}\right)}{K} &= t-\text{Infl} \\
+\text{Infl}-\frac{log\left(-\frac{1}{M}\right)}{K} &= t
+\end{align}
+```
+or, alternatively, $`t_0=t_i-\frac{log(b)}{k}`$.
 
-In the third parameterization $L_{0}$ is defined as the mean length when
-$t = 0$. Thus, plug $t = 0$ into [Equation 5](#eq-rSSRichards) and solve
-for $L$ to see that
-$L_{0} = L_{\infty}\left\lbrack 1 - \frac{1}{b}e^{kt_{i}} \right\rbrack^{b}$.
+In the third parameterization $`L_0`$ is defined as the mean length when
+$`t=0`$. Thus, plug $`t=0`$ into [Equation 5](#eq-rSSRichards) and solve
+for $`L`$ to see that
+$`L_0=L_\infty\left[1-\frac{1}{b}e^{kt_i}\right]^{b}`$.
 
 These findings are summarized in [Table 12](#tbl-richardsstarts).
 
-| param | $L_{\infty}$  | $L_{0}$                                                                              | $k$ | $t_{i}$       | $t_{0}$                                                 | $b$            |
-|:-----:|---------------|--------------------------------------------------------------------------------------|-----|---------------|---------------------------------------------------------|----------------|
-|   1   | $\text{Asym}$ |                                                                                      | $K$ | $\text{Infl}$ |                                                         | $-\frac{1}{M}$ |
-|   2   | $\text{Asym}$ |                                                                                      | $K$ |               | $\text{Infl} - \frac{log\left( \frac{1}{M} \right)}{K}$ | $-\frac{1}{M}$ |
-|   3   | $\text{Asym}$ | $\text{Asym}\left\lbrack 1 + Me^{K \times \text{Infl}} \right\rbrack^{-\frac{1}{M}}$ | $K$ |               |                                                         | $-\frac{1}{M}$ |
+| param | $`L_\infty`$ | $`L_0`$ | $`k`$ | $`t_i`$ | $`t_0`$ | $`b`$ |
+|:--:|----|----|----|----|----|----|
+| 1 | $`\text{Asym}`$ |  | $`K`$ | $`\text{Infl}`$ |  | $`-\frac{1}{M}`$ |
+| 2 | $`\text{Asym}`$ |  | $`K`$ |  | $`\text{Infl}-\frac{log\left(\frac{1}{M}\right)}{K}`$ | $`-\frac{1}{M}`$ |
+| 3 | $`\text{Asym}`$ | $`\text{Asym}\left[1+Me^{K\times\text{Infl}}\right]^{-\frac{1}{M}}`$ | $`K`$ |  |  | $`-\frac{1}{M}`$ |
 
 Table 12: Conversion from `SSposnegRichards()` parameters
-($\text{Asym}$, $\text{Infl}$, $K$, and $M$) to parameters for the
-common Richards parameterizations used to model fish growth in `FSA`.
+($`\text{Asym}`$, $`\text{Infl}`$, $`K`$, and $`M`$) to parameters for
+the common Richards parameterizations used to model fish growth in
+`FSA`.
 
   
 
@@ -735,8 +782,8 @@ parameterizations is shown in [Figure 3](#fig-logisstarts).
 
 Figure 4: All parameterizations of the Richards growth functions
 evaluated at starting values derived from the parameters of
-`SSposnegrichards` ($\text{Asym}$=450, $\text{Infl}$=2.5, $K$=0.5,
-$M$=0.1). The linewidth decreases from the first to last
+`SSposnegrichards` ($`\text{Asym}`$=450, $`\text{Infl}`$=2.5, $`K`$=0.5,
+$`M`$=0.1). The linewidth decreases from the first to last
 parameterization (and the color differs) to show how the curves are
 plotted on top of each other.
 
@@ -748,36 +795,37 @@ Schnute (1981) proposed a model for fish growth that can represent the
 von Bertalanffy, Gompertz, logistic, and Richards functions, along with
 others. The model has the following four parameters
 
-- $L_{1}$ = expected length at (a relatively young) age $t_{1}$
-- $L_{3}$ = expected length at (a relatively old) age $t_{3}$
-- $a$ = a shape parameter that is inversely related to width of the
+- $`L_1`$ = expected length at (a relatively young) age $`t_1`$
+- $`L_3`$ = expected length at (a relatively old) age $`t_3`$
+- $`a`$ = a shape parameter that is inversely related to width of the
   “arc” before an inflection point
-- $b$ = a shape parameter this is related to the ratio of the height of
-  the “arcs” before and afer the inflection point
+- $`b`$ = a shape parameter this is related to the ratio of the height
+  of the “arcs” before and afer the inflection point
 
-Starting values for $L_{1}$ and $L_{3}$ are easily obtained as the mean
-observed lengths at ages $t_{1}$ and $t_{3}$. However, I am unaware of
-any robust methodological method for developing starting values for $a$
-and $b$. Descriptions in Schnute (1981) suggest that $a$ is equal to $K$
-from the von Bertalanffy or $k$ from the Richards, if growth is shaped
-like those functions. A good “wild guess” at $K$ and $k$ is 0.3, so
-`FSA` used 0.3 as an *ad hoc* “wild guess” starting value for $a$.
-Further discussion in Schnute (1981) of the shape of growth trajectories
-relative to $a$ suggests that $a$ is likely not negative for most
-fisheries length-at-age data.
+Starting values for $`L_1`$ and $`L_3`$ are easily obtained as the mean
+observed lengths at ages $`t_1`$ and $`t_3`$. However, I am unaware of
+any robust methodological method for developing starting values for
+$`a`$ and $`b`$. Descriptions in Schnute (1981) suggest that $`a`$ is
+equal to $`K`$ from the von Bertalanffy or $`k`$ from the Richards, if
+growth is shaped like those functions. A good “wild guess” at $`K`$ and
+$`k`$ is 0.3, so `FSA` used 0.3 as an *ad hoc* “wild guess” starting
+value for $`a`$. Further discussion in Schnute (1981) of the shape of
+growth trajectories relative to $`a`$ suggests that $`a`$ is likely not
+negative for most fisheries length-at-age data.
 
-No similar observations were made with respect to $b$ from reading
+No similar observations were made with respect to $`b`$ from reading
 Schnute (1981). Limited personal experience suggests that using a
-starting value for $b$ are fickle. For cases 1 and 2, a “small” $b$
-tends to work, so a starting value of 0.5 is used for $b$ in `FSA`. For
-case 3, a “larger” $b$ is needed, so a staring of 3.0 is used for $b$ in
-`FSA`. These starting values are “wild guess” at best and are unlikely
-to work in all (or even nost) situations. See the examples at the end of
-this article for how to manually choose starting values with `FSA`.
+starting value for $`b`$ are fickle. For cases 1 and 2, a “small” $`b`$
+tends to work, so a starting value of 0.5 is used for $`b`$ in `FSA`.
+For case 3, a “larger” $`b`$ is needed, so a staring of 3.0 is used for
+$`b`$ in `FSA`. These starting values are “wild guess” at best and are
+unlikely to work in all (or even nost) situations. See the examples at
+the end of this article for how to manually choose starting values with
+`FSA`.
 
 Finally, it seems that the automatic generation of stating values
-algorithm tends to work better if $t_{1}$ is very near, if not the
-actual, youngest observed age. In contrast, $t_{3}$ seems to work better
+algorithm tends to work better if $`t_1`$ is very near, if not the
+actual, youngest observed age. In contrast, $`t_3`$ seems to work better
 if it is near the start (i.e., younger age) rather than the end of the
 asymptote.
 
@@ -813,15 +861,17 @@ The starting values for the first parameterization of the von
 Bertalanffy model could be obtained as below.
 
 ``` r
+
 ( sv1 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=1) )
 #>        Linf           K          t0 
 #> 454.4806075   0.2974555  -0.4752262
 ```
 
 It is also possible to declare the model parameterization with a
-“name.”[¹⁷](#fn17)
+“name.”[^17]
 
 ``` r
+
 ( sv1 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",pname="Typical") )
 #>        Linf           K          t0 
 #> 454.4806075   0.2974555  -0.4752262
@@ -836,6 +886,7 @@ including `plot=TRUE` in
 [`findGrowthStarts()`](https://fishr-core-team.github.io/FSA/reference/findGrowthStarts.md).
 
 ``` r
+
 sv1 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=1,
                         plot=TRUE)
 ```
@@ -849,6 +900,7 @@ parameters can be included in a **NAMED** vector given to `fixed=` in
 For example, the `K` parameter is fixed at 0.5 below.
 
 ``` r
+
 ( sv2 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=1,
                           fixed=c("K"=0.5)) )
 #>        Linf           K          t0 
@@ -863,16 +915,17 @@ constants should be set in a **NAMED** vector that is given to
 [`findGrowthStarts()`](https://fishr-core-team.github.io/FSA/reference/findGrowthStarts.md).
 
 ``` r
+
 ( sv3 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=7,
                           constvals=c("t1"=1,"t3"=13)) )
 #>          L1          L3           K 
-#> 161.4312295 446.2251430   0.2974555
+#> 161.4312295 446.2251431   0.2974555
 ```
 
-Of course, all of these optional arguments may be used
-together.[¹⁸](#fn18)
+Of course, all of these optional arguments may be used together.[^18]
 
 ``` r
+
 sv4 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=7,
                         constvals=c("t1"=1,"t3"=13),fixed=c("K"=0.5),plot=TRUE)
 ```
@@ -883,6 +936,7 @@ Of course, similar code is used for the other growth models (and
 parameterizations).
 
 ``` r
+
 ( sv5 <- findGrowthStarts(tlV~age,data=GrowthData1,type="Gompertz",param=2) )
 #>        Linf          gi          ti 
 #> 443.5949291   0.4521523   1.1615297
@@ -897,61 +951,60 @@ below is a quick example using the starting values for first
 parameterization of von Bertalanffy derived above.
 
 ``` r
+
 vonb1 <- makeGrowthFun(type="von Bertalanffy")
 rvb1 <- nls(tlV~vonb1(age,Linf,K,t0),data=GrowthData1,start=sv1)
 coef(rvb1)
 #>        Linf           K          t0 
-#> 456.0374952   0.2932701  -0.4848237
+#> 456.0374964   0.2932701  -0.4848237
 ```
 
-------------------------------------------------------------------------
+[^1]: Note that $`E(L_t)`$ is the “expectation of length at time t”
+    which, in practice, generally means “mean length at age t.”
 
-1.  Note that $E\left( L_{t} \right)$ is the “expectation of length at
-    time t” which, in practice, generally means “mean length at age t.”
+[^2]: From the `stats` package in base R.
 
-2.  From the `stats` package in base R.
+[^3]: According to [`?SSasymp`](https://rdrr.io/r/stats/SSasymp.html).
 
-3.  According to [`?SSasymp`](https://rdrr.io/r/stats/SSasymp.html).
+[^4]: This is von Bertalanffy’s original parameterization.
 
-4.  This is von Bertalanffy’s original parameterization.
-
-5.  All citations are in
+[^5]: All citations are in
     [`?makeGrowthFun`](https://fishr-core-team.github.io/FSA/reference/makeGrowthFun.md)
 
-6.  Of course, one that does not include $t_{r}$ and has starting values
-    for the other parameters. Using one of the first two
+[^6]: Of course, one that does not include $`t_r`$ and has starting
+    values for the other parameters. Using one of the first two
     parameterizations will suffice here.
 
-7.  Note that $K_{1}$ and $K_{2}$ are the first and second exponential
-    rates of approach to $L_{\infty}$, $a$ is the central age of
-    transition from $K_{1}$ to $K_{2}$, and $b$ controls the rate of
-    transition from $K_{1}$ to $K_{2}$.
+[^7]: Note that $`K_1`$ and $`K_2`$ are the first and second exponential
+    rates of approach to $`L_\infty`$, $`a`$ is the central age of
+    transition from $`K_1`$ to $`K_2`$, and $`b`$ controls the rate of
+    transition from $`K_1`$ to $`K_2`$.
 
-8.  One parameterization uses a modified time scale, symbolized with
-    $t\prime$.
+[^8]: One parameterization uses a modified time scale, symbolized with
+    $`t'`$.
 
-9.  $L_{\infty}$, $t_{0}$, and $L_{0}$ are as defined for the von
+[^9]: $`L_\infty`$, $`t_0`$, and $`L_0`$ are as defined for the von
     Bertalanffy model.
 
-10. From the `stats` package in base R.
+[^10]: From the `stats` package in base R.
 
-11. According to
+[^11]: According to
     [`?SSgompertz`](https://rdrr.io/r/stats/SSgompertz.html).
 
-12. $L_{\infty}$ and $L_{0}$ are as defined for the von Bertalanffy
-    model and $t_{i}$ is as defined for the Gompertz model.
+[^12]: $`L_\infty`$ and $`L_0`$ are as defined for the von Bertalanffy
+    model and $`t_i`$ is as defined for the Gompertz model.
 
-13. From the `stats` package in base R.
+[^13]: From the `stats` package in base R.
 
-14. According to [`?SSlogis`](https://rdrr.io/r/stats/SSlogis.html).
+[^14]: According to [`?SSlogis`](https://rdrr.io/r/stats/SSlogis.html).
 
-15. $L_{\infty}$, $L_{0}$, and $t_{0}$ are as defined for the von
-    Bertalanffy model and $t_{i}$ is as defined for the Gompertz model.
+[^15]: $`L_\infty`$, $`L_0`$, and $`t_0`$ are as defined for the von
+    Bertalanffy model and $`t_i`$ is as defined for the Gompertz model.
 
-16. Assuming that both $L_{\infty} \neq 0$ and $M \neq 0$.
+[^16]: Assuming that both $`L_\infty\neq0`$ and $`M\neq0`$.
 
-17. See
+[^17]: See
     [`?makeGrowthFun`](https://fishr-core-team.github.io/FSA/reference/makeGrowthFun.md)
     for the list of names.
 
-18. Though fixing $K$ looks inappropriate in this example.
+[^18]: Though fixing $`K`$ looks inappropriate in this example.

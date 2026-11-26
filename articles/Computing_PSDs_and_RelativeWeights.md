@@ -19,6 +19,7 @@ described here were modified after version 0.9.6 and are thus **specific
 to FSA \>v0.9.6**.
 
 ``` r
+
 library(FSA)
 library(dplyr)  # mutate, select, filter, case_when
 ```
@@ -34,6 +35,7 @@ and
 functions described in the other vignettes.
 
 ``` r
+
 peek(PSDWRtest,n=20)
 #>               species     location  len      wt  sex
 #> 1    Bluegill Sunfish    Bass Lake  107    25.8 <NA>
@@ -90,6 +92,7 @@ each species and labelled with the combined species and sub-group name.
 This is illustrated below for muskellunge.
 
 ``` r
+
 wsVal("Muskellunge (overall)")  # different from next two
 #>                   species measure  units ref method min.TL    int slope
 #> 138 Muskellunge (overall)      TL metric  75    RLP    380 -6.066 3.325
@@ -127,7 +130,7 @@ below) that appends the specific sub-groups in parentheses to the
 species name. There are a variety of ways to do this and which way (is
 best or works) may depend on the specifics of the situation. Here, we
 use
-[`case_when()`](https://dplyr.tidyverse.org/reference/case_when.html)
+[`case_when()`](https://dplyr.tidyverse.org/reference/case-and-replace-when.html)
 from `dplyr` with a series of statements that begin with a “condition”
 to the left of the `~` and new species “name” for that condition to the
 right of the `~`. The `.default=species` at the end puts the name from
@@ -136,6 +139,7 @@ conditions above it are met (e.g., if `species` is “Yellow Perch” then
 `species2` will be “Yellow Perch”).
 
 ``` r
+
 PSDWRtest <- PSDWRtest |>
   mutate(species2=case_when(
            species=="Bluegill Sunfish" ~ "Bluegill",
@@ -186,6 +190,7 @@ define which reference quantile to use for the Ruffe standard weight
 equation.
 
 ``` r
+
 PSDWRtest$psd <- psdAdd(len~species2,data=PSDWRtest)
 #> Species in the data with no Gabelhouse (PSD) lengths in `PSDlit`: "Iowa
 #>   Darter".

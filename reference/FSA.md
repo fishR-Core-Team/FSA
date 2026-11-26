@@ -45,6 +45,8 @@ Useful links:
 
 Authors:
 
+- Derek H. Ogle <DerekOgle51@gmail.com>
+
 - Jason C. Doll <jason.doll@fmarion.edu>
 
 - A. Powell Wheeler <powell.wheeler@gmail.com>

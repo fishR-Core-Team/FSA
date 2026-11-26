@@ -51,11 +51,11 @@ bounds as columns and, if `verbose=TRUE` `x`, `n`, and `x/n` .
 This function will compute confidence interval for three possible
 methods chosen with the `type` argument.
 
-|                     |                                                                                                                                                                                                           |
-|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `type="wilson"`     | Wilson's (Journal of the American Statistical Association, 1927) confidence interval for a proportion. This is the score CI, based on inverting the asymptotic normal test using the null standard error. |
-| `type="exact"`      | Computes the Clopper/Pearson exact CI for a binomial success probability.                                                                                                                                 |
-| `type="asymptotic"` | This uses the normal distribution approximation.                                                                                                                                                          |
+|  |  |
+|----|----|
+| `type="wilson"` | Wilson's (Journal of the American Statistical Association, 1927) confidence interval for a proportion. This is the score CI, based on inverting the asymptotic normal test using the null standard error. |
+| `type="exact"` | Computes the Clopper/Pearson exact CI for a binomial success probability. |
+| `type="asymptotic"` | This uses the normal distribution approximation. |
 
 Note that Agresti and Coull (2000) suggest that the Wilson interval is
 the preferred method and is, thus, the default `type`.

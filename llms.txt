@@ -20,15 +20,18 @@ version](https://cloud.r-project.org/package=FSA) from CRAN may be
 installed with
 
 ``` r
+
 install.packages("FSA")
 ```
 
-The [development version](https://github.com/fishR-Core-Team/FSA) may be
+The [development
+version](https://github.com/fishR-Core-Team/FSA/tree/dev) may be
 installed from GitHub with
 
 ``` r
+
 if (!require('remotes')) install.packages('remotes'); require('remotes')
-remotes::install_github('fishR-Core-Team/FSA')
+remotes::install_github('fishR-Core-Team/FSA',ref="dev")
 ```
 
 You may need R Tools installed on your system to install the development
@@ -438,6 +441,10 @@ Deprecated functions.
 
 ### All vignettes
 
+- [Age Comparisons in
+  FSA](https://fishr-core-team.github.io/FSA/articles/Age_Comparisons.md):
+- [Age-Length Keys in
+  FSA](https://fishr-core-team.github.io/FSA/articles/Age_Length_Keys.md):
 - [Computing PSD and Relative Weight Metrics in
   FSA](https://fishr-core-team.github.io/FSA/articles/Computing_PSDs_and_RelativeWeights.md):
 - [Computing Proportional Size Distribution Metrics in
@@ -450,3 +457,5 @@ Deprecated functions.
   FSA](https://fishr-core-team.github.io/FSA/articles/Growth_Function_Parameterizations.md):
 - [Deriving Starting Values for Growth Functions in
   FSA](https://fishr-core-team.github.io/FSA/articles/Growth_Starting_Values.md):
+- [Mortality Estimates in
+  FSA](https://fishr-core-team.github.io/FSA/articles/Mortality.md):

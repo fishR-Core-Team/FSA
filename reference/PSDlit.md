@@ -118,8 +118,8 @@ for related functionality.
 
 ``` r
 str(PSDlit)
-#> 'data.frame':    96 obs. of  15 variables:
-#>  $ species     : chr  "Alabama Bass" "Arctic Grayling" "Bighead Carp" "Bigmouth Buffalo" ...
+#> 'data.frame':    99 obs. of  15 variables:
+#>  $ species     : chr  "Alabama Bass (RETRACTED)" "Arctic Grayling" "Bighead Carp" "Bigmouth Buffalo" ...
 #>  $ group       : chr  NA NA NA NA ...
 #>  $ substock.in : int  0 0 0 0 0 0 0 0 0 0 ...
 #>  $ stock.in    : num  7 8 11.8 11 6 ...
@@ -135,13 +135,13 @@ str(PSDlit)
 #>  $ trophy.cm   : num  51 55 111 94 46 148 38 114 30 60 ...
 #>  $ source      : chr  "Sammons et al. (2025)" "Hyatt (2000)" "Phelps and Willis (2013)" "Bister et al. (2000)" ...
 head(PSDlit)
-#>            species group substock.in stock.in quality.in preferred.in
-#> 1     Alabama Bass  <NA>           0     7.00      11.00        14.00
-#> 2  Arctic Grayling  <NA>           0     8.00      12.00        16.00
-#> 3     Bighead Carp  <NA>           0    11.75      21.25        26.75
-#> 4 Bigmouth Buffalo  <NA>           0    11.00      18.00        24.00
-#> 5   Black Bullhead  <NA>           0     6.00       9.00        12.00
-#> 6       Black Carp  <NA>           0    15.75      28.25        35.50
+#>                    species group substock.in stock.in quality.in preferred.in
+#> 1 Alabama Bass (RETRACTED)  <NA>           0     7.00      11.00        14.00
+#> 2          Arctic Grayling  <NA>           0     8.00      12.00        16.00
+#> 3             Bighead Carp  <NA>           0    11.75      21.25        26.75
+#> 4         Bigmouth Buffalo  <NA>           0    11.00      18.00        24.00
+#> 5           Black Bullhead  <NA>           0     6.00       9.00        12.00
+#> 6               Black Carp  <NA>           0    15.75      28.25        35.50
 #>   memorable.in trophy.in substock.cm stock.cm quality.cm preferred.cm
 #> 1         17.0     20.00           0       18         28           35
 #> 2         20.0     22.00           0       20         30           40

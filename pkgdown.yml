@@ -1,14 +1,17 @@
-pandoc: 3.1.11
-pkgdown: 2.2.0.9000
-pkgdown_sha: c07d935583c90125586821e3b39ed52f16593e42
+pandoc: 3.8.3
+pkgdown: 2.2.1.9000
+pkgdown_sha: f69b62a7e74b58b42170284b6f3f56c674e7a3f8
 articles:
+  articles/Age_Comparisons: Age_Comparisons.html
+  articles/Age_Length_Keys: Age_Length_Keys.html
   articles/Computing_PSDs_and_RelativeWeights: Computing_PSDs_and_RelativeWeights.html
   articles/Computing_PSDs: Computing_PSDs.html
   articles/Computing_Relative_Weights: Computing_Relative_Weights.html
   articles/Fitting_Growth_Functions: Fitting_Growth_Functions.html
   articles/Growth_Function_Parameterizations: Growth_Function_Parameterizations.html
   articles/Growth_Starting_Values: Growth_Starting_Values.html
-last_built: 2026-01-09T14:46Z
+  articles/Mortality: Mortality.html
+last_built: 2026-11-26T17:04Z
 urls:
   reference: https://fishr-core-team.github.io/FSA/reference
   article: https://fishr-core-team.github.io/FSA/articles

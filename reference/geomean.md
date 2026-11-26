@@ -61,9 +61,9 @@ d <- rlnorm(500,meanlog=0,sdlog=1)
 # d has a mean on log scale of 0; thus, gm should be exp(0)~=1
 # d has a sd on log scale of 1; thus, gsd should be exp(1)~=2.7
 geomean(d)
-#> [1] 0.9476784
+#> [1] 0.934946
 geosd(d)
-#> [1] 2.670075
+#> [1] 2.663484
 
 if (FALSE) { # \dontrun{
 ## Demonstrate handling of zeros and negative values

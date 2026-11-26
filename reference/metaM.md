@@ -1,18 +1,18 @@
 # Estimate natural mortality from a variety of empirical methods.
 
-Several methods can be used to estimated natural mortality (M) from
-other types of data, including parameters from the von Bertalanffy
-growth equation, maximum age, and temperature. These relationships have
-been developed from meta-analyses of a large number of populations.
-Several of these methods are implemented in this function.
+Implements several methods to estimate instantaneous natural mortality
+(M) (and the related conditional natural mortality (cm)) from other
+types of data, including parameters from the von Bertalanffy growth
+equation, maximum age, and temperature. These relationships were
+developed from meta-analyses of a large number of populations.
 
 ## Usage
 
 ``` r
-Mmethods(method = c("all", "tmax", "K", "Hoenig", "Pauly", "FAMS"))
+Mmethods(method = NULL)
 
 metaM(
-  method = Mmethods(),
+  method = NULL,
   tmax = NULL,
   K = NULL,
   Linf = NULL,
@@ -31,9 +31,9 @@ metaM(
 
 - method:
 
-  A string that indicates what grouping of methods to return (defaults
-  to all methods) in `Mmethods()` or which methods or equations to use
-  in `metaM()`. See details.
+  A string that indicates which method(s)/equation(s) to use in
+  `metaM()` or what grouping of methods to return in `Mmethods()`
+  (defaults to all methods). See details.
 
 - tmax:
 
@@ -64,7 +64,7 @@ metaM(
 
 - Temp:
 
-  The temperature experienced by the fish (C).
+  The temperature (Celsius) experienced by the fish.
 
 - t50:
 
@@ -77,7 +77,7 @@ metaM(
 
 - PS:
 
-  The proportion of the population that survive to `tmax`. Should
+  The proportion of the population that survives to `tmax`. Should
   usually be around 0.01 or 0.05.
 
 - verbose:
@@ -89,9 +89,10 @@ metaM(
 
 `Mmethods` returns a character vector with a list of methods.
 
-`metaM` returns a data.frame with the following items:
+`metaM` returns a data.frame with the following items (the last two
+items are not returned if `verbose=FALSE`):
 
-- `M`: The estimated natural mortality rate.
+- `M`: The estimated instantaneous natural mortality rate.
 
 - `cm`: The estimated conditional natural mortality rate (computed
   directly from `M`).
@@ -102,7 +103,7 @@ metaM(
 - `name`: A more descriptive name for the method.
 
 - `givens`: A string that contains the input values required by the
-  method to estimate M.
+  method to estimate `M`.
 
 ## Details
 
@@ -125,10 +126,10 @@ should be consulted for more specific information.
   his equation 11. This is the most commonly used method in the
   literature. Note that Pauly used common logarithms as used here but
   the model is often presented in other sources with natural logarithms.
-  Requires `K`, `Linf`, and `T`.
+  Requires `K`, `Linf`, and `Temp`.
 
 - `method="PaulyW"`: The “Pauly (1980) equation for weights” from his
-  equation 10. Requires `K`, `Winf`, and `T`.
+  equation 10. Requires `K`, `Winf`, and `Temp`.
 
 - `method="HoeingO"`, `method="HoeingOF"`, `method="HoeingOM"`,
   `method="HoeingOC"`: The original “Hoenig (1983) composite”, “fish”,
@@ -177,10 +178,13 @@ should be consulted for more specific information.
   the second column of page 545 of Kenchington (2014). Requires `K`,
   `Linf`, and `L`.
 
-- `method="ZhangMegreyD"`, `method="ZhangMegreyP"`: The “Zhang and
-  Megrey (2006) equation” as given in their equation 8 but modified for
-  demersal or pelagic fish. Thus, the user must choose the fish type
-  with `group`. Requires `tmax`, `K`, `t0`, `t50`, and `b`.
+- `method="ZhangMegreyD"`: The “Zhang and Megrey (2006) equation” as
+  given in their equation 8 but modified for **demersal** fish. Requires
+  `tmax`, `K`, `t0`, `t50`, and `b`.
+
+- `method="ZhangMegreyP"`: The “Zhang and Megrey (2006) equation” as
+  given in their equation 8 but modified for **pelagic** fish. Requires
+  `tmax`, `K`, `t0`, `t50`, and `b`.
 
 - `method="RikhterEfanov1"`: The “Rikhter and Efanov (1976) equation
   (#2)” as given in the second column of page 541 of Kenchington (2014)
@@ -192,21 +196,19 @@ should be consulted for more specific information.
 
 - `method="QuinnDeriso"`: The “Quinn & Derison (1999)” equation as given
   in the FAMS manual as equation 4:18. Requires `PS` and `tmax`.
-  Included only for use with `rFAMS` package.
 
 - `method="ChenWatanabe"`: The “Chen & Watanabe (1989)” equation as
-  given in the FAMS manual as equation 4:24. As suggested in FAMS manual
-  used `tmax` for final time and 1 as initial time. Requires `tmax`,
-  `K`, and `t0`. Included only for use with `rFAMS` package.
+  given in the FAMS manual as equation 4:24. As suggested in FAMS
+  manual, code uses `tmax` for final time and 1 as initial time.
+  Requires `tmax`, `K`, and `t0`.
 
 - `method="PetersonWroblewski"`: The “Peterson & Wroblewski (1984)”
   equation as given in the FAMS manual as equation 4:22. As suggested in
-  FAMS manual used `Winf` for weight. Requires `Winf`. Included only for
-  use with `rFAMS` package.
+  FAMS manual used `Winf` for weight. Requires `Winf`.
 
 Conditional mortality (cm) is estimated from instantaneous natural
-mortality (M) with 1-exp(-M). It is returned with M here simply as a
-courtesy for those using the `rFAMS` package.
+mortality (M) with 1-exp(-M). It is returned with M here as a courtesy
+for those using the `rFAMS` package.
 
 ## Testing
 
@@ -324,24 +326,13 @@ Derek H. Ogle, <DerekOgle51@gmail.com>
 ## Examples
 
 ``` r
-## List names for available methods
-Mmethods()
-#>  [1] "HoenigNLS"          "HoenigO"            "HoenigOF"          
-#>  [4] "HoenigOM"           "HoenigOC"           "HoenigO2"          
-#>  [7] "HoenigO2F"          "HoenigO2M"          "HoenigO2C"         
-#> [10] "HoenigLM"           "HewittHoenig"       "tmax1"             
-#> [13] "HamelCope"          "PaulyLNoT"          "PaulyL"            
-#> [16] "PaulyW"             "K1"                 "K2"                
-#> [19] "JensenK1"           "JensenK2"           "Gislason"          
-#> [22] "AlversonCarney"     "Charnov"            "ZhangMegreyD"      
-#> [25] "ZhangMegreyP"       "RikhterEfanov1"     "RikhterEfanov2"    
-#> [28] "QuinnDeriso"        "ChenWatanabe"       "PetersonWroblewski"
+## List methods in a group of methods =======================================
 Mmethods("tmax")
 #>  [1] "HamelCope"    "tmax1"        "HoenigNLS"    "HoenigO"      "HoenigOF"    
 #>  [6] "HoenigOM"     "HoenigOC"     "HoenigO2"     "HoenigO2F"    "HoenigO2M"   
 #> [11] "HoenigO2C"    "HoenigLM"     "HewittHoenig"
 
-## Simple Examples
+## Simple Examples ==========================================================
 metaM("HamelCope",tmax=20)
 #>      M        cm    method                                name  givens
 #> 1 0.27 0.2366205 HamelCope Hamel and Cope (2022) tmax equation tmax=20
@@ -354,8 +345,8 @@ metaM("HoenigNLS",tmax=20,verbose=FALSE)
 #>           M        cm    method
 #> 1 0.3150387 0.2702394 HoenigNLS
  
-## Example Patagonian Sprat ... from Table 2 in Cerna et al. (2014)
-## http://www.scielo.cl/pdf/lajar/v42n3/art15.pdf
+## Example Patagonian Sprat ... from Table 2 in Cerna et al. (2014) =========
+##   http://www.scielo.cl/pdf/lajar/v42n3/art15.pdf
 Temp <- 11
 Linf <- 17.71
 K <- 0.78
@@ -393,7 +384,7 @@ metaM("AlversonCarney",K=K,tmax=tmax)
 #>                   givens
 #> 1 tmax=3.3861538, K=0.78
 
-## Example of multiple calculations
+## Example of multiple calculations =========================================
 metaM(c("RikhterEfanov1","PaulyL","HoenigO","HewittHoenig","AlversonCarney"),
      K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
 #>          M        cm         method                                  name
@@ -409,9 +400,10 @@ metaM(c("RikhterEfanov1","PaulyL","HoenigO","HewittHoenig","AlversonCarney"),
 #> 4              tmax=3.3861538
 #> 5      tmax=3.3861538, K=0.78
 
-## Example of multiple methods using Mmethods
+## Example of multiple methods using Mmethods ===============================
 # select some methods
-metaM(Mmethods()[-c(16,21,23:25,27:30)],K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
+metaM(Mmethods()[-c(16,21,23:25,27:30)],
+      K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
 #>            M        cm         method
 #> 1  1.6028619 0.7986805      HoenigNLS
 #> 2  1.2741252 0.7203245        HoenigO
@@ -483,8 +475,8 @@ metaM(Mmethods("Hoenig"),K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
 #> 10 tmax=3.3861538
 #> 11 tmax=3.3861538
  
-## Example of computing an average M
-# select multiple models used in FAMS (example only, these are not best models)
+## Example of computing an average M ========================================
+# select multiple models used in FAMS (example only, these not best methods)
 ( res <- metaM(Mmethods("FAMS"),tmax=tmax,K=K,Linf=Linf,t0=t0,
                Temp=Temp,PS=0.01,Winf=30) )
 #>           M        cm             method                                   name

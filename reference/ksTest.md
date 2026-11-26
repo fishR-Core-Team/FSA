@@ -95,7 +95,7 @@ ksTest(x+2, "pgamma", 3, 2)
 #>  Exact one-sample Kolmogorov-Smirnov test
 #> 
 #> data:  x
-#> D = 0.18447, p-value = 0.05816
+#> D = 0.21652, p-value = 0.01546
 #> alternative hypothesis: two-sided
 #> 
 ks.test(x+2, "pgamma", 3, 2)
@@ -103,7 +103,7 @@ ks.test(x+2, "pgamma", 3, 2)
 #>  Exact one-sample Kolmogorov-Smirnov test
 #> 
 #> data:  x + 2
-#> D = 0.18447, p-value = 0.05816
+#> D = 0.21652, p-value = 0.01546
 #> alternative hypothesis: two-sided
 #> 
 
@@ -113,7 +113,7 @@ ksTest(x,y)
 #>  Exact two-sample Kolmogorov-Smirnov test
 #> 
 #> data:  x and y
-#> D = 0.62, p-value = 2.964e-07
+#> D = 0.6, p-value = 8.598e-07
 #> alternative hypothesis: two-sided
 #> 
 ks.test(x,y)
@@ -121,7 +121,7 @@ ks.test(x,y)
 #>  Exact two-sample Kolmogorov-Smirnov test
 #> 
 #> data:  x and y
-#> D = 0.62, p-value = 2.964e-07
+#> D = 0.6, p-value = 8.598e-07
 #> alternative hypothesis: two-sided
 #> 
 
@@ -131,7 +131,7 @@ ksTest(dat~grp,data=df)
 #>  Exact two-sample Kolmogorov-Smirnov test
 #> 
 #> data:  x and y
-#> D = 0.62, p-value = 2.964e-07
+#> D = 0.6, p-value = 8.598e-07
 #> alternative hypothesis: two-sided
 #> 
 ```

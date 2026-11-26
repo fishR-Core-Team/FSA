@@ -9,10 +9,12 @@ times the observed weight of a fish divided by a standard weight derived
 from an accepted model for that species and the individual’s observed
 length; i.e.,
 
-$$Wr_{i} = 100\frac{W_{i}}{Ws_{i}}\qquad(1)$$
+``` math
+ Wr_i = 100\frac{W_i}{Ws_i}  \qquad(1)
+```
 
-where $Wr_{i}$ is the relative weight, $W_{i}$ is the observed weight,
-and $Ws_{i}$ is the standard weight for the $i$th fish. Individual
+where $`Wr_i`$ is the relative weight, $`W_i`$ is the observed weight,
+and $`Ws_i`$ is the standard weight for the $`i`$th fish. Individual
 relative weights are summarized to provide an overall measure of
 condition for the population. Relative weight and condition are
 explained in a variety of sources, including [Ogle
@@ -25,24 +27,26 @@ described here were modified after version 0.9.6 and are thus **specific
 to FSA \>v0.9.6**.
 
 ``` r
+
 library(FSA)
 library(dplyr)  # mutate, select, group_by, summarize, case_when
 ```
 
 ## Looking Up Standard Weight Equations
 
-Equations for computing the standard weight (i.e., $Ws_{i}$) from an
-individual fish’s observed length (i.e., $L_{i}$) have been derived for
+Equations for computing the standard weight (i.e., $`Ws_i`$) from an
+individual fish’s observed length (i.e., $`L_i`$) have been derived for
 a number of freshwater game fish in the United States, as well as
 several non-game fish in the United States and some other fish from
 outside of the United States. The specifics of these equations have been
-collated into the `WSlit` data.frame[¹](#fn1) distributed with `FSA` and
-are most easily accessed with
+collated into the `WSlit` data.frame[^1] distributed with `FSA` and are
+most easily accessed with
 [`wsVal()`](https://fishr-core-team.github.io/FSA/reference/wsVal.md).
 For example, the specifics of the standard weight equation for Bluegill
 are retrieved below.
 
 ``` r
+
 wsVal("Bluegill")
 #>     species measure  units ref method min.TL    int slope         source
 #> 34 Bluegill      TL metric  75  Other     80 -5.374 3.316 Hillman (1982)
@@ -59,28 +63,26 @@ are:
   there is no sub-group for that species (as illustrated here). The
   sub-group can be chosen with `group=` in
   [`wsVal()`](https://fishr-core-team.github.io/FSA/reference/wsVal.md)
-  as demonstrated later.[²](#fn2)
+  as demonstrated later.[^2]
 - `measure`: the length measure used (will generally be `TL` for total
   length, but depending on the species could be `FL` for fork length,
   `BL` for body length, or `CL` for caudal length).
 - `units`: the units for which the equation was developed. The default
   is `metric` which has length in mm and weight in grams. However,
   `English` can also be used which has lengths in inches and weight in
-  pounds.[³](#fn3) These are the only two “units” for which the equation
-  can be returned; thus, if you recorded lengths and weights in
-  different units you will need to adjust your data accordingly (or
-  adjust the standard weights computed from the equations (see below)
-  accordingly).
+  pounds.[^3] These are the only two “units” for which the equation can
+  be returned; thus, if you recorded lengths and weights in different
+  units you will need to adjust your data accordingly (or adjust the
+  standard weights computed from the equations (see below) accordingly).
 - `ref`: the quantile used when developing the standard weight equation.
   The 75th percentile is used for most species, but some species have
-  alternatives (50th or 25th percentile).[⁴](#fn4)
+  alternatives (50th or 25th percentile).[^4]
 - `method`: the method used to develop the standard weight equation.
   This will usually be `RLP` (regression-line-percentile) or `EmP`
   (empirical percentile) but is `Other` only for Bluegill, as shown
-  here. Some (very few) species have equations for both
-  methods.[⁵](#fn5)
+  here. Some (very few) species have equations for both methods.[^5]
 - `min.TL`: the minimum length for which the standard weight equation is
-  appropriate.[⁶](#fn6)
+  appropriate.[^6]
 - `max.TL`: the maximum length for which the standard weight equation is
   appropriate. Maximum lengths have not been specified for all species
   and, thus, may not appear in all outputs (e.g., for Bluegill here).
@@ -97,9 +99,10 @@ are:
 
 A simpler output of only the equation coefficients and the lengths for
 which it applies may be returned by including `simplify=TRUE` in
-[`wsVal()`](https://fishr-core-team.github.io/FSA/reference/wsVal.md).[⁷](#fn7)
+[`wsVal()`](https://fishr-core-team.github.io/FSA/reference/wsVal.md).[^7]
 
 ``` r
+
 wsVal("Bluegill",simplify=TRUE)
 #>     species min.TL    int slope
 #> 34 Bluegill     80 -5.374 3.316
@@ -111,6 +114,7 @@ illustrates that the results can be returned in “English” units for many
 species.
 
 ``` r
+
 wsVal("Blue Sucker",units="English")
 #>        species measure   units ref method min.TL max.TL    int slope  quad
 #> 31 Blue Sucker      TL English  75    EmP    9.5  31.75 -3.354 2.273 0.461
@@ -126,11 +130,12 @@ requires spelling (and capitalizing) the species name as it appears in
 without any arguments.
 
 ``` r
+
 wsVal()
 #> 
 #> Species name must be one of following. Be careful of spelling and capitalization.
 #>   [1] "Aegean Chub"                    "African Sharptooth Catfish"    
-#>   [3] "Alabama Bass"                   "Alabama Bass (original)"       
+#>   [3] "Alabama Bass"                   "Alabama Bass (RETRACTED)"      
 #>   [5] "Ankara Nase"                    "Arctic Grayling"               
 #>   [7] "Bighead Carp"                   "Bigmouth Buffalo"              
 #>   [9] "Bigmouth Sleepers"              "Bigmouth Sleepers (lotic)"     
@@ -182,7 +187,7 @@ wsVal()
 #> [101] "Shovelnose Sturgeon"            "Silver Carp"                   
 #> [103] "Smallmouth Bass"                "Smallmouth Buffalo"            
 #> [105] "South European Roach"           "Spotted Bass"                  
-#> [107] "Spotted Bass (original)"        "Spotted Gar"                   
+#> [107] "Spotted Bass (RETRACTED)"       "Spotted Gar"                   
 #> [109] "Spotted Sunfish"                "Striped Bass"                  
 #> [111] "Striped Bass (landlocked)"      "Striped Bass X White Bass"     
 #> [113] "Suwannee Bass"                  "Tiger Muskellunge"             
@@ -203,14 +208,15 @@ correct but the message will be less informative if your spelling is
 off.
 
 ``` r
+
 wsVal("Blue sucker")
 #> Error:
 #> ! There is no Ws equation in 'WSlit' for "Blue sucker". However, there is
 #>   an entry for "Blue Sucker" (note spelling, including capitalization).
 wsVal("Blue suckr")
 #> Error:
-#> ! There is no Ws equation in 'WSlit' for "Blue suckr". Type 'wsVal()' to
-#>   see a list of available species.
+#> ! There is no Ws equation in 'WSlit' for "Blue suckr". Did you mean "Blue
+#>   Sucker"? Type 'wsVal()' to see a list of available species.
 ```
 
 It is also not always obvious whether a species has equations for
@@ -220,6 +226,7 @@ sub-groups exist then you will get an error message asking you to choose
 which sub-group to use.
 
 ``` r
+
 wsVal("Brown Trout")
 #> Error:
 #> ! "Brown Trout" has Ws equations for these sub-groups: "lentic" and
@@ -230,6 +237,7 @@ wsVal("Brown Trout")
 Then try again by choosing the sub-group with `group=`.
 
 ``` r
+
 wsVal("Brown Trout",group="lentic")
 #>        species  group measure  units ref method min.TL    int slope
 #> 51 Brown Trout lentic      TL metric  75    RLP    140 -5.422 3.194
@@ -242,6 +250,7 @@ combining the species name and sub-group name (in parenthesis) into the
 first argument (and then not using `group=`).
 
 ``` r
+
 wsVal("Brown Trout (lotic)")
 #>                species measure  units ref method min.TL    int slope
 #> 57 Brown Trout (lotic)      TL metric  75    RLP    140 -4.867  2.96
@@ -255,6 +264,7 @@ can be combined (with parentheses) in the species name and used in the
 first argument.
 
 ``` r
+
 wsVal("Arctic Grayling")
 #> Error:
 #> ! Ws equations exist for both the RLP and EmP 'method's for "Arctic
@@ -269,6 +279,7 @@ wsVal("Arctic Grayling",method="EmP")
 Or for multiple reference groups.
 
 ``` r
+
 wsVal("Ruffe")
 #> Error:
 #> ! Ws equations exist for more than one 'ref'erence value for "Ruffe".
@@ -285,14 +296,15 @@ have sub-groups (i.e., “landlocked”) but only that one specific
 sub-group appears in `WSlit`. The standard weight literature for these
 species did not identify the equation as only being for “landlocked”
 populations. However, these entries were added to facilitate use when
-calculating proportional size distribution (PSD) metrics,[⁸](#fn8) which
-were defined just for “landlocked” populations, and relative weight
-metrics with the same data.frame.[⁹](#fn9) The standard weight equations
-for these species can be accessed by either just the species name or the
-species name with the group in parentheses. However, note that they are
-the exact same information.
+calculating proportional size distribution (PSD) metrics,[^8] which were
+defined just for “landlocked” populations, and relative weight metrics
+with the same data.frame.[^9] The standard weight equations for these
+species can be accessed by either just the species name or the species
+name with the group in parentheses. However, note that they are the
+exact same information.
 
 ``` r
+
 wsVal("Striped Bass")
 #>          species measure  units ref method min.TL    int slope
 #> 220 Striped Bass      TL metric  75    RLP    150 -4.924 3.007
@@ -314,16 +326,21 @@ using the species name and the original equations accessed by appending
 “(original)” to the species name.
 
 ``` r
-wsVal("Spotted Bass")             # revised definitions
-#>          species measure  units ref method min.TL max.TL     int slope
-#> 211 Spotted Bass      TL metric  75    EmP    150    490 -5.3467 3.197
-#>                    source                                               comment
-#> 211 Sammons et al. (2025) also used RLP and EmP-quadratic but did not recommend
-wsVal("Spotted Bass (original)")
-#>                     species measure  units ref method min.TL    int slope
-#> 214 Spotted Bass (original)      TL metric  75    RLP    100 -5.392 3.215
-#>                  source          comment
-#> 214 Wiens et al. (1996) HAS BEEN REVISED
+
+wsVal("Northern Pikeminnow")             # revised definitions
+#>                 species measure  units ref method min.FL max.FL    int slope
+#> 143 Northern Pikeminnow      FL metric  50    EmP     90    580 -5.258 3.135
+#>                    source
+#> 143 Voss and Quist (2025)
+#>                                                                              comment
+#> 143 Other methods and quartiles used, but this was only one that was length-unbiased
+wsVal("Northern Pikeminnow (original)")
+#>                            species measure  units ref method min.FL    int
+#> 145 Northern Pikeminnow (original)      FL metric  75    RLP    250 -4.886
+#>     slope               source
+#> 145 2.986 Parker et al. (1995)
+#>                                                                                                      comment
+#> 145 HAS BEEN REVISED; Voss and Quist (2025) note that these equations are problematic and should not be used
 ```
 
 We strongly urge you to have a good understanding of the standard weight
@@ -347,15 +364,17 @@ Largemouth Bass returned by
 an object (e.g., `wsLMB` here).
 
 ``` r
+
 ( wsLMB <- wsVal("Largemouth Bass") )
 #>             species measure  units ref method min.TL    int slope        source
 #> 114 Largemouth Bass      TL metric  75    RLP    150 -5.528 3.273 Henson (1991)
 ```
 
 The intercept and slope for the standard weight equation on the
-**log10-log10** scale can be extracted from this object.[¹⁰](#fn10)
+**log10-log10** scale can be extracted from this object.[^10]
 
 ``` r
+
 wsLMB[["int"]]
 #> [1] -5.528
 wsLMB[["slope"]]
@@ -369,6 +388,7 @@ back-transform the **log10-transformed** standard weight to a standard
 weight on the raw scale.
 
 ``` r
+
 ( ex1 <- 10^(wsLMB[["int"]]+wsLMB[["slope"]]*log10(350)) )
 #> [1] 629.1218
 ```
@@ -379,6 +399,7 @@ relative weight for this individual is computed (recalling that the
 observed weight was 650 g).
 
 ``` r
+
 100*650/ex1
 #> [1] 103.3186
 ```
@@ -396,6 +417,7 @@ This calculation is illustrated below with a 500 mm and 1010 g Blue
 Sucker.
 
 ``` r
+
 ( wsBS <- wsVal("Blue Sucker",simplify=TRUE) )
 #>        species min.TL max.TL   int slope  quad
 #> 32 Blue Sucker    240    809 -2.98 0.977 0.461
@@ -438,6 +460,7 @@ artedii*) sampled from Trout Lake, WI, USA over a 25 year period. Note
 that there are many missing weights in this data.frame.
 
 ``` r
+
 data("CiscoTL",package="FSAdata")  # retrieve the data.frame
 peek(CiscoTL,n=10)
 #>      lakeid year4 sampledate gearid spname length weight  sex
@@ -460,6 +483,7 @@ standard weight equation for Cisco and assigning them to an object
 (here, `wsC`).
 
 ``` r
+
 ( wsC <- wsVal("Cisco") )
 #>    species measure  units ref method min.TL    int slope
 #> 72   Cisco      TL metric  75    RLP    100 -5.517 3.224
@@ -475,11 +499,11 @@ and the log-transformed length variable as shown above (but within
 `dplyr`). Second, if the observed length is less than the minimum length
 for which the standard weight equation should be applied, then the
 previously calculated `Ws` is replaced with an `NA` (for missing
-value).[¹¹](#fn11) Finally, the relative weight is computed from the
-observed weight and standard weight variables using
-[Equation 1](#eq-Wri).
+value).[^11] Finally, the relative weight is computed from the observed
+weight and standard weight variables using [Equation 1](#eq-Wri).
 
 ``` r
+
 CiscoTL <- CiscoTL |>
   mutate(Ws=10^(wsC[["int"]]+wsC[["slope"]]*log10(length)),
          Ws=ifelse(length<wsC$min.TL,NA,Ws),
@@ -503,7 +527,7 @@ peek(CiscoTL,n=10)
 [`wrAdd()`](https://fishr-core-team.github.io/FSA/reference/wrAdd.md)
 can be used to add a relative weight variable to a data.frame for
 **all** species in the data.frame for which a standard weight equation
-exists.[¹²](#fn12) The main argument to
+exists.[^12] The main argument to
 [`wrAdd()`](https://fishr-core-team.github.io/FSA/reference/wrAdd.md) is
 a formula of the form `weight~length+species` where `weight` is the name
 of the observed weight variable, `length` is the name of the observed
@@ -512,11 +536,12 @@ constraint here is that the species names in the `species` variable must
 be spelled (and capitalized) exactly as in `WSlit`. In these data, the
 species name is in `spname` but is in all capital letters as “CISCO”,
 rather than the required “Cisco”.
-[`capFirst()`](https://fishr-core-team.github.io/FSA/reference/capFirst.md)[¹³](#fn13)
+[`capFirst()`](https://fishr-core-team.github.io/FSA/reference/capFirst.md)[^13]
 may be used to convert a word to a form where just the first letter is
-capitalized, and is used below.[¹⁴](#fn14)
+capitalized, and is used below.[^14]
 
 ``` r
+
 data("CiscoTL",package="FSAdata")
 CiscoTL <- CiscoTL |>
   mutate(Wr=wrAdd(weight~length+capFirst(spname)))
@@ -545,6 +570,7 @@ will match the two names appropriately while creating the relative
 weight variable.
 
 ``` r
+
 CiscoTL <- CiscoTL |>
   mutate(Wr2=wrAdd(weight~length+spname,thesaurus=c("Cisco"="CISCO")))
 peek(CiscoTL,n=10)
@@ -569,20 +595,20 @@ could be created, for example as an agency-wide definition, and used
 with a variety of specific data.frames.
 
 [`wrAdd()`](https://fishr-core-team.github.io/FSA/reference/wrAdd.md)
-handles species that have more than one standard weight
-equation[¹⁵](#fn15) with `WsOpts=`. For example, consider adding a
-relative weight variable to the `RuffeSLRH92` data.frame distributed
-with `FSAdata`. Note that there is no species variable, which is needed
-by
+handles species that have more than one standard weight equation[^15]
+with `WsOpts=`. For example, consider adding a relative weight variable
+to the `RuffeSLRH92` data.frame distributed with `FSAdata`. Note that
+there is no species variable, which is needed by
 [`wrAdd()`](https://fishr-core-team.github.io/FSA/reference/wrAdd.md),
 so one was added with
-[`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html).[¹⁶](#fn16)
+[`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html).[^16]
 Additionally, for simplicity of presentation, I removed several other
 variables (with
 [`select()`](https://dplyr.tidyverse.org/reference/select.html)) that
 are not needed for this example.
 
 ``` r
+
 data("RuffeSLRH92",package="FSAdata")  # retrieve the data.frame
 RuffeSLRH92 <- RuffeSLRH92 |>
   mutate(species="Ruffe") |>
@@ -606,6 +632,7 @@ are standard weight equations for Ruffe for both 50th and 75th
 percentile references (see snippet below with the error message).
 
 ``` r
+
 RuffeSLRH92 <- RuffeSLRH92 |>
   mutate(Wr=wrAdd(weight~length+species))
 #>     species group ref method
@@ -629,6 +656,7 @@ equal to a list which identifies the specific equation to use (i.e.,
 `ref=50` in this example).
 
 ``` r
+
 RuffeSLRH92 <- RuffeSLRH92 |>
   mutate(Wr=wrAdd(weight~length+species,WsOpts=list(Ruffe=list(ref=50))))
 peek(RuffeSLRH92,n=10)
@@ -660,9 +688,10 @@ several species captured from Inch Lake. These data provide a simple
 example for using
 [`wrAdd()`](https://fishr-core-team.github.io/FSA/reference/wrAdd.md)
 because all species names are spelled as required and none of the
-species have sub-groups.[¹⁷](#fn17)
+species have sub-groups.[^17]
 
 ``` r
+
 data("InchLake2",package="FSAdata")  # retrieve the data.frame
 peek(InchLake2,n=10)
 #>     netID fishID          species length weight year
@@ -685,6 +714,7 @@ converted to the same unit type. Below length is converted to mm before
 used to add a relative weight variable.
 
 ``` r
+
 InchLake2 <- InchLake2 |>
   mutate(length=length*25.4,
          Wr=wrAdd(weight~length+species))
@@ -713,11 +743,12 @@ Now consider the `BGHRfish` data.frame (distributed with the `FSAdata`
 package) that has the lengths (mm) and weights (g) of three species –
 Smallmouth Bass, Largemouth Bass, and Bluegill – from Big Hill
 Reservoir, KS. These three species do not have sub-groups defined in
-`WSlit`, but upon observing the data below[¹⁸](#fn18) it is seen that
-the species variable (`specCode`) contains codes for the species names
+`WSlit`, but upon observing the data below[^18] it is seen that the
+species variable (`specCode`) contains codes for the species names
 rather than the names required by `PSDlit`.
 
 ``` r
+
 data(BGHRfish,package="FSAdata")  # retrieve the data.frame
 peek(BGHRfish,n=10)
 #>     UID fishID specCode length weight count
@@ -738,9 +769,10 @@ list or vector that defines how the names from `WSlit` should be matched
 to the names in the data.frame. For this purpose, the species names in
 `WSlit` are the names in the vector (i.e., before the `=`) and the
 species names in the data.frame are the items in the vector (i.e., after
-the `=`).[¹⁹](#fn19)
+the `=`).[^19]
 
 ``` r
+
 thes <- c("Smallmouth Bass"="116","Largemouth Bass"="118","Bluegill"="122")
 ```
 
@@ -755,6 +787,7 @@ below before using
 [`wrAdd()`](https://fishr-core-team.github.io/FSA/reference/wrAdd.md).
 
 ``` r
+
 BGHRfish <- BGHRfish |>
   mutate(specCode=as.character(specCode),
          Wr=wrAdd(weight~length+specCode,thesaurus=thes))
@@ -784,6 +817,7 @@ hypothetical data set `PSDWRtest` distributed with `FSA` can be used to
 illustrate how to handle these “issues”.
 
 ``` r
+
 peek(PSDWRtest,n=20)
 #>               species     location  len      wt  sex
 #> 1    Bluegill Sunfish    Bass Lake  107    25.8 <NA>
@@ -835,7 +869,7 @@ The easiest way to deal with most of these “issues” is to create a new
 groups in parentheses to the species name. There are a variety of ways
 to do this and which way (is best or works) may depend on the specifics
 of the situation. Here, we primarily use
-[`case_when()`](https://dplyr.tidyverse.org/reference/case_when.html)
+[`case_when()`](https://dplyr.tidyverse.org/reference/case-and-replace-when.html)
 from `dplyr` with a series of statements that begin with a “condition”
 to the left of the `~` and new species “name” for that condition to the
 right of the `~`. The `.default=species` at the end puts the name from
@@ -844,6 +878,7 @@ conditions above it are met (e.g., if `species` is “Yellow Perch” then
 `species2` will be “Yellow Perch”).
 
 ``` r
+
 PSDWRtest <- PSDWRtest |>
   mutate(species2=case_when(
            species=="Bluegill Sunfish" ~ "Bluegill",
@@ -891,6 +926,7 @@ described above, noting the use of the “new” species variable
 quantile to use for the Ruffe standard weight equation.
 
 ``` r
+
 PSDWRtest$wr <- wrAdd(wt~len+species2,data=PSDWRtest,
                       WsOpts=list(Ruffe=list(ref=75)))
 peek(PSDWRtest,n=20)
@@ -945,12 +981,13 @@ peek(PSDWRtest,n=20)
 As an illustration, the mean and standard deviation of relative weights
 for Cisco (in `CiscoTL` from above) are computed below (along with
 `validn` which is the number of non-`NA` (i.e., non-missing) relative
-weights).[²⁰](#fn20) These results suggest that this population of Cisco
-is substantially “skinnier” (i.e., under-weight) than the standard for
-the species (because the mean relative weight is substantially less than
+weights).[^20] These results suggest that this population of Cisco is
+substantially “skinnier” (i.e., under-weight) than the standard for the
+species (because the mean relative weight is substantially less than
 100).
 
 ``` r
+
 CiscoTL |>
   summarize(validn=sum(!is.na(Wr)),
             mnWr=mean(Wr,na.rm=TRUE),
@@ -970,14 +1007,19 @@ only species below with no mean relative weight (i.e., Iowa Darter)
 does, indeed, not have a known standard weight equation.
 
 ``` r
+
 PSDWRtest |>
   group_by(species,location) |>
   summarize(validn=sum(!is.na(wr)),
             mnWr=mean(wr,na.rm=TRUE),
             sdWr=sd(wr,na.rm=TRUE)) |>
   as.data.frame()
-#> `summarise()` has grouped output by 'species'. You can override using the
-#> `.groups` argument.
+#> `summarise()` has regrouped the output.
+#> ℹ Summaries were computed grouped by species and location.
+#> ℹ Output is grouped by species.
+#> ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+#> ℹ Use `summarise(.by = c(species, location))` for per-operation grouping
+#>   (`?dplyr::dplyr_by`) instead.
 #>             species     location validn      mnWr      sdWr
 #> 1  Bluegill Sunfish    Bass Lake    111 101.77768  9.689499
 #> 2       Brook Trout   Trout Lake     73 109.45569  1.191287
@@ -992,68 +1034,66 @@ PSDWRtest |>
 #> 11     Yellow Perch    Bass Lake    160 102.25132  9.927675
 ```
 
-------------------------------------------------------------------------
-
-1.  Specifics
+[^1]: Specifics
     [here](https://fishr-core-team.github.io/FSA/reference/WSlit.html).
 
-2.  Leave `group=` at the default `NULL` for species without sub-group
+[^2]: Leave `group=` at the default `NULL` for species without sub-group
     equations.
 
-3.  A few species have an equation for only one set of units.
+[^3]: A few species have an equation for only one set of units.
 
-4.  Alternatives for a species can be chosen with `ref=` in
+[^4]: Alternatives for a species can be chosen with `ref=` in
     [`wsVal()`](https://fishr-core-team.github.io/FSA/reference/wsVal.md).
     For species with only one possible `ref`, then `ref=` should be left
     at the default `NULL`.
 
-5.  For species with multiple `method`s, you will need to choose which
+[^5]: For species with multiple `method`s, you will need to choose which
     to use with `method=` in
     [`wsVal()`](https://fishr-core-team.github.io/FSA/reference/wsVal.md).
     For species where only one method is available then leave `method=`
     at the default `NULL`.
 
-6.  The postfix after the period will be replaced with the `measure`
+[^6]: The postfix after the period will be replaced with the `measure`
     type (here `TL` but for some species `FL`, `BL`, or `CL`).
 
-7.  I don’t often use this, but it is available for a “cleaner” look.
+[^7]: I don’t often use this, but it is available for a “cleaner” look.
 
-8.  See [this
+[^8]: See [this
     vignette](https://fishr-core-team.github.io/FSA/articles/Computing_PSDs.html).
 
-9.  As illustrated in [this companion
+[^9]: As illustrated in [this companion
     vignette](https://fishr-core-team.github.io/FSA/articles/Computing_PSDs_and_RelativeWeights.html).
 
-10. The double-brackets (i.e., `[[]]`) are used to remove the name
+[^10]: The double-brackets (i.e., `[[]]`) are used to remove the name
     (e.g., `int`) from the returned value.
 
-11. These two steps could have been combined by replacing `Ws` with the
-    calculation in [`ifelse()`](https://rdrr.io/r/base/ifelse.html).
+[^11]: These two steps could have been combined by replacing `Ws` with
+    the calculation in [`ifelse()`](https://rdrr.io/r/base/ifelse.html).
 
-12. Though its use is illustrated here on a data.frame with only one
+[^12]: Though its use is illustrated here on a data.frame with only one
     species. See the next sections for an example with more species.
 
-13. From `FSA`.
+[^13]: From `FSA`.
 
-14. Note that the `CiscoTL` data.frame was re-read so that the additions
-    in the previous section were removed.
+[^14]: Note that the `CiscoTL` data.frame was re-read so that the
+    additions in the previous section were removed.
 
-15. As described previously.
+[^15]: As described previously.
 
-16. Note that
+[^16]: Note that
     [`wrAdd()`](https://fishr-core-team.github.io/FSA/reference/wrAdd.md)
     is more convenient for data.frames with multiple species as will be
     illustrated in the next section.
 
-17. See the next section for how to deal with these issues.
+[^17]: See the next section for how to deal with these issues.
 
-18. And [the
+[^18]: And [the
     documentation](https://fishr-core-team.github.io/FSAdata/reference/Herman.html).
 
-19. The numeric species codes are in parentheses as `specCode` will be
-    converted to a string before using
+[^19]: The numeric species codes are in parentheses as `specCode` will
+    be converted to a string before using
     [`wrAdd()`](https://fishr-core-team.github.io/FSA/reference/wrAdd.md).
 
-20. More interesting summaries and plots may be constructed with these
-    data. This is just an example of summarizing relative weights for a
-    sample.
+[^20]: More interesting summaries and plots may be constructed with
+    these data. This is just an example of summarizing relative weights
+    for a sample.

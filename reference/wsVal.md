@@ -146,7 +146,7 @@ wsVal()
 #> 
 #> Species name must be one of following. Be careful of spelling and capitalization.
 #>   [1] "Aegean Chub"                    "African Sharptooth Catfish"    
-#>   [3] "Alabama Bass"                   "Alabama Bass (original)"       
+#>   [3] "Alabama Bass"                   "Alabama Bass (RETRACTED)"      
 #>   [5] "Ankara Nase"                    "Arctic Grayling"               
 #>   [7] "Bighead Carp"                   "Bigmouth Buffalo"              
 #>   [9] "Bigmouth Sleepers"              "Bigmouth Sleepers (lotic)"     
@@ -198,7 +198,7 @@ wsVal()
 #> [101] "Shovelnose Sturgeon"            "Silver Carp"                   
 #> [103] "Smallmouth Bass"                "Smallmouth Buffalo"            
 #> [105] "South European Roach"           "Spotted Bass"                  
-#> [107] "Spotted Bass (original)"        "Spotted Gar"                   
+#> [107] "Spotted Bass (RETRACTED)"       "Spotted Gar"                   
 #> [109] "Spotted Sunfish"                "Striped Bass"                  
 #> [111] "Striped Bass (landlocked)"      "Striped Bass X White Bass"     
 #> [113] "Suwannee Bass"                  "Tiger Muskellunge"             

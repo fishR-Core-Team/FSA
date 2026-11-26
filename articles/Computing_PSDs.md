@@ -20,6 +20,7 @@ described here were modified after version 0.9.6 and are thus **specific
 to FSA \>v0.9.6**.
 
 ``` r
+
 library(FSA)
 library(dplyr)  # mutate, select, filter, case_when
 ```
@@ -32,21 +33,22 @@ Five-cell Gabelhouse (GH) length categories have been deveoped for a
 number of freshwater game fish in the United States, as well as several
 non-game fish in the United States and some other fish from outside of
 the United States. These values have been collated into the `PSDlit`
-data.frame[¹](#fn1) distributed with `FSA` and are most easily accessed
-with
+data.frame[^1] distributed with `FSA` and are most easily accessed with
 [`psdVal()`](https://fishr-core-team.github.io/FSA/reference/psdVal.md).
 For example, the GH length categories for Bluegill are retrieved below.
 
 ``` r
+
 psdVal("Bluegill")
 #>  substock     stock   quality preferred memorable    trophy 
 #>         0        80       150       200       250       300
 ```
 
 The default is to return lengths in millimeters; however, they can be
-returned in centimeters or inches with `units=`.[²](#fn2)
+returned in centimeters or inches with `units=`.[^2]
 
 ``` r
+
 psdVal("Bluegill",units="cm")
 #>  substock     stock   quality preferred memorable    trophy 
 #>         0         8        15        20        25        30
@@ -61,6 +63,7 @@ with data that includes individuals shorter than the stock length. Use
 `incl.zero=FALSE` to exclude this category.
 
 ``` r
+
 psdVal("Bluegill",incl.zero=FALSE)
 #>     stock   quality preferred memorable    trophy 
 #>        80       150       200       250       300
@@ -74,10 +77,11 @@ requires spelling (and capitalizing) the species name as it appears in
 without any arguments.
 
 ``` r
+
 psdVal()
 #> 
 #> Species name must be one of following. Be careful of spelling and capitalization.
-#>  [1] "Alabama Bass"                "Arctic Grayling"            
+#>  [1] "Alabama Bass (RETRACTED)"    "Arctic Grayling"            
 #>  [3] "Bighead Carp"                "Bigmouth Buffalo"           
 #>  [5] "Black Bullhead"              "Black Carp"                 
 #>  [7] "Black Crappie"               "Blue Catfish"               
@@ -90,40 +94,41 @@ psdVal()
 #> [21] "Channel Catfish"             "Chinook Salmon"             
 #> [23] "Chinook Salmon (landlocked)" "Common Carp"                
 #> [25] "Cutthroat Trout"             "Cutthroat Trout (lentic)"   
-#> [27] "Cutthroat Trout (lotic)"     "Flathead Catfish"           
-#> [29] "Flier"                       "Freshwater Drum"            
-#> [31] "Gizzard Shad"                "Golden Trout"               
-#> [33] "Goldeye"                     "Grass Carp"                 
-#> [35] "Green Sunfish"               "Kokanee"                    
-#> [37] "Lake Chubsucker"             "Lake Trout"                 
-#> [39] "Largemouth Bass"             "Longear Sunfish"            
-#> [41] "Longnose Gar"                "Muskellunge"                
-#> [43] "Muskellunge (female)"        "Muskellunge (male)"         
-#> [45] "Muskellunge (overall)"       "Northern Pike"              
-#> [47] "Northern Pikeminnow"         "Northern Snakehead"         
-#> [49] "Paddlefish"                  "Paddlefish (female)"        
-#> [51] "Paddlefish (male)"           "Paddlefish (overall)"       
-#> [53] "Pallid Sturgeon"             "Palmetto Bass"              
-#> [55] "Palmetto Bass (original)"    "Pumpkinseed"                
-#> [57] "Rainbow Trout"               "Rainbow Trout (lentic)"     
-#> [59] "Rainbow Trout (lotic)"       "Redbreast Sunfish"          
-#> [61] "Redear Sunfish"              "River Carpsucker"           
-#> [63] "Rock Bass"                   "Ruffe"                      
-#> [65] "Sauger"                      "Saugeye"                    
-#> [67] "Shoal Bass"                  "Shorthead Redhorse"         
-#> [69] "Silver Carp"                 "Smallmouth Bass"            
-#> [71] "Smallmouth Buffalo "         "Splake"                     
-#> [73] "Spotted Bass"                "Spotted Bass (original)"    
-#> [75] "Spotted Gar"                 "Spotted Sunfish"            
-#> [77] "Striped Bass"                "Striped Bass (landlocked)"  
-#> [79] "Striped Bass X White Bass"   "Suwannee Bass"              
-#> [81] "Utah Chub"                   "Walleye"                    
-#> [83] "Walleye (30-149 mm)"         "Walleye (overall)"          
-#> [85] "Warmouth"                    "White Bass"                 
-#> [87] "White Catfish"               "White Crappie"              
-#> [89] "White Perch"                 "White Sucker"               
-#> [91] "Yellow Bass"                 "Yellow Bullhead"            
-#> [93] "Yellow Perch"
+#> [27] "Cutthroat Trout (lotic)"     "Cutthroat Trout (original)" 
+#> [29] "Flathead Catfish"            "Flier"                      
+#> [31] "Freshwater Drum"             "Gizzard Shad"               
+#> [33] "Golden Trout"                "Goldeye"                    
+#> [35] "Grass Carp"                  "Green Sunfish"              
+#> [37] "Kokanee"                     "Lake Chubsucker"            
+#> [39] "Lake Trout"                  "Largemouth Bass"            
+#> [41] "Longear Sunfish"             "Longnose Gar"               
+#> [43] "Mountain Whitefish"          "Muskellunge"                
+#> [45] "Muskellunge (female)"        "Muskellunge (male)"         
+#> [47] "Muskellunge (overall)"       "Northern Pike"              
+#> [49] "Northern Pikeminnow"         "Northern Snakehead"         
+#> [51] "Paddlefish"                  "Paddlefish (female)"        
+#> [53] "Paddlefish (male)"           "Paddlefish (overall)"       
+#> [55] "Pallid Sturgeon"             "Palmetto Bass"              
+#> [57] "Palmetto Bass (original)"    "Pumpkinseed"                
+#> [59] "Rainbow Trout"               "Rainbow Trout (lentic)"     
+#> [61] "Rainbow Trout (lotic)"       "Rainbow Trout (original)"   
+#> [63] "Redbreast Sunfish"           "Redear Sunfish"             
+#> [65] "River Carpsucker"            "Rock Bass"                  
+#> [67] "Ruffe"                       "Sauger"                     
+#> [69] "Saugeye"                     "Shoal Bass"                 
+#> [71] "Shorthead Redhorse"          "Silver Carp"                
+#> [73] "Smallmouth Bass"             "Smallmouth Buffalo "        
+#> [75] "Splake"                      "Spotted Bass"               
+#> [77] "Spotted Bass (RETRACTED)"    "Spotted Gar"                
+#> [79] "Spotted Sunfish"             "Striped Bass"               
+#> [81] "Striped Bass (landlocked)"   "Striped Bass X White Bass"  
+#> [83] "Suwannee Bass"               "Utah Chub"                  
+#> [85] "Walleye"                     "Walleye (30-149 mm)"        
+#> [87] "Walleye (overall)"           "Warmouth"                   
+#> [89] "White Bass"                  "White Catfish"              
+#> [91] "White Crappie"               "White Perch"                
+#> [93] "White Sucker"                "Yellow Bass"                
+#> [95] "Yellow Bullhead"             "Yellow Perch"
 ```
 
 All parts of the species names in `PSDlit` are capitalized (e.g., “Brown
@@ -134,6 +139,7 @@ correct but the message will be less informative if your spelling is
 off.
 
 ``` r
+
 psdVal("Brown trout")
 #> Error:
 #> ! There are no Gablehouse lengths in 'PSDlit' for "Brown trout". However,
@@ -141,8 +147,9 @@ psdVal("Brown trout")
 #>   capitalization).
 psdVal("Brwn Trout")
 #> Error:
-#> ! There are no Gablehouse lengths in 'PSDlit' for "Brwn Trout". Type
-#>   'psdVal()' to see a list of available species.
+#> ! There are no Gablehouse lengths in 'PSDlit' for "Brwn Trout". Did you
+#>   mean "Brown Trout"? Type 'psdVal()' to see a list of available
+#>   species.
 ```
 
 A small number of species have separate length designations for
@@ -152,6 +159,7 @@ species in
 to see if you receive an informative error about the sub-groups.
 
 ``` r
+
 psdVal("Brown Trout")
 #> Error:
 #> ! "Brown Trout" has Gabelhouse categories for these sub-groups: "lentic"
@@ -161,6 +169,7 @@ psdVal("Brown Trout")
 Then try again with `group=` to select a specific group as suggested.
 
 ``` r
+
 psdVal("Brown Trout",group="lotic")
 #>  substock     stock   quality preferred memorable    trophy 
 #>         0       150       230       300       380       460
@@ -171,6 +180,7 @@ combining the species name and lower-case sub-group name (in
 parenthesis) into the first argument (and then not using `group=`).
 
 ``` r
+
 psdVal("Brown Trout (lotic)")
 #>  substock     stock   quality preferred memorable    trophy 
 #>         0       150       230       300       380       460
@@ -182,12 +192,13 @@ the list of names returned by
 for parentheses. This has some limitations as there are a few species
 that appear to have a sub-group but the name with parentheses is only
 used here (in `PSDlit`) to facilitate use when calculating PSD and
-relative weight metrics[³](#fn3) with the same data.frame. Muskellunge
-is an example of this where there is only one set of GH length
-categories but they are repeated for separate sub-groups because
-separate standard weight equations exist for these sub-groups.
+relative weight metrics[^3] with the same data.frame. Muskellunge is an
+example of this where there is only one set of GH length categories but
+they are repeated for separate sub-groups because separate standard
+weight equations exist for these sub-groups.
 
 ``` r
+
 psdVal("Muskellunge")
 #>  substock     stock   quality preferred memorable    trophy 
 #>         0       510       760       970      1070      1270
@@ -209,12 +220,13 @@ accessed by using just the species name and the original definitions
 accessed by appending “(original)” to the species name.
 
 ``` r
-psdVal("Spotted Bass")             # revised definitions
+
+psdVal("Palmetto Bass")             # revised definitions
 #>  substock     stock   quality preferred memorable    trophy 
-#>         0       150       230       300       350       440
-psdVal("Spotted Bass (original)")
+#>         0       250       410       510       610       710
+psdVal("Palmetto Bass (original)")
 #>  substock     stock   quality preferred memorable    trophy 
-#>         0       180       280       350       430       510
+#>         0       200       300       380       510       630
 ```
 
 We strongly urge you to have a good understanding of the GH length
@@ -233,6 +245,7 @@ categories by including a vector with the length (or lengths) to
 then the value will also be named in the returned result.
 
 ``` r
+
 psdVal("Largemouth Bass",addLens=254)
 #>  substock     stock       254   quality preferred memorable    trophy 
 #>         0       200       254       300       380       510       630
@@ -244,6 +257,7 @@ psdVal("Largemouth Bass",addLens=c("minLen"=254))
 Multiple additional lengths can be included.
 
 ``` r
+
 psdVal("Largemouth Bass",addLens=c("minSlot"=254,"maxSlot"=356))
 #>  substock     stock   minSlot   quality   maxSlot preferred memorable    trophy 
 #>         0       200       254       300       356       380       510       630
@@ -259,6 +273,7 @@ from Saginaw Bay, MI in `YPerchSB1` (distributed with the `FSAdata`
 package). Note here that lengths are in **centimeters**.
 
 ``` r
+
 data(YPerchSB1,package="FSAdata")  # retrieve the data.frame
 peek(YPerchSB1,n=10)
 #>        tl   loc
@@ -279,6 +294,7 @@ First, save the GH length categories returned from
 to an object (here called `ghYP`).
 
 ``` r
+
 ( ghYP <- psdVal("Yellow Perch",units="cm") )
 #>  substock     stock   quality preferred memorable    trophy 
 #>         0        13        20        25        30        38
@@ -287,9 +303,10 @@ to an object (here called `ghYP`).
 Then use
 [`lencat()`](https://fishr-core-team.github.io/FSA/reference/lencat.md)
 with the length variable as the first argument and the GH length
-categories object in `breaks=`.[⁴](#fn4)
+categories object in `breaks=`.[^4]
 
 ``` r
+
 YPerchSB1 <- YPerchSB1 |>
   mutate(ghcats1=lencat(tl,breaks=ghYP))
 peek(YPerchSB1,n=10)
@@ -309,9 +326,10 @@ peek(YPerchSB1,n=10)
 By default,
 [`lencat()`](https://fishr-core-team.github.io/FSA/reference/lencat.md)
 creates a variable with the length values rather than the category
-names. Use `use.names=TRUE` to use category names instead.[⁵](#fn5)
+names. Use `use.names=TRUE` to use category names instead.[^5]
 
 ``` r
+
 YPerchSB1 <- YPerchSB1 |>
   mutate(ghcats2=lencat(tl,breaks=ghYP,use.names=TRUE))
 peek(YPerchSB1,n=10)
@@ -333,7 +351,7 @@ peek(YPerchSB1,n=10)
 [`psdAdd()`](https://fishr-core-team.github.io/FSA/reference/psdAdd.md)
 can be used to add a length categorization variable to a data.frame for
 **all** species in the data.frame for which the GH length categories
-exists.[⁶](#fn6) The main argument to
+exists.[^6] The main argument to
 [`psdAdd()`](https://fishr-core-team.github.io/FSA/reference/psdAdd.md)
 is a formula of the form `length~species`, where `length` is the name of
 the observed length variable and `species` is the name of the species
@@ -341,9 +359,10 @@ variable. In these data there is no variable that identified the
 species, likely because the data contains only one species. Thus, before
 [`psdAdd()`](https://fishr-core-team.github.io/FSA/reference/psdAdd.md)
 can be used in this example, a new variable with the species name was
-added.[⁷](#fn7)
+added.[^7]
 
 ``` r
+
 data(YPerchSB1,package="FSAdata")
 YPerchSB1 <- YPerchSB1 |>
   mutate(spec="Yellow Perch",
@@ -366,7 +385,7 @@ peek(YPerchSB1,n=10)
 requires that the species variable have the species names in the
 spelling and capitalization used by `PSDlit`. So, for example, suppose
 that the `YPerchSB1` species names used the abbreviation `yep` rather
-than `Yellow Perch`.[⁸](#fn8) A named list or vector can be given to
+than `Yellow Perch`.[^8] A named list or vector can be given to
 `thesaurus=` that defines how the original species names (i.e., the
 items to the right of the `=` in the vector) relate to the species names
 required by `PSDlit` (i.e., the names to the left of the `=` in the
@@ -376,6 +395,7 @@ will match the two names appropriately while creating the GH length
 categories.
 
 ``` r
+
 data(YPerchSB1,package="FSAdata")
 YPerchSB1 <- YPerchSB1 |>
   mutate(spec="yep",
@@ -409,10 +429,11 @@ species captured from Inch Lake. These data provide a simple example for
 using
 [`psdAdd()`](https://fishr-core-team.github.io/FSA/reference/psdAdd.md)
 because all species names are spelled and capitalized as required (i.e.,
-same as in \`PSDlit1) and none of the species have sub-groups.[⁹](#fn9)
-Note that lengths are in **inches** here.
+same as in \`PSDlit1) and none of the species have sub-groups.[^9] Note
+that lengths are in **inches** here.
 
 ``` r
+
 data("InchLake2",package="FSAdata")  # retrieve the data.frame
 peek(InchLake2,n=10)
 #>     netID fishID          species length weight year
@@ -437,6 +458,7 @@ data.frame for which GH length categories do not exist. The new variable
 will show `<NA>` for those species.
 
 ``` r
+
 InchLake2 <- InchLake2 |>
   mutate(ghcats1=psdAdd(length~species,units="in"))
 #> Species in the data with no Gabelhouse (PSD) lengths in `PSDlit`: "Iowa
@@ -472,11 +494,12 @@ Now consider the `Herman` data.frame (distributed with the `FSAdata`
 package) that has the lengths (cm) of four species – Walleye, Yellow
 Perch, Black Crappie, and Black Bullhead – from Lake Herman, SD. These
 four species do not have sub-groups defined in `PSDlit`. However,
-observing the data below[¹⁰](#fn10) shows that the species variable
-(`spec`) contains codes for the species names rather than the names
-required by `PSDlit`.
+observing the data below[^10] shows that the species variable (`spec`)
+contains codes for the species names rather than the names required by
+`PSDlit`.
 
 ``` r
+
 data(Herman,package="FSAdata")  # retrieve the data.frame
 peek(Herman,n=10)
 #>        tl spec   yr
@@ -500,6 +523,7 @@ species names in the data.frame are the items in the vector (i.e., after
 the `=`).
 
 ``` r
+
 thes <- c("Walleye"="wae","Yellow Perch"="yep",
           "Black Crappie"="bkc","Black Bullhead"="bbh")
 ```
@@ -510,6 +534,7 @@ which will perform the name matching while creating the GH length
 categories.
 
 ``` r
+
 Herman <- Herman |>
   mutate(ghcats1=psdAdd(tl~spec,units="cm",thesaurus=thes))
 peek(Herman,n=10)
@@ -544,6 +569,7 @@ hypothetical data set `PSDWRtest` distributed with `FSA` can be used to
 illustrate how to handle these “issues”.
 
 ``` r
+
 peek(PSDWRtest,n=20)
 #>               species     location  len      wt  sex
 #> 1    Bluegill Sunfish    Bass Lake  107    25.8 <NA>
@@ -588,7 +614,7 @@ The easiest way to deal with all of these “issues” is to create a new
 groups in parentheses to the species name. There are a variety of ways
 to do this and which way (is best or works) may depend on the specifics
 of the situation. Here,
-[`case_when()`](https://dplyr.tidyverse.org/reference/case_when.html)
+[`case_when()`](https://dplyr.tidyverse.org/reference/case-and-replace-when.html)
 from `dplyr` is used with a series of statements that begin with a
 “condition” to the left of the `~` and a new species “name” for that
 condition to the right of the `~`. The `.default=species` at the end
@@ -597,6 +623,7 @@ where none of the conditions above it are met (e.g., if `species` is
 “Yellow Perch” then `species2` will be “Yellow Perch”).
 
 ``` r
+
 PSDWRtest <- PSDWRtest |>
   mutate(species2=case_when(
            species=="Bluegill Sunfish" ~ "Bluegill",
@@ -635,6 +662,7 @@ The GH length categories are added to this data.frame with
 specifically noting the use of the new `species2` variable.
 
 ``` r
+
 PSDWRtest$psd <- psdAdd(len~species2,data=PSDWRtest)
 #> Species in the data with no Gabelhouse (PSD) lengths in `PSDlit`: "Iowa
 #>   Darter".
@@ -695,6 +723,7 @@ PSD summaries for a single species from the GH length category variable
 will be illustrated with the `YPerchSB1` data.frame created above.
 
 ``` r
+
 data(YPerchSB1,package="FSAdata")
 YPerchSB1 <- YPerchSB1 |>
   mutate(species="Yellow Perch",
@@ -718,6 +747,7 @@ category. The substock-sized fish are immediately dropped (if they are
 present).
 
 ``` r
+
 ( tmp <- xtabs(~ghcats1,data=YPerchSB1) )
 #> ghcats1
 #>  substock     stock   quality preferred memorable    trophy 
@@ -734,6 +764,7 @@ of that frequency table multiplied by 100, which is easily accomplished
 with [`prop.table()`](https://rdrr.io/r/base/proportions.html).
 
 ``` r
+
 ( tmp <- prop.table(tmp)*100 )
 #> ghcats1
 #>     stock   quality preferred memorable    trophy 
@@ -749,6 +780,7 @@ cumulative sum (i.e., accumulating from right-to-left) on the
 dropping the results for the stock-sized fish which will always be 100).
 
 ``` r
+
 ( tmp <- rcumsum(tmp)[-1] )
 #>   quality preferred memorable    trophy 
 #> 22.078721  5.596556  0.000000  0.000000
@@ -760,8 +792,7 @@ quality-size (i.e., “PSD-Q”).
 ### Using `psdCalc()` for One Species
 
 The calculations in the previous section are a bit tedious and, more
-importantly, do not compute confidence intervals for the
-values.[¹¹](#fn11)
+importantly, do not compute confidence intervals for the values.[^11]
 [`psdCalc()`](https://fishr-core-team.github.io/FSA/reference/psdCalc.md)
 provides a convenient interface for computing all of the PSD metrics,
 with confidence intervals, for a data.frame with **one** species.
@@ -772,12 +803,13 @@ appropriate data.frame in `data=`. As with
 [`psdVal()`](https://fishr-core-team.github.io/FSA/reference/psdVal.md),
 [`psdCalc()`](https://fishr-core-team.github.io/FSA/reference/psdCalc.md)
 requires the correctly spelled (and capitalized) species name in
-`species=` and units in `units=`.[¹²](#fn12) Note in the use below that
-the GH length category variable is not needed (thus, the calculations
-below do **not** need to follow
+`species=` and units in `units=`.[^12] Note in the use below that the GH
+length category variable is not needed (thus, the calculations below do
+**not** need to follow
 [`psdAdd()`](https://fishr-core-team.github.io/FSA/reference/psdAdd.md)).
 
 ``` r
+
 psdCalc(~tl,data=YPerchSB1,species="Yellow Perch",units="cm")
 #>         Estimate 95% LCI 95% UCI
 #> PSD-Q         22      20      25
@@ -791,6 +823,7 @@ By default, PSD metrics that are 0 are dropped from the results. They
 can be included by using `drop0Est=FALSE`.
 
 ``` r
+
 psdCalc(~tl,data=YPerchSB1,species="Yellow Perch",units="cm",drop0Est=FALSE)
 #>         Estimate 95% LCI 95% UCI
 #> PSD-Q         22      20      25
@@ -811,6 +844,7 @@ fish that also reached preferred-size. In this example, 6% (95%CI:
 “traditional” metrics may be returned by including `what="traditional"`.
 
 ``` r
+
 psdCalc(~tl,data=YPerchSB1,species="Yellow Perch",units="cm",what="traditional")
 #>       Estimate 95% LCI 95% UCI
 #> PSD-Q       22      20      25
@@ -826,6 +860,7 @@ preferred size. Just the “incremental” metrics may be returned by
 including `what="incremental"`.
 
 ``` r
+
 psdCalc(~tl,data=YPerchSB1,species="Yellow Perch",units="cm",what="incremental")
 #>         Estimate 95% LCI 95% UCI
 #> PSD S-Q       78      75      80
@@ -833,13 +868,14 @@ psdCalc(~tl,data=YPerchSB1,species="Yellow Perch",units="cm",what="incremental")
 #> PSD P-M        6       4       7
 ```
 
-Sometimes[¹³](#fn13) it is useful to see the intermediate values (i.e.,
-the numbers) that were used to calculate the PSD metrics. These values
-can be included in the results by including `showIntermediate=TRUE`. In
-each line below, the “Estimate” should be “num” divided by “stock” times
-100 (and then rounded to a whole number).
+Sometimes[^13] it is useful to see the intermediate values (i.e., the
+numbers) that were used to calculate the PSD metrics. These values can
+be included in the results by including `showIntermediate=TRUE`. In each
+line below, the “Estimate” should be “num” divided by “stock” times 100
+(and then rounded to a whole number).
 
 ``` r
+
 psdCalc(~tl,data=YPerchSB1,species="Yellow Perch",units="cm",
         drop0Est=FALSE,showIntermediate=TRUE)
 #>          num stock Estimate 95% LCI 95% UCI
@@ -859,6 +895,7 @@ as described for
 [`psdVal()`](https://fishr-core-team.github.io/FSA/reference/psdVal.md).
 
 ``` r
+
 psdCalc(~tl,data=YPerchSB1,species="Yellow Perch",units="cm",
         addLens=c(17.5,27.5))
 #>            Estimate 95% LCI 95% UCI
@@ -894,6 +931,7 @@ previous. Note here that
 is used to add the GH length categories in `ghcats1`.
 
 ``` r
+
 data("InchLake2",package="FSAdata")
 InchLake2 <- InchLake2 |>
   mutate(ghcats1=psdAdd(length~species,units="in"))
@@ -916,6 +954,7 @@ peek(InchLake2,n=10)
 First, remove all substock-sized individuals.
 
 ``` r
+
 Inch_mod <- InchLake2 |>
   filter(ghcats1!="substock") |>
   droplevels()
@@ -929,6 +968,7 @@ before except that `margin=1` must be used in
 proportions are computed from the row totals.
 
 ``` r
+
 ( freq <- xtabs(~species+ghcats1,data=Inch_mod) )
 #>                  ghcats1
 #> species           stock quality preferred memorable
@@ -950,13 +990,14 @@ round(iPSDs,1)
 
 Traditional PSD metrics (i.e., PSD-X) are found by
 [`apply()`](https://rdrr.io/r/base/apply.html)ing
-[`rcumsum()`](https://fishr-core-team.github.io/FSA/reference/rcumsum.md)[¹⁴](#fn14)
+[`rcumsum()`](https://fishr-core-team.github.io/FSA/reference/rcumsum.md)[^14]
 to each row (i.e., `MARGIN=1`) of the PSD X-Y values. The result from
 [`apply()`](https://rdrr.io/r/base/apply.html) will be oriented opposite
 of what is desired (i.e., species in columns rather than rows), so it
 should be transposed with [`t()`](https://rdrr.io/r/base/t.html).
 
 ``` r
+
 tPSDs <- t(apply(iPSDs,MARGIN=1,FUN=rcumsum))
 round(tPSDs,1)
 #>                  ghcats1
@@ -978,6 +1019,7 @@ on separate data.frames for each species. This is demonstrated below for
 Yellow Perch and Bluegill from the Inch Lake data.
 
 ``` r
+
 InchYP <- InchLake2 |> filter(species=="Yellow Perch")
 psdCalc(~length,data=InchYP,species="Yellow Perch",units="in")
 #> Warning: Some category sample size <20, some CI coverage may be lower than 95%.
@@ -991,6 +1033,7 @@ psdCalc(~length,data=InchYP,species="Yellow Perch",units="in")
 ```
 
 ``` r
+
 InchBG <- InchLake2 |> filter(species=="Bluegill")
 psdCalc(~length,data=InchBG,species="Bluegill",units="in")
 #>         Estimate 95% LCI 95% UCI
@@ -1013,6 +1056,7 @@ are the same as those to
 [`psdCalc()`](https://fishr-core-team.github.io/FSA/reference/psdCalc.md).
 
 ``` r
+
 psdPlot(~tl,data=YPerchSB1,species="Yellow Perch",units="cm")
 ```
 
@@ -1021,9 +1065,10 @@ psdPlot(~tl,data=YPerchSB1,species="Yellow Perch",units="cm")
 There may be times where the length category lines don’t fall on the
 breaks for the histogram bars. You may be able to ameliorate this issue
 by changing the width of the breaks with `w=` or where the breaks start
-with `startcat=`.[¹⁵](#fn15)
+with `startcat=`.[^15]
 
 ``` r
+
 psdPlot(~tl,data=YPerchSB1,species="Yellow Perch",units="cm",w=0.5)
 ```
 
@@ -1035,47 +1080,45 @@ in appearance. See
 [`?psdPlot`](https://fishr-core-team.github.io/FSA/reference/psdPlot.md)
 for documentation of these other arguments.
 
-------------------------------------------------------------------------
-
-1.  Specifics
+[^1]: Specifics
     [here](https://fishr-core-team.github.io/FSA/reference/PSDlit.html).
 
-2.  A few species do not have define English unit lengths.
+[^2]: A few species do not have define English unit lengths.
 
-3.  As described in [this
+[^3]: As described in [this
     vignette](https://fishr-core-team.github.io/FSA/articles/Computing_Relative_Weights.html).
 
-4.  This examples follows my preference of using `dplyr` functions. This
-    could also be accomplished with
+[^4]: This examples follows my preference of using `dplyr` functions.
+    This could also be accomplished with
     `YPerchSB1$ghcats1 <- lencat(YPerchSB1$tl,breaks=ghYP)`.
 
-5.  Added here as a second variable only for demonstration. Generally,
+[^5]: Added here as a second variable only for demonstration. Generally,
     you would use one format or the other.
 
-6.  Here, however, it is being applied to a data.frame with only one
+[^6]: Here, however, it is being applied to a data.frame with only one
     species.
 
-7.  `YperchSB1` was loaded again to start without the modifications
+[^7]: `YperchSB1` was loaded again to start without the modifications
     performed previously.
 
-8.  Note that `YPerchSB1` is loaded again to start over and the new
+[^8]: Note that `YPerchSB1` is loaded again to start over and the new
     abbreviation is added for this example.
 
-9.  See the next section for how to deal with these issues.
+[^9]: See the next section for how to deal with these issues.
 
-10. And [the
+[^10]: And [the
     documentation](https://fishr-core-team.github.io/FSAdata/reference/Herman.html).
 
-11. See
+[^11]: See
     [`psdCI()`](https://fishr-core-team.github.io/FSA/reference/psdCI.md)
     for how to compute confidence intervals from the raw data.
 
-12. Again, `units=` defaults to `mm`.
+[^12]: Again, `units=` defaults to `mm`.
 
-13. For example, when teaching.
+[^13]: For example, when teaching.
 
-14. This finds reverse cumulative sums; i.e., sums from end-to-start,
+[^14]: This finds reverse cumulative sums; i.e., sums from end-to-start,
     rather than start-to-end.
 
-15. While this was not an issue with these data, this code shows how to
-    make narrower bar widths with `w=`.
+[^15]: While this was not an issue with these data, this code shows how
+    to make narrower bar widths with `w=`.

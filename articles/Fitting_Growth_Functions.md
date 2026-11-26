@@ -1,6 +1,7 @@
 # Fitting Growth Functions in FSA
 
 ``` r
+
 library(FSA)
 library(ggplot2)
 ```
@@ -43,14 +44,15 @@ Note that the `FSA` functions described here were modified after version
 ## First Example – Typical von Bertalanffy
 
 The most common growth model is the von Bertalanffy model as
-parameterized by Beverton and Holt with three paramaters $L_{\infty}$,
-$K$, and $t_{0}$. The equation for this growth function can be displayed
-with
+parameterized by Beverton and Holt with three paramaters $`L_\infty`$,
+$`K`$, and $`t_0`$. The equation for this growth function can be
+displayed with
 [`showGrowthFun()`](https://fishr-core-team.github.io/FSA/reference/showGrowthFun.md)
-using `type="von Bertalanffy"`, `pname="Typical"`,[¹](#fn1) and, to
-display the equation, `plot=TRUE`.[²](#fn2)
+using `type="von Bertalanffy"`, `pname="Typical"`,[^1] and, to display
+the equation, `plot=TRUE`.[^2]
 
 ``` r
+
 showGrowthFun(type="von Bertalanffy",pname="Typical",plot=TRUE,cex=1.5)
 ```
 
@@ -59,7 +61,7 @@ showGrowthFun(type="von Bertalanffy",pname="Typical",plot=TRUE,cex=1.5)
 An R function to return a predicted length from this equation when given
 an age (or ages) and values for the three parameters can be created with
 [`makeGrowthFun()`](https://fishr-core-team.github.io/FSA/reference/makeGrowthFun.md)
-using the same `type=` and `pname=`[³](#fn3) as used in
+using the same `type=` and `pname=`[^3] as used in
 [`showGrowthFun()`](https://fishr-core-team.github.io/FSA/reference/showGrowthFun.md).
 The result from
 [`makeGrowthFun()`](https://fishr-core-team.github.io/FSA/reference/makeGrowthFun.md)
@@ -67,13 +69,15 @@ should be assigned to an object, which will then be the name of the R
 function to predict lengths.
 
 ``` r
+
 vb1 <- makeGrowthFun(type="von Bertalanffy",pname="Typical")
 ```
 
 For example, `vb1()` can now be used to predict the mean length for
-age-2 fish assuming $L_{\infty} = 450$, $K = 0.3$, and $t_{0} = -0.5$.
+age-2 fish assuming $`L_\infty=450`$, $`K=0.3`$, and $`t_0=-0.5`$.
 
 ``` r
+
 vb1(2,Linf=450,K=0.3,t0=-0.5)
 #> [1] 237.4351
 ```
@@ -86,6 +90,7 @@ For example, the mean length at age-2 can also be predicted with the
 following.
 
 ``` r
+
 vb1(2,Linf=c(450,0.3,-0.5))
 #> [1] 237.4351
 ```
@@ -97,6 +102,7 @@ seen by displaying the function code and noting the order of the
 arguments in the function declaration.
 
 ``` r
+
 vb1
 #> function (t, Linf, K = NULL, t0 = NULL) 
 #> {
@@ -107,7 +113,7 @@ vb1
 #>     }
 #>     Linf * (1 - exp(-K * (t - t0)))
 #> }
-#> <bytecode: 0x56223ef30e28>
+#> <bytecode: 0x5e8c53a6b1f8>
 #> <environment: namespace:FSA>
 ```
 
@@ -115,6 +121,7 @@ The same `vb1()` function can be used to predict mean lengths for a
 number of ages (e.g., ages 2 to 12 below).
 
 ``` r
+
 vb1(2:12,Linf=450,K=0.3,t0=-0.5)
 #>  [1] 237.4351 292.5280 333.3419 363.5775 385.9767 402.5703 414.8633 423.9701
 #>  [9] 430.7165 435.7145 439.4170
@@ -132,10 +139,11 @@ fisheries growth functions can be obtained using
 To demonstrate
 [`findGrowthStarts()`](https://fishr-core-team.github.io/FSA/reference/findGrowthStarts.md)
 suppose that length-at-age (recorded as an annual age) are available in
-`tlV` and `age` of the `GrowthData1` data.frame,[⁴](#fn4), a snapshot of
-which is shown below.
+`tlV` and `age` of the `GrowthData1` data.frame,[^4] a snapshot of which
+is shown below.
 
 ``` r
+
 peek(GrowthData1,n=10,which=c("tlV","age"))
 #>     tlV age
 #> 1    61   0
@@ -151,8 +159,8 @@ peek(GrowthData1,n=10,which=c("tlV","age"))
 ```
 
 [`findGrowthStarts()`](https://fishr-core-team.github.io/FSA/reference/findGrowthStarts.md)
-requires a formula of the form `length~age`,[⁵](#fn5) a corresponding
-data.frame in `data=`, and the same `type=` and `pname=`[⁶](#fn6) as in
+requires a formula of the form `length~age`,[^5] a corresponding
+data.frame in `data=`, and the same `type=` and `pname=`[^6] as in
 [`showGrowthFun()`](https://fishr-core-team.github.io/FSA/reference/showGrowthFun.md)
 and
 [`makeGrowthFun()`](https://fishr-core-team.github.io/FSA/reference/makeGrowthFun.md).
@@ -160,9 +168,10 @@ For example, starting values for the `GrowthData1` data and the typical
 parameterization of the von Bertalanffy growth function are obtained
 below. The results of
 [`findGrowthStarts()`](https://fishr-core-team.github.io/FSA/reference/findGrowthStarts.md)
-should be assigned to an object for later use.[⁷](#fn7)
+should be assigned to an object for later use.[^7]
 
 ``` r
+
 ( vsv1 <- findGrowthStarts(tlV~age,data=GrowthData1,
                            type="von Bertalanffy",pname="Typical") )
 #>        Linf           K          t0 
@@ -175,9 +184,10 @@ when fitting the non-linear regression to data. In these instances it
 may be useful to view a quick diagnostic plot of how the model evaluated
 at the starting values “fits” the data. Such a plot can be made by
 including `plot=TRUE` in
-[`findGrowthStarts()`](https://fishr-core-team.github.io/FSA/reference/findGrowthStarts.md).[⁸](#fn8)
+[`findGrowthStarts()`](https://fishr-core-team.github.io/FSA/reference/findGrowthStarts.md).[^8]
 
 ``` r
+
 vsv1 <- findGrowthStarts(tlV~age,data=GrowthData1,
                          type="von Bertalanffy",pname="Typical",plot=TRUE)
 ```
@@ -188,9 +198,10 @@ Additionally, it may be useful to “fix” some starting values at values
 of your choice (rather than having them determined from the data). Such
 parameters can be included in a **NAMED** vector given to `fixed=` in
 [`findGrowthStarts()`](https://fishr-core-team.github.io/FSA/reference/findGrowthStarts.md).
-For example, the `K` parameter is fixed at 0.5 below.[⁹](#fn9)
+For example, the `K` parameter is fixed at 0.5 below.[^9]
 
 ``` r
+
 vsv2 <- findGrowthStarts(tlV~age,data=GrowthData1,
                          type="von Bertalanffy",pname="Typical",plot=TRUE,
                          fixed=c(K=0.5))
@@ -206,6 +217,7 @@ right-hand-side, the associated data in `data=`, and the saved starting
 values in `start=`.
 
 ``` r
+
 resv1 <- nls(tlV~vb1(age,Linf,K,t0),data=GrowthData1,start=vsv1)
 ```
 
@@ -217,10 +229,11 @@ confidence intervals are extracted with
 column-bound together for a concise report.
 
 ``` r
+
 cbind(Est=coef(resv1),confint(resv1))
 #> Waiting for profiling to be done...
 #>              Est        2.5%       97.5%
-#> Linf 456.0374952 448.7004147 463.7915414
+#> Linf 456.0374964 448.7004147 463.7915414
 #> K      0.2932701   0.2761202   0.3107616
 #> t0    -0.4848237  -0.5943280  -0.3845776
 ```
@@ -239,6 +252,7 @@ parameter name (i.e,. `Linf` in this example) inside a list that is
 assigned to `args=`.
 
 ``` r
+
 ggplot(data=GrowthData1,aes(y=tlV,x=age)) +
   geom_point(size=2.5,alpha=0.2) +
   scale_y_continuous(name="Total Length (mm)",limits=c(0,NA)) +
@@ -267,6 +281,7 @@ into an expression, `size=` controls the size of the text, and `x=` and
 `y=` are used to place (usually with trial-and-error) the equation.
 
 ``` r
+
 ggplot(data=GrowthData1,aes(y=tlV,x=age)) +
   geom_point(size=2.5,alpha=0.2) +
   scale_y_continuous(name="Total Length (mm)",limits=c(0,NA)) +
@@ -285,12 +300,14 @@ ggplot(data=GrowthData1,aes(y=tlV,x=age)) +
 The same general process works for other growth models. For example,
 suppose that your data suggests an inflection point in the growth
 trajectory so you want to fit the second parameterization of the
-Richards function, which has four parameters of $L_{\infty}$, $k$,
-$t_{0}$, and $b$. The same general workflow is illustrated below noting
-that `type="Richards"` and `param=2` is used, but those are assigned to
-objects outside the function to save some repetitive typing.[¹⁰](#fn10)
+Richards function, which has four parameters of $`L_\infty`$, $`k`$,
+$`t_0`$, and $`b`$. The same general workflow is illustrated below
+noting that `type="Richards"` and `param=2` is used, but those are
+assigned to objects outside the function to save some repetitive
+typing.[^10]
 
 ``` r
+
 typ <- "Richards"
 prm <- 2
 rich1 <- makeGrowthFun(type=typ,param=prm)
@@ -300,17 +317,19 @@ rsv1 <- findGrowthStarts(tlR~age,data=GrowthData1,type=typ,param=prm,plot=TRUE)
 ![](Fitting_Growth_Functions_files/figure-html/unnamed-chunk-15-1.png)
 
 ``` r
+
 resr1 <- nls(tlR~rich1(age,Linf,k,t0,b),data=GrowthData1,start=rsv1)
 cbind(Est=coef(resr1),confint(resr1))
 #> Waiting for profiling to be done...
 #>              Est        2.5%       97.5%
-#> Linf 452.9499118 444.5152186 462.5688222
+#> Linf 452.9499102 444.5152186 462.5688222
 #> k      0.5309684   0.4303097   0.6601910
-#> t0     4.7527545   3.4644030   5.5695013
-#> b     -0.4424650  -0.7086819  -0.3007673
+#> t0     4.7527548   3.4644030   5.5695013
+#> b     -0.4424649  -0.7086819  -0.3007673
 ```
 
 ``` r
+
 ggplot(data=GrowthData1,aes(y=tlR,x=age)) +
   geom_point(size=2.5,alpha=0.2) +
   scale_y_continuous(name="Total Length (mm)",limits=c(0,NA)) +
@@ -327,28 +346,29 @@ ggplot(data=GrowthData1,aes(y=tlR,x=age)) +
 
 Some growth models require certain values to be set at constant values.
 For example, the Francis parameterization of the von Bertalanffy
-function has three parameters ($L_{1}$, $L_{2}$, and $L_{3}$) that are
+function has three parameters ($`L_1`$, $`L_2`$, and $`L_3`$) that are
 estimated mean lengths at three specified ages. Two of those ages –
-$t_{1}$ and $t_{3}$ – are set by the user for defining $L_{1}$ and
-$L_{3}$. The third parameter ($L_{2}$) is defined at the time that is
-the average of $t_{1}$ and $t_{3}$. Ages for $t_{1}$ and $t_{3}$ must be
+$`t_1`$ and $`t_3`$ – are set by the user for defining $`L_1`$ and
+$`L_3`$. The third parameter ($`L_2`$) is defined at the time that is
+the average of $`t_1`$ and $`t_3`$. Ages for $`t_1`$ and $`t_3`$ must be
 set in a **NAMED** vector (`cv2` below) given to `constvals=` in
 [`findGrowthStarts()`](https://fishr-core-team.github.io/FSA/reference/findGrowthStarts.md),
 the function created by
 [`makeGrowthFun()`](https://fishr-core-team.github.io/FSA/reference/makeGrowthFun.md),
 and
 [`showGrowthFun()`](https://fishr-core-team.github.io/FSA/reference/showGrowthFun.md).
-The rest of the workflow is the similar to above (noting that `type=`
-and `pname=` are adjusted). However note that the Francis model uses a
+The rest of the workflow is similar to above (noting that `type=` and
+`pname=` are adjusted). However note that the Francis model uses a
 “where” clause to simplify the look of the equation, which can result in
 a long (i.e., wide) equation. The use of `stackWhere=TRUE` in
 [`showGrowthFun()`](https://fishr-core-team.github.io/FSA/reference/showGrowthFun.md)
 will “stack” the “where” clause underneath the main equation to narrow
 (but make taller) the equation. Further note that the result from
 [`showGrowthFun()`](https://fishr-core-team.github.io/FSA/reference/showGrowthFun.md)
-was saved to an object here just to reduce clutter in the plotting code.
+was saved to an object here to reduce clutter in the plotting code.
 
 ``` r
+
 typ <- "von Bertalanffy"
 prm <- "Francis"
 vb2 <- makeGrowthFun(type=typ,pname=prm)
@@ -360,16 +380,18 @@ rsv2 <- findGrowthStarts(tlV~age,data=GrowthData1,type=typ,pname=prm,
 ![](Fitting_Growth_Functions_files/figure-html/unnamed-chunk-17-1.png)
 
 ``` r
+
 resv2 <- nls(tlV~vb2(age,L1,L2,L3,t1=cv2),data=GrowthData1,start=rsv2)
 cbind(Est=coef(resv2),confint(resv2))
 #> Waiting for profiling to be done...
 #>          Est      2.5%     97.5%
-#> L1  60.44277  50.41095  70.34143
+#> L1  60.44276  50.41095  70.34143
 #> L2 387.95159 385.04537 390.85403
 #> L3 444.31932 438.84385 449.85716
 ```
 
 ``` r
+
 eqn <- showGrowthFun(type=typ,pname=prm,fit=resv2,constvals=cv2,stackWhere=TRUE)
 
 ggplot(data=GrowthData1,aes(y=tlV,x=age)) +
@@ -388,9 +410,10 @@ ggplot(data=GrowthData1,aes(y=tlV,x=age)) +
 The Somer’s parameterization of the von Bertalanffy can be used to model
 data where ages are fractional parts of the year, often referred to as
 seasonal length-at-age data. The process for fitting this model is very
-similar to above as illustrated below.[¹¹](#fn11)
+similar to above as illustrated below.[^11]
 
 ``` r
+
 type <- "von Bertalanffy"
 prm <- "Somers"
 vb3 <- makeGrowthFun(type=typ,pname=prm)
@@ -400,18 +423,20 @@ rsv3 <- findGrowthStarts(tlS~age,data=GrowthData2,type=typ,pname=prm,plot=TRUE)
 ![](Fitting_Growth_Functions_files/figure-html/unnamed-chunk-19-1.png)
 
 ``` r
+
 resv3 <- nls(tlS~vb3(age,Linf,K,t0,C,ts),data=GrowthData2,start=rsv3)
 cbind(Est=coef(resv3),confint(resv3))
 #> Waiting for profiling to be done...
 #>              Est         2.5%       97.5%
-#> Linf 450.3311672 446.26959271 454.5753258
+#> Linf 450.3311631 446.26959272 454.5753258
 #> K      0.5052008   0.48680724   0.5239582
-#> t0    -0.4183363  -0.55965206  -0.1697775
-#> C      0.9398083   0.73548569   1.1529083
+#> t0    -0.4183356  -0.55965195  -0.1697776
+#> C      0.9398085   0.73548569   1.1529083
 #> ts     0.1145216   0.07858732   0.1420780
 ```
 
 ``` r
+
 eqn <- showGrowthFun(type=typ,pname=prm,fit=resv3,stackWhere=TRUE)
 
 ggplot(data=GrowthData2,aes(y=tlS,x=age)) +
@@ -428,10 +453,10 @@ ggplot(data=GrowthData2,aes(y=tlS,x=age)) +
 ## Fifth Example – Fabens (Tag-Recapture) von Bertalanffy
 
 Using parameterizations of the von Bertalanffy for tag-recapture
-data[¹²](#fn12) follows a similar workflow, but with a few different
-details. First, some of the parameterizations use the change in length
-as the response variable, whereas others use the length at recapture.
-The first example here will use Fabens parameterization which uses the
+data[^12] follows a similar workflow, but with a few different details.
+First, some of the parameterizations use the change in length as the
+response variable, whereas others use the length at recapture. The first
+example here will use Fabens parameterization which uses the
 change-in-length as the response variable.
 
 Before continuing, this example will use the data in `GrowthData3`,
@@ -441,6 +466,7 @@ subsequent recapture (`tlR`), time-at-large (time between marking and
 recapture; `deltat`), and change in length (`deltaL`).
 
 ``` r
+
 peek(GrowthData3,n=10)
 #>      tag tlM tlR    deltat deltaL
 #> 1      5 240 335 2.1022151     95
@@ -465,6 +491,7 @@ time-at-large and length at marking for the Fabens parameterization is
 created below.
 
 ``` r
+
 typ <- "von Bertalanffy"
 prm <- "Fabens"
 ( vb4 <- makeGrowthFun(type=typ,pname=prm) )
@@ -476,15 +503,16 @@ prm <- "Fabens"
 #>     }
 #>     (Linf - Lm) * (1 - exp(-K * dt))
 #> }
-#> <bytecode: 0x56223ff096e0>
+#> <bytecode: 0x5e8c4f826a38>
 #> <environment: namespace:FSA>
 ```
 
 For example, the predicted change in length for times-at-large of 1, 2,
 and 3 years and a length-at-marking of 300 mm (and assuming
-$L_{\infty}$=450 and $K$=0.3) is obtained with the following.
+$`L_\infty`$=450 and $`K`$=0.3) is obtained with the following.
 
 ``` r
+
 vb4(1:3,300,Linf=450,K=0.3)
 #> [1] 38.87727 67.67825 89.01455
 ```
@@ -494,6 +522,7 @@ with lengths-at-marking of 100, 200, and 300 mm is obtained with the
 following.
 
 ``` r
+
 vb4(1,c(100,200,300),Linf=450,K=0.3)
 #> [1] 90.71362 64.79544 38.87727
 ```
@@ -504,6 +533,7 @@ the excecption that the formula in
 will be of the form `deltaL~deltat+Lm`.
 
 ``` r
+
 rsv4 <- findGrowthStarts(deltaL~deltat+tlM,data=GrowthData3,type=typ,pname=prm)
 resv4 <- nls(deltaL~vb4(deltat,tlM,Linf,K),data=GrowthData3,start=rsv4)
 cbind(Est=coef(resv4),confint(resv4))
@@ -521,14 +551,15 @@ fact that the marking and tagging sampling events were generally
 conducted annually so that the times-at-large were very nearly exactly
 1, 2, or 3 years. Second, a data.frame is created that uses the fitted
 model to predict the change-in-length for those three times-at-large at
-the minimum observed length-at-marking and the estimated $L_{\infty}$.
+the minimum observed length-at-marking and the estimated $`L_\infty`$.
 These predictions will be used to place three fitted lines, one for each
 rough time-at-large, on the scatterplot of change-in-length versus
 length-at-marking. Only two points are needed for the lines here because
-Fabens model assumes a linear decline in change-in-length with increase
-length-at-marking for each time-at-large.
+Fabens model assumes a linear decline in change-in-length with
+increasing length-at-marking for each time-at-large.
 
 ``` r
+
 pdf <- data.frame(tlM=rep(c(min(GrowthData3$tlM),coef(resv4)[["Linf"]]),each=3),
                   deltat=rep(c(1,2,3),times=2))
 pdf$deltaL <- vb4(pdf$deltat,pdf$tlM,Linf=coef(resv4)[["Linf"]],K=coef(resv4)[["K"]])
@@ -553,6 +584,7 @@ and
 add the equation to the plot.
 
 ``` r
+
 eqn <- showGrowthFun(type=typ,pname=prm,fit=resv4)
 
 ggplot() +
@@ -565,7 +597,7 @@ ggplot() +
   annotate(geom="text",label=eqn,parse=TRUE,size=4.2,x=350,y=165) +
   theme_bw() +
   theme(legend.position="inside",
-        legend.position.inside=c(0.85,0.5))
+        legend.position.inside=c(0.82,0.5))
 ```
 
 ![](Fitting_Growth_Functions_files/figure-html/unnamed-chunk-27-1.png)
@@ -585,17 +617,18 @@ For simplicity, a `ggplot2` theme was created that modified
 remove the grid lines and move the legend inside of the plot panel.
 
 ``` r
+
 theme_grow <- function() {
   theme_bw() +
     theme(panel.grid=element_blank(),
           legend.position="inside",
           legend.position.inside=c(1,0),
-          legend.justification.inside=c(1.1,0))
+          legend.justification.inside=c(1.1,-0.05))
 }
 ```
 
-In this example, the parameter for the instantaneous growth ($g_{i}$) at
-the inflection point (\$t_i) in the second parameterization of the
+In this example, the parameter for the instantaneous growth ($`g_i`$) at
+the inflection point ($`t_i`$) in the second parameterization of the
 Gompertz growth function will be explored. An R function for this
 parameterization is created below with
 [`makeGrowthFun()`](https://fishr-core-team.github.io/FSA/reference/makeGrowthFun.md)
@@ -608,6 +641,7 @@ requires an expression (returned when `parse=TRUE`) rather than a string
 that it will parse.
 
 ``` r
+
 f <- makeGrowthFun(type="Gompertz",param=2)
 feqn <- showGrowthFun(type="Gompertz",param=2,parse=TRUE)
 ```
@@ -615,16 +649,17 @@ feqn <- showGrowthFun(type="Gompertz",param=2,parse=TRUE)
 A data.frame is then created that has all combinations of a sequence of
 ages over which to show the growth function and values for both the
 parameter that varies and those that are held constant. In the example
-below, age will be a sequence from -0.5 to 15 in steps of
-0.5[¹³](#fn13), $L_{\infty}$ will be held constant at 450, $t_{i}$ (age
-at the inflection point) will be held constant at 3, and $g_{i}$ will
-vary from 0.1 to 0.6 in steps of 0.1. Length is then computed from these
-ages and parameter values using the growth function created above (i.e.,
-`f()`). Finally, the variable with the parameter that varied is
-converted to a factor so that the plot created next will use a discrete
-rather than continuous number of colors.
+below, age will be a sequence from -0.5 to 15 in steps of 0.5,[^13]
+$`L_\infty`$ will be held constant at 450, $`t_i`$ (age at the
+inflection point) will be held constant at 3, and $`g_i`$ will vary from
+0.1 to 0.6 in steps of 0.1. Length is then computed from these ages and
+parameter values using the growth function created above (i.e., `f()`).
+Finally, the variable with the parameter that varied is converted to a
+factor so that the plot created next will use a discrete rather than
+continuous number of colors.
 
 ``` r
+
 tmp <- expand.grid(Age=seq(-0.5,15,0.5),
                    Linf=450,gi=seq(0.1,0.6,0.1),ti=3) |>
   dplyr::mutate(Length=f(Age,Linf,gi,ti),
@@ -643,6 +678,7 @@ These simulated data are then plotted using the parameter that varied to
 denote `color`.
 
 ``` r
+
 ggplot(data=tmp,mapping=aes(y=Length,x=Age,color=gi)) +
   geom_line(linewidth=1)+
   labs(title=feqn) +
@@ -652,13 +688,14 @@ ggplot(data=tmp,mapping=aes(y=Length,x=Age,color=gi)) +
 ![](Fitting_Growth_Functions_files/figure-html/unnamed-chunk-31-1.png)
 
 From here one can observe that each instance of this Gompertz function
-has an infection point at age-3 and that the “rate of growth” at that
-inflection point is greater as $g_{i}$ increases, making the growth
-function look more “S-shaped.”
+has an infection point at age-3 (i.e., $`t_i`$) and that the “rate of
+growth” at that inflection point is greater as $`g_i`$ increases, making
+the growth function look more “S-shaped.”
 
 Of course, the method can be easily modified for another parameter.
 
 ``` r
+
 tmp <- expand.grid(Age=seq(-0.5,15,0.5),
                    Linf=450,gi=0.5,ti=seq(1,6,1)) |>
   dplyr::mutate(Length=f(Age,Linf,gi,ti),
@@ -676,6 +713,7 @@ It is possible to change two parameters at once, though this can become
 messy so it is best to vary the parameters at fewer values.
 
 ``` r
+
 tmp <- expand.grid(Age=seq(-0.5,15,0.5),
                    Linf=450,gi=seq(0.3,0.6,0.1),ti=c(2,4)) |>
   dplyr::mutate(Length=f(Age,Linf,gi,ti),
@@ -695,6 +733,7 @@ instantaneous growth rate can be estimated by dividing the difference in
 successive log lengths by the difference in successive ages.
 
 ``` r
+
 tmp <- expand.grid(Age=seq(0,6,0.01),
                    Linf=450,gi=seq(0.3,0.6,0.1),ti=3) |>
   dplyr::mutate(Length=f(Age,Linf,gi,ti),
@@ -711,15 +750,16 @@ peek(tmp,n=6)
 ```
 
 The plot of the estimated instantaneous growth rates against age, zoomed
-in to focus on the inflection points, with reference lines at $t_{i}$
-and the $g_{i}$ illustrates that $g_{i}$ is indeed the instantaneous
+in to focus on the inflection points, with reference lines at $`t_i`$
+and the $`g_i`$ illustrates that $`g_i`$ is indeed the instantaneous
 growth rate at the inflection point.
 
 ``` r
+
 ggplot(data=tmp,mapping=aes(y=est_g,x=Age,color=gi)) +
   geom_line(linewidth=1) +
   labs(title=feqn) +
-  theme_grow() + theme(legend.position.inside=c(1,0.5)) +
+  theme_grow() + theme(legend.position.inside=c(1,0.6)) +
   scale_y_continuous(limits=c(0,1)) +
   scale_x_continuous(limits=c(1,5)) +
   geom_hline(yintercept=c(0.3,0.4,0.5,0.6),linetype="dashed") +
@@ -730,38 +770,37 @@ ggplot(data=tmp,mapping=aes(y=est_g,x=Age,color=gi)) +
 
 ![](Fitting_Growth_Functions_files/figure-html/unnamed-chunk-35-1.png)
 
-------------------------------------------------------------------------
+[^1]: Or `param=1`
 
-1.  Or `param=1`
+[^2]: `cex=1.5` is used to make the text larger.
 
-2.  `cex=1.5` is used to make the text larger.
+[^3]: Or `param=`
 
-3.  Or `param=`
+[^4]: This data.frame is available in `FSA`.
 
-4.  This data.frame is available in `FSA`.
-
-5.  This is true for length-at-age models, but will differ for
+[^5]: This is true for length-at-age models, but will differ for
     tag-recapture data, which will be shown later.
 
-6.  Or `param=`
+[^6]: Or `param=`
 
-7.  The leading and trailing parentheses below force the result to also
-    be shown when it is assigned to an object.
+[^7]: The leading and trailing parentheses below force the result to
+    also be shown when it is assigned to an object.
 
-8.  As a general rule use `plot=TRUE` to immediately examine the
+[^8]: As a general rule use `plot=TRUE` to immediately examine the
     relative “fit” of the starting values, rather than waiting for an
     “issue” to appear.
 
-9.  Fixing $K$ looks inappropriate in this example.
+[^9]: Fixing $`K`$ looks inappropriate in this example.
 
-10. Also note that the response variable was changed to `tlR` as these
-    are lengths in `GrowthData1` that exhibited an inflection point.
+[^10]: Also note that the response variable was changed to `tlR` as
+    these are lengths in `GrowthData1` that exhibited an inflection
+    point.
 
-11. Noting that the `tlS` from `GrowthData2` is used here as is contains
-    a seasonal length-at-age example.
+[^11]: Noting that the `tlS` from `GrowthData2` is used here as is
+    contains a seasonal length-at-age example.
 
-12. Generally, require observed lengths at marking, observed lengths at
-    recapture or the change in observed length from marking, and the
+[^12]: Generally, require observed lengths at marking, observed lengths
+    at recapture or the change in observed length from marking, and the
     time-at-large (time difference between marking and recapture).
 
-13. Smaller steps will make the growth function look smoother.
+[^13]: Smaller steps will make the growth function look smoother.

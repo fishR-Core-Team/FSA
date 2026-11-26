@@ -338,8 +338,8 @@ a hint about using [`get()`](https://rdrr.io/r/base/get.html).
 #>     }
 #>     Linf * (1 - exp(-K * (t - t0)))
 #> }
-#> <bytecode: 0x561ef60531c0>
-#> <environment: 0x561ef5f99088>
+#> <bytecode: 0x60f22584fdd8>
+#> <environment: 0x60f2257fdf18>
 ages <- 0:20
 plot(vb1(ages,Linf=20,K=0.3,t0=-0.2)~ages,type="b",pch=19)
 
@@ -360,8 +360,8 @@ plot(vb1(ages,Linf=20,K=0.3,t0=-0.2)~ages,type="b",pch=19)
 #>     L1 + (L3 - L1) * ((1 - r^(2 * ((t - t1)/(t3 - t1))))/(1 - 
 #>         r^2))
 #> }
-#> <bytecode: 0x561ef5ffe3e8>
-#> <environment: 0x561efab89348>
+#> <bytecode: 0x60f225843780>
+#> <environment: 0x60f2249efd28>
 plot(vb2(ages,L1=10,L2=19,L3=20,t1=2,t3=18)~ages,type="b",pch=19)
 
 ( vb2c <- vbFuns("Francis",simple=TRUE) )   # compare to vb2
@@ -372,8 +372,8 @@ plot(vb2(ages,L1=10,L2=19,L3=20,t1=2,t3=18)~ages,type="b",pch=19)
 #>     L1 + (L3 - L1) * ((1 - r^(2 * ((t - t1)/(t3 - t1))))/(1 - 
 #>         r^2))
 #> }
-#> <bytecode: 0x561ef5ffc340>
-#> <environment: 0x561efa388478>
+#> <bytecode: 0x60f22583b940>
+#> <environment: 0x60f220f875d0>
 
 ## Simple Examples -- Gompertz
 ( gomp1 <- GompertzFuns() )
@@ -387,8 +387,8 @@ plot(vb2(ages,L1=10,L2=19,L3=20,t1=2,t3=18)~ages,type="b",pch=19)
 #>     }
 #>     Linf * exp(-exp(-gi * (t - ti)))
 #> }
-#> <bytecode: 0x561efae32898>
-#> <environment: 0x561efb6c93f0>
+#> <bytecode: 0x60f220289268>
+#> <environment: 0x60f223031800>
 plot(gomp1(ages,Linf=800,gi=0.5,ti=5)~ages,type="b",pch=19)
 
 ( gomp2 <- GompertzFuns("Ricker2") )
@@ -402,8 +402,8 @@ plot(gomp1(ages,Linf=800,gi=0.5,ti=5)~ages,type="b",pch=19)
 #>     }
 #>     L0 * exp(b * (1 - exp(-gi * t)))
 #> }
-#> <bytecode: 0x561efae315c8>
-#> <environment: 0x561efadd3988>
+#> <bytecode: 0x60f22028a5e0>
+#> <environment: 0x60f2227bf0c0>
 plot(gomp2(ages,L0=2,b=6,gi=0.5)~ages,type="b",pch=19)
 
 ( gomp2c <- GompertzFuns("Ricker2",simple=TRUE) )   # compare to gomp2
@@ -412,8 +412,8 @@ plot(gomp2(ages,L0=2,b=6,gi=0.5)~ages,type="b",pch=19)
 #> {
 #>     L0 * exp(b * (1 - exp(-gi * t)))
 #> }
-#> <bytecode: 0x561efb6c3540>
-#> <environment: 0x561ef5513690>
+#> <bytecode: 0x60f2202874d0>
+#> <environment: 0x60f224b93c50>
 ( gompT <- GompertzFuns("Troynikov1"))
 #> Warning: 'GompertzFuns()' is deprecated as of v0.10.0. Please use 'makeGrowthFun()' instead as it will be continuously updated in the future.
 #> function (Lm, dt, Linf, gi = NULL) 
@@ -424,8 +424,8 @@ plot(gomp2(ages,L0=2,b=6,gi=0.5)~ages,type="b",pch=19)
 #>     }
 #>     Linf * ((Lm/Linf)^exp(-gi * dt)) - Lm
 #> }
-#> <bytecode: 0x561efb6c4350>
-#> <environment: 0x561ef3a49358>
+#> <bytecode: 0x60f223037fe0>
+#> <environment: 0x60f224b97b48>
 
 ## Simple Examples -- Richards
 ( rich1 <- RichardsFuns(1) )
@@ -440,8 +440,8 @@ plot(gomp2(ages,L0=2,b=6,gi=0.5)~ages,type="b",pch=19)
 #>     }
 #>     Linf/((1 + b1 * exp(-k * (t - ti)))^(1/b1))
 #> }
-#> <bytecode: 0x561ef7e6d198>
-#> <environment: 0x561ef94de850>
+#> <bytecode: 0x60f223661580>
+#> <environment: 0x60f222cbc600>
 plot(rich1(ages,Linf=800,k=0.5,ti=3,b1=0.15)~ages,type="b",pch=19)
 
 ( rich2 <- RichardsFuns(2) )
@@ -456,8 +456,8 @@ plot(rich1(ages,Linf=800,k=0.5,ti=3,b1=0.15)~ages,type="b",pch=19)
 #>     }
 #>     Linf/((1 + exp(-k * (t - t0)))^(-b2))
 #> }
-#> <bytecode: 0x561ef7e6f470>
-#> <environment: 0x561ef99b1e70>
+#> <bytecode: 0x60f22365f2e0>
+#> <environment: 0x60f220ea8db0>
 plot(rich2(ages,Linf=800,k=0.5,t0=-1,b2=6)~ages,type="b",pch=19)
 
 ( rich3 <- RichardsFuns(3) )
@@ -473,8 +473,8 @@ plot(rich2(ages,Linf=800,k=0.5,t0=-1,b2=6)~ages,type="b",pch=19)
 #>     Linf * (1 + (((L0/Linf)^(1 - b3)) - 1) * exp(-k * t))^(1/(1 - 
 #>         b3))
 #> }
-#> <bytecode: 0x561ef94d52a8>
-#> <environment: 0x561efa82e0a8>
+#> <bytecode: 0x60f223614b88>
+#> <environment: 0x60f220865eb0>
 plot(rich3(ages,Linf=800,k=0.5,L0=50,b3=1.5)~ages,type="b",pch=19)
 
 ( rich4 <- RichardsFuns(4) )
@@ -489,8 +489,8 @@ plot(rich3(ages,Linf=800,k=0.5,L0=50,b3=1.5)~ages,type="b",pch=19)
 #>     }
 #>     Linf * (1 - (1/b2) * exp(-k * (t - ti)))^b2
 #> }
-#> <bytecode: 0x561ef94daa80>
-#> <environment: 0x561efa5708b8>
+#> <bytecode: 0x60f223613020>
+#> <environment: 0x60f21cf41da0>
 plot(rich4(ages,Linf=800,k=0.5,ti=3,b2=6)~ages,type="b",pch=19)
 
 ( rich5 <- RichardsFuns(5) )
@@ -505,8 +505,8 @@ plot(rich4(ages,Linf=800,k=0.5,ti=3,b2=6)~ages,type="b",pch=19)
 #>     }
 #>     Linf * (1 + (b3 - 1) * exp(-k * (t - ti)))^(1/(1 - b3))
 #> }
-#> <bytecode: 0x561ef94d9040>
-#> <environment: 0x561efb5ecdf0>
+#> <bytecode: 0x60f223610bf8>
+#> <environment: 0x60f21c818070>
 plot(rich5(ages,Linf=800,k=0.5,ti=3,b3=0.95)~ages,type="b",pch=19)
 lines(rich5(ages,Linf=800,k=0.5,ti=3,b3=1.5)~ages,type="b",pch=19,col="blue")
 
@@ -516,8 +516,8 @@ lines(rich5(ages,Linf=800,k=0.5,ti=3,b3=1.5)~ages,type="b",pch=19,col="blue")
 #> {
 #>     Linf/((1 + exp(-k * (t - t0)))^(-b2))
 #> }
-#> <bytecode: 0x561ef7e7cf88>
-#> <environment: 0x561efb017f20>
+#> <bytecode: 0x60f223614338>
+#> <environment: 0x60f21b1a7dc8>
 
 ## Simple Examples -- Logistic
 ( log1 <- logisticFuns() )
@@ -531,8 +531,8 @@ lines(rich5(ages,Linf=800,k=0.5,ti=3,b3=1.5)~ages,type="b",pch=19,col="blue")
 #>     }
 #>     Linf/(1 + exp(-gninf * (t - ti)))
 #> }
-#> <bytecode: 0x561efb0a2170>
-#> <environment: 0x561efb0aa4b8>
+#> <bytecode: 0x60f21b0ac3a8>
+#> <environment: 0x60f21b090e28>
 plot(log1(ages,Linf=800,gninf=0.5,ti=5)~ages,type="b",pch=19)
 
 ( log2 <- logisticFuns("CJ2") )
@@ -546,8 +546,8 @@ plot(log1(ages,Linf=800,gninf=0.5,ti=5)~ages,type="b",pch=19)
 #>     }
 #>     Linf/(1 + a * exp(-gninf * t))
 #> }
-#> <bytecode: 0x561efb0a4c98>
-#> <environment: 0x561efc90c8d8>
+#> <bytecode: 0x60f21b0a81e8>
+#> <environment: 0x60f21aad4920>
 plot(log2(ages,Linf=800,gninf=0.5,a=10)~ages,type="b",pch=19)
 
 ( log2c <- logisticFuns("CJ2",simple=TRUE) ) # compare to log2
@@ -556,8 +556,8 @@ plot(log2(ages,Linf=800,gninf=0.5,a=10)~ages,type="b",pch=19)
 #> {
 #>     Linf/(1 + a * exp(-gninf * t))
 #> }
-#> <bytecode: 0x561efb0a4020>
-#> <environment: 0x561efca8f2e8>
+#> <bytecode: 0x60f21b096fb0>
+#> <environment: 0x60f21a6381f8>
 ( log3 <- logisticFuns("Karkach") )
 #> Warning: 'logisticFuns()' is deprecated as of v0.10.0. Please use 'makeGrowthFun()' instead as it will be continuously updated in the future.
 #> function (t, Linf, L0 = NULL, gninf = NULL) 
@@ -569,8 +569,8 @@ plot(log2(ages,Linf=800,gninf=0.5,a=10)~ages,type="b",pch=19)
 #>     }
 #>     L0 * Linf/(L0 + (Linf - L0) * exp(-gninf * t))
 #> }
-#> <bytecode: 0x561efb0a3a38>
-#> <environment: 0x561efcb439f8>
+#> <bytecode: 0x60f21b091810>
+#> <environment: 0x60f21a329478>
 plot(log3(ages,L0=10,Linf=800,gninf=0.5)~ages,type="b",pch=19)
 
 ( log4 <- logisticFuns("Haddon") )
@@ -584,8 +584,8 @@ plot(log3(ages,L0=10,Linf=800,gninf=0.5)~ages,type="b",pch=19)
 #>     }
 #>     dLmax/(1 + exp(log(19) * ((Lm - L50)/(L95 - L50))))
 #> }
-#> <bytecode: 0x561efb0a81a8>
-#> <environment: 0x561efcd0d350>
+#> <bytecode: 0x60f21b092f40>
+#> <environment: 0x60f2166469b0>
 
 
 ###########################################################
@@ -608,7 +608,7 @@ summary(fit1,correlation=TRUE)
 #> 
 #> Parameters:
 #>      Estimate Std. Error t value Pr(>|t|)    
-#> Linf 16.79818    1.93455   8.683  < 2e-16 ***
+#> Linf 16.79817    1.93455   8.683  < 2e-16 ***
 #> K     0.22493    0.06922   3.250  0.00125 ** 
 #> t0   -2.55738    0.47496  -5.384 1.24e-07 ***
 #> ---
@@ -622,7 +622,7 @@ summary(fit1,correlation=TRUE)
 #> t0 -0.94  0.98
 #> 
 #> Number of iterations to convergence: 10 
-#> Achieved convergence tolerance: 5.538e-06
+#> Achieved convergence tolerance: 5.665e-06
 #> 
 curve(vb1(x,Linf=coef(fit1)),from=0,to=5,col="red",lwd=10,add=TRUE)
 
@@ -650,7 +650,7 @@ summary(fit2,correlation=TRUE)
 #> L3  0.48  0.20
 #> 
 #> Number of iterations to convergence: 7 
-#> Achieved convergence tolerance: 9.456e-06
+#> Achieved convergence tolerance: 9.451e-06
 #> 
 curve(vb2c(x,L1=coef(fit2)[1],L2=coef(fit2)[2],L3=coef(fit2)[3],t1=0,t3=5),
       from=0,to=5,col="blue",lwd=5,add=TRUE)
@@ -681,7 +681,7 @@ summary(fit3,correlation=TRUE)
 #> K  -0.80 -0.71
 #> 
 #> Number of iterations to convergence: 8 
-#> Achieved convergence tolerance: 8.268e-06
+#> Achieved convergence tolerance: 8.189e-06
 #> 
 curve(vb3(x,L1=coef(fit3),t1=c(0,4)),from=0,to=5,col="green",lwd=2,add=TRUE)
 

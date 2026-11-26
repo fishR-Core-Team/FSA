@@ -159,10 +159,10 @@ Derek H. Ogle, <DerekOgle51@gmail.com>
 #> 445.7926893   0.3107456   0.9170412 
 ( slogi1 <- findGrowthStarts(tlL~age,data=GrowthData1,type="logistic") )
 #>        Linf       gninf          ti 
-#> 451.2034843   0.4848177   3.0240009 
+#> 451.2034845   0.4848177   3.0240009 
 ( srich1 <- findGrowthStarts(tlR~age,data=GrowthData1,type="Richards") )
 #>        Linf           k          ti           b 
-#> 454.2638424   0.5155442   3.2033892  -0.4473415 
+#> 454.2638426   0.5155442   3.2033891  -0.4473415 
 
 #====== Example starting values at other parameterizations
 ( svonb4 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",param=4) )
@@ -173,10 +173,10 @@ Derek H. Ogle, <DerekOgle51@gmail.com>
 #> 445.7926893   0.3107456   2.9511001 
 ( slogi3 <- findGrowthStarts(tlL~age,data=GrowthData1,type="logistic",param=3) )
 #>        Linf       gninf          L0 
-#> 451.2034843   0.4848177  84.6177000 
+#> 451.2034845   0.4848177  84.6177001 
 ( srich3 <- findGrowthStarts(tlR~age,data=GrowthData1,type="Richards",param=3) )
 #>        Linf           k          L0           b 
-#> 454.2638424   0.5155442 145.9443224  -0.4473415 
+#> 454.2638426   0.5155442 145.9443222  -0.4473415 
 
 #' #====== Example using pname instead of param
 ( svonb4 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",pname="Mooij") )
@@ -187,10 +187,10 @@ Derek H. Ogle, <DerekOgle51@gmail.com>
 #> 445.7926893   0.3107456   2.9511001 
 ( slogi3 <- findGrowthStarts(tlL~age,data=GrowthData1,type="logistic",pname="Campana-Jones2") )
 #>        Linf       gninf           a 
-#> 451.2034843   0.4848177   1.4660891 
+#> 451.2034845   0.4848177   1.4660891 
 ( srich3 <- findGrowthStarts(tlR~age,data=GrowthData1,type="Richards",pname="Tjorve7") )
 #>        Linf           k          L0           b 
-#> 454.2638424   0.5155442 145.9443224  -0.4473415 
+#> 454.2638426   0.5155442 145.9443222  -0.4473415 
 
 #====== Some vonB parameterizations require constant values in constvals=
 ( svonb8 <- findGrowthStarts(tlV~age,data=GrowthData1,type="von Bertalanffy",
@@ -201,10 +201,10 @@ Derek H. Ogle, <DerekOgle51@gmail.com>
 #====== Demonstrate use of fixed= with 2nd (Original) param of von B as e.g.
 ( svonb2 <- findGrowthStarts(tlV~age,data=GrowthData1,param=2) )
 #>        Linf           K          L0 
-#> 454.4806075   0.2974555  59.9105925 
+#> 454.4806075   0.2974555  59.9105926 
 ( svonb2 <- findGrowthStarts(tlV~age,data=GrowthData1,param=2,fixed=c(Linf=500)) )
 #>        Linf           K          L0 
-#> 500.0000000   0.2974555  59.9105925 
+#> 500.0000000   0.2974555  59.9105926 
 ( svonb2 <- findGrowthStarts(tlV~age,data=GrowthData1,param=2,fixed=c(Linf=500,K=0.25)) )
 #>      Linf         K        L0 
 #> 500.00000   0.25000  59.91059 

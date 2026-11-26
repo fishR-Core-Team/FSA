@@ -20,15 +20,18 @@ version](https://cloud.r-project.org/package=FSA) from CRAN may be
 installed with
 
 ``` r
+
 install.packages("FSA")
 ```
 
-The [development version](https://github.com/fishR-Core-Team/FSA) may be
+The [development
+version](https://github.com/fishR-Core-Team/FSA/tree/dev) may be
 installed from GitHub with
 
 ``` r
+
 if (!require('remotes')) install.packages('remotes'); require('remotes')
-remotes::install_github('fishR-Core-Team/FSA')
+remotes::install_github('fishR-Core-Team/FSA',ref="dev")
 ```
 
 You may need R Tools installed on your system to install the development

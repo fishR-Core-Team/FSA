@@ -139,8 +139,8 @@ srFuns("Ricker",msg=TRUE)
 #>     }
 #>     a * S * exp(-b * S)
 #> }
-#> <bytecode: 0x561ef999f1c0>
-#> <environment: 0x561f02b34138>
+#> <bytecode: 0x60f22842a660>
+#> <environment: 0x60f22dd80160>
 
 # create some dummy stock data
 stock <- seq(0.01,1000,length.out=199)
@@ -155,8 +155,8 @@ stock <- seq(0.01,1000,length.out=199)
 #>     }
 #>     a * S/(1 + b * S)
 #> }
-#> <bytecode: 0x561efafc0d38>
-#> <environment: 0x561efc112808>
+#> <bytecode: 0x60f22842ec90>
+#> <environment: 0x60f22ecaf8c0>
 plot(bh1(stock,a=0.5,b=0.01)~stock,type="l",lwd=2,ylab="Recruits",xlab="Spawners",ylim=c(0,50))
 
 # Ricker #1 parameterization
@@ -169,8 +169,8 @@ plot(bh1(stock,a=0.5,b=0.01)~stock,type="l",lwd=2,ylab="Recruits",xlab="Spawners
 #>     }
 #>     a * S * exp(-b * S)
 #> }
-#> <bytecode: 0x561ef999f1c0>
-#> <environment: 0x561f00a58278>
+#> <bytecode: 0x60f22842a660>
+#> <environment: 0x60f22edb17f0>
 lines(r1(stock,a=0.5,b=0.005)~stock,lwd=2,col="red")
 
 # Shephered parameterization
@@ -184,8 +184,8 @@ lines(r1(stock,a=0.5,b=0.005)~stock,lwd=2,col="red")
 #>     }
 #>     a * S/(1 + (b * S)^c)
 #> }
-#> <bytecode: 0x561ef999e298>
-#> <environment: 0x561f01932520>
+#> <bytecode: 0x60f2284293b8>
+#> <environment: 0x60f22ee8d6d8>
 lines(s1(stock,a=0.5,b=0.005,c=2.5)~stock,lwd=2,col="blue")
 
 # Saila-Lorda parameterization
@@ -199,8 +199,8 @@ lines(s1(stock,a=0.5,b=0.005,c=2.5)~stock,lwd=2,col="blue")
 #>     }
 #>     a * (S^c) * exp(-b * S)
 #> }
-#> <bytecode: 0x561ef999b8c0>
-#> <environment: 0x561f00acfd88>
+#> <bytecode: 0x60f228426b30>
+#> <environment: 0x60f22ef6b2e8>
 lines(sl1(stock,a=0.5,b=0.005,c=1.05)~stock,lwd=2,col="salmon")
 
 
@@ -214,7 +214,7 @@ summary(fit1,correlation=TRUE)
 #> 
 #> Parameters:
 #>   Estimate Std. Error t value Pr(>|t|)
-#> a  37.3342   132.0149   0.283     0.78
+#> a  37.3344   132.0164   0.283     0.78
 #> b   0.4876     1.8099   0.269     0.79
 #> 
 #> Residual standard error: 0.7486 on 22 degrees of freedom
@@ -224,7 +224,7 @@ summary(fit1,correlation=TRUE)
 #> b 1.00
 #> 
 #> Number of iterations to convergence: 6 
-#> Achieved convergence tolerance: 7.201e-06
+#> Achieved convergence tolerance: 7.378e-06
 #> 
 plot(recruits~stock,data=CodNorwegian,pch=19,xlim=c(0,200))
 curve(bh1(x,a=coef(fit1)[1],b=coef(fit1)[2]),from=0,to=200,col="red",lwd=3,add=TRUE)
@@ -251,7 +251,7 @@ summary(fit2,correlation=TRUE)
 #> Rp 0.89
 #> 
 #> Number of iterations to convergence: 0 
-#> Achieved convergence tolerance: 5.984e-09
+#> Achieved convergence tolerance: 1.254e-08
 #> 
 curve(r3(x,a=coef(fit2)[1],Rp=coef(fit2)[2]),from=0,to=200,col="blue",lwd=3,add=TRUE)
 

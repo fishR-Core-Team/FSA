@@ -1,6 +1,50 @@
 # Changelog
 
+## FSA 0.10.2
+
+- Updated `readme.md` to actually point to the development version on
+  GitHub.
+- Added articles to the website for “Age Comparisons”, “Age-Length
+  Keys”, “Mortality”.
+- Added Imports for `stringdist` to support changes to
+  [`psdVal()`](https://fishr-core-team.github.io/FSA/reference/psdVal.md)
+  and
+  [`wsVal()`](https://fishr-core-team.github.io/FSA/reference/wsVal.md).
+- `iSuggestSpecies()`: Added to support changes to
+  [`psdVal()`](https://fishr-core-team.github.io/FSA/reference/psdVal.md)
+  and
+  [`wsVal()`](https://fishr-core-team.github.io/FSA/reference/wsVal.md).
+- [`metaM()`](https://fishr-core-team.github.io/FSA/reference/metaM.md):
+  Expanded some error messages to increase clarity. Disallowed `method`
+  to be missing or `null` (this reduces chances that all methods are
+  selected, the previous default, which was unlikely to work as all
+  parameters would need to be provided). Fixed typos in documentation.
+- [`Mmethods()`](https://fishr-core-team.github.io/FSA/reference/metaM.md):
+  Changed how methods are selected to provide better error checking.
+- `PSDlit`: Added info for Mountain Whitefish. Updated info for
+  Cutthroat Trout and Rainbow Trout, moving old info to those species
+  with “(original)” appended. Info from Quist *et al.* (2026). Addresses
+  [\#145](https://github.com/fishR-Core-Team/FSA/issues/145). Addressed
+  revised values for Spotted Bass and Alabama Bass as the [publication
+  was retracted](https://doi.org/10.1093/najfmt/vqaf097).
+- [`psdVal()`](https://fishr-core-team.github.io/FSA/reference/psdVal.md):
+  Modified to provide suggestions of closely matched species names when
+  a species name is not present in `PSDlit`. This works best when the
+  species name is misspelled. This addresses
+  [\#132](https://github.com/fishR-Core-Team/FSA/issues/132). Thanks to
+  M-Colley for the original suggestions for how to handle this fix.
+- `WSlit`: Addressed values for Spotted Bass and Alabama Bass as the
+  [publication was retracted](https://doi.org/10.1093/najfmt/vqaf097).
+- [`wsVal()`](https://fishr-core-team.github.io/FSA/reference/wsVal.md):
+  Modified to provide suggestions of closely matched species names when
+  a species name is not present in `WSlit`. This works best when the
+  species name is misspelled. This addresses
+  [\#132](https://github.com/fishR-Core-Team/FSA/issues/132). Thanks to
+  M-Colley for the original suggestions for how to handle this fix.
+
 ## FSA 0.10.1
+
+CRAN release: 2026-01-10
 
 - Updated the PSD and Relative Weight computation articles to reflect
   the changes to
@@ -104,7 +148,7 @@ CRAN release: 2025-05-06
 
 - throughout: Changed many `df[-which(CONDITION),]` constructs to
   `df[!CONDITION]` as suggested
-  [here](https://stackoverflow.com/a/5236518).
+  [here](https://stackoverflow.com/questions/5234117/how-to-drop-columns-by-name-in-a-data-frame/5236518#5236518).
 
 - [`findGrowthStarts()`](https://fishr-core-team.github.io/FSA/reference/findGrowthStarts.md):
   Added. This replaces
@@ -484,8 +528,8 @@ CRAN release: 2022-02-12
   will work. Addresses
   [\#85](https://github.com/fishR-Core-Team/FSA/issues/85).
 - `PSDLit`: Modified. Added info for Utah Chub (from
-  [here](https://www.usgs.gov/publications/proposed-standard-weight-ws-equation-and-length-categories-utah-chub);
-  address [\#84](https://github.com/fishR-Core-Team/FSA/issues/84)).
+  [here](https://doi.org/10.1002/nafm.10636); addresses
+  [\#84](https://github.com/fishR-Core-Team/FSA/issues/84)).
 - [`psdVal()`](https://fishr-core-team.github.io/FSA/reference/psdVal.md):
   Modified. Changed the way `PSDlit` was loaded into the function
   environment so that
@@ -501,8 +545,8 @@ CRAN release: 2022-02-12
   will work. Addresses
   [\#85](https://github.com/fishR-Core-Team/FSA/issues/85).
 - `WSLit`: Modified. Added info for Utah Chub (from
-  [here](https://www.usgs.gov/publications/proposed-standard-weight-ws-equation-and-length-categories-utah-chub);
-  address [\#84](https://github.com/fishR-Core-Team/FSA/issues/84)).
+  [here](https://doi.org/10.1002/nafm.10636); address
+  [\#84](https://github.com/fishR-Core-Team/FSA/issues/84)).
 - [`wsVal()`](https://fishr-core-team.github.io/FSA/reference/wsVal.md):
   Modified. Changed the way `WSlit` was loaded into the function
   environment so that
@@ -754,7 +798,7 @@ CRAN release: 2020-11-08
   to use
   [`as_tibble()`](https://tibble.tidyverse.org/reference/as_tibble.html)
   from `tibble` package rather than
-  [`tbl_df()`](https://dplyr.tidyverse.org/reference/tbl_df.html) from
+  [`tbl_df()`](https://dplyr.tidyverse.org/reference/defunct.html) from
   `dplyr` package. Required adding `tibble` to suggests.
 - [`nlsTracePlot()`](https://fishr-core-team.github.io/FSA/reference/nlsTracePlot.md):
   Modified. Created a conditional catch depending on the version of R as
@@ -3420,10 +3464,10 @@ CRAN release: 2015-10-08
   [`apply()`](https://rdrr.io/r/base/apply.html) and
   [`lapply()`](https://rdrr.io/r/base/lapply.html) would also provide
   confidence intervals. Also changed the code to reflect that
-  $\sum_{i = 1}^{k - 1}T_{i}$ from Schnute (1983) is the same as $X$
-  from Carle and Strub (1978), the $\sum_{i = 1}^{k - 1}T_{i} - C_{1}$
-  in Schnute (1983) is the same as $X - (k - 1)C_{1}$, and $q$ in
-  Schnute (1983) is $p$ in most other resources. These changes allowed
+  $`\sum_{i=1}^{k-1}T_{i}`$ from Schnute (1983) is the same as $`X`$
+  from Carle and Strub (1978), the $`\sum_{i=1}^{k-1}T_{i}-C_{1}`$ in
+  Schnute (1983) is the same as $`X-(k-1)C_{1}`$, and $`q`$ in
+  Schnute (1983) is $`p`$ in most other resources. These changes allowed
   some efficiencies and connected the theory behind the methods more
   firmly. Removed the check for character data. Kept the check for
   whether catch was a vector or not but if catch is a one row or one
@@ -5684,7 +5728,7 @@ CRAN release: 2015-10-08
 - `growrad.plot()`: added. Exported in namespace.
 - `mr.closed()`: modified by changing library(Rcapture) to
   require(Rcapture) in help page.
-- `plot.EMPQ()`: modified by changing object$probtox$prob.
+- `plot.EMPQ()`: modified by changing object$`prob to x`$prob.
 - \`emp.rd: fixed an incorrect use of Summary() (changed to summary()).
 - `validateWs()`: converted sign.slope variable in the Willis method to
   a factor to deal with situations where all results were positive or

@@ -53,25 +53,25 @@ df$log10x <- log10(df$x)
 lme <- lm(logey~logex,data=df)
 ( ploge <- predict(lme,data.frame(logex=log(10))) )
 #>        1 
-#> 1.399936 
+#> 1.691612 
 ( pe <- exp(ploge) )
-#>       1 
-#> 4.05494 
+#>        1 
+#> 5.428224 
 ( cfe <- logbtcf(lme) )
-#> [1] 1.440596
+#> [1] 1.381993
 ( cpe <- cfe*pe )
 #>        1 
-#> 5.841532 
+#> 7.501769 
 
 # model and predictions on log10 scale
 lm10 <- lm(log10y~log10x,data=df)
 plog10 <- predict(lm10,data.frame(log10x=log10(10)))
 p10 <- 10^(plog10)
 ( cf10 <- logbtcf(lm10,10) )
-#> [1] 1.440596
+#> [1] 1.381993
 ( cp10 <- cf10*p10 )
 #>        1 
-#> 5.841532 
+#> 7.501769 
 
 # cfe and cf10, cpe and cp10 should be equal
 all.equal(cfe,cf10)

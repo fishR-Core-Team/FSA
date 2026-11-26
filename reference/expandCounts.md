@@ -178,23 +178,23 @@ expandCounts(d1,~freq,~lwr.bin+upr.bin)
 #>   2 rows had an individual measurement.
 #>   4 rows with multiple measurements were expanded to 15 rows of individual measurements.
 #>       name lwr.bin upr.bin newlen         lennote
-#> 1    Frank    17.0    17.5   17.5 Expanded length
-#> 2      Max    17.0    17.5   17.3 Expanded length
-#> 3  Johnson    15.0    15.5   15.2 Expanded length
+#> 1    Frank    17.0    17.5   17.4 Expanded length
+#> 2      Max    17.0    17.5   17.0 Expanded length
+#> 3  Johnson    15.0    15.5   15.4 Expanded length
 #> 4  Johnson    15.0    15.5   15.3 Expanded length
-#> 5  Johnson    15.0    15.5   15.4 Expanded length
-#> 6  Johnson    15.0    15.5   15.1 Expanded length
-#> 7  Johnson    15.0    15.5   15.5 Expanded length
-#> 8  Johnson    15.0    15.5   15.1 Expanded length
-#> 9  Johnson    15.5    16.0   15.8 Expanded length
-#> 10 Johnson    15.5    16.0   15.9 Expanded length
-#> 11 Johnson    15.5    16.0   15.6 Expanded length
+#> 5  Johnson    15.0    15.5   15.5 Expanded length
+#> 6  Johnson    15.0    15.5   15.3 Expanded length
+#> 7  Johnson    15.0    15.5   15.0 Expanded length
+#> 8  Johnson    15.0    15.5   15.4 Expanded length
+#> 9  Johnson    15.5    16.0   15.5 Expanded length
+#> 10 Johnson    15.5    16.0   15.5 Expanded length
+#> 11 Johnson    15.5    16.0   15.9 Expanded length
 #> 12 Johnson    15.5    16.0   15.7 Expanded length
-#> 13   Jones    16.0    16.5   16.1 Expanded length
-#> 14   Jones    16.0    16.5   16.3 Expanded length
-#> 15   Frank    16.0    16.5   16.2 Expanded length
-#> 16   Frank    16.0    16.5   16.1 Expanded length
-#> 17   Frank    16.0    16.5   16.1 Expanded length
+#> 13   Jones    16.0    16.5   16.2 Expanded length
+#> 14   Jones    16.0    16.5   16.4 Expanded length
+#> 15   Frank    16.0    16.5   16.3 Expanded length
+#> 16   Frank    16.0    16.5   16.5 Expanded length
+#> 17   Frank    16.0    16.5   16.5 Expanded length
 
 # some need expansion
 ( d2 <- data.frame(name=c("Johnson","Johnson","Jones","Frank","Frank","Max"),
@@ -237,21 +237,21 @@ expandCounts(d2,~freq,~lwr.bin+upr.bin)
 #>       name lwr.bin upr.bin newlen         lennote
 #> 1    Frank    17.1    17.1   17.1 Observed length
 #> 2      Max    17.3    17.3   17.3 Observed length
-#> 3  Johnson    15.0    15.5   15.5 Expanded length
-#> 4  Johnson    15.0    15.5   15.3 Expanded length
-#> 5  Johnson    15.0    15.5   15.5 Expanded length
-#> 6  Johnson    15.0    15.5   15.5 Expanded length
-#> 7  Johnson    15.0    15.5   15.3 Expanded length
+#> 3  Johnson    15.0    15.5   15.3 Expanded length
+#> 4  Johnson    15.0    15.5   15.0 Expanded length
+#> 5  Johnson    15.0    15.5   15.3 Expanded length
+#> 6  Johnson    15.0    15.5   15.2 Expanded length
+#> 7  Johnson    15.0    15.5   15.5 Expanded length
 #> 8  Johnson    15.0    15.5   15.5 Expanded length
-#> 9  Johnson    15.5    16.0   15.9 Expanded length
+#> 9  Johnson    15.5    16.0   15.5 Expanded length
 #> 10 Johnson    15.5    16.0   16.0 Expanded length
-#> 11 Johnson    15.5    16.0   15.6 Expanded length
-#> 12 Johnson    15.5    16.0   15.8 Expanded length
-#> 13   Jones    16.0    16.5   16.2 Expanded length
-#> 14   Jones    16.0    16.5   16.4 Expanded length
-#> 15   Frank    16.0    16.5   16.2 Expanded length
-#> 16   Frank    16.0    16.5   16.4 Expanded length
-#> 17   Frank    16.0    16.5   16.4 Expanded length
+#> 11 Johnson    15.5    16.0   16.0 Expanded length
+#> 12 Johnson    15.5    16.0   15.5 Expanded length
+#> 13   Jones    16.0    16.5   16.0 Expanded length
+#> 14   Jones    16.0    16.5   16.5 Expanded length
+#> 15   Frank    16.0    16.5   16.0 Expanded length
+#> 16   Frank    16.0    16.5   16.3 Expanded length
+#> 17   Frank    16.0    16.5   16.0 Expanded length
 
 # none need expansion
 ( d3 <- data.frame(name=c("Johnson","Johnson","Jones","Frank","Frank","Max"),
@@ -351,21 +351,21 @@ expandCounts(d4,~freq,~lwr.bin+upr.bin)
 #>       name lwr.bin upr.bin newlen         lennote
 #> 1    Frank    17.1    17.1   17.1 Observed length
 #> 2      Max    17.3    17.3   17.3 Observed length
-#> 3  Johnson    15.0    15.5   15.0 Expanded length
-#> 4  Johnson    15.0    15.5   15.2 Expanded length
-#> 5  Johnson    15.0    15.5   15.1 Expanded length
-#> 6  Johnson    15.0    15.5   15.0 Expanded length
-#> 7  Johnson    15.0    15.5   15.1 Expanded length
-#> 8  Johnson    15.0    15.5   15.1 Expanded length
+#> 3  Johnson    15.0    15.5   15.2 Expanded length
+#> 4  Johnson    15.0    15.5   15.5 Expanded length
+#> 5  Johnson    15.0    15.5   15.5 Expanded length
+#> 6  Johnson    15.0    15.5   15.4 Expanded length
+#> 7  Johnson    15.0    15.5   15.2 Expanded length
+#> 8  Johnson    15.0    15.5   15.2 Expanded length
 #> 9  Johnson    15.0    15.9   15.7 Expanded length
-#> 10 Johnson    15.0    15.9   15.6 Expanded length
-#> 11 Johnson    15.0    15.9   15.6 Expanded length
-#> 12 Johnson    15.0    15.9   15.0 Expanded length
-#> 13   Jones    16.0    16.5   16.0 Expanded length
-#> 14   Jones    16.0    16.5   16.2 Expanded length
-#> 15   Frank    16.0    16.9   16.1 Expanded length
-#> 16   Frank    16.0    16.9   16.6 Expanded length
-#> 17   Frank    16.0    16.9   16.3 Expanded length
+#> 10 Johnson    15.0    15.9   15.0 Expanded length
+#> 11 Johnson    15.0    15.9   15.4 Expanded length
+#> 12 Johnson    15.0    15.9   15.3 Expanded length
+#> 13   Jones    16.0    16.5   16.4 Expanded length
+#> 14   Jones    16.0    16.5   16.3 Expanded length
+#> 15   Frank    16.0    16.9   16.9 Expanded length
+#> 16   Frank    16.0    16.9   16.9 Expanded length
+#> 17   Frank    16.0    16.9   16.4 Expanded length
 
 # some need expansion but include zeros and NAs for counts
 ( d2a <- data.frame(name=c("Johnson","Johnson","Jones","Frank","Frank","Max","Max","Max","Max"),
@@ -393,21 +393,21 @@ expandCounts(d2a,~freq,~lwr.bin+upr.bin)
 #> 3      Max      NA      NA     NA Observed length
 #> 4    Frank    17.1    17.1   17.1 Observed length
 #> 5      Max    17.3    17.3   17.3 Observed length
-#> 6  Johnson    15.0    15.5   15.0 Expanded length
+#> 6  Johnson    15.0    15.5   15.3 Expanded length
 #> 7  Johnson    15.0    15.5   15.1 Expanded length
-#> 8  Johnson    15.0    15.5   15.5 Expanded length
-#> 9  Johnson    15.0    15.5   15.3 Expanded length
-#> 10 Johnson    15.0    15.5   15.0 Expanded length
-#> 11 Johnson    15.0    15.5   15.1 Expanded length
+#> 8  Johnson    15.0    15.5   15.4 Expanded length
+#> 9  Johnson    15.0    15.5   15.0 Expanded length
+#> 10 Johnson    15.0    15.5   15.3 Expanded length
+#> 11 Johnson    15.0    15.5   15.4 Expanded length
 #> 12 Johnson    15.5    16.0   15.7 Expanded length
-#> 13 Johnson    15.5    16.0   15.5 Expanded length
-#> 14 Johnson    15.5    16.0   15.8 Expanded length
-#> 15 Johnson    15.5    16.0   15.9 Expanded length
-#> 16   Jones    16.0    16.5   16.2 Expanded length
-#> 17   Jones    16.0    16.5   16.1 Expanded length
-#> 18   Frank    16.0    16.5   16.3 Expanded length
-#> 19   Frank    16.0    16.5   16.3 Expanded length
-#> 20   Frank    16.0    16.5   16.3 Expanded length
+#> 13 Johnson    15.5    16.0   15.8 Expanded length
+#> 14 Johnson    15.5    16.0   15.9 Expanded length
+#> 15 Johnson    15.5    16.0   15.7 Expanded length
+#> 16   Jones    16.0    16.5   16.4 Expanded length
+#> 17   Jones    16.0    16.5   16.2 Expanded length
+#> 18   Frank    16.0    16.5   16.0 Expanded length
+#> 19   Frank    16.0    16.5   16.0 Expanded length
+#> 20   Frank    16.0    16.5   16.1 Expanded length
  
 # some need expansion but include NAs for upper values
 ( d2b <- data.frame(name=c("Johnson","Johnson","Jones","Frank","Frank","Max"),
@@ -439,9 +439,9 @@ expandCounts(d2b,~freq,~lwr.bin+upr.bin)
 #> 11 Johnson    15.5    15.5   15.5 Observed length
 #> 12 Johnson    15.5    15.5   15.5 Observed length
 #> 13   Jones    16.0    16.5   16.1 Expanded length
-#> 14   Jones    16.0    16.5   16.4 Expanded length
+#> 14   Jones    16.0    16.5   16.1 Expanded length
 #> 15   Frank    16.0    16.5   16.0 Expanded length
-#> 16   Frank    16.0    16.5   16.4 Expanded length
+#> 16   Frank    16.0    16.5   16.2 Expanded length
 #> 17   Frank    16.0    16.5   16.5 Expanded length
  
 # some need expansion but include NAs for upper values
@@ -473,11 +473,11 @@ expandCounts(d2c,~freq,~lwr.bin+upr.bin)
 #> 10 Johnson    15.5    15.5   15.5 Observed length
 #> 11 Johnson    15.5    15.5   15.5 Observed length
 #> 12 Johnson    15.5    15.5   15.5 Observed length
-#> 13   Jones    16.0    16.5   16.2 Expanded length
+#> 13   Jones    16.0    16.5   16.0 Expanded length
 #> 14   Jones    16.0    16.5   16.3 Expanded length
-#> 15   Frank    16.0    16.5   16.0 Expanded length
-#> 16   Frank    16.0    16.5   16.4 Expanded length
-#> 17   Frank    16.0    16.5   16.0 Expanded length
+#> 15   Frank    16.0    16.5   16.3 Expanded length
+#> 16   Frank    16.0    16.5   16.1 Expanded length
+#> 17   Frank    16.0    16.5   16.4 Expanded length
 
 if (FALSE) { # \dontrun{
 ##!!##!!## Change path to where example file is and then run to demo
