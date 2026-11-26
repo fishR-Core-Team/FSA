@@ -13,11 +13,11 @@ The [most recent stable version](https://cloud.r-project.org/package=FSA) from C
 install.packages("FSA")
 ```
 
-The [development version](https://github.com/fishR-Core-Team/FSA) may be installed from GitHub with
+The [development version](https://github.com/fishR-Core-Team/FSA/tree/dev) may be installed from GitHub with
 
 ```r
 if (!require('remotes')) install.packages('remotes'); require('remotes')
-remotes::install_github('fishR-Core-Team/FSA')
+remotes::install_github('fishR-Core-Team/FSA',ref="dev")
 ```
 
 You may need R Tools installed on your system to install the development version from GitHub. See the instructions for ([R Tools for Windows](https://cran.r-project.org/bin/windows/Rtools/) or [R Tools for Mac OS X](https://cran.r-project.org/bin/macosx/tools/)).

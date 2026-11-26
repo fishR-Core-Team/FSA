@@ -58,9 +58,7 @@
 #' 
 #' @keywords hplot htest manip
 #'
-#' @aliases catchCurve catchCurve.default catchCurve.formula
-#' plot.catchCurve summary.catchCurve coef.catchCurve anova.catchCurve
-#' confint.catchCurve rSquared.catchCurve
+#' @aliases catchCurve catchCurve.default catchCurve.formula plot.catchCurve summary.catchCurve coef.catchCurve anova.catchCurve confint.catchCurve rSquared.catchCurve
 #' 
 #' @examples
 #' plot(catch~age,data=BrookTroutTH,pch=19)

@@ -36,6 +36,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Derek H. Ogle \email{DerekOgle51@gmail.com}
   \item Jason C. Doll \email{jason.doll@fmarion.edu}
   \item A. Powell Wheeler \email{powell.wheeler@gmail.com}
   \item Alexis Dinno \email{alexis.dinno@pdx.edu} (Provided base functionality of dunnTest())

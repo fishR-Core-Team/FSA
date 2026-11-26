@@ -1,9 +1,9 @@
 species,group,measure,units,ref,method,min.len,max.len,int,slope,quad,source,comment
 Aegean Chub,NA,TL,metric,75,EmP,70,220,-3.801,1.783,0.329,Giannetto et al. (2012),none
 African Sharptooth Catfish,NA,TL,metric,75,EmP,180,450,-3.668,1.885,0.2087,Emiroglu et al. (2018),only from Sakarya River Basin (Turkey)
-Alabama Bass,NA,TL,metric,75,EmP,150,550,-5.6189,3.284,NA,Sammons et al. (2025),RLP and EmP (quadratic) models not recommended
-Alabama Bass,NA,TL,English,75,EmP,6,22,-3.5339,3.175,NA,Sammons et al. (2025),RLP and EmP (quadratic) models not recommended
-Alabama Bass (original),NA,TL,metric,75,RLP,100,NA,-5.598,3.2904,NA,Dicenzo et al. (1995),HAS BEEN REVISED; min.len not made clear (assumed same as Spotted Bass)
+Alabama Bass (RETRACTED),NA,TL,metric,75,EmP,150,550,-5.6189,3.284,NA,Sammons et al. (2025),RLP and EmP (quadratic) models not recommended
+Alabama Bass (RETRACTED),NA,TL,English,75,EmP,6,22,-3.5339,3.175,NA,Sammons et al. (2025),RLP and EmP (quadratic) models not recommended
+Alabama Bass,NA,TL,metric,75,RLP,100,NA,-5.598,3.2904,NA,Dicenzo et al. (1995),min.len not made clear (assumed same as Spotted Bass)
 Ankara Nase,NA,TL,metric,75,EmP,70,240,-10.017,7.402,-0.971,Emiroglu et al. (2020),only from Turkey
 Arctic Grayling,NA,TL,metric,75,RLP,150,NA,-5.241,3.083,NA,Gilham et al. (2021),authors note that either RLP or EmP method may be used
 Arctic Grayling,NA,TL,metric,75,EmP,150,NA,-5.279,3.096,NA,Gilham et al. (2021),authors note that either RLP or EmP method may be used
@@ -209,10 +209,10 @@ Smallmouth Bass,NA,TL,metric,75,RLP,150,NA,-5.329,3.2,NA,Kolander et al. (1993),
 Smallmouth Buffalo,NA,TL,English,75,RLP,8,NA,-3.448,3.208,NA,Bister et al. (2000),none
 Smallmouth Buffalo,NA,TL,metric,75,RLP,200,NA,-5.298,3.208,NA,Bister et al. (2000),none
 South European Roach,NA,TL,metric,75,EmP,60,200,-4.043,1.919,0.315,Giannetto et al. (2016),none
-Spotted Bass,NA,TL,metric,75,EmP,150,490,-5.3467,3.197,NA,Sammons et al. (2025),also used RLP and EmP-quadratic but did not recommend
-Spotted Bass,NA,TL,English,75,EmP,6,19.25,-3.3641,3.064,NA,Sammons et al. (2025),also used RLP and EmP-quadratic but did not recommend
-Spotted Bass (original),NA,TL,English,75,RLP,4,NA,-3.533,3.215,NA,Wiens et al. (1996),HAS BEEN REVISED
-Spotted Bass (original),NA,TL,metric,75,RLP,100,NA,-5.392,3.215,NA,Wiens et al. (1996),HAS BEEN REVISED
+Spotted Bass (RETRACTED),NA,TL,metric,75,EmP,150,490,-5.3467,3.197,NA,Sammons et al. (2025),also used RLP and EmP-quadratic but did not recommend
+Spotted Bass (RETRACTED),NA,TL,English,75,EmP,6,19.25,-3.3641,3.064,NA,Sammons et al. (2025),also used RLP and EmP-quadratic but did not recommend
+Spotted Bass,NA,TL,English,75,RLP,4,NA,-3.533,3.215,NA,Wiens et al. (1996),none
+Spotted Bass,NA,TL,metric,75,RLP,100,NA,-5.392,3.215,NA,Wiens et al. (1996),none
 Spotted Gar,NA,TL,English,75,RLP,10,NA,-4.388,3.431,NA,Bister et al. (2000),none
 Spotted Gar,NA,TL,metric,75,RLP,250,NA,-6.551,3.431,NA,Bister et al. (2000),none
 Spotted Sunfish,NA,TL,English,75,EmP,2.75,8,-3.3468,3.3343,NA,Bonvechio et al. (2023),also used RLP and EmP-quadratic but did not recommend

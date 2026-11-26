@@ -1,3 +1,15 @@
+# FSA 0.10.2
+* Updated `readme.md` to actually point to the development version on GitHub.
+* Added articles to the website for "Age Comparisons", "Age-Length Keys", "Mortality".
+* Added Imports for `stringdist` to support changes to `psdVal()` and `wsVal()`.
+* `iSuggestSpecies()`: Added to support changes to `psdVal()` and `wsVal()`.
+* `metaM()`: Expanded some error messages to increase clarity. Disallowed `method` to be missing or `null` (this reduces chances that all methods are selected, the previous default, which was unlikely to work as all parameters would need to be provided). Fixed typos in documentation.
+* `Mmethods()`: Changed how methods are selected to provide better error checking.
+* `PSDlit`: Added info for Mountain Whitefish. Updated info for Cutthroat Trout and Rainbow Trout, moving old info to those species with "(original)" appended. Info from Quist *et al.* (2026). Addresses [#145](https://github.com/fishR-Core-Team/FSA/issues/145). Addressed revised values for Spotted Bass and Alabama Bass as the [publication was retracted](https://doi.org/10.1093/najfmt/vqaf097).
+* `psdVal()`: Modified to provide suggestions of closely matched species names when a species name is not present in `PSDlit`. This works best when the species name is misspelled. This addresses [#132](https://github.com/fishR-Core-Team/FSA/issues/132). Thanks to M-Colley for the original suggestions for how to handle this fix.
+* `WSlit`: Addressed values for Spotted Bass and Alabama Bass as the [publication was retracted](https://doi.org/10.1093/najfmt/vqaf097).
+* `wsVal()`: Modified to provide suggestions of closely matched species names when a species name is not present in `WSlit`. This works best when the species name is misspelled. This addresses [#132](https://github.com/fishR-Core-Team/FSA/issues/132). Thanks to M-Colley for the original suggestions for how to handle this fix.
+
 # FSA 0.10.1
 * Updated the PSD and Relative Weight computation articles to reflect the changes to `psdVal()`, `psdAdd()`, `wsVal()`, and `wrAdd()`.
 * `chapmanRobson()`: Added catch for when n+T<1 and n+T<2. This addresses [#131](https://github.com/fishR-Core-Team/FSA/issues/131)).
@@ -24,7 +36,7 @@
 
 * internals: Added functions to return a logical about whether a value is less than, less than or equal, greater than, or greater than or equal (i.e., `is.lte()`, `is.lt()`, `is.gte()`, and `is.gt()`). Added functions that use those logical and return an informative error if the logical is FALSE (i.e., `iChkLTE()`, `iChkLT()`, `iChkGTE()`, and `iChkGT()`). The errors can "grab" the name of the object so that the error can be specific though the function is general.
 * internals: Modified `STOP()` and `WARN()` to use `strwrap()` rather than hard-coded line breaks. Added `MESSAGE()`. Added `iStrCollapse()`, largely for use with `STOP()`, `WARN()`, and `MESSAGE()`.
-* throughout: Changed many `df[-which(CONDITION),]` constructs to `df[!CONDITION]` as suggested [here](https://stackoverflow.com/a/5236518).
+* throughout: Changed many `df[-which(CONDITION),]` constructs to `df[!CONDITION]` as suggested [here](https://stackoverflow.com/questions/5234117/how-to-drop-columns-by-name-in-a-data-frame/5236518#5236518).
 
 * `findGrowthStarts()`: Added. This replaces `vbStarts()` and includes starting values for Gompertz, logistic, and Richards functions, and seasonal and tag-recapture von Bertalanffy parameterizations. Note that `constvals=` and `fixed=` must now be numeric vectors (and not lists) and that the returned starting values are in a numeric vector.
 * `fishR()`: Modified. Added link to teaching resources.
@@ -134,11 +146,11 @@
 * `fitPlot()`: **REMOVED** (to `FSAmisc`).
 * `fsaNews()` and `FSANews()`: **Removed**.
 * `psdAdd()`: Modified. Changed the way `PSDlit` was loaded into the function environment so that `FSA::psdAdd()` will work. Addresses [#85](https://github.com/fishR-Core-Team/FSA/issues/85).
-* `PSDLit`: Modified. Added info for Utah Chub (from [here](https://www.usgs.gov/publications/proposed-standard-weight-ws-equation-and-length-categories-utah-chub); address [#84](https://github.com/fishR-Core-Team/FSA/issues/84)).
+* `PSDLit`: Modified. Added info for Utah Chub (from [here](https://doi.org/10.1002/nafm.10636); addresses [#84](https://github.com/fishR-Core-Team/FSA/issues/84)).
 * `psdVal()`: Modified. Changed the way `PSDlit` was loaded into the function environment so that `FSA::psdVal()` will work. Addresses [#85](https://github.com/fishR-Core-Team/FSA/issues/85).
 * `residPlot()`: **REMOVED** (to `FSAmisc`).
 * `wrAdd()`: Modified. Changed the way `WSlit` was loaded into the function environment so that `FSA::wrAdd()` will work. Addresses [#85](https://github.com/fishR-Core-Team/FSA/issues/85).
-* `WSLit`: Modified. Added info for Utah Chub (from [here](https://www.usgs.gov/publications/proposed-standard-weight-ws-equation-and-length-categories-utah-chub); address [#84](https://github.com/fishR-Core-Team/FSA/issues/84)).
+* `WSLit`: Modified. Added info for Utah Chub (from [here](https://doi.org/10.1002/nafm.10636); address [#84](https://github.com/fishR-Core-Team/FSA/issues/84)).
 * `wsVal()`: Modified. Changed the way `WSlit` was loaded into the function environment so that `FSA::wsVal()` will work. Addresses [#85](https://github.com/fishR-Core-Team/FSA/issues/85).
 
 # FSA 0.9.1

@@ -1,6 +1,6 @@
 Package: FSA
-Version: 0.10.1
-Date: 2026-1-7
+Version: 0.10.2
+Date: 2026-11-24
 Title: Simple Fisheries Stock Assessment Methods
 Description: A variety of simple fish stock assessment methods.
 Authors@R: c(
@@ -32,6 +32,7 @@ Imports:
     lmtest,
     plotrix,
     purrr,
+    stringdist,
     withr
 Suggests:
     dplyr,
@@ -45,9 +46,9 @@ Suggests:
     tidyr,
     covr
 Encoding: UTF-8
-RoxygenNote: 7.3.3
 Config/testthat/edition: 3
 Config/Needs/website:
     r-lib/pkgdown,
     quarto,
     ggplot2
+Config/roxygen2/version: 8.1.1

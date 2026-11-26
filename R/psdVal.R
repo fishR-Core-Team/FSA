@@ -128,13 +128,15 @@ iPSDGetSpecies <- function(dat,species,group) {
     iListSpecies(dat)
     NULL   # return NULL
   } else {
-    if (!any(unique(dat$species)==species)) {
+    spNames <- unique(dat$species)
+    if (!any(spNames==species)) {
       tmp <- paste0("There are no Gablehouse lengths in 'PSDlit' for ",
                     iStrCollapse(species),".")
-      if (any(unique(dat$species)==capFirst(species)))
+      if (any(spNames==capFirst(species)))
         STOP(tmp," However, there is an entry for ",iStrCollapse(capFirst(species)),
              " (note spelling, including capitalization).\n\n")
-      else STOP(tmp," Type 'psdVal()' to see a list of available species.\n\n")
+      else STOP(tmp,iSuggestSpecies(species,spNames),
+                " Type 'psdVal()' to see a list of available species.\n\n")
     }
     
     #===== Must be good species ... reduce to that species
